@@ -1,0 +1,35 @@
+{
+	"name": "netcommons/rooms",
+	"version": "3.0.0",
+	"description": "Rooms Plugin for NetCommons3",
+	"homepage": "http://www.netcommons.org/",
+	"extra": {
+		"installer-paths": {
+			"app/Plugin/{$name}": ["type:cakephp-plugin"]
+		}
+	},
+	"require": {
+		"cakephp/cakephp":              "~2.4",
+		"cakephp/debug_kit":            "~2.2",
+		"cakedc/migrations":            "~2.2",
+		"twbs/bootstrap":               "~3.1",
+		"components/jquery":            "~2.1"
+	},
+	"require-dev": {
+		"mustangostang/spyc":           "dev-master",
+		"satooshi/php-coveralls":       "dev-master",
+		"netcommons/users":             "dev-master"
+	},
+	"license": "NetCommons License",
+	"authors": [
+		{
+			"name": "NetCommons Community",
+			"homepage": "https://github.com/NetCommons3/Rooms/graphs/contributors"
+		}
+	],
+	"type":        "cakephp-plugin",
+	"keywords":    ["rooms","netcommons","cakephp2"],
+	"config": {
+		"vendor-dir": "vendors"
+	}
+}
