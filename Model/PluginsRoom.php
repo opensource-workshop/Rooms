@@ -129,7 +129,7 @@ class PluginsRoom extends AppModel {
 		//pluginsテーブルの取得
 		$plugins = $this->find('all', array(
 			'conditions' => array(
-				'Plugin.type' => $this::PLUGIN_TYPE_FOR_FRAME,
+				'Plugin.type' => self::PLUGIN_TYPE_FOR_FRAME,
 				'Room.id' => $roomId
 			),
 			'order' => $this->name . '.id',
