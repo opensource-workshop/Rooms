@@ -74,32 +74,18 @@ class PluginsRoom extends AppModel {
 		'Plugin' => array(
 			'className' => 'Plugin',
 			'foreignKey' => 'plugin_id',
+			'type' => 'inner',
+		),
+		'LanguagesPlugin' => array(
+			'className' => 'LanguagesPlugin',
+			//'foreignKey' => 'plugin_id',
+			'foreignKey' => false,
+			'conditions' => array('LanguagesPlugin.plugin_id=Plugin.id'),
 		),
 		'Room' => array(
 			'className' => 'Room',
 			'foreignKey' => 'room_id',
-		),
-	);
-
-/**
- * hasMany associations
- *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @var     array
- */
-	public $hasMany = array(
-		'LanguagesPlugin' => array(
-			'className' => 'LanguagesPlugin',
-			'foreignKey' => 'plugin_id',
-			'dependent' => true,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+			'type' => 'inner',
 		),
 	);
 
@@ -122,9 +108,7 @@ class PluginsRoom extends AppModel {
 		}
 
 		//plugins_languagesテーブルの取得
-		$this->hasMany['LanguagesPlugin']['conditions'] = array(
-			'LanguagesPlugin.language_id' => $langId
-		);
+		$this->belongsTo['LanguagesPlugin']['conditions']['LanguagesPlugin.language_id'] = $langId;
 
 		//pluginsテーブルの取得
 		$plugins = $this->find('all', array(
