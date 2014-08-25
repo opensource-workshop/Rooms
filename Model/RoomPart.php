@@ -17,24 +17,32 @@ App::uses('RoomsAppModel', 'Rooms.Model');
 class RoomPart extends RoomsAppModel {
 
 /**
- * Might change authority
+ * room admin id
  *
  * @var int
  */
-	const CHANGEABLE_PERMISSION = 2;
+	const ROOM_ADMIN_PART_ID = 1;
 
 /**
- * is authority
+ * 許可されている
  *
  * @var int
  */
-	const IS_PERMISSION = 1;
+	const IS_ALLOW = 1;
 
 /**
- * There is no authority
+ * 許可されていない
  *
+ * @var int
  */
-	const NOT_PERMISSION = 0;
+	const IS_NOT_ALLOW = 0;
+
+/**
+ * 可変
+ *
+ * @var int
+ */
+	const IS_CHANGEABLE = 2;
 
 /**
  * Use database config
