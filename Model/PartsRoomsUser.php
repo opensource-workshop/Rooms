@@ -7,8 +7,8 @@
  * @property Part $Part
  *
  * @author   Takako Miyagawa <nekoget@gmail.com>
-* @link     http://www.netcommons.org NetCommons Project
-* @license  http://www.netcommons.org/license.txt NetCommons License
+ * @link     http://www.netcommons.org NetCommons Project
+ * @license  http://www.netcommons.org/license.txt NetCommons License
  */
 
 App::uses('RoomsAppModel', 'Rooms.Model');
@@ -24,9 +24,6 @@ class PartsRoomsUser extends RoomsAppModel {
  * @var string
  */
 	public $useDbConfig = 'master';
-
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
  * belongsTo associations
@@ -67,15 +64,15 @@ class PartsRoomsUser extends RoomsAppModel {
 /**
  *  get user's data
  *
- * @param int $room_id rooms.id
+ * @param int $roomId rooms.id
  * @return array
  */
-	public function getPart($room_id) {
+	public function getPart($roomId) {
 		return $this->find('first', array(
 			'conditions' => array(
-				$this->name.'.user_id' => CakeSession::read('Auth.User.id'),
+				$this->name . '.user_id' => CakeSession::read('Auth.User.id'),
 				'and' => array(
-					$this->name.'.room_id' => $room_id
+					$this->name . '.room_id' => $roomId
 				)
 			)
 		));
