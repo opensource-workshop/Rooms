@@ -55,7 +55,7 @@ class PartsRoomsUser extends RoomsAppModel {
 		'RoomPart' => array(
 			'className' => 'Rooms.RoomPart',
 			'foreignKey' => 'part_id',
-			'conditions' => 'RoomPart.part_id=Part.id',
+			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		)
