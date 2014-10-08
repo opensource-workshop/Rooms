@@ -7,14 +7,13 @@
  * @link        http://www.netcommons.org NetCommons Project
  * @license     http://www.netcommons.org/license.txt NetCommons License
  * @copyright   Copyright 2014, NetCommons Project
- * @package     app.Plugin.PluginRoomManager.Test.Fixture
  */
 
 /**
  * PluginFixture
  *
  * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package     app.Plugin.PluginRoomManager.Test.Case
+ * @package     Rooms\Test\Fixture
  */
 class PluginFixture extends CakeTestFixture {
 
@@ -26,12 +25,19 @@ class PluginFixture extends CakeTestFixture {
  */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-		'folder' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'weight' => array('type' => 'integer', 'null' => true, 'default' => null),
-		'type' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => '1:for frame,2:for controll panel'),
-		'created_user_id' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'language_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 6),
+		'key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'Key to identify plugin.
+Must be equivalent to plugin name used in router url.
+e.g.) user_manager, auth, pages', 'charset' => 'utf8'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'Human friendly name for the plugin.
+e.g.) User Manager, Auth, Pages', 'charset' => 'utf8'),
+		'namespace' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => 'Unique namespace for package management system.
+e.g.) packagist', 'charset' => 'utf8'),
+		'weight' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => 'Display order.'),
+		'type' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => '1:for frame,2:for control panel'),
+		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'modified_user_id' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
@@ -48,7 +54,8 @@ class PluginFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => '1',
-			'folder' => 'plugin_room_manager',
+			'language_id' => '2',
+			'key' => 'rooms',
 			'type' => '1'
 		),
 	);

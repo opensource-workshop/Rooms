@@ -7,7 +7,6 @@
  * @link        http://www.netcommons.org NetCommons Project
  * @license     http://www.netcommons.org/license.txt NetCommons License
  * @copyright   Copyright 2014, NetCommons Project
- * @package     app.Plugin.Rooms.Controller
  */
 
 App::uses('RoomsAppController', 'Rooms.Controller');
@@ -16,7 +15,7 @@ App::uses('RoomsAppController', 'Rooms.Controller');
  * Rooms Controller
  *
  * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package     app.Plugin.Rooms.Controller
+ * @package     Rooms\Controller
  */
 class RoomsController extends RoomsAppController {
 

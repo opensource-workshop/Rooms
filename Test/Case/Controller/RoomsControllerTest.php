@@ -7,7 +7,6 @@
  * @link        http://www.netcommons.org NetCommons Project
  * @license     http://www.netcommons.org/license.txt NetCommons License
  * @copyright   Copyright 2014, NetCommons Project
- * @package     app.Plugin.Rooms.Test.Controller.Case
  */
 
 App::uses('RoomsController', 'Rooms.Controller');
@@ -16,7 +15,7 @@ App::uses('RoomsController', 'Rooms.Controller');
  * RoomsController Test Case
  *
  * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package     app.Plugin.Rooms.Test.Controller.Case
+ * @package     Rooms\Test.Controller.Case
  */
 class RoomsControllerTest extends ControllerTestCase {
 
@@ -29,9 +28,9 @@ class RoomsControllerTest extends ControllerTestCase {
 	public $fixtures = array(
 		'app.Session',
 		'app.SiteSetting',
-		'app.SiteSettingValue',
+		//'app.SiteSettingValue',
 		'plugin.rooms.language',
-		'plugin.rooms.languages_plugin',
+		//'plugin.rooms.languages_plugin',
 		'plugin.rooms.plugin',
 		'plugin.rooms.plugins_room',
 		'plugin.rooms.room',

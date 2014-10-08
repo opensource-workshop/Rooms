@@ -7,7 +7,6 @@
  * @link        http://www.netcommons.org NetCommons Project
  * @license     http://www.netcommons.org/license.txt NetCommons License
  * @copyright   Copyright 2014, NetCommons Project
- * @package     app.Plugin.PluginRoomManager.Test.Model.Case
  */
 
 App::uses('PluginsRoom', 'Rooms.Model');
@@ -16,7 +15,7 @@ App::uses('PluginsRoom', 'Rooms.Model');
  * PluginsRoom Test Case
  *
  * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package     app.Plugin.PluginRoomManager.Test.Model.Case
+ * @package     Rooms\Test.Model.Case
  */
 class PluginsRoomTest extends CakeTestCase {
 
@@ -28,7 +27,7 @@ class PluginsRoomTest extends CakeTestCase {
  */
 	public $fixtures = array(
 		'plugin.rooms.language',
-		'plugin.rooms.languages_plugin',
+		//'plugin.rooms.languages_plugin',
 		'plugin.rooms.plugin',
 		'plugin.rooms.plugins_room',
 		'plugin.rooms.room',
@@ -118,7 +117,7 @@ class PluginsRoomTest extends CakeTestCase {
 			$langId = $check['langId'];
 			$plugins = $this->PluginsRoom->getPlugins($roomId, $langId);
 
-			$this->assertFalse(isset($plugins['LanguagesPlugin']), print_r($check, true));
+			$this->assertFalse(isset($plugins['Plugin']), print_r($check, true));
 		}
 	}
 

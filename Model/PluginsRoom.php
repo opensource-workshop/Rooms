@@ -7,7 +7,6 @@
  * @link        http://www.netcommons.org NetCommons Project
  * @license     http://www.netcommons.org/license.txt NetCommons License
  * @copyright   Copyright 2014, NetCommons Project
- * @package     app.Plugin.PluginRoomManager.Model
  */
 
 App::uses('AppModel', 'Model');
@@ -16,7 +15,7 @@ App::uses('AppModel', 'Model');
  * PluginsRoom Model
  *
  * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package     app.Plugin.PluginRoomManager.Model
+ * @package     Rooms\Model
  */
 class PluginsRoom extends AppModel {
 
@@ -36,35 +35,6 @@ class PluginsRoom extends AppModel {
 	public $composerJsonName = 'composer.json';
 
 /**
- * Validation rules
- *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @var     array
- */
-	public $validate = array(
-		'role_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'plugin_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
-
-/**
  * belongsTo associations
  *
  * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -73,14 +43,9 @@ class PluginsRoom extends AppModel {
 	public $belongsTo = array(
 		'Plugin' => array(
 			'className' => 'Plugin',
-			'foreignKey' => 'plugin_id',
-			'type' => 'inner',
-		),
-		'LanguagesPlugin' => array(
-			'className' => 'LanguagesPlugin',
-			//'foreignKey' => 'plugin_id',
 			'foreignKey' => false,
-			'conditions' => array('LanguagesPlugin.plugin_id=Plugin.id'),
+			'type' => 'inner',
+			'conditions' => array('PluginsRoom.plugin_key = Plugin.key'),
 		),
 		'Room' => array(
 			'className' => 'Room',
@@ -108,7 +73,7 @@ class PluginsRoom extends AppModel {
 		}
 
 		//plugins_languagesテーブルの取得
-		$this->belongsTo['LanguagesPlugin']['conditions']['LanguagesPlugin.language_id'] = $langId;
+		$this->belongsTo['Plugin']['conditions']['Plugin.language_id'] = $langId;
 
 		//pluginsテーブルの取得
 		$plugins = $this->find('all', array(
