@@ -2,11 +2,11 @@
 /**
  * PluginsRoom Model
  *
- * @author      Noriko Arai <arai@nii.ac.jp>
- * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @link        http://www.netcommons.org NetCommons Project
- * @license     http://www.netcommons.org/license.txt NetCommons License
- * @copyright   Copyright 2014, NetCommons Project
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 App::uses('AppModel', 'Model');
@@ -14,31 +14,27 @@ App::uses('AppModel', 'Model');
 /**
  * PluginsRoom Model
  *
- * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package     Rooms\Model
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @package Rooms\Model
  */
 class PluginsRoom extends AppModel {
 
 /**
  * constant value for frame
- *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
  */
 	const PLUGIN_TYPE_FOR_FRAME = '1';
 
 /**
  * composer.json file name
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @var     string
+ * @var string
  */
 	public $composerJsonName = 'composer.json';
 
 /**
  * belongsTo associations
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @var     array
+ * @var array
  */
 	public $belongsTo = array(
 		'Plugin' => array(
@@ -59,8 +55,7 @@ class PluginsRoom extends AppModel {
  *
  * @param int $roomId rooms.id
  * @param int $langId languages.id
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return  mixed array or false
+ * @return mixed array or false
  */
 	public function getPlugins($roomId, $langId) {
 		//ルームIDのセット
