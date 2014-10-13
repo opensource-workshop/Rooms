@@ -25,13 +25,6 @@ class PluginsRoom extends AppModel {
 	const PLUGIN_TYPE_FOR_FRAME = '1';
 
 /**
- * composer.json file name
- *
- * @var string
- */
-	public $composerJsonName = 'composer.json';
-
-/**
  * belongsTo associations
  *
  * @var array
