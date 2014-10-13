@@ -15,7 +15,7 @@ App::uses('AppModel', 'Model');
  * RoomsApp Model
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package Rooms\Model
+ * @package NetCommons\Rooms\Model
  */
 class RoomsAppModel extends AppModel {
 

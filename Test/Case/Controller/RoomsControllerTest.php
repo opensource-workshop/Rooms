@@ -15,7 +15,7 @@ App::uses('RoomsController', 'Rooms.Controller');
  * RoomsController Test Case
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package Rooms\Test\Case\Controller
+ * @package NetCommons\Rooms\Test\Case\Controller
  */
 class RoomsControllerTest extends ControllerTestCase {
 

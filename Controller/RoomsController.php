@@ -15,7 +15,7 @@ App::uses('RoomsAppController', 'Rooms.Controller');
  * Rooms Controller
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package Rooms\Controller
+ * @package NetCommons\Rooms\Controller
  */
 class RoomsController extends RoomsAppController {
 

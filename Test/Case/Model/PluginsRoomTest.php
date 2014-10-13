@@ -14,7 +14,7 @@ App::uses('PluginsRoom', 'Rooms.Model');
 /**
  * PluginsRoom Test Case
  *
- * @package Rooms\Test\Case\Model
+ * @package NetCommons\Rooms\Test\Case\Model
  */
 class PluginsRoomTest extends CakeTestCase {
 

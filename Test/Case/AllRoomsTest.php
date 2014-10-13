@@ -13,7 +13,7 @@
  * Rooms All Test Case
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package Rooms\Test\Case
+ * @package NetCommons\Rooms\Test\Case
  * @codeCoverageIgnore
  */
 class AllRoomsTest extends CakeTestSuite {

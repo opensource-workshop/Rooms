@@ -17,7 +17,7 @@ App::uses('RolesAppModel', 'Roles.Model');
  * RoomRolePermission Model
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package Rooms\Model
+ * @package NetCommons\Rooms\Model
  */
 class RoomRolePermission extends RolesAppModel {
 
