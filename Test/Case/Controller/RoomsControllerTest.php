@@ -2,11 +2,11 @@
 /**
  * RoomsController Test Case
  *
- * @author      Noriko Arai <arai@nii.ac.jp>
- * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @link        http://www.netcommons.org NetCommons Project
- * @license     http://www.netcommons.org/license.txt NetCommons License
- * @copyright   Copyright 2014, NetCommons Project
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 App::uses('RoomsController', 'Rooms.Controller');
@@ -14,16 +14,15 @@ App::uses('RoomsController', 'Rooms.Controller');
 /**
  * RoomsController Test Case
  *
- * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package     Rooms\Test.Controller.Case
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @package Rooms\Test\Case\Controller
  */
 class RoomsControllerTest extends ControllerTestCase {
 
 /**
  * Fixtures
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @var     array
+ * @var array
  */
 	public $fixtures = array(
 		'app.Session',
@@ -39,8 +38,7 @@ class RoomsControllerTest extends ControllerTestCase {
 /**
  * setUp
  *
- * @author   Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return   void
+ * @return void
  */
 	public function setUp() {
 		parent::setUp();
@@ -49,8 +47,7 @@ class RoomsControllerTest extends ControllerTestCase {
 /**
  * tearDown method
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return  void
+ * @return void
  */
 	public function tearDown() {
 		parent::tearDown();
@@ -59,8 +56,7 @@ class RoomsControllerTest extends ControllerTestCase {
 /**
  * index
  *
- * @author   Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return   void
+ * @return void
  */
 	public function testIndex() {
 		$this->testAction('/rooms/rooms/index', array('method' => 'get'));

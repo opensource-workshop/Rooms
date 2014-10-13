@@ -2,11 +2,11 @@
 /**
  * PluginsRoom Test Case
  *
- * @author      Noriko Arai <arai@nii.ac.jp>
- * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @link        http://www.netcommons.org NetCommons Project
- * @license     http://www.netcommons.org/license.txt NetCommons License
- * @copyright   Copyright 2014, NetCommons Project
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 App::uses('PluginsRoom', 'Rooms.Model');
@@ -14,20 +14,17 @@ App::uses('PluginsRoom', 'Rooms.Model');
 /**
  * PluginsRoom Test Case
  *
- * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package     Rooms\Test.Model.Case
+ * @package Rooms\Test\Case\Model
  */
 class PluginsRoomTest extends CakeTestCase {
 
 /**
  * Fixtures
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @var     array
+ * @var array
  */
 	public $fixtures = array(
 		'plugin.rooms.language',
-		//'plugin.rooms.languages_plugin',
 		'plugin.rooms.plugin',
 		'plugin.rooms.plugins_room',
 		'plugin.rooms.room',
@@ -36,8 +33,7 @@ class PluginsRoomTest extends CakeTestCase {
 /**
  * setUp method
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return  void
+ * @return void
  */
 	public function setUp() {
 		parent::setUp();
@@ -47,8 +43,7 @@ class PluginsRoomTest extends CakeTestCase {
 /**
  * tearDown method
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return  void
+ * @return void
  */
 	public function tearDown() {
 		unset($this->PluginsRoom);
@@ -58,8 +53,7 @@ class PluginsRoomTest extends CakeTestCase {
 /**
  * testIndex
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return  void
+ * @return void
  */
 	public function testIndex() {
 		$this->assertTrue(true);
@@ -68,8 +62,7 @@ class PluginsRoomTest extends CakeTestCase {
 /**
  * testGetPlugins
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return  void
+ * @return void
  */
 	public function testGetPlugins() {
 		$roomId = 1;
@@ -82,8 +75,7 @@ class PluginsRoomTest extends CakeTestCase {
 /**
  * testGetPluginsError
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return  void
+ * @return void
  */
 	public function testGetPluginsRoomIdError() {
 		$checks = array(
@@ -103,8 +95,7 @@ class PluginsRoomTest extends CakeTestCase {
 /**
  * testGetPluginsIrregular
  *
- * @author  Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return  void
+ * @return void
  */
 	public function testGetPluginsLangIdError() {
 		$checks = array(

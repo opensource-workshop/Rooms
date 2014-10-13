@@ -2,11 +2,11 @@
 /**
  * Rooms Controller
  *
- * @author      Noriko Arai <arai@nii.ac.jp>
- * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @link        http://www.netcommons.org NetCommons Project
- * @license     http://www.netcommons.org/license.txt NetCommons License
- * @copyright   Copyright 2014, NetCommons Project
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
  */
 
 App::uses('RoomsAppController', 'Rooms.Controller');
@@ -14,24 +14,22 @@ App::uses('RoomsAppController', 'Rooms.Controller');
 /**
  * Rooms Controller
  *
- * @author      Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package     Rooms\Controller
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @package Rooms\Controller
  */
 class RoomsController extends RoomsAppController {
 
 /**
  * use model
  *
- * @author    Shohei Nakajima <nakajimashouhei@gmail.com>
- * @var       array
+ * @var array
  */
 	//public $uses = array();
 
 /**
  * use component
  *
- * @author    Shohei Nakajima <nakajimashouhei@gmail.com>
- * @var       array
+ * @var array
  */
 	public $components = array(
 		'Security'
@@ -40,8 +38,7 @@ class RoomsController extends RoomsAppController {
 /**
  * beforeFilter
  *
- * @author   Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return   void
+ * @return void
  */
 	public function beforeFilter() {
 		parent::beforeFilter();
@@ -51,8 +48,7 @@ class RoomsController extends RoomsAppController {
 /**
  * index
  *
- * @author   Shohei Nakajima <nakajimashouhei@gmail.com>
- * @return   CakeResponse
+ * @return CakeResponse
  */
 	public function index() {
 		return $this->render('Rooms/index');
