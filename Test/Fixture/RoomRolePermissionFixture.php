@@ -47,15 +47,41 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
  */
 	public $records = array(
 		array(
-			'id' => 1,
-			'roles_room_id' => 1,
-			'permission' => 'Lorem ipsum dolor sit amet',
-			'value' => 1,
-			'created_user' => 1,
-			'created' => '2014-10-11 02:45:32',
-			'modified_user' => 1,
-			'modified' => '2014-10-11 02:45:32'
+			'id' => '1',
+			'roles_room_id' => '1',
+			'permission' => 'page_editable',
+			'value' => '1',
 		),
+		array(
+			'id' => '2',
+			'roles_room_id' => '1',
+			'permission' => 'block_editable',
+			'value' => '1',
+		),
+		array(
+			'id' => '3',
+			'roles_room_id' => '1',
+			'permission' => 'content_readable',
+			'value' => '1',
+		),
+		array(
+			'id' => '4',
+			'roles_room_id' => '1',
+			'permission' => 'content_creatable',
+			'value' => '1',
+		),
+		array(
+			'id' => '5',
+			'roles_room_id' => '1',
+			'permission' => 'content_editable',
+			'value' => '1',
+		),
+		array(
+			'id' => '6',
+			'roles_room_id' => '1',
+			'permission' => 'content_publishable',
+			'value' => '1',
+		)
 	);
 
 }
