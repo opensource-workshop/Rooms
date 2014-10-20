@@ -47,41 +47,155 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
  */
 	public $records = array(
 		array(
-			'id' => '1',
 			'roles_room_id' => '1',
 			'permission' => 'page_editable',
 			'value' => '1',
 		),
 		array(
-			'id' => '2',
 			'roles_room_id' => '1',
 			'permission' => 'block_editable',
 			'value' => '1',
 		),
 		array(
-			'id' => '3',
 			'roles_room_id' => '1',
 			'permission' => 'content_readable',
 			'value' => '1',
 		),
 		array(
-			'id' => '4',
 			'roles_room_id' => '1',
 			'permission' => 'content_creatable',
 			'value' => '1',
 		),
 		array(
-			'id' => '5',
 			'roles_room_id' => '1',
 			'permission' => 'content_editable',
 			'value' => '1',
 		),
 		array(
-			'id' => '6',
 			'roles_room_id' => '1',
 			'permission' => 'content_publishable',
 			'value' => '1',
-		)
+		),
+		array(
+			'roles_room_id' => '2',
+			'permission' => 'page_editable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '2',
+			'permission' => 'block_editable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '2',
+			'permission' => 'content_readable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '2',
+			'permission' => 'content_creatable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '2',
+			'permission' => 'content_editable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '2',
+			'permission' => 'content_publishable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '3',
+			'permission' => 'page_editable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '3',
+			'permission' => 'block_editable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '3',
+			'permission' => 'content_readable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '3',
+			'permission' => 'content_creatable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '3',
+			'permission' => 'content_editable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '3',
+			'permission' => 'content_publishable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '4',
+			'permission' => 'page_editable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '4',
+			'permission' => 'block_editable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '4',
+			'permission' => 'content_readable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '4',
+			'permission' => 'content_creatable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '4',
+			'permission' => 'content_editable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '4',
+			'permission' => 'content_publishable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '5',
+			'permission' => 'page_editable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '5',
+			'permission' => 'block_editable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '5',
+			'permission' => 'content_readable',
+			'value' => '1',
+		),
+		array(
+			'roles_room_id' => '5',
+			'permission' => 'content_creatable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '5',
+			'permission' => 'content_editable',
+			'value' => '0',
+		),
+		array(
+			'roles_room_id' => '5',
+			'permission' => 'content_publishable',
+			'value' => '0',
+		),
 	);
 
 }

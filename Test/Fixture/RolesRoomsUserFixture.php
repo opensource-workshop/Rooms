@@ -51,6 +51,42 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'modified_user' => 1,
 			'modified' => '2014-10-11 04:57:10'
 		),
+		array(
+			'id' => 2,
+			'roles_room_id' => 2,
+			'user_id' => 2,
+			'created_user' => 1,
+			'created' => '2014-10-11 04:57:10',
+			'modified_user' => 1,
+			'modified' => '2014-10-11 04:57:10'
+		),
+		array(
+			'id' => 3,
+			'roles_room_id' => 3,
+			'user_id' => 3,
+			'created_user' => 1,
+			'created' => '2014-10-11 04:57:10',
+			'modified_user' => 1,
+			'modified' => '2014-10-11 04:57:10'
+		),
+		array(
+			'id' => 4,
+			'roles_room_id' => 4,
+			'user_id' => 4,
+			'created_user' => 1,
+			'created' => '2014-10-11 04:57:10',
+			'modified_user' => 1,
+			'modified' => '2014-10-11 04:57:10'
+		),
+		array(
+			'id' => 5,
+			'roles_room_id' => 5,
+			'user_id' => 5,
+			'created_user' => 1,
+			'created' => '2014-10-11 04:57:10',
+			'modified_user' => 1,
+			'modified' => '2014-10-11 04:57:10'
+		),
 	);
 
 }

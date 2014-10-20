@@ -57,7 +57,27 @@ class UserFixture extends CakeTestFixture {
 			'id' => 2,
 			'username' => 'Lorem ipsum dolor sit amet',
 			'password' => 'Lorem ipsum dolor sit amet',
-			'role_key' => '',
+			'role_key' => 'chief_editor',
+			'created_user' => 1,
+			'created' => '2014-06-02 16:18:08',
+			'modified_user' => 1,
+			'modified' => '2014-06-02 16:18:08'
+		),
+		array(
+			'id' => 3,
+			'username' => 'Lorem ipsum dolor sit amet',
+			'password' => 'Lorem ipsum dolor sit amet',
+			'role_key' => 'general_user',
+			'created_user' => 1,
+			'created' => '2014-06-02 16:18:08',
+			'modified_user' => 1,
+			'modified' => '2014-06-02 16:18:08'
+		),
+		array(
+			'id' => 5,
+			'username' => 'Lorem ipsum dolor sit amet',
+			'password' => 'Lorem ipsum dolor sit amet',
+			'role_key' => 'visitor',
 			'created_user' => 1,
 			'created' => '2014-06-02 16:18:08',
 			'modified_user' => 1,
