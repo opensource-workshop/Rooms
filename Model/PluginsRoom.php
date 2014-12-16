@@ -37,7 +37,7 @@ class PluginsRoom extends AppModel {
 			'conditions' => array('PluginsRoom.plugin_key = Plugin.key'),
 		),
 		'Room' => array(
-			'className' => 'Room',
+			'className' => 'Rooms.Room',
 			'foreignKey' => 'room_id',
 			'type' => 'inner',
 		),
