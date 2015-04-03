@@ -28,6 +28,7 @@ class PluginsRoomTest extends CakeTestCase {
 		'plugin.rooms.plugin',
 		'plugin.rooms.plugins_room',
 		'plugin.rooms.room',
+		'plugin.users.user',
 	);
 
 /**

@@ -33,6 +33,7 @@ class RoomsControllerTest extends ControllerTestCase {
 		'plugin.rooms.plugin',
 		'plugin.rooms.plugins_room',
 		'plugin.rooms.room',
+		'plugin.users.user',
 	);
 
 /**
