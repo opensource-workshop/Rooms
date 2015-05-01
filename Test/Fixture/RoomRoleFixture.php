@@ -44,14 +44,34 @@ class RoomRoleFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => 1,
-			'role_key' => 'Lorem ipsum dolor sit amet',
-			'level' => 1,
-			'weight' => 1,
-			'created_user' => 1,
-			'created' => '2015-04-24 14:23:25',
-			'modified_user' => 1,
-			'modified' => '2015-04-24 14:23:25'
+			'id' => '1',
+			'role_key' => 'room_administrator',
+			'level' => '2147483647',
+			'weight' => '1',
+		),
+		array(
+			'id' => '2',
+			'role_key' => 'chief_editor',
+			'level' => '8000',
+			'weight' => '2',
+		),
+		array(
+			'id' => '3',
+			'role_key' => 'editor',
+			'level' => '7000',
+			'weight' => '3',
+		),
+		array(
+			'id' => '4',
+			'role_key' => 'general_user',
+			'level' => '6000',
+			'weight' => '4',
+		),
+		array(
+			'id' => '5',
+			'role_key' => 'visitor',
+			'level' => '1000',
+			'weight' => '5',
 		),
 	);
 
