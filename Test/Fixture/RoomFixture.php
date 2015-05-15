@@ -26,7 +26,7 @@ class RoomFixture extends CakeTestFixture {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'group_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'space_id' => array('type' => 'integer', 'null' => true, 'default' => null),
-		'top_page_id' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'page_id_top' => array('type' => 'integer', 'null' => true, 'default' => null),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null),
@@ -47,7 +47,7 @@ class RoomFixture extends CakeTestFixture {
 			'id' => 1,
 			'group_id' => 1,
 			'space_id' => 1,
-			'top_page_id' => 1,
+			'page_id_top' => 1,
 		),
 	);
 
