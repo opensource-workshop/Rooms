@@ -31,7 +31,7 @@ class PluginsRoom extends AppModel {
  */
 	public $belongsTo = array(
 		'Plugin' => array(
-			'className' => 'Plugin',
+			'className' => 'PluginManager.Plugin',
 			'foreignKey' => false,
 			'type' => 'inner',
 			'conditions' => array('PluginsRoom.plugin_key = Plugin.key'),
@@ -67,6 +67,7 @@ class PluginsRoom extends AppModel {
 		$plugins = $this->find('all', array(
 			'conditions' => array(
 				'Plugin.type' => self::PLUGIN_TYPE_FOR_FRAME,
+				/* 'Plugin.language_id' => $langId, */
 				'Room.id' => $roomId
 			),
 			'order' => $this->name . '.id',
