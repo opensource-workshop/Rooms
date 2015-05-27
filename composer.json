@@ -19,6 +19,7 @@
 		"mustangostang/spyc":           "dev-master",
 		"satooshi/php-coveralls":       "dev-master",
 		"netcommons/pages":             "dev-master",
+		"netcommons/plugin-manager":    "dev-master",
 		"netcommons/users":             "dev-master"
 	},
 	"license": "NetCommons License",
