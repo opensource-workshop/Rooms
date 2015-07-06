@@ -13,7 +13,7 @@
  * PluginsRoomFixture
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package NetCommons\Rooms\Test\Fixture
+ * @package NetCommons\PluginManager\Test\Fixture
  */
 class PluginsRoomFixture extends CakeTestFixture {
 
