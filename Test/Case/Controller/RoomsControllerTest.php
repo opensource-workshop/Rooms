@@ -25,7 +25,6 @@ class RoomsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'app.Session',
 		'plugin.m17n.language',
 		'plugin.net_commons.site_setting',
 		'plugin.pages.page',
