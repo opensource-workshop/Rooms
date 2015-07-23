@@ -15,14 +15,14 @@ App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
  *
  * @package NetCommons\PluginManager\Config\Migration
  */
-class AddPluginRecords extends NetCommonsMigration {
+class PluginRecords extends NetCommonsMigration {
 
 /**
  * Migration description
  *
  * @var string
  */
-	public $description = 'add_plugin_records';
+	public $description = 'plugin_records';
 
 /**
  * Actions to be performed
@@ -49,9 +49,7 @@ class AddPluginRecords extends NetCommonsMigration {
 			'default_setting_action' => '',
 		),
 		'PluginsRole' => array(
-			array(
-				'role_key' => 'system_administrator',
-			),
+			array('role_key' => 'system_administrator'),
 		),
 	);
 
