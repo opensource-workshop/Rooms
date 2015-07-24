@@ -75,9 +75,9 @@ class PluginRecords extends NetCommonsMigration {
 		]);
 
 		if ($direction === 'down') {
-			$this->Plugin->deletePlugin($this->records);
+			$this->Plugin->uninstallPlugin($this->records);
 		} else {
-			$this->Plugin->savePlugin($this->records);
+			$this->Plugin->installPlugin($this->records);
 		}
 		return true;
 	}
