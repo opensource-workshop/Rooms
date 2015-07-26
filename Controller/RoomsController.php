@@ -32,26 +32,15 @@ class RoomsController extends RoomsAppController {
  * @var array
  */
 	public $components = array(
-		'Security'
+		'ControlPanel.ControlPanelLayout'
 	);
-
-/**
- * beforeFilter
- *
- * @return void
- */
-	public function beforeFilter() {
-		parent::beforeFilter();
-		$this->Auth->allow();
-	}
 
 /**
  * index
  *
- * @return CakeResponse
+ * @return void
  */
 	public function index() {
-		return $this->render('Rooms/index');
 	}
 
 }

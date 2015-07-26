@@ -1,6 +1,6 @@
 <?php
 /**
- * index template
+ * Rooms index template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -10,4 +10,8 @@
  */
 ?>
 
-ルーム管理
+<?php $this->assign('title', __d('rooms', 'Room Manager')); ?>
+
+<div>
+
+</div>

@@ -19,4 +19,13 @@ App::uses('AppController', 'Controller');
  */
 class RoomsAppController extends AppController {
 
+/**
+ * use component
+ *
+ * @var array
+ */
+	public $components = array(
+		'Security'
+	);
+
 }
