@@ -10,8 +10,6 @@
  */
 ?>
 
-<?php $this->assign('title', __d('rooms', 'Room Manager')); ?>
-
 <div>
 
 </div>
