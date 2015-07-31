@@ -41,13 +41,28 @@ class PluginRecords extends NetCommonsMigration {
  */
 	public $records = array(
 		'Plugin' => array(
-			'key' => 'rooms',
-			'namespace' => 'netcommons/rooms',
-			'name' => 'Room Manager',
-			'type' => 2,
-			'default_action' => 'rooms/index',
-			'default_setting_action' => '',
-			'weight' => 2,
+			//日本語
+			array(
+				'language_id' => '2',
+				'key' => 'rooms',
+				'namespace' => 'netcommons/rooms',
+				'name' => 'ルーム管理',
+				'type' => 2,
+				'default_action' => 'rooms/index',
+				'default_setting_action' => '',
+				'weight' => 2,
+			),
+			//英語
+			array(
+				'language_id' => '1',
+				'key' => 'rooms',
+				'namespace' => 'netcommons/rooms',
+				'name' => 'Room Manager',
+				'type' => 2,
+				'default_action' => 'rooms/index',
+				'default_setting_action' => '',
+				'weight' => 2,
+			),
 		),
 		'PluginsRole' => array(
 			array('role_key' => 'system_administrator'),
@@ -77,10 +92,16 @@ class PluginRecords extends NetCommonsMigration {
 		]);
 
 		if ($direction === 'down') {
-			$this->Plugin->uninstallPlugin($this->records);
-		} else {
-			$this->Plugin->installPlugin($this->records);
+			$this->Plugin->uninstallPlugin($this->records['Plugin'][0]['key']);
+			return true;
 		}
+
+		foreach ($this->records as $model => $records) {
+			if (!$this->updateRecords($model, $records)) {
+				return false;
+			}
+		}
+		return true;
 		return true;
 	}
 }
