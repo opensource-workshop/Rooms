@@ -102,6 +102,5 @@ class PluginRecords extends NetCommonsMigration {
 			}
 		}
 		return true;
-		return true;
 	}
 }
