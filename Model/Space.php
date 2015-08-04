@@ -84,7 +84,6 @@ class Space extends RoomsAppModel {
 		)
 	);
 
-
 /**
  * hasAndBelongsToMany associations
  *

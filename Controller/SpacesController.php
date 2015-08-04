@@ -1,6 +1,6 @@
 <?php
 /**
- * Rooms Controller
+ * Spaces Controller
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,12 +12,12 @@
 App::uses('RoomsAppController', 'Rooms.Controller');
 
 /**
- * Rooms Controller
+ * Spaces Controller
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Controller
  */
-class RoomsController extends RoomsAppController {
+class SpacesController extends RoomsAppController {
 
 /**
  * use model
@@ -42,20 +42,7 @@ class RoomsController extends RoomsAppController {
  *
  * @return void
  */
-	public function index($spaceId = null) {
-//		$ret = $this->Space->find('all', array(
-//			//'recursive' => 0,
-//		));
-//var_dump($ret);
-//		$spaceTreeList = $this->Space->generateTreeList(null, null, null, chr(9)); //$spacer=Tab
-//
-//var_dump($spaceTreeList);
-//		foreach ($spaceTreeList as $space) {
-//			var_dump(preg_match('/^' . chr(9) . '/', $space));
-//		}
-
-		$ret = $this->Space->children(1);
-		var_dump($ret);
+	public function edit() {
 	}
 
 }

@@ -78,7 +78,6 @@ class Room extends RoomsAppModel {
 		)
 	);
 
-
 /**
  * hasAndBelongsToMany associations
  *
