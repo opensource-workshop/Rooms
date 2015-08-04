@@ -133,9 +133,76 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
  */
 	public $rooms = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'group_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'space_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'page_id_top' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'lft' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'rght' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'active' => array('type' => 'boolean', 'null' => true, 'default' => null),
+		'need_approval' => array('type' => 'boolean', 'null' => true, 'default' => null),
+		'default_participation' => array('type' => 'boolean', 'null' => true, 'default' => null),
+		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+
+/**
+ * rooms_languages table
+ *
+ * @var array
+ */
+	public $rooms_languages = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
+		'language_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 6, 'unsigned' => false),
+		'room_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+
+/**
+ * spaces table
+ *
+ * @var array
+ */
+	public $spaces = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
+		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'lft' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'rght' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'type' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => 'Type of the space.   1: Whole site, 2: Public space, 3: Private space, 4: Room space'),
+		'page_layout_permitted' => array('type' => 'boolean', 'null' => true, 'default' => null),
+		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+
+/**
+ * spaces_languages table
+ *
+ * @var array
+ */
+	public $spaces_languages = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
+		'language_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 6, 'unsigned' => false),
+		'space_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),

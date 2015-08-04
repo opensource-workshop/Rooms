@@ -16,14 +16,14 @@ App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Config\Migration
  */
-class Records extends NetCommonsMigration {
+class RoomRecords extends NetCommonsMigration {
 
 /**
  * Migration description
  *
  * @var string
  */
-	public $description = 'records';
+	public $description = 'room_records';
 
 /**
  * Actions to be performed
@@ -111,7 +111,24 @@ class Records extends NetCommonsMigration {
 			array('id' => '5', 'role_key' => 'visitor', 'level' => '1000', 'weight' => '5'),
 		),
 		'Room' => array(
-			array('id' => '1', 'space_id' => '1'),
+			//パブリックスペース
+			array(
+				'id' => '1',
+				'space_id' => '2',
+				'page_id_top' => '1',
+				'parent_id' => null,
+				'lft' => '1',
+				'rght' => '2',
+				'active' => '1',
+				'need_approval' => '1',
+				'default_participation' => '1',
+			),
+		),
+		'RoomsLanguage' => array(
+			//日本語
+			array('language_id' => '2', 'room_id' => '1', 'name' => 'パブリックルーム'),
+			//英語
+			array('language_id' => '1', 'room_id' => '1', 'name' => 'Public room'),
 		),
 	);
 
