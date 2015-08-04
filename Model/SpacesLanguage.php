@@ -1,9 +1,9 @@
 <?php
 /**
- * RolesRoomsUser Model
+ * SpacesLanguage Model
  *
- * @property RolesRoom $RolesRoom
- * @property User $User
+ * @property Language $Language
+ * @property Space $Space
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -15,12 +15,12 @@
 App::uses('RoomsAppModel', 'Rooms.Model');
 
 /**
- * RolesRoomsUser Model
+ * SpacesLanguage Model
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Model
  */
-class RolesRoomsUser extends RoomsAppModel {
+class SpacesLanguage extends RoomsAppModel {
 
 /**
  * Validation rules
@@ -28,7 +28,7 @@ class RolesRoomsUser extends RoomsAppModel {
  * @var array
  */
 	public $validate = array(
-		'roles_room_id' => array(
+		'language_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -38,9 +38,19 @@ class RolesRoomsUser extends RoomsAppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'user_id' => array(
+		'space_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'name' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -58,16 +68,16 @@ class RolesRoomsUser extends RoomsAppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'RolesRoom' => array(
-			'className' => 'Rooms.RolesRoom',
-			'foreignKey' => 'roles_room_id',
+		'Language' => array(
+			'className' => 'M17n.Language',
+			'foreignKey' => 'language_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
-		'User' => array(
-			'className' => 'Users.User',
-			'foreignKey' => 'user_id',
+		'Space' => array(
+			'className' => 'Rooms.Space',
+			'foreignKey' => 'space_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

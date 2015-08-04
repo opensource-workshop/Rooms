@@ -11,7 +11,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('RolesAppModel', 'Roles.Model');
+App::uses('RoomsAppModel', 'Rooms.Model');
 
 /**
  * RoomRolePermission Model
@@ -48,7 +48,7 @@ class RoomRolePermission extends RolesAppModel {
  */
 	public $belongsTo = array(
 		'RolesRoom' => array(
-			'className' => 'RolesRoom',
+			'className' => 'Rooms.RolesRoom',
 			'foreignKey' => 'roles_room_id',
 			'conditions' => '',
 			'fields' => '',
