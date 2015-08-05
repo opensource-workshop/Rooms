@@ -42,10 +42,46 @@ class SpaceRecords extends NetCommonsMigration {
  */
 	public $records = array(
 		'Space' => array(
-			array('id' => '1', 'parent_id' => null, 'lft' => '1', 'rght' => '8', 'type' => '1', 'page_layout_permitted' => null, 'default_action' => null),
-			array('id' => '2', 'parent_id' => '1', 'lft' => '2', 'rght' => '3', 'type' => '2', 'page_layout_permitted' => '1', 'default_action' => 'rooms/index/2'),
-			array('id' => '3', 'parent_id' => '1', 'lft' => '4', 'rght' => '5', 'type' => '3', 'page_layout_permitted' => '0', 'default_action' => 'spaces/edit/3'),
-			array('id' => '4', 'parent_id' => '1', 'lft' => '6', 'rght' => '7', 'type' => '4', 'page_layout_permitted' => '1', 'default_action' => 'rooms/index/4'),
+			array(
+				'id' => '1',
+				'parent_id' => null,
+				'lft' => '1',
+				'rght' => '8',
+				'type' => '1',
+				'page_layout_permitted' => null,
+				'plugin' => null,
+				'default_setting_action' => null
+			),
+			array(
+				'id' => '2',
+				'parent_id' => '1',
+				'lft' => '2',
+				'rght' => '3',
+				'type' => '2',
+				'page_layout_permitted' => '1',
+				'plugin' => 'public_space',
+				'default_setting_action' => 'rooms/index/2'
+			),
+			array(
+				'id' => '3',
+				'parent_id' => '1',
+				'lft' => '4',
+				'rght' => '5',
+				'type' => '3',
+				'page_layout_permitted' => '0',
+				'plugin' => 'private_space',
+				'default_setting_action' => 'spaces/edit/3'
+			),
+			array(
+				'id' => '4',
+				'parent_id' => '1',
+				'lft' => '6',
+				'rght' => '7',
+				'type' => '4',
+				'page_layout_permitted' => '1',
+				'plugin' => 'room_space',
+				'default_setting_action' => 'rooms/index/4'
+			),
 		),
 		'SpacesLanguage' => array(
 			//日本語

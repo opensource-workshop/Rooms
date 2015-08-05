@@ -25,6 +25,13 @@ App::uses('RoomsAppModel', 'Rooms.Model');
 class Space extends RoomsAppModel {
 
 /**
+ * UserRole keys
+ *
+ * @var const
+ */
+	const WHOLE_SITE_ID = '1';
+
+/**
  * Behaviors
  *
  * @var array

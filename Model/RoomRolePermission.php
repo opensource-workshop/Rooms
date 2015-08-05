@@ -19,7 +19,7 @@ App::uses('RoomsAppModel', 'Rooms.Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Model
  */
-class RoomRolePermission extends RolesAppModel {
+class RoomRolePermission extends RoomsAppModel {
 
 /**
  * Validation rules

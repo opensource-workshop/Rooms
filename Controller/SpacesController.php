@@ -1,6 +1,6 @@
 <?php
 /**
- * Spaces Controller
+ * Rooms Controller
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,7 +12,7 @@
 App::uses('RoomsAppController', 'Rooms.Controller');
 
 /**
- * Spaces Controller
+ * Rooms Controller
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Controller
@@ -25,7 +25,10 @@ class SpacesController extends RoomsAppController {
  * @var array
  */
 	public $uses = array(
-		'Rooms.Space'
+//		'Rooms.RoomsLanguage',
+//		'Rooms.Room',
+//		'Rooms.Space',
+//		'Rooms.SpacesLanguage',
 	);
 
 /**
@@ -34,15 +37,23 @@ class SpacesController extends RoomsAppController {
  * @var array
  */
 	public $components = array(
-		'ControlPanel.ControlPanelLayout'
+		'ControlPanel.ControlPanelLayout',
+		'Rooms.SpaceTabs',
 	);
 
 /**
- * index
+ * edit
  *
  * @return void
  */
-	public function edit() {
+	public function edit($spaceId = null) {
+		//スペースデータチェック
+		if (! $this->SpaceTabs->check($spaceId)) {
+			return;
+		}
+		$this->set('activeSpaceId', $spaceId);
+
+
 	}
 
 }

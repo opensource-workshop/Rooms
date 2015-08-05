@@ -25,7 +25,8 @@ class RoomsController extends RoomsAppController {
  * @var array
  */
 	public $uses = array(
-		'Rooms.Space'
+		'Rooms.RoomsLanguage',
+		'Rooms.Room',
 	);
 
 /**
@@ -34,7 +35,9 @@ class RoomsController extends RoomsAppController {
  * @var array
  */
 	public $components = array(
-		'ControlPanel.ControlPanelLayout'
+		'ControlPanel.ControlPanelLayout',
+		'Rooms.SpaceTabs',
+		'Paginator',
 	);
 
 /**
@@ -43,19 +46,43 @@ class RoomsController extends RoomsAppController {
  * @return void
  */
 	public function index($spaceId = null) {
-//		$ret = $this->Space->find('all', array(
-//			//'recursive' => 0,
-//		));
-//var_dump($ret);
-//		$spaceTreeList = $this->Space->generateTreeList(null, null, null, chr(9)); //$spacer=Tab
-//
-//var_dump($spaceTreeList);
-//		foreach ($spaceTreeList as $space) {
-//			var_dump(preg_match('/^' . chr(9) . '/', $space));
-//		}
+		//スペースデータチェック
+		if (! $this->SpaceTabs->check($spaceId)) {
+			return;
+		}
+		$this->set('activeSpaceId', $spaceId);
 
-		$ret = $this->Space->children(1);
-		var_dump($ret);
+		//ルームデータ取得
+		$this->Paginator->settings = array(
+			'recursive' => 0,
+			'conditions' => array(
+				'Room.space_id' => $spaceId,
+				'Room.parent_id' => null,
+				'Language.id' => Configure::read('Config.languageId'),
+			),
+			'order' => 'Room.lft'
+		);
+		$data = $this->Paginator->paginate('RoomsLanguage');
+		$this->request->data = Hash::combine($data, '{n}.Room.id', '{n}');
+
+		//子ルームのデータ取得
+		$parentRoomIds = array_keys($this->request->data);
+		foreach ($parentRoomIds as $roomId) {
+			//Treeリスト取得
+			$roomTreeList = $this->Room->generateTreeList(array('Room.parent_id' => $roomId), null, null, chr(9)); //$spacer=Tab
+			if ($roomTreeList) {
+				$conditions = array(
+					'Room.id' => array_keys($roomTreeList),
+					'Language.id' => Configure::read('Config.languageId')
+				);
+				$this->request->data[$roomId]['children'] = $this->RoomsLanguage->find('all', array(
+					'recursive' => 0,
+					'conditions' => $conditions,
+					'order' => 'Room.lft'
+				));
+				$this->request->data[$roomId]['TreeList'] = $roomTreeList;
+			}
+		}
 	}
 
 }
