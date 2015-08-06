@@ -26,6 +26,7 @@ class SpacesController extends RoomsAppController {
  */
 	public $uses = array(
 		'Roles.DefaultRolePermission',
+		'Roles.Role',
 //		'Rooms.RoomsLanguage',
 //		'Rooms.Room',
 //		'Rooms.Space',
@@ -40,6 +41,14 @@ class SpacesController extends RoomsAppController {
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
 		'M17n.SwitchLanguage',
+		'Rooms.RoomsRolesForm' => array(
+			'permissions' => array(
+				'html_not_limited',
+				'upload_picture_not_limited',
+				'upload_attachment_not_limited',
+				'upload_video_not_limited'
+			)
+		),
 		'Rooms.SpaceTabs',
 	);
 
@@ -55,22 +64,34 @@ class SpacesController extends RoomsAppController {
 			return;
 		}
 		$this->set('activeSpaceId', $spaceId);
-		$this->request->data = $this->SpaceTabs->get($spaceId);
 
-		$this->request->data['SpacesLanguage'] = $this->SpacesLanguage->find('all', array(
-			'recursive' => -1,
-			'conditions' => array(
-				'space_id' => $spaceId,
-			),
-		));
+		if ($this->request->isPost()) {
+			//登録処理
 
-		$data = $this->DefaultRolePermission->find('all', array(
-			'recursive' => -1,
-			'conditions' => array(
-				'type' => $this->request->data['Space']['plugin'],
-			),
-		));
-		$this->request->data['DefaultRolePermission'] = Hash::combine($data, '{n}.DefaultRolePermission.role_key', '{n}', '{n}.DefaultRolePermission.permission');
+		} else {
+			//表示処理
+			//--Spaceデータ取得
+			$this->request->data = $this->SpaceTabs->get($spaceId);
+			$this->request->data['SpacesLanguage'] = $this->SpacesLanguage->find('all', array(
+				'recursive' => -1,
+				'conditions' => array(
+					'space_id' => $spaceId,
+				),
+			));
+//			//--DefaultRolePermissionデータ取得
+//			$results = $this->RoomsRolesForm->NetCommonsRoomRole->getRoomRolePermissions(null, array(
+//				'html_not_limited',
+//				'upload_picture_not_limited',
+//				'upload_attachment_not_limited',
+//				'upload_video_not_limited'
+//			), $this->request->data['Space']['plugin']);
+//			$this->set($results);
+//			$this->RoomsRolesForm->tookPermmision = true;
+//
+//			$this->request->data['DefaultRolePermission'] = $results['DefaultRolePermission'];
+
+		}
+		$this->RoomsRolesForm->settings['type'] = $this->request->data['Space']['plugin'];
 	}
 
 }

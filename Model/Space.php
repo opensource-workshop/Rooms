@@ -53,6 +53,13 @@ class Space extends RoomsAppModel {
 	public $defaultParticipation = false;
 
 /**
+ * DefaultParticipationFixed
+ *
+ * @var bool
+ */
+	public $defaultParticipationFixed = false;
+
+/**
  * Behaviors
  *
  * @var array

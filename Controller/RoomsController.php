@@ -37,6 +37,9 @@ class RoomsController extends RoomsAppController {
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
 		'M17n.SwitchLanguage',
+		'Rooms.RoomsRolesForm' => array(
+			'permissions' => array('content_publishable')
+		),
 		'Rooms.RoomsUtility',
 		'Rooms.SpaceTabs',
 		//'Paginator',
@@ -96,6 +99,9 @@ class RoomsController extends RoomsAppController {
 			$model = Inflector::camelize($space['Space']['plugin']);
 			$this->$model = ClassRegistry::init($model . '.' . $model);
 
+			$this->RoomsRolesForm->settings['room_id'] = null;
+			$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
+
 			//初期値セット
 			$this->request->data['RoomsLanguage'] = array();
 			foreach (array_keys($this->viewVars['languages']) as $langId) {
@@ -118,6 +124,8 @@ class RoomsController extends RoomsAppController {
 				))
 			);
 		}
+
+		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
 	}
 
 /**
@@ -150,14 +158,19 @@ class RoomsController extends RoomsAppController {
 					'room_id' => $roomId,
 				),
 			));
-
 		}
 		$this->set('activeSpaceId', $this->request->data['Room']['space_id']);
 		$this->request->data = Hash::merge($this->request->data,
 			$this->SpaceTabs->get($this->viewVars['activeSpaceId'])
 		);
-
+		$model = Inflector::camelize($this->request->data['Space']['plugin']);
+		$this->$model = ClassRegistry::init($model . '.' . $model);
+		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
 		$this->set('activeRoomId', $roomId);
+
+		$this->RoomsRolesForm->settings['room_id'] = $roomId;
+		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
+
 	}
 
 /**
