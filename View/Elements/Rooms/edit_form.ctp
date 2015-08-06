@@ -73,7 +73,6 @@
 
 <div class="form-inline form-group">
 	<?php echo $this->Form->label('Room.active', __d('rooms', 'Status')); ?>
-	<br>
 
 	<?php echo $this->Form->select('Room.active',
 			array(

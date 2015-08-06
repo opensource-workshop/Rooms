@@ -12,3 +12,74 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:28
+#: Rooms/View/Elements/space_setting_tabs.ctp:17
+msgid "General setting"
+msgstr "一般設定"
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:32
+msgid "Select the members to join"
+msgstr "参加会員の選択"
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:36
+#: Rooms/View/Elements/space_setting_tabs.ctp:23
+msgid "Select the plugins to join"
+msgstr "プラグイン選択"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:29
+msgid "Room name"
+msgstr "ルーム名"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:52
+msgid "Open for all members"
+msgstr "すべてのの会員をデフォルトで参加させる"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:58
+msgid "Approval settings of content"
+msgstr "コンテンツの承認設定"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:61
+msgid "Authority to publish approved content"
+msgstr "コンテンツを承認して公開できる人"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:70
+msgid "Do not use the approval"
+msgstr "コンテンツの承認機能は使わない"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:75
+msgid "Status"
+msgstr "状態"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:80
+msgid "Under maintenance"
+msgstr "準備中"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:81
+msgid "Open"
+msgstr "公開中"
+
+#: Rooms/View/Elements/Spaces/edit_form.ctp:29
+msgid "Space name"
+msgstr "スペース名"
+
+#: Rooms/View/Elements/Spaces/edit_form.ctp:45
+msgid "Allow to change page layout?"
+msgstr "ページスタイルのレイアウト変更"
+
+#: Rooms/View/Elements/Spaces/edit_form.ctp:60
+msgid "Allow HTML tags?"
+msgstr "HTMLタグの書き込み制限"
+
+#: Rooms/View/Elements/Spaces/edit_form.ctp:67
+msgid "Allow to uploads picture files?"
+msgstr "画像ファイルのアップロード制限"
+
+#: Rooms/View/Elements/Spaces/edit_form.ctp:74
+msgid "Allow to uploads attachment files?"
+msgstr "添付ファイルのアップロード制限"
+
+#: Rooms/View/Elements/Spaces/edit_form.ctp:81
+msgid "Video files paste from the editor"
+msgstr "動画ファイルの貼り付け"
+
