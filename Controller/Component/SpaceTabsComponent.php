@@ -20,10 +20,11 @@ App::uses('Component', 'Controller');
 class SpaceTabsComponent extends Component {
 
 /**
- * startup
+ * Called after the Controller::beforeFilter() and before the controller action
  *
- * @param Controller $controller Controller
+ * @param Controller $controller Controller with components to startup
  * @return void
+ * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::startup
  */
 	public function startup(Controller $controller) {
 		//RequestActionの場合、スキップする
@@ -45,21 +46,31 @@ class SpaceTabsComponent extends Component {
 			),
 			'order' => 'Space.lft'
 		));
-		$this->controller->set('spaces', $spaces);
+		$data = Hash::combine($spaces, '{n}.Space.id', '{n}');
+		$this->controller->set('spaces', $data);
 	}
 
 /**
- * startup
+ * Exist the space
  *
  * @param int $spaceId spaces.id
  * @return bool True on success, false on failure
  */
-	public function check($spaceId) {
+	public function exist($spaceId) {
 		if (! Hash::check($this->controller->viewVars['spaces'], '{n}.Space[id=' . $spaceId . ']')) {
-			$this->controller->throwBadRequest();
 			return false;
 		}
 		return true;
+	}
+
+/**
+ * Get the space
+ *
+ * @param int $spaceId spaces.id
+ * @return bool True on success, false on failure
+ */
+	public function get($spaceId) {
+		return $this->controller->viewVars['spaces'][$spaceId];
 	}
 
 }

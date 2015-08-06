@@ -36,8 +36,10 @@ class RoomsController extends RoomsAppController {
  */
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
+		'M17n.SwitchLanguage',
+		'Rooms.RoomsUtility',
 		'Rooms.SpaceTabs',
-		'Paginator',
+		//'Paginator',
 	);
 
 /**
@@ -47,42 +49,125 @@ class RoomsController extends RoomsAppController {
  */
 	public function index($spaceId = null) {
 		//スペースデータチェック
-		if (! $this->SpaceTabs->check($spaceId)) {
+		if (! $this->SpaceTabs->exist($spaceId)) {
+			$this->throwBadRequest();
 			return;
 		}
 		$this->set('activeSpaceId', $spaceId);
+		$this->request->data = $this->SpaceTabs->get($spaceId);
 
 		//ルームデータ取得
-		$this->Paginator->settings = array(
-			'recursive' => 0,
-			'conditions' => array(
-				'Room.space_id' => $spaceId,
-				'Room.parent_id' => null,
-				'Language.id' => Configure::read('Config.languageId'),
-			),
-			'order' => 'Room.lft'
-		);
-		$data = $this->Paginator->paginate('RoomsLanguage');
-		$this->request->data = Hash::combine($data, '{n}.Room.id', '{n}');
+		$this->request->data = Hash::merge($this->request->data, $this->RoomsUtility->getRoomsForPaginator($spaceId));
+	}
 
-		//子ルームのデータ取得
-		$parentRoomIds = array_keys($this->request->data);
-		foreach ($parentRoomIds as $roomId) {
-			//Treeリスト取得
-			$roomTreeList = $this->Room->generateTreeList(array('Room.parent_id' => $roomId), null, null, chr(9)); //$spacer=Tab
-			if ($roomTreeList) {
-				$conditions = array(
-					'Room.id' => array_keys($roomTreeList),
-					'Language.id' => Configure::read('Config.languageId')
-				);
-				$this->request->data[$roomId]['children'] = $this->RoomsLanguage->find('all', array(
-					'recursive' => 0,
-					'conditions' => $conditions,
-					'order' => 'Room.lft'
-				));
-				$this->request->data[$roomId]['TreeList'] = $roomTreeList;
-			}
+/**
+ * add
+ *
+ * @return void
+ */
+	public function add($spaceId = null, $roomId = null) {
+		$this->view = 'edit';
+
+		//スペースデータチェック
+		if (! $this->SpaceTabs->exist($spaceId)) {
+			$this->throwBadRequest();
+			return;
 		}
+		$this->set('activeSpaceId', $spaceId);
+		$this->request->data = $this->SpaceTabs->get($spaceId);
+
+		//登録処理の場合、URLよりPOSTパラメータでチェックする
+		if ($this->request->isPost()) {
+			$roomId = $this->data['Room']['parent_id'];
+		}
+
+		//ルームデータチェック
+		if (isset($roomId) && ! $this->RoomsUtility->exist($roomId)) {
+			$this->throwBadRequest();
+			return;
+		}
+
+		if ($this->request->isPost()) {
+			//登録処理
+
+		} else {
+			//表示処理
+			$space = $this->SpaceTabs->get($spaceId);
+			$model = Inflector::camelize($space['Space']['plugin']);
+			$this->$model = ClassRegistry::init($model . '.' . $model);
+
+			//初期値セット
+			$this->request->data['RoomsLanguage'] = array();
+			foreach (array_keys($this->viewVars['languages']) as $langId) {
+				$index = count($this->request->data['RoomsLanguage']);
+
+				$this->request->data['RoomsLanguage'][$index] = $this->RoomsLanguage->create(array(
+					'id' => null,
+					'language_id' => $langId,
+					'room_id' => null,
+					'name' => '',
+				));
+			}
+			$this->request->data = Hash::merge($this->request->data,
+				$this->Room->create(array(
+					'id' => null,
+					'parent_id' => $roomId,
+					'active' => true,
+					'need_approval' => $this->$model->defaultNeedApproval,
+					'default_participation' => $this->$model->defaultParticipation,
+				))
+			);
+		}
+	}
+
+/**
+ * edit
+ *
+ * @return void
+ */
+	public function edit($roomId = null) {
+		//登録処理の場合、URLよりPOSTパラメータでチェックする
+		if ($this->request->isPost()) {
+			$roomId = $this->data['Room']['id'];
+		}
+		//ルームデータチェック
+		if (! $this->RoomsUtility->exist($roomId)) {
+			$this->throwBadRequest();
+			return;
+		}
+
+		if ($this->request->isPost()) {
+			$data = $this->data;
+
+			//不要パラメータ除去
+			unset($data['save'], $data['active_lang_id']);
+
+		} else {
+			$this->request->data =  $this->RoomsUtility->get($roomId);
+			$this->request->data['RoomsLanguage'] = $this->RoomsLanguage->find('all', array(
+				'recursive' => -1,
+				'conditions' => array(
+					'room_id' => $roomId,
+				),
+			));
+
+		}
+		$this->set('activeSpaceId', $this->request->data['Room']['space_id']);
+		$this->request->data = Hash::merge($this->request->data,
+			$this->SpaceTabs->get($this->viewVars['activeSpaceId'])
+		);
+
+		$this->set('activeRoomId', $roomId);
+	}
+
+/**
+ * edit
+ *
+ * @return void
+ */
+	public function delete($roomId = null) {
+
+
 	}
 
 }

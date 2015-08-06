@@ -1,0 +1,18 @@
+/**
+ * bbses/css/style.css
+ *
+ * @author   Takako Miyagawa <nekoget@gmail.com>
+ * @link     http://www.netcommons.org NetCommons Project
+ * @license  http://www.netcommons.org/license.txt NetCommons License
+ */
+
+.rooms-tree {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.table > tbody > tr > th,
+.table > tbody > tr > td {
+	border-top-width: 0px;
+	/*border-bottom: 1px solid #ddd;*/
+}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Rooms Controller
+ * PluginsSpaces Controller
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,12 +12,12 @@
 App::uses('RoomsAppController', 'Rooms.Controller');
 
 /**
- * Rooms Controller
+ * PluginsSpaces Controller
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Controller
  */
-class SpacesController extends RoomsAppController {
+class PluginsSpacesController extends RoomsAppController {
 
 /**
  * use model
@@ -25,11 +25,10 @@ class SpacesController extends RoomsAppController {
  * @var array
  */
 	public $uses = array(
-		'Roles.DefaultRolePermission',
 //		'Rooms.RoomsLanguage',
 //		'Rooms.Room',
 //		'Rooms.Space',
-		'Rooms.SpacesLanguage',
+//		'Rooms.SpacesLanguage',
 	);
 
 /**
@@ -39,7 +38,6 @@ class SpacesController extends RoomsAppController {
  */
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
-		'M17n.SwitchLanguage',
 		'Rooms.SpaceTabs',
 	);
 
@@ -55,22 +53,8 @@ class SpacesController extends RoomsAppController {
 			return;
 		}
 		$this->set('activeSpaceId', $spaceId);
-		$this->request->data = $this->SpaceTabs->get($spaceId);
 
-		$this->request->data['SpacesLanguage'] = $this->SpacesLanguage->find('all', array(
-			'recursive' => -1,
-			'conditions' => array(
-				'space_id' => $spaceId,
-			),
-		));
 
-		$data = $this->DefaultRolePermission->find('all', array(
-			'recursive' => -1,
-			'conditions' => array(
-				'type' => $this->request->data['Space']['plugin'],
-			),
-		));
-		$this->request->data['DefaultRolePermission'] = Hash::combine($data, '{n}.DefaultRolePermission.role_key', '{n}', '{n}.DefaultRolePermission.permission');
 	}
 
 }

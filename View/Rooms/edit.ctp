@@ -1,6 +1,6 @@
 <?php
 /**
- * Spaces edit template
+ * Rooms edit template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -8,20 +8,27 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
+echo $this->Html->css(
+	array(
+		'/rooms/css/style.css'
+	),
+	array('plugin' => false)
+);
 ?>
 
 <?php echo $this->element('Rooms.space_tabs'); ?>
 
-<?php echo $this->element('Rooms.space_setting_tabs'); ?>
+<?php echo $this->element('Rooms.room_setting_tabs'); ?>
 
 <div class="panel panel-default">
 	<?php echo $this->Form->create(null, array('novalidate' => true)); ?>
 
 	<div class="panel-body">
-		<?php echo $this->SwitchLanguage->tablist('rooms-space-'); ?>
+		<?php echo $this->SwitchLanguage->tablist('rooms-rooms-'); ?>
 
 		<div class="tab-content">
-			<?php echo $this->element('Spaces/edit_form'); ?>
+			<?php echo $this->element('Rooms/edit_form'); ?>
 		</div>
 	</div>
 

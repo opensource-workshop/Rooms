@@ -8,10 +8,53 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
+echo $this->Html->css(
+	array(
+		'/rooms/css/style.css'
+	),
+	array('plugin' => false)
+);
 ?>
 
 <?php echo $this->element('Rooms.space_tabs'); ?>
 
-<div>
+<table class="table table-hover">
+	<tbody>
+		<tr>
+			<th>
+				<a href="<?php echo $this->Html->url('/rooms/spaces/edit/' . $this->data['Space']['id']); ?>">
+					<?php echo h($this->data['SpacesLanguage']['name']); ?>
+				</a>
+			</th>
+			<th class="text-right">
+				<a class="btn btn-xs btn-success" href="<?php echo $this->Html->url('/rooms/rooms/add/' . $this->data['Space']['id']); ?>">
+					<span class="glyphicon glyphicon-plus"> </span>
+				</a>
+			</th>
+		</tr>
+		<?php if ($this->data['Rooms']) : ?>
+			<?php foreach ($this->data['Rooms'] as $room) : ?>
+				<?php echo $this->element('Rooms/room_link', array(
+						'spaceId' => $this->data['Space']['id'],
+						'roomId' => $room['Room']['id'],
+						'roomName' => $room['RoomsLanguage']['name'],
+						'active' => (bool)$room['Room']['active'],
+					)); ?>
 
-</div>
+				<?php if (isset($room['TreeList'])) : ?>
+					<?php foreach ($room['TreeList'] as $roomId => $roomName) : ?>
+						<?php echo $this->element('Rooms/room_link', array(
+								'spaceId' => $this->data['Space']['id'],
+								'roomId' => $roomId,
+								'roomName' => $roomName,
+								'active' => (bool)$room['children'][$roomId]['Room']['active'],
+							)); ?>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</tbody>
+</table>
+
+<?php echo $this->element('NetCommons.paginator');

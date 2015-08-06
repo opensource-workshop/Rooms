@@ -25,11 +25,32 @@ App::uses('RoomsAppModel', 'Rooms.Model');
 class Space extends RoomsAppModel {
 
 /**
+ * Table name
+ *
+ * @var string
+ */
+	public $useTable = 'spaces';
+
+/**
  * UserRole keys
  *
  * @var const
  */
 	const WHOLE_SITE_ID = '1';
+
+/**
+ * DefaultNeedApproval
+ *
+ * @var bool
+ */
+	public $defaultNeedApproval = true;
+
+/**
+ * DefaultParticipation
+ *
+ * @var bool
+ */
+	public $defaultParticipation = false;
 
 /**
  * Behaviors
