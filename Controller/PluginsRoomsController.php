@@ -43,6 +43,15 @@ class PluginsRoomsController extends RoomsAppController {
 	);
 
 /**
+ * use helper
+ *
+ * @var array
+ */
+	public $helpers = array(
+		'PluginManager.PluginsForm',
+	);
+
+/**
  * edit
  *
  * @return void
@@ -62,11 +71,14 @@ class PluginsRoomsController extends RoomsAppController {
 			$data = $this->data;
 
 			//不要パラメータ除去
-			unset($data['save'], $data['active_lang_id']);
+			unset($data['save']);
 
 		} else {
 			$this->request->data =  $this->RoomsUtility->get($roomId);
 		}
+
+		$space = $this->SpaceTabs->get($this->request->data['Room']['space_id']);
+		$this->set('space', $space);
 
 		$this->set('activeSpaceId', $this->request->data['Room']['space_id']);
 		$this->set('activeRoomId', $roomId);

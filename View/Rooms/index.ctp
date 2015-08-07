@@ -23,20 +23,20 @@ echo $this->Html->css(
 	<tbody>
 		<tr>
 			<th>
-				<a href="<?php echo $this->Html->url('/rooms/spaces/edit/' . $this->data['Space']['id']); ?>">
-					<?php echo h($this->data['SpacesLanguage']['name']); ?>
+				<a href="<?php echo $this->Html->url('/rooms/spaces/edit/' . $space['Space']['id']); ?>">
+					<?php echo h($space['SpacesLanguage']['name']); ?>
 				</a>
 			</th>
 			<th class="text-right">
-				<a class="btn btn-xs btn-success" href="<?php echo $this->Html->url('/rooms/rooms/add/' . $this->data['Space']['id']); ?>">
+				<a class="btn btn-xs btn-success" href="<?php echo $this->Html->url('/rooms/rooms/add/' . $space['Space']['id']); ?>">
 					<span class="glyphicon glyphicon-plus"> </span>
 				</a>
 			</th>
 		</tr>
-		<?php if ($this->data['Rooms']) : ?>
-			<?php foreach ($this->data['Rooms'] as $room) : ?>
+		<?php if ($rooms) : ?>
+			<?php foreach ($rooms as $room) : ?>
 				<?php echo $this->element('Rooms/room_link', array(
-						'spaceId' => $this->data['Space']['id'],
+						'spaceId' => $space['Space']['id'],
 						'roomId' => $room['Room']['id'],
 						'roomName' => $room['RoomsLanguage']['name'],
 						'active' => (bool)$room['Room']['active'],
@@ -45,7 +45,7 @@ echo $this->Html->css(
 				<?php if (isset($room['TreeList'])) : ?>
 					<?php foreach ($room['TreeList'] as $roomId => $roomName) : ?>
 						<?php echo $this->element('Rooms/room_link', array(
-								'spaceId' => $this->data['Space']['id'],
+								'spaceId' => $space['Space']['id'],
 								'roomId' => $roomId,
 								'roomName' => $roomName,
 								'active' => (bool)$room['children'][$roomId]['Room']['active'],

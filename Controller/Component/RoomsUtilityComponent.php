@@ -59,10 +59,10 @@ class RoomsUtilityComponent extends Component {
 			'order' => 'Room.lft'
 		);
 		$data = $this->controller->Paginator->paginate('RoomsLanguage');
-		$result['Rooms'] = Hash::combine($data, '{n}.Room.id', '{n}');
+		$result = Hash::combine($data, '{n}.Room.id', '{n}');
 
 		//子ルームのデータ取得
-		$parentRoomIds = array_keys($result['Rooms']);
+		$parentRoomIds = array_keys($result);
 		foreach ($parentRoomIds as $roomId) {
 			//Treeリスト取得
 			$roomTreeList = $this->Room->generateTreeList(array('Room.parent_id' => $roomId), null, null, $treeSpacer); //$spacer=Tab
@@ -75,8 +75,8 @@ class RoomsUtilityComponent extends Component {
 					),
 					'order' => 'Room.lft'
 				));
-				$result['Rooms'][$roomId]['children'] = Hash::combine($children, '{n}.Room.id', '{n}');
-				$result['Rooms'][$roomId]['TreeList'] = $roomTreeList;
+				$result[$roomId]['children'] = Hash::combine($children, '{n}.Room.id', '{n}');
+				$result[$roomId]['TreeList'] = $roomTreeList;
 			}
 		}
 		return $result;

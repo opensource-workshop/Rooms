@@ -57,10 +57,12 @@ class RoomsController extends RoomsAppController {
 			return;
 		}
 		$this->set('activeSpaceId', $spaceId);
-		$this->request->data = $this->SpaceTabs->get($spaceId);
+		$space = $this->SpaceTabs->get($spaceId);
 
 		//ルームデータ取得
-		$this->request->data = Hash::merge($this->request->data, $this->RoomsUtility->getRoomsForPaginator($spaceId));
+		$rooms = $this->RoomsUtility->getRoomsForPaginator($spaceId);
+
+		$this->set(compact('space', 'rooms'));
 	}
 
 /**
@@ -96,6 +98,8 @@ class RoomsController extends RoomsAppController {
 		} else {
 			//表示処理
 			$space = $this->SpaceTabs->get($spaceId);
+			$this->set('space', $space);
+
 			$model = Inflector::camelize($space['Space']['plugin']);
 			$this->$model = ClassRegistry::init($model . '.' . $model);
 
@@ -160,10 +164,10 @@ class RoomsController extends RoomsAppController {
 			));
 		}
 		$this->set('activeSpaceId', $this->request->data['Room']['space_id']);
-		$this->request->data = Hash::merge($this->request->data,
-			$this->SpaceTabs->get($this->viewVars['activeSpaceId'])
-		);
-		$model = Inflector::camelize($this->request->data['Space']['plugin']);
+		$space = $this->SpaceTabs->get($this->viewVars['activeSpaceId']);
+		$model = Inflector::camelize($space['Space']['plugin']);
+		$this->set('space', $space);
+
 		$this->$model = ClassRegistry::init($model . '.' . $model);
 		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
 		$this->set('activeRoomId', $roomId);
