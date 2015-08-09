@@ -27,9 +27,9 @@ class SpacesController extends RoomsAppController {
 	public $uses = array(
 		'Roles.DefaultRolePermission',
 		'Roles.Role',
-//		'Rooms.RoomsLanguage',
-//		'Rooms.Room',
-//		'Rooms.Space',
+		//'Rooms.RoomsLanguage',
+		//'Rooms.Room',
+		//'Rooms.Space',
 		'Rooms.SpacesLanguage',
 	);
 
@@ -79,8 +79,6 @@ class SpacesController extends RoomsAppController {
 			));
 			$this->request->data['SpacesLanguage'] = Hash::extract($spacesLanguage, '{n}.SpacesLanguage');
 		}
-
-
 	}
 
 }

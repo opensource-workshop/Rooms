@@ -1,6 +1,6 @@
 <?php
 /**
- * UserAttribute edit form template
+ * Space edit form template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>

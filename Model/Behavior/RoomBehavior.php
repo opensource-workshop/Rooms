@@ -263,38 +263,39 @@ class RoomBehavior extends ModelBehavior {
  * @return array Model array
  */
 	public function convertRoomRolePermissions(Model $model, $data) {
-//		$model->loadModels([
-//			'UserRoleSetting' => 'UserRoles.UserRoleSetting',
-//			'UserAttributesRole' => 'UserRoles.UserAttributesRole',
-//			'PluginsRole' => 'PluginManager.PluginsRole',
-//		]);
-//
-//		$pluginsRoles = $model->PluginsRole->find('all', array(
-//			'recursive' => -1,
-//			'conditions' => array(
-//				'plugin_key' => 'user_manager',
-//			)
-//		));
-//
-//		$userRoleSettings = $model->UserRoleSetting->find('all', array('recursive' => -1));
-//
-//		foreach ($userRoleSettings as $userRoleSetting) {
-//			$params = array(
-//				'role_key' => $userRoleSetting['UserRoleSetting']['role_key'],
-//				'default_role_key' => $userRoleSetting['UserRoleSetting']['default_role_key'],
-//				'user_attribute_key' => $data['UserAttributeSetting']['user_attribute_key'],
-//				'only_administrator' => (bool)$data['UserAttributeSetting']['only_administrator'],
-//				'is_systemized' => (bool)$data['UserAttributeSetting']['is_systemized']
-//			);
-//
-//			$params['is_usable_user_manager'] =
-//					(bool)Hash::extract($pluginsRoles, '{n}.PluginsRole[role_key=' . $params['role_key'] . ']');
-//
-//			$userAttributeRole = $model->UserAttributesRole->defaultUserAttributeRolePermissions($params);
-//			if (! $model->UserAttributesRole->save($userAttributeRole, array('validate' => false))) {
-//				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-//			}
-//		}
+		var_dump($data);
+		//$model->loadModels([
+		//	'UserRoleSetting' => 'UserRoles.UserRoleSetting',
+		//	'UserAttributesRole' => 'UserRoles.UserAttributesRole',
+		//	'PluginsRole' => 'PluginManager.PluginsRole',
+		//]);
+		//
+		//$pluginsRoles = $model->PluginsRole->find('all', array(
+		//	'recursive' => -1,
+		//	'conditions' => array(
+		//		'plugin_key' => 'user_manager',
+		//	)
+		//));
+		//
+		//$userRoleSettings = $model->UserRoleSetting->find('all', array('recursive' => -1));
+		//
+		//foreach ($userRoleSettings as $userRoleSetting) {
+		//	$params = array(
+		//		'role_key' => $userRoleSetting['UserRoleSetting']['role_key'],
+		//		'default_role_key' => $userRoleSetting['UserRoleSetting']['default_role_key'],
+		//		'user_attribute_key' => $data['UserAttributeSetting']['user_attribute_key'],
+		//		'only_administrator' => (bool)$data['UserAttributeSetting']['only_administrator'],
+		//		'is_systemized' => (bool)$data['UserAttributeSetting']['is_systemized']
+		//	);
+		//
+		//	$params['is_usable_user_manager'] =
+		//			(bool)Hash::extract($pluginsRoles, '{n}.PluginsRole[role_key=' . $params['role_key'] . ']');
+		//
+		//	$userAttributeRole = $model->UserAttributesRole->defaultUserAttributeRolePermissions($params);
+		//	if (! $model->UserAttributesRole->save($userAttributeRole, array('validate' => false))) {
+		//		throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		//	}
+		//}
 
 		return true;
 	}
@@ -340,7 +341,6 @@ class RoomBehavior extends ModelBehavior {
 		}
 		$sql .= 'WHERE ' . implode(' AND ', $where);
 
-var_dump($sql);
 		return $sql;
 	}
 

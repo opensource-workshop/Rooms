@@ -25,10 +25,10 @@ class PluginsSpacesController extends RoomsAppController {
  * @var array
  */
 	public $uses = array(
-//		'Rooms.RoomsLanguage',
-//		'Rooms.Room',
-//		'Rooms.Space',
-//		'Rooms.SpacesLanguage',
+		//'Rooms.RoomsLanguage',
+		//'Rooms.Room',
+		//'Rooms.Space',
+		//'Rooms.SpacesLanguage',
 	);
 
 /**

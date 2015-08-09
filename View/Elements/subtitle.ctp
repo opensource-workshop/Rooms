@@ -1,8 +1,8 @@
 <?php
 /**
  * Subtitle template
- *   - $active: Active tab key. Value is 'block_index or 'frame_settings' or 'role_permissions'.
- *   - $disabled: Disabled tab
+ *   - $spaceName
+ *   - $roomNames
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>

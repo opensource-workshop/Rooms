@@ -47,3 +47,7 @@ echo $this->Html->css(
 
 	<?php echo $this->Form->end(); ?>
 </div>
+
+<?php if ($this->request->params['action'] === 'edit') : ?>
+	<?php echo $this->element('Rooms/delete_form'); ?>
+<?php endif;

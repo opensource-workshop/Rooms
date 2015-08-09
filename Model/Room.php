@@ -159,8 +159,6 @@ class Room extends RoomsAppModel {
 
 			//トランザクションCommit
 			$dataSource->commit();
-			//$dataSource->rollback();
-			//return false;
 
 		} catch (Exception $ex) {
 			//トランザクションRollback

@@ -99,18 +99,4 @@ class RoomsLanguage extends RoomsAppModel {
 		return parent::beforeValidate($options);
 	}
 
-/**
- * validate of RoomsLanguages
- *
- * @param array $data received post data
- * @return bool True on success, false on validation errors
- */
-	public function validateRoomsLanguages($data) {
-		if (! $this->validateMany($data)) {
-			return false;
-		}
-
-		return true;
-	}
-
 }

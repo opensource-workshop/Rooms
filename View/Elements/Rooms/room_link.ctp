@@ -3,6 +3,7 @@
  * Room link template
  *   - $spaceId: spaces.id
  *   - $roomId: rooms.id
+ *   - $nest: nest count
  *   - $roomName: rooms_languages.name
  *
  * @author Noriko Arai <arai@nii.ac.jp>

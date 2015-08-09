@@ -175,14 +175,21 @@ class RoomsController extends RoomsAppController {
 			return;
 		}
 
-		if ($this->request->isPost()) {
+		if ($this->request->isPut()) {
 			$data = $this->data;
 
 			//不要パラメータ除去
 			unset($data['save'], $data['active_lang_id']);
 
-
+			//登録処理
+			if ($room = $this->Room->saveRoom($data, false)) {
+				//正常の場合
+				$this->redirect('/rooms/roles_rooms_users/edit/' . $room['Room']['id'] . '/');
+				return;
+			}
+			$this->handleValidationError($this->Room->validationErrors);
 			$this->request->data = $data;
+
 		} else {
 			$this->request->data = $this->viewVars['room'];
 
@@ -202,17 +209,33 @@ class RoomsController extends RoomsAppController {
 
 		$this->RoomsRolesForm->settings['room_id'] = $roomId;
 		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
-//		var_dump($this->request->data);
 	}
 
 /**
- * edit
+ * delete
  *
  * @return void
  */
-	public function delete($roomId = null) {
+	public function delete() {
+		if (! $this->request->isDelete()) {
+			$this->throwBadRequest();
+			return;
+		}
+
+		//登録処理の場合、URLよりPOSTパラメータでチェックする
+		$roomId = $this->data['Room']['id'];
+		//ルームデータチェック＆セット
+		if (! $this->RoomsUtility->validRoom($roomId, null)) {
+			return;
+		}
+		//スペースデータチェック＆セット
+		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
+			return;
+		}
 
 
+		//$this->Room->deleteRoom($this->data);
+		$this->redirect('/rooms/' . $this->viewVars['space']['Space']['default_setting_action']);
 	}
 
 }

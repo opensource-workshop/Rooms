@@ -26,16 +26,6 @@ class RoomsRolesFormHelper extends FormHelper {
 	public $helpers = array('Form');
 
 /**
- * Default Constructor
- *
- * @param View $View The View this helper is being attached to.
- * @param array $settings Configuration settings for the helper.
- */
-	public function __construct(View $View, $settings = array()) {
-		parent::__construct($View, $settings);
-	}
-
-/**
  * Outputs room roles radio
  *
  * @param string $fieldName Name attribute of the RADIO
@@ -67,20 +57,6 @@ class RoomsRolesFormHelper extends FormHelper {
 			$html .= '<span class="checkbox-separator"></span>';
 		}
 
-
-//	$this->Form->checkbox('UserAttributeSetting.self_publicity', array(
-//			'div' => false,
-//		));
-
-	//echo $this->Form->label(
-//			'UserAttributeSetting.self_publicity',
-//			__d('user_attributes', 'Enable individual public/private setting')
-//		);
-
-
-		//var_dump($this->_View->viewVars);
-
-		//var_dump($this->_View->viewVars);
 		return $html;
 	}
 

@@ -1,7 +1,7 @@
 <?php
 /**
- * Space setting tabs template
- *   - $activeSpaceId: Active spaces.id.
+ * Room setting tabs template
+ *   - $activeRoomId: Active spaces.id.
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
