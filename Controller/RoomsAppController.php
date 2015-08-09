@@ -28,4 +28,14 @@ class RoomsAppController extends AppController {
 		'Security'
 	);
 
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->deny('index', 'view');
+	}
+
 }

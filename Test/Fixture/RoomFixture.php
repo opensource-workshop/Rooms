@@ -52,7 +52,7 @@ class RoomFixture extends CakeTestFixture {
 			'id' => 1,
 			'space_id' => 1,
 			'page_id_top' => 1,
-			'parent_id' => 1,
+			'parent_id' => null,
 			'lft' => 1,
 			'rght' => 1,
 			'active' => 1,

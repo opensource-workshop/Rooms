@@ -17,7 +17,7 @@ App::uses('RoomsAppController', 'Rooms.Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Controller
  */
-class RoomsUsersController extends RoomsAppController {
+class RolesRoomsUsersController extends RoomsAppController {
 
 /**
  * use model
@@ -39,7 +39,7 @@ class RoomsUsersController extends RoomsAppController {
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
 		'Rooms.RoomsUtility',
-		'Rooms.SpaceTabs',
+		'Rooms.SpacesUtility',
 	);
 
 /**
@@ -52,24 +52,24 @@ class RoomsUsersController extends RoomsAppController {
 		if ($this->request->isPost()) {
 			$roomId = $this->data['Room']['id'];
 		}
-		//ルームデータチェック
-		if (! $this->RoomsUtility->exist($roomId)) {
-			$this->throwBadRequest();
+		//ルームデータチェック＆セット
+		if (! $this->RoomsUtility->validRoom($roomId, Configure::read('Config.languageId'))) {
+			return;
+		}
+		//スペースデータチェック＆セット
+		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
 			return;
 		}
 
 		if ($this->request->isPost()) {
+			//登録処理
 			$data = $this->data;
 
-			//不要パラメータ除去
-			unset($data['save'], $data['active_lang_id']);
+			//--不要パラメータ除去
+			unset($data['save']);
 
-		} else {
-			$this->request->data =  $this->RoomsUtility->get($roomId);
+			$this->request->data = $data;
 		}
-
-		$this->set('activeSpaceId', $this->request->data['Room']['space_id']);
-		$this->set('activeRoomId', $roomId);
 	}
 
 }

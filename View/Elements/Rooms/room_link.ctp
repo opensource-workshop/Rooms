@@ -12,7 +12,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-$roomName = str_replace([chr(9)], ['<span class="rooms-tree"></span>'], h($roomName));
+$roomName = str_repeat('<span class="rooms-tree"></span>', $nest) . h($roomName);
 ?>
 
 <tr class="<?php echo (! $active ? 'danger' : ''); ?>">

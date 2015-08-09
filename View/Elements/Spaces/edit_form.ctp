@@ -11,20 +11,20 @@
 ?>
 
 <?php foreach ($this->request->data['SpacesLanguage'] as $index => $spaceLanguage) : ?>
-	<?php $languageId = $spaceLanguage['SpacesLanguage']['language_id']; ?>
+	<?php $languageId = $spaceLanguage['language_id']; ?>
 
 	<?php if (isset($languages[$languageId])) : ?>
 		<div id="rooms-space-<?php echo $languageId; ?>"
 				class="tab-pane<?php echo ($activeLangId === (string)$languageId ? ' active' : ''); ?>">
 
-			<?php echo $this->Form->hidden('SpacesLanguage.' . $index . '.' . 'SpacesLanguage.id'); ?>
+			<?php echo $this->Form->hidden('SpacesLanguage.' . $index . '.id'); ?>
 
-			<?php echo $this->Form->hidden('SpacesLanguage.' . $index . '.' . 'SpacesLanguage.space_id'); ?>
+			<?php echo $this->Form->hidden('SpacesLanguage.' . $index . '.space_id'); ?>
 
-			<?php echo $this->Form->hidden('SpacesLanguage.' . $index . '.' . 'SpacesLanguage.language_id'); ?>
+			<?php echo $this->Form->hidden('SpacesLanguage.' . $index . '.language_id'); ?>
 
 			<div class="form-group">
-				<?php echo $this->Form->input('SpacesLanguage.' . $index . '.' . 'SpacesLanguage.name', array(
+				<?php echo $this->Form->input('SpacesLanguage.' . $index . '.name', array(
 						'type' => 'text',
 						'label' => __d('rooms', 'Space name') . $this->element('NetCommons.required'),
 						'class' => 'form-control',

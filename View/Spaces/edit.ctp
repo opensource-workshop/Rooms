@@ -9,6 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 ?>
+<?php echo $this->element('Rooms.subtitle'); ?>
 
 <?php echo $this->element('Rooms.space_tabs'); ?>
 

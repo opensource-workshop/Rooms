@@ -16,6 +16,7 @@ echo $this->Html->css(
 	array('plugin' => false)
 );
 ?>
+<?php echo $this->element('Rooms.subtitle'); ?>
 
 <?php echo $this->element('Rooms.space_tabs'); ?>
 
@@ -24,10 +25,12 @@ echo $this->Html->css(
 <div class="panel panel-default">
 	<?php echo $this->Form->create(null, array('novalidate' => true)); ?>
 
+	<?php echo $this->Form->hidden('Room.id'); ?>
+
 	<div class="panel-body">
 		<div class="form-inline">
 			<div class="clearfix">
-				<?php echo $this->PluginsForm->checkboxPluginsRoom('Plugin.key', $activeRoomId, array('all' => true,
+				<?php echo $this->PluginsForm->checkboxPluginsRoom($activeRoomId, array('all' => true,
 						'class' => 'pull-left plugin-checkbox-separator'
 					)); ?>
 			</div>

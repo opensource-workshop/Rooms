@@ -17,6 +17,8 @@ echo $this->Html->css(
 );
 ?>
 
+<?php echo $this->element('Rooms.subtitle'); ?>
+
 <?php echo $this->element('Rooms.space_tabs'); ?>
 
 <table class="table table-hover">
@@ -33,27 +35,27 @@ echo $this->Html->css(
 				</a>
 			</th>
 		</tr>
-		<?php if ($rooms) : ?>
-			<?php foreach ($rooms as $room) : ?>
-				<?php echo $this->element('Rooms/room_link', array(
-						'spaceId' => $space['Space']['id'],
-						'roomId' => $room['Room']['id'],
-						'roomName' => $room['RoomsLanguage']['name'],
-						'active' => (bool)$room['Room']['active'],
-					)); ?>
+		<?php foreach ($rooms as $room) : ?>
+			<?php echo $this->element('Rooms/room_link', array(
+					'spaceId' => $space['Space']['id'],
+					'roomId' => $room['Room']['id'],
+					'nest' => 0,
+							'roomName' => $room['RoomsLanguage']['name'],
+					'active' => (bool)$room['Room']['active'],
+				)); ?>
 
-				<?php if (isset($room['TreeList'])) : ?>
-					<?php foreach ($room['TreeList'] as $roomId => $roomName) : ?>
-						<?php echo $this->element('Rooms/room_link', array(
-								'spaceId' => $space['Space']['id'],
-								'roomId' => $roomId,
-								'roomName' => $roomName,
-								'active' => (bool)$room['children'][$roomId]['Room']['active'],
-							)); ?>
-					<?php endforeach; ?>
-				<?php endif; ?>
-			<?php endforeach; ?>
-		<?php endif; ?>
+			<?php if (isset($room['TreeList'])) : ?>
+				<?php foreach ($room['TreeList'] as $roomId => $roomName) : ?>
+					<?php echo $this->element('Rooms/room_link', array(
+							'spaceId' => $space['Space']['id'],
+							'roomId' => $roomId,
+							'nest' => substr_count($roomName, chr(9)) + 1,
+							'roomName' => $room['children'][$roomId]['RoomsLanguage']['name'],
+							'active' => (bool)$room['children'][$roomId]['Room']['active'],
+						)); ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		<?php endforeach; ?>
 	</tbody>
 </table>
 

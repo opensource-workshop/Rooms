@@ -25,6 +25,7 @@ class RoomsController extends RoomsAppController {
  * @var array
  */
 	public $uses = array(
+		'Pages.Page',
 		'Rooms.RoomsLanguage',
 		'Rooms.Room',
 	);
@@ -41,7 +42,7 @@ class RoomsController extends RoomsAppController {
 			'permissions' => array('content_publishable')
 		),
 		'Rooms.RoomsUtility',
-		'Rooms.SpaceTabs',
+		'Rooms.SpacesUtility',
 		//'Paginator',
 	);
 
@@ -51,18 +52,14 @@ class RoomsController extends RoomsAppController {
  * @return void
  */
 	public function index($spaceId = null) {
-		//スペースデータチェック
-		if (! $this->SpaceTabs->exist($spaceId)) {
-			$this->throwBadRequest();
+		//スペースデータチェック＆セット
+		if (! $this->SpacesUtility->validSpace($spaceId)) {
 			return;
 		}
-		$this->set('activeSpaceId', $spaceId);
-		$space = $this->SpaceTabs->get($spaceId);
 
 		//ルームデータ取得
 		$rooms = $this->RoomsUtility->getRoomsForPaginator($spaceId);
-
-		$this->set(compact('space', 'rooms'));
+		$this->set('rooms', $rooms);
 	}
 
 /**
@@ -73,61 +70,88 @@ class RoomsController extends RoomsAppController {
 	public function add($spaceId = null, $roomId = null) {
 		$this->view = 'edit';
 
-		//スペースデータチェック
-		if (! $this->SpaceTabs->exist($spaceId)) {
-			$this->throwBadRequest();
-			return;
-		}
-		$this->set('activeSpaceId', $spaceId);
-		$this->request->data = $this->SpaceTabs->get($spaceId);
-
 		//登録処理の場合、URLよりPOSTパラメータでチェックする
 		if ($this->request->isPost()) {
 			$roomId = $this->data['Room']['parent_id'];
 		}
+		//スペースデータチェック＆セット
+		if (! $this->SpacesUtility->validSpace($spaceId)) {
+			return;
+		}
+		//スペースModelの定義
+		$model = Inflector::camelize($this->viewVars['space']['Space']['plugin']);
+		$this->$model = ClassRegistry::init($model . '.' . $model);
 
-		//ルームデータチェック
-		if (isset($roomId) && ! $this->RoomsUtility->exist($roomId)) {
-			$this->throwBadRequest();
+		//ルームデータチェック＆セット
+		if (! $this->RoomsUtility->validRoom($roomId, Configure::read('Config.languageId'))) {
 			return;
 		}
 
 		if ($this->request->isPost()) {
 			//登録処理
+			$data = $this->data;
+
+			//不要パラメータ除去
+			unset($data['save'], $data['active_lang_id']);
+
+			//登録処理
+			if ($room = $this->Room->saveRoom($data, true)) {
+				//正常の場合
+				$this->redirect('/rooms/roles_rooms_users/edit/' . $room['Room']['id'] . '/');
+				return;
+			}
+			$this->handleValidationError($this->Room->validationErrors);
+			$this->request->data = $data;
 
 		} else {
 			//表示処理
-			$space = $this->SpaceTabs->get($spaceId);
-			$this->set('space', $space);
-
-			$model = Inflector::camelize($space['Space']['plugin']);
-			$this->$model = ClassRegistry::init($model . '.' . $model);
-
-			$this->RoomsRolesForm->settings['room_id'] = null;
-			$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
-
-			//初期値セット
+			//--初期値セット
 			$this->request->data['RoomsLanguage'] = array();
 			foreach (array_keys($this->viewVars['languages']) as $langId) {
 				$index = count($this->request->data['RoomsLanguage']);
 
-				$this->request->data['RoomsLanguage'][$index] = $this->RoomsLanguage->create(array(
+				$roomsLanguage = $this->RoomsLanguage->create(array(
 					'id' => null,
 					'language_id' => $langId,
 					'room_id' => null,
 					'name' => '',
 				));
+				$this->request->data['RoomsLanguage'][$index] = $roomsLanguage['RoomsLanguage'];
 			}
+
+			if (isset($this->viewVars['room']['Room']['page_id_top'])) {
+				$pageId = $this->viewVars['room']['Room']['page_id_top'];
+			} else {
+				$pageId = null;
+			}
+
+			if (isset($this->viewVars['room']['Room']['root_id'])) {
+				$rootId = $this->viewVars['room']['Room']['root_id'];
+			} else {
+				$rootId = $roomId;
+			}
+
 			$this->request->data = Hash::merge($this->request->data,
 				$this->Room->create(array(
 					'id' => null,
+					'space_id' => $spaceId,
+					'root_id' => $rootId,
 					'parent_id' => $roomId,
 					'active' => true,
 					'need_approval' => $this->$model->defaultNeedApproval,
 					'default_participation' => $this->$model->defaultParticipation,
 				))
 			);
+			$this->request->data = Hash::merge($this->request->data,
+				$this->Page->create(array(
+					'parent_id' => $pageId,
+				))
+			);
 		}
+
+		//RoomsRolesFormのセット
+		$this->RoomsRolesForm->settings['room_id'] = null;
+		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
 
 		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
 	}
@@ -142,9 +166,12 @@ class RoomsController extends RoomsAppController {
 		if ($this->request->isPost()) {
 			$roomId = $this->data['Room']['id'];
 		}
-		//ルームデータチェック
-		if (! $this->RoomsUtility->exist($roomId)) {
-			$this->throwBadRequest();
+		//ルームデータチェック＆セット
+		if (! $this->RoomsUtility->validRoom($roomId, null)) {
+			return;
+		}
+		//スペースデータチェック＆セット
+		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
 			return;
 		}
 
@@ -154,27 +181,28 @@ class RoomsController extends RoomsAppController {
 			//不要パラメータ除去
 			unset($data['save'], $data['active_lang_id']);
 
+
+			$this->request->data = $data;
 		} else {
-			$this->request->data =  $this->RoomsUtility->get($roomId);
-			$this->request->data['RoomsLanguage'] = $this->RoomsLanguage->find('all', array(
+			$this->request->data = $this->viewVars['room'];
+
+			$page = $this->Page->find('first', array(
 				'recursive' => -1,
 				'conditions' => array(
-					'room_id' => $roomId,
+					'id' => $this->viewVars['room']['Room']['page_id_top'],
 				),
 			));
+			$this->request->data = Hash::merge($this->request->data, $page);
 		}
-		$this->set('activeSpaceId', $this->request->data['Room']['space_id']);
-		$space = $this->SpaceTabs->get($this->viewVars['activeSpaceId']);
-		$model = Inflector::camelize($space['Space']['plugin']);
-		$this->set('space', $space);
 
+		//スペースModelの定義
+		$model = Inflector::camelize($this->viewVars['space']['Space']['plugin']);
 		$this->$model = ClassRegistry::init($model . '.' . $model);
 		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
-		$this->set('activeRoomId', $roomId);
 
 		$this->RoomsRolesForm->settings['room_id'] = $roomId;
 		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
-
+//		var_dump($this->request->data);
 	}
 
 /**

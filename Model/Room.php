@@ -30,6 +30,8 @@ class Room extends RoomsAppModel {
  * @var array
  */
 	public $actsAs = array(
+		'NetCommons.OriginalKey',
+		'Rooms.Room',
 		'Tree',
 	);
 
@@ -98,6 +100,92 @@ class Room extends RoomsAppModel {
 			'finderQuery' => '',
 		)
 	);
+
+/**
+ * Save Room
+ *
+ * @param array $data received post data
+ * @return bool True on success, false on validation errors
+ * @throws InternalErrorException
+ */
+	public function saveRoom($data, $created) {
+		$this->loadModels([
+			'Room' => 'Rooms.Room',
+			'RoomsLanguage' => 'Rooms.RoomsLanguage',
+		]);
+
+		//トランザクションBegin
+		$this->setDataSource('master');
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+
+		//バリデーション
+		if (! $this->validateRoom($data['Room'])) {
+			return false;
+		}
+		$roomsLanguages = $data['RoomsLanguage'];
+		if (! $this->RoomsLanguage->validateMany($roomsLanguages)) {
+			$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomsLanguage->validationErrors);
+			return false;
+		}
+
+		try {
+			//登録処理
+			$room['Page'] = $data['Page'];
+
+			//Roomデータの登録
+			if (! $ret = $this->save($data['Room'], false, false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+			$room = Hash::merge($room, $ret);
+
+			//RoomsLanguageデータの登録
+			$data = Hash::insert($data, 'RoomsLanguage.{n}.room_id', $room['Room']['id']);
+			foreach ($data['RoomsLanguage'] as $index => $roomsLanguage) {
+				if (! $ret = $this->RoomsLanguage->save($roomsLanguage, false, false)) {
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+				$room['RoomsLanguage'][$index] = Hash::extract($ret, 'RoomsLanguage');
+			}
+
+			//デフォルトデータ登録処理
+			if ($created) {
+				$this->saveDefaultRolesRoom($room);
+				$this->saveDefaultRolesRoomsUsers($room);
+				$this->saveDefaultRolesPluginsRoom($room);
+				$this->saveDefaultRoomRolePermissions($room);
+				$this->saveDefaultPage($room);
+			}
+
+			//トランザクションCommit
+			$dataSource->commit();
+			//$dataSource->rollback();
+			//return false;
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+
+		return $room;
+	}
+
+/**
+ * validate of Room
+ *
+ * @param array $data received post data
+ * @return bool True on success, false on validation errors
+ */
+	public function validateRoom($data) {
+		$this->set($data);
+		$this->validates();
+		if ($this->validationErrors) {
+			return false;
+		}
+		return true;
+	}
 
 /**
  * Return readable rooms

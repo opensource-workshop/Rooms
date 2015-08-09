@@ -1,6 +1,6 @@
 <?php
 /**
- * UserAttributeLayouts Component
+ * SpacesUtility Component
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,12 +12,12 @@
 App::uses('Component', 'Controller');
 
 /**
- * UserAttributeLayouts Component
+ * SpacesUtility Component
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Controller
  */
-class SpaceTabsComponent extends Component {
+class SpacesUtilityComponent extends Component {
 
 /**
  * Called after the Controller::beforeFilter() and before the controller action
@@ -71,6 +71,28 @@ class SpaceTabsComponent extends Component {
  */
 	public function get($spaceId) {
 		return $this->controller->viewVars['spaces'][$spaceId];
+	}
+
+/**
+ * Check space.id
+ *
+ * @param int $spaceId spaces.id
+ * @return bool True on success, false on failure
+ */
+	public function validSpace($spaceId) {
+		//スペースデータチェック＆セット
+		if (! $this->exist($spaceId)) {
+			$this->controller->throwBadRequest();
+			return false;
+		}
+
+		//スペースデータセット
+		$this->controller->set('activeSpaceId', $spaceId);
+		$space = $this->get($spaceId);
+		$this->controller->set('space', $space);
+		$this->controller->set('spaceName', $space['SpacesLanguage']['name']);
+
+		return true;
 	}
 
 }

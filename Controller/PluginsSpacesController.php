@@ -38,7 +38,7 @@ class PluginsSpacesController extends RoomsAppController {
  */
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
-		'Rooms.SpaceTabs',
+		'Rooms.SpacesUtility',
 	);
 
 /**
@@ -56,25 +56,17 @@ class PluginsSpacesController extends RoomsAppController {
  * @return void
  */
 	public function edit($spaceId = null) {
-		//スペースデータチェック
-		if (! $this->SpaceTabs->exist($spaceId)) {
-			$this->throwBadRequest();
+		//スペースデータチェック＆セット
+		if (! $this->SpacesUtility->validSpace($spaceId)) {
 			return;
 		}
-		$this->set('activeSpaceId', $spaceId);
 
 		if ($this->request->isPost()) {
 			$data = $this->data;
 
 			//不要パラメータ除去
 			unset($data['save']);
-
-		} else {
-
 		}
-
-		$space = $this->SpaceTabs->get($spaceId);
-		$this->set('space', $space);
 	}
 
 }

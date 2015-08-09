@@ -62,10 +62,10 @@ class RoomsUtilityComponent extends Component {
 		$result = Hash::combine($data, '{n}.Room.id', '{n}');
 
 		//子ルームのデータ取得
-		$parentRoomIds = array_keys($result);
-		foreach ($parentRoomIds as $roomId) {
+		$rootRoomIds = array_keys($result);
+		foreach ($rootRoomIds as $roomId) {
 			//Treeリスト取得
-			$roomTreeList = $this->Room->generateTreeList(array('Room.parent_id' => $roomId), null, null, $treeSpacer); //$spacer=Tab
+			$roomTreeList = $this->Room->generateTreeList(array('Room.root_id' => $roomId), null, null, $treeSpacer); //$spacer=Tab
 			if ($roomTreeList) {
 				$children = $this->RoomsLanguage->find('all', array(
 					'recursive' => 0,
@@ -88,19 +88,33 @@ class RoomsUtilityComponent extends Component {
  * @param int $roomId rooms.id
  * @return array Room data
  */
-	public function get($roomId) {
-		static $room = null;
-
-		if (! isset($room)) {
-			$room = $this->RoomsLanguage->find('first', array(
-				'recursive' => 0,
-				'conditions' => array(
-					'RoomsLanguage.room_id' => $roomId,
-					'RoomsLanguage.language_id' => Configure::read('Config.languageId')
-				),
-			));
+	public function getRoom($roomId, $languageId) {
+		if (! $parents = $this->Room->getPath($roomId)) {
+			return $parents;
 		}
-		return $room;
+		$result = array_pop($parents);
+		$parents[] = $result;
+
+		foreach ($parents as $index => $room) {
+			$conditions = array(
+				'RoomsLanguage.room_id' => $room['Room']['id'],
+			);
+			if (isset($languageId)) {
+				$conditions['RoomsLanguage.language_id'] = $languageId;
+			}
+			$ret = $this->RoomsLanguage->find('all', array(
+				'recursive' => -1,
+				'conditions' => $conditions,
+			));
+			$roomLang['RoomsLanguage'] = Hash::extract($ret, '{n}.RoomsLanguage');
+
+			if ($result['Room']['id'] === $room['Room']['id']) {
+				$result = Hash::merge($result, $roomLang);
+			} else {
+				$result['Parent'][$index] = $roomLang;
+			}
+		}
+		return $result;
 	}
 
 /**
@@ -110,9 +124,36 @@ class RoomsUtilityComponent extends Component {
  * @return bool True on success, false on failure
  */
 	public function exist($roomId) {
-		if (! $this->get($roomId)) {
-			return false;
+		$this->Room->id = $roomId;
+		return $this->Room->exists();
+	}
+
+/**
+ * Check rooms.id
+ *
+ * @param int $roomId rooms.id
+ * @param int $languageId languages.id
+ * @return bool True on success, false on failure
+ */
+	public function validRoom($roomId, $languageId) {
+		//ルームデータチェック
+		if ($roomId && ! $this->exist($roomId)) {
+			$this->controller->throwBadRequest();
+			return;
 		}
+		//ルームデータセット
+		$this->controller->set('activeRoomId', $roomId);
+
+		$room = $this->getRoom($roomId, $languageId);
+		$this->controller->set('room', $room);
+
+		$roomNames = Hash::extract($room, 'Parent.{n}.RoomsLanguage.{n}[language_id=' . Configure::read('Config.languageId') . '].name');
+		$roomNames = Hash::merge(
+			$roomNames,
+			Hash::extract($room, 'RoomsLanguage.{n}[language_id=' . Configure::read('Config.languageId') . '].name')
+		);
+		$this->controller->set('roomNames', $roomNames);
+
 		return true;
 	}
 

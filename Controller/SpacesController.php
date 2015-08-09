@@ -49,7 +49,7 @@ class SpacesController extends RoomsAppController {
 				'upload_video_not_limited'
 			)
 		),
-		'Rooms.SpaceTabs',
+		'Rooms.SpacesUtility',
 	);
 
 /**
@@ -58,12 +58,11 @@ class SpacesController extends RoomsAppController {
  * @return void
  */
 	public function edit($spaceId = null) {
-		//スペースデータチェック
-		if (! $this->SpaceTabs->exist($spaceId)) {
-			$this->throwBadRequest();
+		//スペースデータチェック＆セット
+		if (! $this->SpacesUtility->validSpace($spaceId)) {
 			return;
 		}
-		$this->set('activeSpaceId', $spaceId);
+		$this->RoomsRolesForm->settings['type'] = $this->viewVars['space']['Space']['plugin'];
 
 		if ($this->request->isPost()) {
 			//登録処理
@@ -71,27 +70,17 @@ class SpacesController extends RoomsAppController {
 		} else {
 			//表示処理
 			//--Spaceデータ取得
-			$this->request->data = $this->SpaceTabs->get($spaceId);
-			$this->request->data['SpacesLanguage'] = $this->SpacesLanguage->find('all', array(
+			$this->request->data = $this->viewVars['space'];
+			$spacesLanguage = $this->SpacesLanguage->find('all', array(
 				'recursive' => -1,
 				'conditions' => array(
 					'space_id' => $spaceId,
 				),
 			));
-//			//--DefaultRolePermissionデータ取得
-//			$results = $this->RoomsRolesForm->NetCommonsRoomRole->getRoomRolePermissions(null, array(
-//				'html_not_limited',
-//				'upload_picture_not_limited',
-//				'upload_attachment_not_limited',
-//				'upload_video_not_limited'
-//			), $this->request->data['Space']['plugin']);
-//			$this->set($results);
-//			$this->RoomsRolesForm->tookPermmision = true;
-//
-//			$this->request->data['DefaultRolePermission'] = $results['DefaultRolePermission'];
-
+			$this->request->data['SpacesLanguage'] = Hash::extract($spacesLanguage, '{n}.SpacesLanguage');
 		}
-		$this->RoomsRolesForm->settings['type'] = $this->request->data['Space']['plugin'];
+
+
 	}
 
 }

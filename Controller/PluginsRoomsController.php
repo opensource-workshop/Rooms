@@ -39,7 +39,7 @@ class PluginsRoomsController extends RoomsAppController {
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
 		'Rooms.RoomsUtility',
-		'Rooms.SpaceTabs',
+		'Rooms.SpacesUtility',
 	);
 
 /**
@@ -61,27 +61,27 @@ class PluginsRoomsController extends RoomsAppController {
 		if ($this->request->isPost()) {
 			$roomId = $this->data['Room']['id'];
 		}
-		//ルームデータチェック
-		if (! $this->RoomsUtility->exist($roomId)) {
-			$this->throwBadRequest();
+		//ルームデータチェック＆セット
+		if (! $this->RoomsUtility->validRoom($roomId, Configure::read('Config.languageId'))) {
+			return;
+		}
+		//スペースデータチェック＆セット
+		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
 			return;
 		}
 
 		if ($this->request->isPost()) {
+			//登録処理
 			$data = $this->data;
 
-			//不要パラメータ除去
+			//--不要パラメータ除去
 			unset($data['save']);
 
+
+			$this->request->data = $data;
 		} else {
-			$this->request->data =  $this->RoomsUtility->get($roomId);
+			$this->request->data = $this->viewVars['room'];
 		}
-
-		$space = $this->SpaceTabs->get($this->request->data['Room']['space_id']);
-		$this->set('space', $space);
-
-		$this->set('activeSpaceId', $this->request->data['Room']['space_id']);
-		$this->set('activeRoomId', $roomId);
 	}
 
 }

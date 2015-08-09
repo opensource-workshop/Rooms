@@ -16,6 +16,7 @@ echo $this->Html->css(
 	array('plugin' => false)
 );
 ?>
+<?php echo $this->element('Rooms.subtitle'); ?>
 
 <?php echo $this->element('Rooms.space_tabs'); ?>
 
