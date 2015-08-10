@@ -49,7 +49,7 @@ class SpaceRecords extends NetCommonsMigration {
 				'rght' => '8',
 				'type' => '1',
 				'page_layout_permitted' => null,
-				'plugin' => null,
+				'plugin_key' => null,
 				'default_setting_action' => null
 			),
 			array(
@@ -59,7 +59,7 @@ class SpaceRecords extends NetCommonsMigration {
 				'rght' => '3',
 				'type' => '2',
 				'page_layout_permitted' => '1',
-				'plugin' => 'public_space',
+				'plugin_key' => 'public_space',
 				'default_setting_action' => 'rooms/index/2'
 			),
 			array(
@@ -69,7 +69,7 @@ class SpaceRecords extends NetCommonsMigration {
 				'rght' => '5',
 				'type' => '3',
 				'page_layout_permitted' => '0',
-				'plugin' => 'private_space',
+				'plugin_key' => 'private_space',
 				'default_setting_action' => 'spaces/edit/3'
 			),
 			array(
@@ -79,7 +79,7 @@ class SpaceRecords extends NetCommonsMigration {
 				'rght' => '7',
 				'type' => '4',
 				'page_layout_permitted' => '1',
-				'plugin' => 'room_space',
+				'plugin_key' => 'room_space',
 				'default_setting_action' => 'rooms/index/4'
 			),
 		),
