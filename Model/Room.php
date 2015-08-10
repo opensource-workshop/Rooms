@@ -31,6 +31,7 @@ class Room extends RoomsAppModel {
  */
 	public $actsAs = array(
 		'NetCommons.OriginalKey',
+		'Rooms.DeleteRoomAssociations',
 		'Rooms.SaveRoomAssociations',
 		'Tree',
 	);
@@ -182,6 +183,61 @@ class Room extends RoomsAppModel {
 		if ($this->validationErrors) {
 			return false;
 		}
+		return true;
+	}
+
+/**
+ * Save Room
+ *
+ * @param array $data received post data
+ * @return bool True on success, false on validation errors
+ * @throws InternalErrorException
+ */
+	public function deleteRoom($data) {
+		$this->loadModels([
+			'Room' => 'Rooms.Room',
+			'RoomsLanguage' => 'Rooms.RoomsLanguage',
+		]);
+
+		//トランザクションBegin
+		$this->setDataSource('master');
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+
+		$children = $this->Room->children($data['Room']['id'], false, 'Room.id', 'Room.rght');
+		$roomIds = Hash::extract($children, '{n}.Room.id');
+		$roomIds[] = $data['Room']['id'];
+
+		try {
+			foreach ($roomIds as $roomId) {
+				//プラグインデータの削除
+				$this->deletePluginByRoom($roomId);
+
+				//frameデータの削除
+				$this->deleteFramesByRoom($roomId);
+
+				//pageデータの削除
+				$this->deletePagesByRoom($roomId);
+
+				//Roomデータの削除
+				if (! $ret = $this->delete($roomId, false)) {
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+
+				//Roomの関連データの削除
+				$this->deleteRoomAssociations($roomId);
+			}
+
+			//トランザクションCommit
+			$dataSource->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+
 		return true;
 	}
 

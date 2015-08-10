@@ -233,6 +233,11 @@ class RoomsController extends RoomsAppController {
 			return;
 		}
 
+		//削除処理
+		if (! $this->Room->deleteRoom($this->data)) {
+			$this->throwBadRequest();
+			return;
+		}
 
 		//$this->Room->deleteRoom($this->data);
 		$this->redirect('/rooms/' . $this->viewVars['space']['Space']['default_setting_action']);

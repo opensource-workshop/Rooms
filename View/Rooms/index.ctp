@@ -34,9 +34,11 @@ echo $this->Html->css(
 				</a>
 			</th>
 			<th class="text-right">
-				<a class="btn btn-xs btn-success" href="<?php echo $this->Html->url('/rooms/rooms/add/' . $space['Space']['id']); ?>">
-					<span class="glyphicon glyphicon-plus"> </span>
-				</a>
+				<?php if ($space['Space']['plugin_key'] !== 'public_space') : ?>
+					<a class="btn btn-xs btn-success" href="<?php echo $this->Html->url('/rooms/rooms/add/' . $space['Space']['id']); ?>">
+						<span class="glyphicon glyphicon-plus"> </span>
+					</a>
+				<?php endif; ?>
 			</th>
 		</tr>
 		<?php foreach ($rooms as $room) : ?>
