@@ -79,7 +79,7 @@ class RoomsController extends RoomsAppController {
 			return;
 		}
 		//スペースModelの定義
-		$model = Inflector::camelize($this->viewVars['space']['Space']['plugin']);
+		$model = Inflector::camelize($this->viewVars['space']['Space']['plugin_key']);
 		$this->$model = ClassRegistry::init($model . '.' . $model);
 
 		//ルームデータチェック＆セット
@@ -203,7 +203,7 @@ class RoomsController extends RoomsAppController {
 		}
 
 		//スペースModelの定義
-		$model = Inflector::camelize($this->viewVars['space']['Space']['plugin']);
+		$model = Inflector::camelize($this->viewVars['space']['Space']['plugin_key']);
 		$this->$model = ClassRegistry::init($model . '.' . $model);
 		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
 

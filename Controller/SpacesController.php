@@ -62,7 +62,7 @@ class SpacesController extends RoomsAppController {
 		if (! $this->SpacesUtility->validSpace($spaceId)) {
 			return;
 		}
-		$this->RoomsRolesForm->settings['type'] = $this->viewVars['space']['Space']['plugin'];
+		$this->RoomsRolesForm->settings['type'] = $this->viewVars['space']['Space']['plugin_key'];
 
 		if ($this->request->isPost()) {
 			//登録処理

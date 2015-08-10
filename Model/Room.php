@@ -31,7 +31,7 @@ class Room extends RoomsAppModel {
  */
 	public $actsAs = array(
 		'NetCommons.OriginalKey',
-		'Rooms.Room',
+		'Rooms.SaveRoomAssociations',
 		'Tree',
 	);
 
