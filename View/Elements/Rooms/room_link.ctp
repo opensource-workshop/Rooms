@@ -19,7 +19,6 @@ $roomName = str_repeat('<span class="rooms-tree"></span>', $nest) . h($roomName)
 <tr class="<?php echo (! $active ? 'danger' : ''); ?>">
 	<td>
 		<a href="<?php echo $this->Html->url('/rooms/rooms/edit/' . $roomId); ?>">
-			<span class="rooms-tree"></span>
 			<?php echo $roomName; ?>
 		</a>
 	</td>

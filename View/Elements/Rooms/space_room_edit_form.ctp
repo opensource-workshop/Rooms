@@ -10,41 +10,10 @@
  */
 ?>
 
-<?php foreach ($this->request->data['SpacesLanguage'] as $index => $spaceLanguage) : ?>
-	<?php $languageId = $spaceLanguage['language_id']; ?>
-
-	<?php if (isset($languages[$languageId])) : ?>
-		<div id="rooms-space-<?php echo $languageId; ?>"
-				class="tab-pane<?php echo ($activeLangId === (string)$languageId ? ' active' : ''); ?>">
-
-			<?php echo $this->Form->hidden('SpacesLanguage.' . $index . '.id'); ?>
-
-			<?php echo $this->Form->hidden('SpacesLanguage.' . $index . '.space_id'); ?>
-
-			<?php echo $this->Form->hidden('SpacesLanguage.' . $index . '.language_id'); ?>
-
-			<div class="form-group">
-				<?php echo $this->Form->input('SpacesLanguage.' . $index . '.name', array(
-						'type' => 'text',
-						'label' => __d('rooms', 'Space name') . $this->element('NetCommons.required'),
-						'class' => 'form-control',
-					)); ?>
-
-				<?php echo $this->element(
-					'NetCommons.errors', [
-						'errors' => $this->validationErrors,
-						'model' => 'SpacesLanguage',
-						'field' => 'name',
-					]); ?>
-			</div>
-		</div>
-	<?php endif; ?>
-<?php endforeach; ?>
-
 <div class="form-group">
-	<?php echo $this->Form->label('Space.page_layout_permitted', __d('rooms', 'Allow to change page layout?')); ?>
+	<?php echo $this->Form->label('Room.page_layout_permitted', __d('rooms', 'Allow to change page layout?')); ?>
 	<br>
-	<?php echo $this->Form->radio('Space.page_layout_permitted',
+	<?php echo $this->Form->radio('Room.page_layout_permitted',
 			array(
 				'1' => __d('user_roles', 'Permitted'),
 				'0' => __d('user_roles', 'Not permitted'),

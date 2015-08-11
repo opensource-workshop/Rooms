@@ -35,17 +35,36 @@ class SpacesUtilityComponent extends Component {
 
 		//Modelの呼び出し
 		$this->Space = ClassRegistry::init('Rooms.Space');
-		$this->SpacesLanguage = ClassRegistry::init('Rooms.SpacesLanguage');
+		$this->Room = ClassRegistry::init('Rooms.Room');
+		$this->RoomsLanguage = ClassRegistry::init('Rooms.RoomsLanguage');
 
 		//スペースデータ取得
-		$spaces = $this->SpacesLanguage->find('all', array(
-			'recursive' => 0,
-			'conditions' => array(
-				'Space.parent_id' => Space::WHOLE_SITE_ID,
-				'SpacesLanguage.language_id' => Configure::read('Config.languageId')
+		$spaces = $this->Room->find('all', array(
+			'recursive' => -1,
+			'fields' => '*',
+			'joins' => array(
+				array(
+					'table' => $this->Space->table,
+					'alias' => $this->Space->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->Room->alias . '.space_id' . ' = ' . $this->Space->alias . ' .id',
+						$this->Room->alias . '.parent_id' => null,
+					),
+				),
+				array(
+					'table' => $this->RoomsLanguage->table,
+					'alias' => $this->RoomsLanguage->alias,
+					'type' => 'LEFT',
+					'conditions' => array(
+						$this->Room->alias . '.id' . ' = ' . $this->RoomsLanguage->alias . ' .room_id',
+						$this->RoomsLanguage->alias . '.language_id' => Configure::read('Config.languageId')
+					),
+				)
 			),
-			'order' => 'Space.lft'
+			'order' => 'Room.lft'
 		));
+
 		$data = Hash::combine($spaces, '{n}.Space.id', '{n}');
 		$this->controller->set('spaces', $data);
 	}
@@ -90,7 +109,7 @@ class SpacesUtilityComponent extends Component {
 		$this->controller->set('activeSpaceId', $spaceId);
 		$space = $this->get($spaceId);
 		$this->controller->set('space', $space);
-		$this->controller->set('spaceName', $space['SpacesLanguage']['name']);
+		$this->controller->set('spaceName', $space['RoomsLanguage']['name']);
 
 		return true;
 	}

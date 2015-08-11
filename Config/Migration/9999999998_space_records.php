@@ -48,7 +48,6 @@ class SpaceRecords extends NetCommonsMigration {
 				'lft' => '1',
 				'rght' => '8',
 				'type' => '1',
-				'page_layout_permitted' => null,
 				'plugin_key' => null,
 				'default_setting_action' => null
 			),
@@ -58,7 +57,6 @@ class SpaceRecords extends NetCommonsMigration {
 				'lft' => '2',
 				'rght' => '3',
 				'type' => '2',
-				'page_layout_permitted' => '1',
 				'plugin_key' => 'public_space',
 				'default_setting_action' => 'rooms/index/2'
 			),
@@ -68,9 +66,8 @@ class SpaceRecords extends NetCommonsMigration {
 				'lft' => '4',
 				'rght' => '5',
 				'type' => '3',
-				'page_layout_permitted' => '0',
 				'plugin_key' => 'private_space',
-				'default_setting_action' => 'spaces/edit/3'
+				'default_setting_action' => 'rooms/edit/2'
 			),
 			array(
 				'id' => '4',
@@ -78,22 +75,9 @@ class SpaceRecords extends NetCommonsMigration {
 				'lft' => '6',
 				'rght' => '7',
 				'type' => '4',
-				'page_layout_permitted' => '1',
 				'plugin_key' => 'room_space',
 				'default_setting_action' => 'rooms/index/4'
 			),
-		),
-		'SpacesLanguage' => array(
-			//日本語
-			array('language_id' => '2', 'space_id' => '1', 'name' => 'サイト全体'),
-			array('language_id' => '2', 'space_id' => '2', 'name' => 'パブリックスペース'),
-			array('language_id' => '2', 'space_id' => '3', 'name' => 'プライベートスペース'),
-			array('language_id' => '2', 'space_id' => '4', 'name' => 'グループルームスペース'),
-			//英語
-			array('language_id' => '1', 'space_id' => '1', 'name' => 'Whole site'),
-			array('language_id' => '1', 'space_id' => '2', 'name' => 'Public space'),
-			array('language_id' => '1', 'space_id' => '3', 'name' => 'Private space'),
-			array('language_id' => '1', 'space_id' => '4', 'name' => 'Room space'),
 		),
 		'DefaultRolePermission' => array(
 			//HTMLタグの書き込み制限

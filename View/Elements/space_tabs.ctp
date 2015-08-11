@@ -14,7 +14,7 @@
 <ul class="nav nav-tabs" role="tablist">
 	<?php foreach ($spaces as $space) : ?>
 		<li class="<?php echo ($space['Space']['id'] === $activeSpaceId ? 'active' : ''); ?>">
-			<?php echo $this->Html->link($space['SpacesLanguage']['name'],
+			<?php echo $this->Html->link($space['RoomsLanguage']['name'],
 					'/rooms/' . $space['Space']['default_setting_action']
 				); ?>
 		</li>

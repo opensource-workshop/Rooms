@@ -78,7 +78,20 @@ class Room extends RoomsAppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		),
+		'RoomsLanguage' => array(
+			'className' => 'Rooms.RoomsLanguage',
+			'foreignKey' => 'room_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 	);
 
 /**

@@ -27,26 +27,12 @@ echo $this->Html->css(
 
 <table class="table table-hover">
 	<tbody>
-		<tr>
-			<th>
-				<a href="<?php echo $this->Html->url('/rooms/spaces/edit/' . $space['Space']['id']); ?>">
-					<?php echo h($space['SpacesLanguage']['name']); ?>
-				</a>
-			</th>
-			<th class="text-right">
-				<?php if ($space['Space']['plugin_key'] !== 'public_space') : ?>
-					<a class="btn btn-xs btn-success" href="<?php echo $this->Html->url('/rooms/rooms/add/' . $space['Space']['id']); ?>">
-						<span class="glyphicon glyphicon-plus"> </span>
-					</a>
-				<?php endif; ?>
-			</th>
-		</tr>
 		<?php foreach ($rooms as $room) : ?>
 			<?php echo $this->element('Rooms/room_link', array(
 					'spaceId' => $space['Space']['id'],
 					'roomId' => $room['Room']['id'],
 					'nest' => 0,
-							'roomName' => $room['RoomsLanguage']['name'],
+					'roomName' => $room['RoomsLanguage']['name'],
 					'active' => (bool)$room['Room']['active'],
 				)); ?>
 

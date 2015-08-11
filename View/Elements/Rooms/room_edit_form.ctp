@@ -10,43 +10,6 @@
  */
 ?>
 
-<?php echo $this->Form->hidden('Room.id'); ?>
-<?php echo $this->Form->hidden('Room.space_id'); ?>
-<?php echo $this->Form->hidden('Room.root_id'); ?>
-<?php echo $this->Form->hidden('Room.parent_id'); ?>
-<?php echo $this->Form->hidden('Page.parent_id'); ?>
-
-<?php foreach ($this->request->data['RoomsLanguage'] as $index => $roomLanguage) : ?>
-	<?php $languageId = $roomLanguage['language_id']; ?>
-
-	<?php if (isset($languages[$languageId])) : ?>
-		<div id="rooms-rooms-<?php echo $languageId; ?>"
-				class="tab-pane<?php echo ($activeLangId === (string)$languageId ? ' active' : ''); ?>">
-
-			<?php echo $this->Form->hidden('RoomsLanguage.' . $index . '.id'); ?>
-
-			<?php echo $this->Form->hidden('RoomsLanguage.' . $index . '.room_id'); ?>
-
-			<?php echo $this->Form->hidden('RoomsLanguage.' . $index . '.language_id'); ?>
-
-			<div class="form-group">
-				<?php echo $this->Form->input('RoomsLanguage.' . $index . '.name', array(
-						'type' => 'text',
-						'label' => __d('rooms', 'Room name') . $this->element('NetCommons.required'),
-						'class' => 'form-control',
-						'error' => false,
-					)); ?>
-
-				<div class="has-error">
-					<?php echo $this->Form->error('RoomsLanguage.' . $index . '.name', null, array(
-							'class' => 'help-block'
-						)); ?>
-				</div>
-			</div>
-		</div>
-	<?php endif; ?>
-<?php endforeach; ?>
-
 <div class="form-group">
 	<?php echo $this->Form->checkbox('Room.default_participation', array(
 			'div' => false,

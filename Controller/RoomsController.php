@@ -38,9 +38,7 @@ class RoomsController extends RoomsAppController {
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
 		'M17n.SwitchLanguage',
-		'Rooms.RoomsRolesForm' => array(
-			'permissions' => array('content_publishable')
-		),
+		'Rooms.RoomsRolesForm',
 		'Rooms.RoomsUtility',
 		'Rooms.SpacesUtility',
 		//'Paginator',
@@ -93,6 +91,10 @@ class RoomsController extends RoomsAppController {
 
 			//不要パラメータ除去
 			unset($data['save'], $data['active_lang_id']);
+
+			if (! isset($data['Room']['default_participation'])) {
+				$data['Room']['default_participation'] = $this->$model->defaultParticipation;
+			}
 
 			//登録処理
 			if ($room = $this->Room->saveRoom($data, true)) {
@@ -148,10 +150,14 @@ class RoomsController extends RoomsAppController {
 				))
 			);
 		}
+		$this->set('room', $this->request->data);
 
 		//RoomsRolesFormのセット
 		$this->RoomsRolesForm->settings['room_id'] = null;
 		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
+		$this->RoomsRolesForm->settings['permissions'] = array(
+			'content_publishable'
+		);
 
 		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
 	}
@@ -208,7 +214,22 @@ class RoomsController extends RoomsAppController {
 		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
 
 		$this->RoomsRolesForm->settings['room_id'] = $roomId;
-		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
+
+		if (! isset($this->viewVars['room']['Room']['parent_id'])) {
+			$this->RoomsRolesForm->settings['type'] = $this->viewVars['space']['Space']['plugin_key'];
+			$this->RoomsRolesForm->settings['permissions'] = array(
+				'html_not_limited',
+				'upload_picture_not_limited',
+				'upload_attachment_not_limited',
+				'upload_video_not_limited'
+			);
+
+		} else {
+			$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
+			$this->RoomsRolesForm->settings['permissions'] = array(
+				'content_publishable'
+			);
+		}
 	}
 
 /**

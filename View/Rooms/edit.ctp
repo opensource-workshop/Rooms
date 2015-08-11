@@ -33,7 +33,20 @@ echo $this->Html->css(
 		<?php echo $this->SwitchLanguage->tablist('rooms-rooms-'); ?>
 
 		<div class="tab-content">
-			<?php echo $this->element('Rooms/edit_form'); ?>
+
+			<?php echo $this->Form->hidden('Room.id'); ?>
+			<?php echo $this->Form->hidden('Room.space_id'); ?>
+			<?php echo $this->Form->hidden('Room.root_id'); ?>
+			<?php echo $this->Form->hidden('Room.parent_id'); ?>
+			<?php echo $this->Form->hidden('Page.parent_id'); ?>
+
+			<?php echo $this->element('Rooms/edit_room_name'); ?>
+
+			<?php if (! isset($this->data['Room']['parent_id'])) : ?>
+				<?php echo $this->element('Rooms/space_room_edit_form'); ?>
+			<?php else : ?>
+				<?php echo $this->element('Rooms/room_edit_form'); ?>
+			<?php endif; ?>
 		</div>
 	</div>
 
@@ -52,6 +65,6 @@ echo $this->Html->css(
 	<?php echo $this->Form->end(); ?>
 </div>
 
-<?php if ($this->request->params['action'] === 'edit') : ?>
+<?php if (isset($this->data['Room']['parent_id']) && $this->request->params['action'] === 'edit') : ?>
 	<?php echo $this->element('Rooms/delete_form'); ?>
 <?php endif;

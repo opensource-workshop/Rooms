@@ -28,9 +28,11 @@ if ($this->params['action'] === 'add') {
 		<?php echo $this->Html->link(__d('rooms', 'General setting'), $urlRooms); ?>
 	</li>
 
-	<li class="<?php echo ($this->params['controller'] === 'roles_rooms_users' ? 'active' : $disabled); ?>">
-		<?php echo $this->Html->link(__d('rooms', 'Select the members to join'), $urlRolesRoomsUsers); ?>
-	</li>
+	<?php if (isset($room['Room']['parent_id'])) : ?>
+		<li class="<?php echo ($this->params['controller'] === 'roles_rooms_users' ? 'active' : $disabled); ?>">
+			<?php echo $this->Html->link(__d('rooms', 'Select the members to join'), $urlRolesRoomsUsers); ?>
+		</li>
+	<?php endif; ?>
 
 	<li class="<?php echo ($this->params['controller'] === 'plugins_rooms' ? 'active' : $disabled); ?>">
 		<?php echo $this->Html->link(__d('rooms', 'Select the plugins to join'), $urlPluginsRooms); ?>

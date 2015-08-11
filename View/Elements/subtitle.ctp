@@ -15,11 +15,10 @@
 <?php $this->start('subtitle'); ?>
 <div class="text-muted small visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
 (
-	<?php echo h($spaceName); ?>
 	<?php if (isset($roomNames)) : ?>
-		<?php foreach ($roomNames as $roomName) : ?>
-			/ <?php echo h($roomName); ?>
-		<?php endforeach; ?>
+		<?php echo implode(' / ', array_map('h', $roomNames)); ?>
+	<?php else : ?>
+		<?php echo h($spaceName); ?>
 	<?php endif; ?>
 	<?php if ($this->params['action'] === 'add') : ?>
 		/ <?php echo __d('rooms', 'Add new room'); ?>

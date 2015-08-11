@@ -128,7 +128,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$model->loadModels([
 			'RolesRoom' => 'Rooms.RolesRoom',
 			'PluginsRoom' => 'PluginManager.PluginsRoom',
-			'PluginsSpace' => 'PluginManager.PluginsSpace',
+//			'PluginsSpace' => 'PluginManager.PluginsSpace',
 		]);
 		$db = $model->getDataSource();
 
@@ -137,17 +137,17 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$tableName = $model->PluginsRoom->tablePrefix . $model->PluginsRoom->table;
 		$values = array(
 			'room_id' => $db->value($data['Room']['id'], 'string'),
-			'plugin_key' => $model->PluginsSpace->escapeField('plugin_key'),
+			'plugin_key' => $model->PluginsRoom->escapeField('plugin_key'),
 			'created' => $db->value($this->__now($model, 'created'), 'string'),
 			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
 			'modified' => $db->value($this->__now($model, 'modified'), 'string'),
 			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
 		);
 		$joins = array(
-			$model->PluginsSpace->tablePrefix . $model->PluginsSpace->table . ' AS ' . $model->PluginsSpace->alias => null,
+			$model->PluginsRoom->tablePrefix . $model->PluginsRoom->table . ' AS ' . $model->PluginsRoom->alias => null,
 		);
 		$wheres = array(
-			$model->PluginsSpace->escapeField('space_id') . ' = ' . $db->value($data['Room']['space_id'], 'string'),
+			$model->PluginsRoom->escapeField('room_id') . ' = ' . $db->value($data['Room']['parent_id'], 'string'),
 		);
 
 		//--クエリの実行
