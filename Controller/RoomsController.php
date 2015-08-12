@@ -47,6 +47,7 @@ class RoomsController extends RoomsAppController {
 /**
  * index
  *
+ * @param int $spaceId spaces.id
  * @return void
  */
 	public function index($spaceId = null) {
@@ -63,6 +64,8 @@ class RoomsController extends RoomsAppController {
 /**
  * add
  *
+ * @param int $spaceId spaces.id
+ * @param int $roomId rooms.id
  * @return void
  */
 	public function add($spaceId = null, $roomId = null) {
@@ -91,10 +94,6 @@ class RoomsController extends RoomsAppController {
 
 			//不要パラメータ除去
 			unset($data['save'], $data['active_lang_id']);
-
-			if (! isset($data['Room']['default_participation'])) {
-				$data['Room']['default_participation'] = $this->$model->defaultParticipation;
-			}
 
 			//登録処理
 			if ($room = $this->Room->saveRoom($data, true)) {
@@ -159,12 +158,13 @@ class RoomsController extends RoomsAppController {
 			'content_publishable'
 		);
 
-		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
+		$this->set('participationFixed', $this->$model->participationFixed);
 	}
 
 /**
  * edit
  *
+ * @param int $roomId rooms.id
  * @return void
  */
 	public function edit($roomId = null) {
@@ -211,7 +211,7 @@ class RoomsController extends RoomsAppController {
 		//スペースModelの定義
 		$model = Inflector::camelize($this->viewVars['space']['Space']['plugin_key']);
 		$this->$model = ClassRegistry::init($model . '.' . $model);
-		$this->set('defaultParticipationFixed', $this->$model->defaultParticipationFixed);
+		$this->set('participationFixed', $this->$model->participationFixed);
 
 		$this->RoomsRolesForm->settings['room_id'] = $roomId;
 

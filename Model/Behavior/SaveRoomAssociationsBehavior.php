@@ -128,7 +128,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$model->loadModels([
 			'RolesRoom' => 'Rooms.RolesRoom',
 			'PluginsRoom' => 'PluginManager.PluginsRoom',
-//			'PluginsSpace' => 'PluginManager.PluginsSpace',
+			//'PluginsSpace' => 'PluginManager.PluginsSpace',
 		]);
 		$db = $model->getDataSource();
 

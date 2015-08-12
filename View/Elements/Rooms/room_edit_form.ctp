@@ -11,9 +11,13 @@
 ?>
 
 <div class="form-group">
+	<?php if ($participationFixed) : ?>
+		<?php echo $this->Form->hidden('Room.default_participation'); ?>
+	<?php endif; ?>
+
 	<?php echo $this->Form->checkbox('Room.default_participation', array(
 			'div' => false,
-			'disabled' => $defaultParticipationFixed
+			'disabled' => $participationFixed,
 		)); ?>
 
 	<?php echo $this->Form->label(

@@ -27,10 +27,6 @@ class SpacesUtilityComponent extends Component {
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::startup
  */
 	public function startup(Controller $controller) {
-		//RequestActionの場合、スキップする
-		if (! empty($controller->request->params['requested'])) {
-			return;
-		}
 		$this->controller = $controller;
 
 		//Modelの呼び出し
@@ -86,7 +82,7 @@ class SpacesUtilityComponent extends Component {
  * Get the space
  *
  * @param int $spaceId spaces.id
- * @return bool True on success, false on failure
+ * @return array space data
  */
 	public function get($spaceId) {
 		return $this->controller->viewVars['spaces'][$spaceId];

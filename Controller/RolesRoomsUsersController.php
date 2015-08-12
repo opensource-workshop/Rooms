@@ -45,6 +45,7 @@ class RolesRoomsUsersController extends RoomsAppController {
 /**
  * edit
  *
+ * @param int $roomId rooms.id
  * @return void
  */
 	public function edit($roomId = null) {

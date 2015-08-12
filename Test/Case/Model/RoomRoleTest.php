@@ -56,4 +56,12 @@ class RoomRoleTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
+/**
+ * test dummy method
+ *
+ * @return void
+ */
+	public function test() {
+	}
+
 }

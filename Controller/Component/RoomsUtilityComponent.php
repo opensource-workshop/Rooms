@@ -86,6 +86,7 @@ class RoomsUtilityComponent extends Component {
  * Get the room data
  *
  * @param int $roomId rooms.id
+ * @param int $languageId languages.id
  * @return array Room data
  */
 	public function getRoom($roomId, $languageId) {

@@ -119,6 +119,7 @@ class Room extends RoomsAppModel {
  * Save Room
  *
  * @param array $data received post data
+ * @param bool $created True is created(add action), false is updated(edit action)
  * @return bool True on success, false on validation errors
  * @throws InternalErrorException
  */
@@ -233,7 +234,7 @@ class Room extends RoomsAppModel {
 				$this->deletePagesByRoom($roomId);
 
 				//Roomデータの削除
-				if (! $ret = $this->delete($roomId, false)) {
+				if (! $this->delete($roomId, false)) {
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 				}
 

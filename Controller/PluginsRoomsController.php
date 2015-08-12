@@ -54,6 +54,7 @@ class PluginsRoomsController extends RoomsAppController {
 /**
  * edit
  *
+ * @param int $roomId rooms.id
  * @return void
  */
 	public function edit($roomId = null) {
@@ -76,7 +77,6 @@ class PluginsRoomsController extends RoomsAppController {
 
 			//--不要パラメータ除去
 			unset($data['save']);
-
 
 			$this->request->data = $data;
 		} else {

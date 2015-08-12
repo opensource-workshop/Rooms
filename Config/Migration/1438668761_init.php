@@ -145,7 +145,7 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
 		),
 		'down' => array(
 			'drop_table' => array(
-				'roles_rooms', 'roles_rooms_users', 'room_role_permissions', 'room_roles', 'rooms', 'rooms_languages', 'space_permissions', 'spaces', 'spaces_languages'
+				'roles_rooms', 'roles_rooms_users', 'room_role_permissions', 'room_roles', 'rooms', 'rooms_languages', 'space_permissions', 'spaces'
 			),
 		),
 	);

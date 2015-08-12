@@ -57,7 +57,7 @@ class Space extends RoomsAppModel {
  *
  * @var bool
  */
-	public $defaultParticipationFixed = false;
+	public $participationFixed = false;
 
 /**
  * Behaviors
