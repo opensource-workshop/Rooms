@@ -1,8 +1,9 @@
 <?php
 /**
- * RoomRolePermission Model
+ * RoomsLanguage Model
  *
- * @property RolesRoom $RolesRoom
+ * @property Language $Language
+ * @property Room $Room
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -14,12 +15,12 @@
 App::uses('RoomsAppModel', 'Rooms.Model');
 
 /**
- * RoomRolePermission Model
+ * RoomsLanguage Model
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Model
  */
-class RoomRolePermission extends RoomsAppModel {
+class RoomsLanguage extends RoomsAppModel {
 
 /**
  * Validation rules
@@ -36,9 +37,16 @@ class RoomRolePermission extends RoomsAppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'RolesRoom' => array(
-			'className' => 'Rooms.RolesRoom',
-			'foreignKey' => 'roles_room_id',
+		'Language' => array(
+			'className' => 'M17n.Language',
+			'foreignKey' => 'language_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Room' => array(
+			'className' => 'Rooms.Room',
+			'foreignKey' => 'room_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -56,34 +64,39 @@ class RoomRolePermission extends RoomsAppModel {
  */
 	public function beforeValidate($options = array()) {
 		$this->validate = Hash::merge($this->validate, array(
-			'roles_room_id' => array(
+			'language_id' => array(
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => false,
+					'required' => true,
+					//'last' => false, // Stop validation after this rule
+					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'room_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => false,
+					'required' => false,
+					//'last' => false, // Stop validation after this rule
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'name' => array(
+				'notBlank' => array(
+					'rule' => array('notBlank'),
+					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('rooms', 'Room name')),
 					//'allowEmpty' => false,
 					//'required' => false,
 					//'last' => false, // Stop validation after this rule
-					'on' => 'update', // Limit validation to 'create' or 'update' operations
+					//'on' => 'create', // Limit validation to 'create' or 'update' operations
 				),
 			),
 		));
 
 		return parent::beforeValidate($options);
-	}
-
-/**
- * validate of RoomRolePermission
- *
- * @param array $data received post data
- * @return bool True on success, false on validation errors
- */
-	public function validateRoomRolePermission($data) {
-		$this->set($data);
-		$this->validates();
-		if ($this->validationErrors) {
-			return false;
-		}
-		return true;
 	}
 
 }

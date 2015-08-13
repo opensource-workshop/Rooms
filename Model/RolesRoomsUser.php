@@ -59,14 +59,14 @@ class RolesRoomsUser extends RoomsAppModel {
  */
 	public $belongsTo = array(
 		'RolesRoom' => array(
-			'className' => 'RolesRoom',
+			'className' => 'Rooms.RolesRoom',
 			'foreignKey' => 'roles_room_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
 		'User' => array(
-			'className' => 'User',
+			'className' => 'Users.User',
 			'foreignKey' => 'user_id',
 			'conditions' => '',
 			'fields' => '',

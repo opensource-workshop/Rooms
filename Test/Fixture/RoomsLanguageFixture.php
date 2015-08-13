@@ -1,6 +1,6 @@
 <?php
 /**
- * RolesRoomsUserFixture
+ * RoomsLanguageFixture
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -10,12 +10,12 @@
  */
 
 /**
- * RolesRoomsUserFixture
+ * RoomsLanguageFixture
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Fixture
  */
-class RolesRoomsUserFixture extends CakeTestFixture {
+class RoomsLanguageFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -24,8 +24,9 @@ class RolesRoomsUserFixture extends CakeTestFixture {
  */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'roles_room_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'language_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 6, 'unsigned' => false),
+		'room_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
@@ -44,48 +45,13 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'roles_room_id' => 1,
-			'user_id' => 1,
+			'language_id' => 1,
+			'room_id' => 1,
+			'name' => 'Lorem ipsum dolor sit amet',
 			'created_user' => 1,
-			'created' => '2015-08-04 07:58:25',
+			'created' => '2015-08-04 07:59:41',
 			'modified_user' => 1,
-			'modified' => '2015-08-04 07:58:25'
-		),
-		array(
-			'id' => 2,
-			'roles_room_id' => 2,
-			'user_id' => 2,
-			'created_user' => 1,
-			'created' => '2014-10-11 04:57:10',
-			'modified_user' => 1,
-			'modified' => '2014-10-11 04:57:10'
-		),
-		array(
-			'id' => 3,
-			'roles_room_id' => 3,
-			'user_id' => 3,
-			'created_user' => 1,
-			'created' => '2014-10-11 04:57:10',
-			'modified_user' => 1,
-			'modified' => '2014-10-11 04:57:10'
-		),
-		array(
-			'id' => 4,
-			'roles_room_id' => 4,
-			'user_id' => 4,
-			'created_user' => 1,
-			'created' => '2014-10-11 04:57:10',
-			'modified_user' => 1,
-			'modified' => '2014-10-11 04:57:10'
-		),
-		array(
-			'id' => 5,
-			'roles_room_id' => 5,
-			'user_id' => 5,
-			'created_user' => 1,
-			'created' => '2014-10-11 04:57:10',
-			'modified_user' => 1,
-			'modified' => '2014-10-11 04:57:10'
+			'modified' => '2015-08-04 07:59:41'
 		),
 	);
 

@@ -23,13 +23,13 @@ class RoomRoleFixture extends CakeTestFixture {
  * @var array
  */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'role_key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'level' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => '下位レベルに与えた権限を上位に与える時に使用。大きいほうが上位。'),
-		'weight' => array('type' => 'integer', 'null' => true, 'default' => null, 'comment' => 'Display order'),
-		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'level' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => '下位レベルに与えた権限を上位に与える時に使用。大きいほうが上位。'),
+		'weight' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => 'Display order'),
+		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)

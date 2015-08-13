@@ -1,11 +1,11 @@
 <?php
 /**
- * RolesRoom Model
+ * Space Model
  *
+ * @property Space $ParentSpace
  * @property Room $Room
- * @property BlockRolePermission $BlockRolePermission
- * @property RoomRolePermission $RoomRolePermission
- * @property User $User
+ * @property Space $ChildSpace
+ * @property Language $Language
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -17,39 +17,55 @@
 App::uses('RoomsAppModel', 'Rooms.Model');
 
 /**
- * RolesRoom Model
+ * Space Model
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Model
  */
-class RolesRoom extends RoomsAppModel {
+class Space extends RoomsAppModel {
 
 /**
- * Validation rules
+ * Table name
+ *
+ * @var string
+ */
+	public $useTable = 'spaces';
+
+/**
+ * UserRole keys
+ *
+ * @var const
+ */
+	const WHOLE_SITE_ID = '1';
+
+/**
+ * DefaultNeedApproval
+ *
+ * @var bool
+ */
+	public $defaultNeedApproval = true;
+
+/**
+ * DefaultParticipation
+ *
+ * @var bool
+ */
+	public $defaultParticipation = false;
+
+/**
+ * DefaultParticipationFixed
+ *
+ * @var bool
+ */
+	public $participationFixed = false;
+
+/**
+ * Behaviors
  *
  * @var array
  */
-	public $validate = array(
-		'room_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'role_key' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+	public $actsAs = array(
+		'Tree',
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -60,9 +76,9 @@ class RolesRoom extends RoomsAppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'Room' => array(
-			'className' => 'Rooms.Room',
-			'foreignKey' => 'room_id',
+		'ParentSpace' => array(
+			'className' => 'Rooms.Space',
+			'foreignKey' => 'parent_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -75,9 +91,9 @@ class RolesRoom extends RoomsAppModel {
  * @var array
  */
 	public $hasMany = array(
-		'BlockRolePermission' => array(
-			'className' => 'Blocks.BlockRolePermission',
-			'foreignKey' => 'roles_room_id',
+		'Room' => array(
+			'className' => 'Rooms.Room',
+			'foreignKey' => 'space_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
@@ -88,9 +104,9 @@ class RolesRoom extends RoomsAppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'RoomRolePermission' => array(
-			'className' => 'Rooms.RoomRolePermission',
-			'foreignKey' => 'roles_room_id',
+		'ChildSpace' => array(
+			'className' => 'Rooms.Space',
+			'foreignKey' => 'parent_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
@@ -109,11 +125,11 @@ class RolesRoom extends RoomsAppModel {
  * @var array
  */
 	public $hasAndBelongsToMany = array(
-		'User' => array(
-			'className' => 'Users.User',
-			'joinTable' => 'roles_rooms_users',
-			'foreignKey' => 'roles_room_id',
-			'associationForeignKey' => 'user_id',
+		'Language' => array(
+			'className' => 'M17n.Language',
+			'joinTable' => 'spaces_languages',
+			'foreignKey' => 'space_id',
+			'associationForeignKey' => 'language_id',
 			'unique' => 'keepExisting',
 			'conditions' => '',
 			'fields' => '',

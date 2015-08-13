@@ -19,4 +19,23 @@ App::uses('AppController', 'Controller');
  */
 class RoomsAppController extends AppController {
 
+/**
+ * use component
+ *
+ * @var array
+ */
+	public $components = array(
+		'Security'
+	);
+
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->deny('index', 'view');
+	}
+
 }

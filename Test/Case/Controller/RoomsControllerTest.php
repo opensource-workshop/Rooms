@@ -10,6 +10,7 @@
  */
 
 App::uses('RoomsController', 'Rooms.Controller');
+App::uses('YAControllerTestCase', 'NetCommons.TestSuite');
 
 /**
  * RoomsController Test Case
@@ -17,7 +18,7 @@ App::uses('RoomsController', 'Rooms.Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Controller
  */
-class RoomsControllerTest extends ControllerTestCase {
+class RoomsControllerTest extends YAControllerTestCase {
 
 /**
  * Fixtures
@@ -25,13 +26,14 @@ class RoomsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.m17n.language',
-		'plugin.net_commons.site_setting',
-		'plugin.pages.page',
-		'plugin.plugin_manager.plugins_room',
-		'plugin.plugin_manager.plugin',
-		'plugin.rooms.room',
-		'plugin.users.user',
+		//'plugin.m17n.language',
+		//'plugin.net_commons.site_setting',
+		//'plugin.pages.page',
+		//'plugin.plugin_manager.plugins_room',
+		//'plugin.plugin_manager.plugin',
+		//'plugin.rooms.room',
+		'plugin.rooms.rooms_language',
+		//'plugin.users.user',
 	);
 
 /**
@@ -58,7 +60,8 @@ class RoomsControllerTest extends ControllerTestCase {
  * @return void
  */
 	public function testIndex() {
-		$this->testAction('/rooms/rooms/index', array('method' => 'get'));
+		$spaceId = '2';
+		$this->testAction('/rooms/rooms/index/' . $spaceId, array('method' => 'get'));
 		$this->assertTextNotContains('error', $this->view);
 	}
 }
