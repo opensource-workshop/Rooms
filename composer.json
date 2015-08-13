@@ -1,6 +1,5 @@
 {
 	"name": "netcommons/rooms",
-	"version": "3.0.0",
 	"description": "Rooms Plugin for NetCommons3",
 	"homepage": "http://www.netcommons.org/",
 	"extra": {
