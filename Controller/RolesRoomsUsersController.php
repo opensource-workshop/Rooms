@@ -26,7 +26,7 @@ class RolesRoomsUsersController extends RoomsAppController {
  */
 	public $uses = array(
 		//'Rooms.RoomsLanguage',
-		//'Rooms.Room',
+		'Rooms.RolesRoomsUser',
 		//'Rooms.Space',
 		//'Rooms.SpacesLanguage',
 	);
@@ -61,6 +61,11 @@ class RolesRoomsUsersController extends RoomsAppController {
 		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
 			return;
 		}
+
+		$ret = $this->RolesRoomsUser->getUsersByRoomId($roomId);
+var_dump($ret);
+
+
 
 		if ($this->request->isPost()) {
 			//登録処理
