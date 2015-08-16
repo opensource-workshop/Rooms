@@ -98,7 +98,7 @@ class RoomsController extends RoomsAppController {
 			//登録処理
 			if ($room = $this->Room->saveRoom($data, true)) {
 				//正常の場合
-				$this->redirect('/rooms/roles_rooms_users/edit/' . $room['Room']['id'] . '/');
+				$this->redirect('/rooms/rooms_roles_users/edit/' . $room['Room']['id'] . '/');
 				return;
 			}
 			$this->handleValidationError($this->Room->validationErrors);

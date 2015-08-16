@@ -17,7 +17,7 @@ App::uses('RoomsAppController', 'Rooms.Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Controller
  */
-class RolesRoomsUsersController extends RoomsAppController {
+class RoomsRolesUsersController extends RoomsAppController {
 
 /**
  * use model
@@ -62,8 +62,8 @@ class RolesRoomsUsersController extends RoomsAppController {
 			return;
 		}
 
-		$ret = $this->RolesRoomsUser->getUsersByRoomId($roomId);
-var_dump($ret);
+//		$ret = $this->RolesRoomsUser->getUsersByRoomId($roomId);
+//var_dump($ret);
 
 
 

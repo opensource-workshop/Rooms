@@ -96,73 +96,60 @@ class RolesRoomsUser extends RoomsAppModel {
  * @return array
  */
 	public function getUsersByRoomId($roomId) {
-		$this->Room = ClassRegistry::init('Rooms.Room');
-		$this->UsersLanguage = ClassRegistry::init('Users.UsersLanguage');
-
-//		//スペースデータ取得
-//		$spaces = $this->Room->find('all', array(
+//		$this->Room = ClassRegistry::init('Rooms.Room');
+//		$this->Role = ClassRegistry::init('Roles.Role');
+//		$this->UsersLanguage = ClassRegistry::init('Users.UsersLanguage');
+//
+//		$rolesRoomUsers = $this->find('all', array(
 //			'recursive' => -1,
-//			'fields' => '*',
+//			'fields' => array(
+//				$this->alias . '.*',
+//				$this->User->alias . '.*',
+//				$this->UsersLanguage->alias . '.*',
+//				$this->Role->alias . '.*',
+//			),
 //			'joins' => array(
 //				array(
-//					'table' => $this->Space->table,
-//					'alias' => $this->Space->alias,
+//					'table' => $this->RolesRoom->table,
+//					'alias' => $this->RolesRoom->alias,
 //					'type' => 'INNER',
 //					'conditions' => array(
-//						$this->Room->alias . '.space_id' . ' = ' . $this->Space->alias . ' .id',
-//						$this->Room->alias . '.parent_id' => null,
+//						$this->alias . '.roles_room_id' . ' = ' . $this->RolesRoom->alias . ' .id',
 //					),
 //				),
 //				array(
-//					'table' => $this->RoomsLanguage->table,
-//					'alias' => $this->RoomsLanguage->alias,
-//					'type' => 'LEFT',
+//					'table' => $this->User->table,
+//					'alias' => $this->User->alias,
+//					'type' => 'INNER',
 //					'conditions' => array(
-//						$this->Room->alias . '.id' . ' = ' . $this->RoomsLanguage->alias . ' .room_id',
-//						$this->RoomsLanguage->alias . '.language_id' => Configure::read('Config.languageId')
+//						$this->alias . '.user_id' . ' = ' . $this->User->alias . ' .id',
 //					),
-//				)
+//				),
+//				array(
+//					'table' => $this->UsersLanguage->table,
+//					'alias' => $this->UsersLanguage->alias,
+//					'type' => 'INNER',
+//					'conditions' => array(
+//						$this->UsersLanguage->alias . '.user_id' . ' = ' . $this->User->alias . ' .id',
+//						$this->UsersLanguage->alias . '.language_id' => Configure::read('Config.languageId')
+//					),
+//				),
+//				array(
+//					'table' => $this->Role->table,
+//					'alias' => $this->Role->alias,
+//					'type' => 'INNER',
+//					'conditions' => array(
+//						$this->Role->alias . '.key' . ' = ' . $this->RolesRoom->alias . ' .role_key',
+//						$this->Role->alias . '.language_id' => Configure::read('Config.languageId')
+//					),
+//				),
 //			),
-//			'order' => 'Room.lft'
+//			'conditions' => array(
+//				$this->RolesRoom->alias . '.room_id' => (int)$roomId,
+//			),
 //		));
 
-		$rolesRoomUsers = $this->find('all', array(
-			'recursive' => -1,
-			'fields' => array(
-
-			),
-			'joins' => array(
-				array(
-					'table' => $this->RolesRoom->table,
-					'alias' => $this->RolesRoom->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->alias . '.roles_room_id' . ' = ' . $this->RolesRoom->alias . ' .id',
-					),
-				),
-				array(
-					'table' => $this->User->table,
-					'alias' => $this->User->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->alias . '.user_id' . ' = ' . $this->User->alias . ' .id',
-					),
-				),
-				array(
-					'table' => $this->UsersLanguage->table,
-					'alias' => $this->UsersLanguage->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						$this->UsersLanguage->alias . '.user_id' . ' = ' . $this->User->alias . ' .id',
-						$this->UsersLanguage->alias . '.language_id' => Configure::read('Config.languageId')
-					),
-				),
-			),
-			'conditions' => array(
-				$this->RolesRoom->alias . '.room_id' => (int)$roomId,
-			),
-		));
-
+		$rolesRoomUsers = array();
 		return $rolesRoomUsers;
 	}
 
