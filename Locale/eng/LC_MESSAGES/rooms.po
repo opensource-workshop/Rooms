@@ -68,7 +68,7 @@ msgid "Allow to change page layout?"
 msgstr ""
 
 #: Rooms/View/Elements/Spaces/edit_form.ctp:60
-msgid "Allow HTML tags?"
+msgid "Allow HTML tags?  e.g.) Javascript or iframe"
 msgstr ""
 
 #: Rooms/View/Elements/Spaces/edit_form.ctp:67
@@ -83,3 +83,6 @@ msgstr ""
 msgid "Video files paste from the editor"
 msgstr ""
 
+#: UserRoles/View/UserRoleSettings/edit.ctp:35
+msgid "Default room role"
+msgstr ""

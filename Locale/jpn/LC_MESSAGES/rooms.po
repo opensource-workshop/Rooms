@@ -41,11 +41,11 @@ msgstr "コンテンツの承認設定"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:61
 msgid "Authority to publish approved content"
-msgstr "コンテンツを承認して公開できる人"
+msgstr "コンテンツの承認機能を使う"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:70
 msgid "Do not use the approval"
-msgstr "コンテンツの承認機能は使わない"
+msgstr "コンテンツの承認機能を使わない"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:75
 msgid "Status"
@@ -68,8 +68,8 @@ msgid "Allow to change page layout?"
 msgstr "ページスタイルのレイアウト変更"
 
 #: Rooms/View/Elements/Spaces/edit_form.ctp:60
-msgid "Allow HTML tags?"
-msgstr "HTMLタグの書き込み制限"
+msgid "Allow HTML tags?  e.g.) Javascript or iframe"
+msgstr "HTMLタグの書き込み制限 (Javascript、iframe 等) "
 
 #: Rooms/View/Elements/Spaces/edit_form.ctp:67
 msgid "Allow to uploads picture files?"
@@ -83,3 +83,6 @@ msgstr "添付ファイルのアップロード制限"
 msgid "Video files paste from the editor"
 msgstr "動画ファイルの貼り付け"
 
+#: UserRoles/View/UserRoleSettings/edit.ctp:35
+msgid "Default room role"
+msgstr "「ルーム内の役割」のデフォルト値"

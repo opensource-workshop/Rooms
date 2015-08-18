@@ -38,10 +38,21 @@ class RoomsController extends RoomsAppController {
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
 		'M17n.SwitchLanguage',
-		'Rooms.RoomsRolesForm',
+		'Rooms.RoomsRolesForm' => array(
+			'permissions' => array('content_publishable', 'html_not_limited')
+		),
 		'Rooms.RoomsUtility',
 		'Rooms.SpacesUtility',
 		//'Paginator',
+	);
+
+/**
+ * use helper
+ *
+ * @var array
+ */
+	public $helpers = array(
+		'UserRoles.UserRoleForm',
 	);
 
 /**
@@ -139,6 +150,7 @@ class RoomsController extends RoomsAppController {
 					'root_id' => $rootId,
 					'parent_id' => $roomId,
 					'active' => true,
+					'default_role_key' => $this->viewVars['room']['Room']['default_role_key'],
 					'need_approval' => $this->$model->defaultNeedApproval,
 					'default_participation' => $this->$model->defaultParticipation,
 				))
@@ -154,9 +166,6 @@ class RoomsController extends RoomsAppController {
 		//RoomsRolesFormのセット
 		$this->RoomsRolesForm->settings['room_id'] = null;
 		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
-		$this->RoomsRolesForm->settings['permissions'] = array(
-			'content_publishable'
-		);
 
 		$this->set('participationFixed', $this->$model->participationFixed);
 	}
@@ -190,7 +199,7 @@ class RoomsController extends RoomsAppController {
 			//登録処理
 			if ($room = $this->Room->saveRoom($data, false)) {
 				//正常の場合
-				$this->redirect('/rooms/roles_rooms_users/edit/' . $room['Room']['id'] . '/');
+				$this->redirect('/rooms/rooms_roles_users/edit/' . $room['Room']['id'] . '/');
 				return;
 			}
 			$this->handleValidationError($this->Room->validationErrors);
@@ -214,22 +223,7 @@ class RoomsController extends RoomsAppController {
 		$this->set('participationFixed', $this->$model->participationFixed);
 
 		$this->RoomsRolesForm->settings['room_id'] = $roomId;
-
-		if (! isset($this->viewVars['room']['Room']['parent_id'])) {
-			$this->RoomsRolesForm->settings['type'] = $this->viewVars['space']['Space']['plugin_key'];
-			$this->RoomsRolesForm->settings['permissions'] = array(
-				'html_not_limited',
-				'upload_picture_not_limited',
-				'upload_attachment_not_limited',
-				'upload_video_not_limited'
-			);
-
-		} else {
-			$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
-			$this->RoomsRolesForm->settings['permissions'] = array(
-				'content_publishable'
-			);
-		}
+		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
 	}
 
 /**

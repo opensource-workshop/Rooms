@@ -34,6 +34,7 @@ echo $this->Html->css(
 					'nest' => 0,
 					'roomName' => $room['RoomsLanguage']['name'],
 					'active' => (bool)$room['Room']['active'],
+					'isLink' => (bool)$room['Room']['page_id_top']
 				)); ?>
 
 			<?php if (isset($room['TreeList'])) : ?>
@@ -44,6 +45,7 @@ echo $this->Html->css(
 							'nest' => substr_count($roomName, chr(9)) + 1,
 							'roomName' => $room['children'][$roomId]['RoomsLanguage']['name'],
 							'active' => (bool)$room['children'][$roomId]['Room']['active'],
+							'isLink' => true
 						)); ?>
 				<?php endforeach; ?>
 			<?php endif; ?>

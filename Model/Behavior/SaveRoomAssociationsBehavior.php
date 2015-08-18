@@ -59,6 +59,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		if (! $model->RolesRoom->getAffectedRows() > 0) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
+
 		return true;
 	}
 
@@ -72,6 +73,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
  */
 	public function saveDefaultRolesRoomsUsers(Model $model, $data) {
 		$model->loadModels([
+			'Role' => 'Roles.Role',
 			'RolesRoom' => 'Rooms.RolesRoom',
 			'RolesRoomsUser' => 'Rooms.RolesRoomsUser',
 			'User' => 'Users.User',
@@ -79,11 +81,38 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		]);
 		$db = $model->getDataSource();
 
+		//登録者のRolesRoomsUsersをルーム管理者で登録する
+		$rolesRoom = $model->RolesRoom->find('first', array(
+			'recursive' => -1,
+			'conditions' => array(
+				'room_id' => $data['Room']['id'],
+				'role_key' => ROLE::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR
+			)
+		));
+		$rolesRoomsUser = array(
+			'roles_room_id' => $rolesRoom['RolesRoom']['id'],
+			'user_id' => AuthComponent::user('id')
+		);
+		if (! $model->RolesRoomsUser->save($rolesRoomsUser)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		}
+		if (! $data['Room']['default_participation']) {
+			return true;
+		}
+
 		//多数のデータを一括で登録するためINSERT INTO ... SELECTを使う。
+		//--デフォルトのロールを取得
+		$rolesRoom = $model->RolesRoom->find('first', array(
+			'recursive' => -1,
+			'conditions' => array(
+				'room_id' => $data['Room']['id'],
+				'role_key' => $data['Room']['default_role_key'],
+			)
+		));
 		//--クエリの生成
 		$tableName = $model->RolesRoomsUser->tablePrefix . $model->RolesRoomsUser->table;
 		$values = array(
-			'roles_room_id' => $model->RolesRoom->escapeField('id'),
+			'roles_room_id' => $db->value($rolesRoom['RolesRoom']['id'], 'string'),
 			'user_id' => $model->User->escapeField('id'),
 			'created' => $db->value($this->__now($model, 'created'), 'string'),
 			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
@@ -92,19 +121,10 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		);
 		$joins = array(
 			$model->User->tablePrefix . $model->User->table . ' AS ' . $model->User->alias => null,
-			$model->UserRoleSetting->tablePrefix . $model->UserRoleSetting->table . ' AS ' . $model->UserRoleSetting->alias => array(
-				$model->User->escapeField('role_key') . ' = ' . $model->UserRoleSetting->escapeField('role_key')
-			),
-			$model->RolesRoom->tablePrefix . $model->RolesRoom->table . ' AS ' . $model->RolesRoom->alias => array(
-				$model->UserRoleSetting->escapeField('default_room_role_key') . ' = ' . $model->RolesRoom->escapeField('role_key')
-			),
 		);
 		$wheres = array(
-			$model->RolesRoom->escapeField('room_id') . ' = ' . $db->value($data['Room']['id'], 'string'),
+			$model->User->escapeField('id') . ' != ' . $db->value(AuthComponent::user('id'), 'string'),
 		);
-		if (! $data['Room']['default_participation']) {
-			$wheres[] = $model->User->escapeField('id') . ' = ' . $db->value(AuthComponent::user('id'), 'string');
-		}
 
 		//--クエリの実行
 		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
