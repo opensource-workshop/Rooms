@@ -19,7 +19,7 @@ msgid "General setting"
 msgstr ""
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:32
-msgid "Select the members to join"
+msgid "Edit the members to join"
 msgstr ""
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:36

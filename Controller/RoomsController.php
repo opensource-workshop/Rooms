@@ -43,7 +43,6 @@ class RoomsController extends RoomsAppController {
 		),
 		'Rooms.RoomsUtility',
 		'Rooms.SpacesUtility',
-		//'Paginator',
 	);
 
 /**
@@ -68,7 +67,7 @@ class RoomsController extends RoomsAppController {
 		}
 
 		//ルームデータ取得
-		$rooms = $this->RoomsUtility->getRoomsForPaginator($spaceId);
+		$rooms = $this->RoomsUtility->getRoomsForPaginator($spaceId, $this->viewVars['space']['Room']['id']);
 		$this->set('rooms', $rooms);
 	}
 

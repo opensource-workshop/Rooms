@@ -29,7 +29,7 @@ if ($this->params['action'] === 'add') {
 	</li>
 
 	<li class="<?php echo ($this->params['controller'] === 'rooms_roles_users' ? 'active' : $disabled); ?>">
-		<?php echo $this->Html->link(__d('rooms', 'Select the members to join'), $urlRolesRoomsUsers); ?>
+		<?php echo $this->Html->link(__d('rooms', 'Edit the members to join'), $urlRolesRoomsUsers); ?>
 	</li>
 
 	<?php if (isset($room['Room']['parent_id'])) : ?>

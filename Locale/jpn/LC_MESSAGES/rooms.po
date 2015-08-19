@@ -19,8 +19,8 @@ msgid "General setting"
 msgstr "一般設定"
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:32
-msgid "Select the members to join"
-msgstr "参加会員の選択"
+msgid "Edit the members to join"
+msgstr "参加会員の修正"
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:36
 #: Rooms/View/Elements/space_setting_tabs.ctp:23

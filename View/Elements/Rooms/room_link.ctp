@@ -22,6 +22,9 @@ $roomName = str_repeat('<span class="rooms-tree"></span>', $nest) . h($roomName)
 			<a href="<?php echo $this->Html->url('/rooms/rooms/edit/' . $roomId); ?>">
 				<?php echo $roomName; ?>
 			</a>
+			<a class="btn btn-xs btn-primary" href="<?php echo $this->Html->url('/rooms/rooms/edit/' . $roomId); ?>">
+				<span class="glyphicon glyphicon-edit"> </span>
+			</a>
 		<?php else : ?>
 			<?php echo $roomName; ?>
 		<?php endif; ?>

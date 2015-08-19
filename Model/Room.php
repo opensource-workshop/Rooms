@@ -25,6 +25,16 @@ App::uses('RoomsAppModel', 'Rooms.Model');
 class Room extends RoomsAppModel {
 
 /**
+ * room id
+ *
+ * @var const
+ */
+	const
+		PUBLIC_PARENT_ID = '1',
+		PRIVATE_PARENT_ID = '2',
+		ROOM_PARENT_ID = '3';
+
+/**
  * Behaviors
  *
  * @var array

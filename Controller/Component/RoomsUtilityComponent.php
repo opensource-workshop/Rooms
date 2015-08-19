@@ -39,10 +39,11 @@ class RoomsUtilityComponent extends Component {
  * Get rooms data by spaces.id
  *
  * @param int $spaceId spaces.id
+ * @param int $spaceRoomId rooms.id
  * @param string $treeSpacer Spacer on tree list
  * @return array Rooms data
  */
-	public function getRoomsForPaginator($spaceId, $treeSpacer = null) {
+	public function getRoomsForPaginator($spaceId, $spaceRoomId, $treeSpacer = null) {
 		$result = array();
 		if (! isset($treeSpacer)) {
 			$treeSpacer = chr(9);
@@ -53,10 +54,10 @@ class RoomsUtilityComponent extends Component {
 			'recursive' => 0,
 			'conditions' => array(
 				'Room.space_id' => $spaceId,
-				'Room.parent_id' => null,
+				'Room.parent_id' => $spaceRoomId,
 				'Language.id' => Configure::read('Config.languageId'),
 			),
-			'order' => 'Room.lft'
+			'order' => 'Room.lft',
 		);
 		$data = $this->controller->Paginator->paginate('RoomsLanguage');
 		$result = Hash::combine($data, '{n}.Room.id', '{n}');
