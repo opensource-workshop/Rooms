@@ -51,6 +51,4 @@
 	</tbody>
 </table>
 
-<div class="text-center">
-	<?php echo $this->element('NetCommons.paginator'); ?>
-</div>
+<?php echo $this->element('NetCommons.paginator');
