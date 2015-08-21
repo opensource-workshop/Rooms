@@ -11,11 +11,12 @@
 ?>
 
 <table class="table table-hover">
-	<tbody>
-		<?php if (isset($headElementPath)) : ?>
+	<?php if (isset($headElementPath)) : ?>
+		<thead>
 			<?php echo $this->element($headElementPath); ?>
-		<?php endif; ?>
-
+		</thead>
+	<?php endif; ?>
+	<tbody>
 		<?php echo $this->element($elementPath, array(
 				'spaceId' => $space['Space']['id'],
 				'roomId' => $space['Room']['id'],
