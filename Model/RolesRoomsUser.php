@@ -50,7 +50,7 @@ class RolesRoomsUser extends RoomsAppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
+		),
 	);
 
 /**
@@ -64,16 +64,16 @@ class RolesRoomsUser extends RoomsAppModel {
  */
 	public function beforeValidate($options = array()) {
 		$this->validate = Hash::merge($this->validate, array(
-			'roles_room_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-					'message' => __d('net_commons', 'Invalid request.'),
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
-				),
-			),
+			//'roles_room_id' => array(
+			//	'numeric' => array(
+			//		'rule' => array('numeric'),
+			//		'message' => __d('net_commons', 'Invalid request.'),
+			//		//'allowEmpty' => false,
+			//		//'required' => false,
+			//		//'last' => false, // Stop validation after this rule
+			//		//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			//	),
+			//),
 			'user_id' => array(
 				'numeric' => array(
 					'rule' => array('numeric'),
@@ -92,65 +92,117 @@ class RolesRoomsUser extends RoomsAppModel {
 /**
  * Return roles_rooms_users
  *
- * @param int $roomId rooms.id
+ * @param array $condtions Conditions by Model::find
  * @return array
  */
-	public function getUsersByRoomId($roomId) {
-//		$this->Room = ClassRegistry::init('Rooms.Room');
-//		$this->Role = ClassRegistry::init('Roles.Role');
-//		$this->UsersLanguage = ClassRegistry::init('Users.UsersLanguage');
-//
-//		$rolesRoomUsers = $this->find('all', array(
-//			'recursive' => -1,
-//			'fields' => array(
-//				$this->alias . '.*',
-//				$this->User->alias . '.*',
-//				$this->UsersLanguage->alias . '.*',
-//				$this->Role->alias . '.*',
-//			),
-//			'joins' => array(
-//				array(
-//					'table' => $this->RolesRoom->table,
-//					'alias' => $this->RolesRoom->alias,
-//					'type' => 'INNER',
-//					'conditions' => array(
-//						$this->alias . '.roles_room_id' . ' = ' . $this->RolesRoom->alias . ' .id',
-//					),
-//				),
-//				array(
-//					'table' => $this->User->table,
-//					'alias' => $this->User->alias,
-//					'type' => 'INNER',
-//					'conditions' => array(
-//						$this->alias . '.user_id' . ' = ' . $this->User->alias . ' .id',
-//					),
-//				),
-//				array(
-//					'table' => $this->UsersLanguage->table,
-//					'alias' => $this->UsersLanguage->alias,
-//					'type' => 'INNER',
-//					'conditions' => array(
-//						$this->UsersLanguage->alias . '.user_id' . ' = ' . $this->User->alias . ' .id',
-//						$this->UsersLanguage->alias . '.language_id' => Configure::read('Config.languageId')
-//					),
-//				),
-//				array(
-//					'table' => $this->Role->table,
-//					'alias' => $this->Role->alias,
-//					'type' => 'INNER',
-//					'conditions' => array(
-//						$this->Role->alias . '.key' . ' = ' . $this->RolesRoom->alias . ' .role_key',
-//						$this->Role->alias . '.language_id' => Configure::read('Config.languageId')
-//					),
-//				),
-//			),
-//			'conditions' => array(
-//				$this->RolesRoom->alias . '.room_id' => (int)$roomId,
-//			),
-//		));
+	public function getRolesRoomsUsers($conditions = array()) {
+		$this->Room = ClassRegistry::init('Rooms.Room');
 
-		$rolesRoomUsers = array();
-		return $rolesRoomUsers;
+		$conditions = Hash::merge(array(
+				'Room.page_id_top NOT' => null,
+			), $conditions);
+
+		$rolesRoomsUsers = $this->find('all', array(
+			'recursive' => -1,
+			'fields' => array(
+				$this->alias . '.*',
+				$this->RolesRoom->alias . '.*',
+				$this->Room->alias . '.*',
+			),
+			'joins' => array(
+				array(
+					'table' => $this->RolesRoom->table,
+					'alias' => $this->RolesRoom->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->alias . '.roles_room_id' . ' = ' . $this->RolesRoom->alias . ' .id',
+					),
+				),
+				array(
+					'table' => $this->Room->table,
+					'alias' => $this->Room->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->RolesRoom->alias . '.room_id' . ' = ' . $this->Room->alias . ' .id',
+					),
+				),
+			),
+			'conditions' => $conditions,
+		));
+
+		return $rolesRoomsUsers;
+	}
+
+/**
+ * Save RolesRoomsUser
+ *
+ * @param array $data received post data
+ * @param bool $created True is created(add action), false is updated(edit action)
+ * @return bool True on success, false on validation errors
+ * @throws InternalErrorException
+ */
+	public function saveRolesRoomsUser($data) {
+		//トランザクションBegin
+		$this->setDataSource('master');
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+
+		//バリデーション
+		$this->set($data['RolesRoomsUser']);
+		$this->validates();
+		if ($this->validationErrors) {
+			return false;
+		}
+
+		try {
+			//Roomデータの登録
+			if (! $rolesRoomsUser = $this->save($data['RolesRoomsUser'], false, false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$dataSource->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+
+		return $rolesRoomsUser;
+	}
+
+/**
+ * Delete RolesRoomsUser
+ *
+ * @param array $data received post data
+ * @return mixed On success Model::$data if its not empty or true, false on failure
+ * @throws InternalErrorException
+ */
+	public function deleteRolesRoomsUser($data) {
+		//トランザクションBegin
+		$this->setDataSource('master');
+		$dataSource = $this->getDataSource();
+		$dataSource->begin();
+
+		try {
+			//Roomデータの削除
+			if (! $this->delete($data['RolesRoomsUser']['id'], false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$dataSource->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$dataSource->rollback();
+			CakeLog::error($ex);
+			throw $ex;
+		}
+
+		return true;
 	}
 
 }

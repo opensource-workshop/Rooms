@@ -29,28 +29,7 @@ class RolesRoom extends RoomsAppModel {
  *
  * @var array
  */
-	public $validate = array(
-		'room_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'role_key' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
+	public $validate = array();
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -123,5 +102,64 @@ class RolesRoom extends RoomsAppModel {
 			'finderQuery' => '',
 		)
 	);
+
+/**
+ * Called during validation operations, before validation. Please note that custom
+ * validation rules can be defined in $validate.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if validate operation should continue, false to abort
+ * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforevalidate
+ * @see Model::save()
+ */
+	public function beforeValidate($options = array()) {
+		$this->validate = Hash::merge($this->validate, array(
+			'room_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					//'allowEmpty' => false,
+					//'required' => false,
+					//'last' => false, // Stop validation after this rule
+					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'role_key' => array(
+				'notBlank' => array(
+					'rule' => array('notBlank'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					//'allowEmpty' => false,
+					//'required' => false,
+					//'last' => false, // Stop validation after this rule
+					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				),
+			),
+		));
+
+		return parent::beforeValidate($options);
+	}
+
+/**
+ * Return roles_rooms
+ *
+ * @param array $condtions Conditions by Model::find
+ * @return array
+ */
+	public function getRolesRooms($conditions = array()) {
+		$conditions = Hash::merge(array(
+				'Room.page_id_top NOT' => null,
+			), $conditions);
+
+		$rolesRoomsUsers = $this->find('all', array(
+			'recursive' => 0,
+			'fields' => array(
+				$this->alias . '.*',
+				$this->Room->alias . '.*',
+			),
+			'conditions' => $conditions,
+		));
+
+		return $rolesRoomsUsers;
+	}
 
 }

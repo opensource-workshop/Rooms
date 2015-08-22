@@ -23,7 +23,8 @@
 				'nest' => 0,
 				'roomName' => $space['RoomsLanguage']['name'],
 				'active' => (bool)$space['Room']['active'],
-				'isLink' => (bool)$space['Room']['page_id_top']
+				'isLink' => (bool)$space['Room']['page_id_top'],
+				'room' => $space,
 			)); ?>
 
 		<?php foreach ($rooms as $room) : ?>
@@ -33,7 +34,8 @@
 					'nest' => 1,
 					'roomName' => $room['RoomsLanguage']['name'],
 					'active' => (bool)$room['Room']['active'],
-					'isLink' => (bool)$room['Room']['page_id_top']
+					'isLink' => (bool)$room['Room']['page_id_top'],
+					'room' => $room,
 				)); ?>
 
 			<?php if (isset($room['TreeList'])) : ?>
@@ -44,7 +46,8 @@
 							'nest' => substr_count($roomName, chr(9)) + 1,
 							'roomName' => $room['children'][$roomId]['RoomsLanguage']['name'],
 							'active' => (bool)$room['children'][$roomId]['Room']['active'],
-							'isLink' => true
+							'isLink' => true,
+							'room' => $room['children'][$roomId],
 						)); ?>
 				<?php endforeach; ?>
 			<?php endif; ?>
