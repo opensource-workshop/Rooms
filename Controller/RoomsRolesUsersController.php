@@ -17,7 +17,7 @@ App::uses('RoomsAppController', 'Rooms.Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Controller
  */
-class RolesRoomsUsersController extends RoomsAppController {
+class RoomsRolesUsersController extends RoomsAppController {
 
 /**
  * use model
@@ -26,7 +26,7 @@ class RolesRoomsUsersController extends RoomsAppController {
  */
 	public $uses = array(
 		//'Rooms.RoomsLanguage',
-		//'Rooms.Room',
+		'Rooms.RolesRoomsUser',
 		//'Rooms.Space',
 		//'Rooms.SpacesLanguage',
 	);

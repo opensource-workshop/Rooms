@@ -18,9 +18,16 @@ $roomName = str_repeat('<span class="rooms-tree"></span>', $nest) . h($roomName)
 
 <tr class="<?php echo (! $active ? 'danger' : ''); ?>">
 	<td>
-		<a href="<?php echo $this->Html->url('/rooms/rooms/edit/' . $roomId); ?>">
+		<?php if ($isLink) : ?>
+			<a href="<?php echo $this->Html->url('/rooms/rooms/edit/' . $roomId); ?>">
+				<?php echo $roomName; ?>
+			</a>
+			<a class="btn btn-xs btn-primary" href="<?php echo $this->Html->url('/rooms/rooms/edit/' . $roomId); ?>">
+				<span class="glyphicon glyphicon-edit"> </span>
+			</a>
+		<?php else : ?>
 			<?php echo $roomName; ?>
-		</a>
+		<?php endif; ?>
 	</td>
 	<td class="text-right">
 		<a class="btn btn-xs btn-success"

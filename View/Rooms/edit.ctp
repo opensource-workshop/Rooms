@@ -40,13 +40,7 @@ echo $this->Html->css(
 			<?php echo $this->Form->hidden('Room.parent_id'); ?>
 			<?php echo $this->Form->hidden('Page.parent_id'); ?>
 
-			<?php echo $this->element('Rooms/edit_room_name'); ?>
-
-			<?php if (! isset($this->data['Room']['parent_id'])) : ?>
-				<?php echo $this->element('Rooms/space_room_edit_form'); ?>
-			<?php else : ?>
-				<?php echo $this->element('Rooms/room_edit_form'); ?>
-			<?php endif; ?>
+			<?php echo $this->element('Rooms/edit_form'); ?>
 		</div>
 	</div>
 

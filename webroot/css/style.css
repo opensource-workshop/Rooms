@@ -11,7 +11,7 @@
 	margin-right: 10px;
 }
 
-.table > tbody > tr > th,
-.table > tbody > tr > td {
+.rooms-manager .table > tbody > tr > th,
+.rooms-manager .table > tbody > tr > td {
 	border-top-width: 0px;
 }

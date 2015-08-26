@@ -25,30 +25,6 @@ echo $this->Html->css(
 
 <?php echo $this->element('Rooms.space_tabs'); ?>
 
-<table class="table table-hover">
-	<tbody>
-		<?php foreach ($rooms as $room) : ?>
-			<?php echo $this->element('Rooms/room_link', array(
-					'spaceId' => $space['Space']['id'],
-					'roomId' => $room['Room']['id'],
-					'nest' => 0,
-					'roomName' => $room['RoomsLanguage']['name'],
-					'active' => (bool)$room['Room']['active'],
-				)); ?>
-
-			<?php if (isset($room['TreeList'])) : ?>
-				<?php foreach ($room['TreeList'] as $roomId => $roomName) : ?>
-					<?php echo $this->element('Rooms/room_link', array(
-							'spaceId' => $space['Space']['id'],
-							'roomId' => $roomId,
-							'nest' => substr_count($roomName, chr(9)) + 1,
-							'roomName' => $room['children'][$roomId]['RoomsLanguage']['name'],
-							'active' => (bool)$room['children'][$roomId]['Room']['active'],
-						)); ?>
-				<?php endforeach; ?>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	</tbody>
-</table>
-
-<?php echo $this->element('NetCommons.paginator');
+<article class="rooms-manager">
+	<?php echo $this->element('Rooms.Rooms/render_index', array('elementPath' => 'Rooms/room_link')); ?>
+</article>

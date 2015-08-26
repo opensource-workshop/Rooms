@@ -1,6 +1,6 @@
 <?php
 /**
- * RoomsUsers edit template
+ * RolesRoomUsers edit template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>

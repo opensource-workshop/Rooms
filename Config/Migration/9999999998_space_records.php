@@ -67,7 +67,7 @@ class SpaceRecords extends NetCommonsMigration {
 				'rght' => '5',
 				'type' => '3',
 				'plugin_key' => 'private_space',
-				'default_setting_action' => 'rooms/edit/2'
+				'default_setting_action' => ''
 			),
 			array(
 				'id' => '4',
@@ -78,87 +78,6 @@ class SpaceRecords extends NetCommonsMigration {
 				'plugin_key' => 'room_space',
 				'default_setting_action' => 'rooms/index/4'
 			),
-		),
-		'DefaultRolePermission' => array(
-			//HTMLタグの書き込み制限
-			//(パブリックスペース)
-			array('role_key' => 'room_administrator', 'type' => 'public_space', 'permission' => 'html_not_limited', 'value' => '1', 'fixed' => '1', ),
-			array('role_key' => 'chief_editor', 'type' => 'public_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'public_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'public_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'public_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '1', ),
-			//(プライベートスペース)
-			array('role_key' => 'room_administrator', 'type' => 'private_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'chief_editor', 'type' => 'private_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'private_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'private_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'private_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '1', ),
-			//(グループルームスペース)
-			array('role_key' => 'room_administrator', 'type' => 'room_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'chief_editor', 'type' => 'room_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'room_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'room_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'room_space', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '1', ),
-
-			//画像ファイルのアップロード制限
-			//(パブリックスペース)
-			array('role_key' => 'room_administrator', 'type' => 'public_space', 'permission' => 'upload_picture_not_limited', 'value' => '1', 'fixed' => '1', ),
-			array('role_key' => 'chief_editor', 'type' => 'public_space', 'permission' => 'upload_picture_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'public_space', 'permission' => 'upload_picture_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'public_space', 'permission' => 'upload_picture_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'public_space', 'permission' => 'upload_picture_not_limited', 'value' => '0', 'fixed' => '1', ),
-			//(プライベートスペース)
-			array('role_key' => 'room_administrator', 'type' => 'private_space', 'permission' => 'upload_picture_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'chief_editor', 'type' => 'private_space', 'permission' => 'upload_picture_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'private_space', 'permission' => 'upload_picture_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'private_space', 'permission' => 'upload_picture_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'private_space', 'permission' => 'upload_picture_not_limited', 'value' => '0', 'fixed' => '1', ),
-			//(グループルームスペース)
-			array('role_key' => 'room_administrator', 'type' => 'room_space', 'permission' => 'upload_picture_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'chief_editor', 'type' => 'room_space', 'permission' => 'upload_picture_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'room_space', 'permission' => 'upload_picture_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'room_space', 'permission' => 'upload_picture_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'room_space', 'permission' => 'upload_picture_not_limited', 'value' => '0', 'fixed' => '1', ),
-
-			//添付ファイルのアップロード制限
-			//(パブリックスペース)
-			array('role_key' => 'room_administrator', 'type' => 'public_space', 'permission' => 'upload_attachment_not_limited', 'value' => '1', 'fixed' => '1', ),
-			array('role_key' => 'chief_editor', 'type' => 'public_space', 'permission' => 'upload_attachment_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'public_space', 'permission' => 'upload_attachment_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'public_space', 'permission' => 'upload_attachment_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'public_space', 'permission' => 'upload_attachment_not_limited', 'value' => '0', 'fixed' => '1', ),
-			//(プライベートスペース)
-			array('role_key' => 'room_administrator', 'type' => 'private_space', 'permission' => 'upload_attachment_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'chief_editor', 'type' => 'private_space', 'permission' => 'upload_attachment_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'private_space', 'permission' => 'upload_attachment_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'private_space', 'permission' => 'upload_attachment_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'private_space', 'permission' => 'upload_attachment_not_limited', 'value' => '0', 'fixed' => '1', ),
-			//(グループルームスペース)
-			array('role_key' => 'room_administrator', 'type' => 'room_space', 'permission' => 'upload_attachment_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'chief_editor', 'type' => 'room_space', 'permission' => 'upload_attachment_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'room_space', 'permission' => 'upload_attachment_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'room_space', 'permission' => 'upload_attachment_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'room_space', 'permission' => 'upload_attachment_not_limited', 'value' => '0', 'fixed' => '1', ),
-
-			//動画ファイルのアップロード制限
-			//(パブリックスペース)
-			array('role_key' => 'room_administrator', 'type' => 'public_space', 'permission' => 'upload_video_not_limited', 'value' => '1', 'fixed' => '1', ),
-			array('role_key' => 'chief_editor', 'type' => 'public_space', 'permission' => 'upload_video_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'public_space', 'permission' => 'upload_video_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'public_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'public_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '1', ),
-			//(プライベートスペース)
-			array('role_key' => 'room_administrator', 'type' => 'private_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'chief_editor', 'type' => 'private_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'private_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'private_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'private_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '1', ),
-			//(グループルームスペース)
-			array('role_key' => 'room_administrator', 'type' => 'room_space', 'permission' => 'upload_video_not_limited', 'value' => '1', 'fixed' => '0', ),
-			array('role_key' => 'chief_editor', 'type' => 'room_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'editor', 'type' => 'room_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'general_user', 'type' => 'room_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '0', ),
-			array('role_key' => 'visitor', 'type' => 'room_space', 'permission' => 'upload_video_not_limited', 'value' => '0', 'fixed' => '1', ),
 		),
 	);
 

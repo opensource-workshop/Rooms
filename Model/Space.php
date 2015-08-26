@@ -32,11 +32,15 @@ class Space extends RoomsAppModel {
 	public $useTable = 'spaces';
 
 /**
- * UserRole keys
+ * Space id
  *
  * @var const
  */
-	const WHOLE_SITE_ID = '1';
+	const
+		WHOLE_SITE_ID = '1',
+		PUBLIC_SPACE_ID = '2',
+		PRIVATE_SPACE_ID = '3',
+		ROOM_SPACE_ID = '4';
 
 /**
  * DefaultNeedApproval
