@@ -142,7 +142,7 @@ class RolesRoom extends RoomsAppModel {
 /**
  * Return roles_rooms
  *
- * @param array $condtions Conditions by Model::find
+ * @param array $conditions Conditions by Model::find
  * @return array
  */
 	public function getRolesRooms($conditions = array()) {

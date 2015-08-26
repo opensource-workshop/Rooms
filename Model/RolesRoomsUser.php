@@ -92,7 +92,7 @@ class RolesRoomsUser extends RoomsAppModel {
 /**
  * Return roles_rooms_users
  *
- * @param array $condtions Conditions by Model::find
+ * @param array $conditions Conditions by Model::find
  * @return array
  */
 	public function getRolesRoomsUsers($conditions = array()) {
@@ -137,7 +137,6 @@ class RolesRoomsUser extends RoomsAppModel {
  * Save RolesRoomsUser
  *
  * @param array $data received post data
- * @param bool $created True is created(add action), false is updated(edit action)
  * @return bool True on success, false on validation errors
  * @throws InternalErrorException
  */

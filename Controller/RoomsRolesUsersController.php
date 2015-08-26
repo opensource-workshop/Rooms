@@ -62,11 +62,6 @@ class RoomsRolesUsersController extends RoomsAppController {
 			return;
 		}
 
-//		$ret = $this->RolesRoomsUser->getUsersByRoomId($roomId);
-//var_dump($ret);
-
-
-
 		if ($this->request->isPost()) {
 			//登録処理
 			$data = $this->data;
