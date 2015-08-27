@@ -26,6 +26,8 @@ echo $this->Html->css(
 
 <?php echo $this->element('Rooms.room_setting_tabs'); ?>
 
+<br>
+
 <div class="panel panel-default">
 	<?php echo $this->Form->create(null, array('novalidate' => true)); ?>
 

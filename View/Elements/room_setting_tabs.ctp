@@ -38,5 +38,3 @@ if ($this->params['action'] === 'add') {
 		</li>
 	<?php endif; ?>
 </ul>
-
-<br>

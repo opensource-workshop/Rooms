@@ -76,3 +76,11 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
+#: Rooms/View/Elements/Rooms/edit_form.ctp:64
+msgid "Room role"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:64
+msgid "(Select room role)"
+msgstr ""
+
