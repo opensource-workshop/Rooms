@@ -93,7 +93,5 @@ class RoomsRolesUsersController extends RoomsAppController {
 
 			$this->set('displayFields', $displayFields);
 		}
-
 	}
-
 }
