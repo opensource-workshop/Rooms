@@ -76,3 +76,10 @@ msgstr "準備中"
 msgid "Open"
 msgstr "公開中"
 
+#: Rooms/View/Elements/Rooms/edit_form.ctp:64
+msgid "Room role"
+msgstr "ルーム内の役割"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:64
+msgid "(Select room role)"
+msgstr "(ルーム内の役割)"
