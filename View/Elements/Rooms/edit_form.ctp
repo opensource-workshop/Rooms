@@ -73,7 +73,7 @@
 
 	<div class="form-inline">
 		<div class="form-group checkbox-separator"></div>
-		<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.content_publishable', array('inline' => true)); ?>
+		<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.content_publishable'); ?>
 	</div>
 
 	<div>
@@ -85,7 +85,7 @@
 	<?php echo $this->Form->label('RoomRolePermission.html_not_limited', __d('rooms', 'Allow HTML tags?  e.g.) Javascript or iframe')); ?>
 	<div class="form-inline">
 		<div class="form-group checkbox-separator"></div>
-		<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.html_not_limited', array('inline' => true)); ?>
+		<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.html_not_limited'); ?>
 	</div>
 </div>
 

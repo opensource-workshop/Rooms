@@ -33,7 +33,7 @@ class RoomsRolesFormHelper extends FormHelper {
  * @return string Formatted RADIO element
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/form.html#options-for-select-checkbox-and-radio-inputs
  */
-	public function checkboxRoomRoles($fieldName, $attributes = array()) {
+	public function checkboxRoomRoles($fieldName, $attributes = array('inline' => true)) {
 		list($model, $permission) = explode('.', $fieldName);
 
 		$html = '';
