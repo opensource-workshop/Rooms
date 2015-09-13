@@ -111,7 +111,7 @@ class RoomsController extends RoomsAppController {
 				$this->redirect('/rooms/rooms_roles_users/edit/' . $room['Room']['id'] . '/');
 				return;
 			}
-			$this->handleValidationError($this->Room->validationErrors);
+			$this->NetCommons->handleValidationError($this->Room->validationErrors);
 			$this->request->data = $data;
 
 		} else {
@@ -201,7 +201,7 @@ class RoomsController extends RoomsAppController {
 				$this->redirect('/rooms/rooms_roles_users/edit/' . $room['Room']['id'] . '/');
 				return;
 			}
-			$this->handleValidationError($this->Room->validationErrors);
+			$this->NetCommons->handleValidationError($this->Room->validationErrors);
 			$this->request->data = $data;
 
 		} else {
