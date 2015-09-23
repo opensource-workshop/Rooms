@@ -247,7 +247,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'Page' => 'Pages.Page',
 		]);
 
-		$slug = $model->generateKey();
+		$slug = $model->generateKey('Page', $model->useDbConfig);
 		$page = Hash::merge(array(
 			'Page' => array(
 				'slug' => $slug,

@@ -9,15 +9,13 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('NetCommonsCakeTestFixture', 'NetCommons.TestSuite/Fixture');
-
 /**
  * RoomFixture
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Fixture
  */
-class RoomFixture extends NetCommonsCakeTestFixture {
+class RoomFixture extends CakeTestFixture {
 
 /**
  * Fields
