@@ -87,6 +87,26 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'modified_user' => 1,
 			'modified' => '2014-10-11 04:57:10'
 		),
+		//別ルーム(room_id=4)
+		array(
+			'id' => 6,
+			'roles_room_id' => 6,
+			'user_id' => 1,
+			'created_user' => 1,
+			'created' => '2015-08-04 07:58:25',
+			'modified_user' => 1,
+			'modified' => '2015-08-04 07:58:25'
+		),
+		//別ルーム(room_id=5、ブロックなし)
+		array(
+			'id' => 7,
+			'roles_room_id' => 7,
+			'user_id' => 1,
+			'created_user' => 1,
+			'created' => '2015-08-04 07:58:25',
+			'modified_user' => 1,
+			'modified' => '2015-08-04 07:58:25'
+		),
 	);
 
 }
