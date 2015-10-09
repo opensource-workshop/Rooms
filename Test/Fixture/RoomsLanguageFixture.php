@@ -47,7 +47,17 @@ class RoomsLanguageFixture extends CakeTestFixture {
 			'id' => 1,
 			'language_id' => 1,
 			'room_id' => 1,
-			'name' => 'Lorem ipsum dolor sit amet',
+			'name' => 'Room name',
+			'created_user' => 1,
+			'created' => '2015-08-04 07:59:41',
+			'modified_user' => 1,
+			'modified' => '2015-08-04 07:59:41'
+		),
+		array(
+			'id' => 2,
+			'language_id' => 2,
+			'room_id' => 1,
+			'name' => 'Room name',
 			'created_user' => 1,
 			'created' => '2015-08-04 07:59:41',
 			'modified_user' => 1,

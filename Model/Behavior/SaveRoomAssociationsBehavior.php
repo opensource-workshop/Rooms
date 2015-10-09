@@ -247,7 +247,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'Page' => 'Pages.Page',
 		]);
 
-		$slug = $model->generateKey();
+		$slug = $model->generateKey('Page', $model->useDbConfig);
 		$page = Hash::merge(array(
 			'Page' => array(
 				'slug' => $slug,
@@ -283,7 +283,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
  * @return array Model array
  */
 	public function convertRoomRolePermissions(Model $model, $data) {
-		var_dump($data);
+		//var_dump($data);
 		//$model->loadModels([
 		//	'UserRoleSetting' => 'UserRoles.UserRoleSetting',
 		//	'UserAttributesRole' => 'UserRoles.UserAttributesRole',
