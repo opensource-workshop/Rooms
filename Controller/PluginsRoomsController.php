@@ -38,17 +38,9 @@ class PluginsRoomsController extends RoomsAppController {
  */
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
+		'PluginManager.PluginsForm',
 		'Rooms.RoomsUtility',
 		'Rooms.SpacesUtility',
-	);
-
-/**
- * use helper
- *
- * @var array
- */
-	public $helpers = array(
-		'PluginManager.PluginsForm',
 	);
 
 /**

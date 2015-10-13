@@ -27,9 +27,8 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 	<div class="panel-body">
 		<div class="form-inline">
 			<div class="clearfix">
-				<?php echo $this->PluginsForm->checkboxPluginsRoom($activeRoomId, array('all' => true,
-						'class' => 'pull-left plugin-checkbox-separator'
-					)); ?>
+				<?php echo $this->PluginsForm->checkboxPluginsRoom(
+						array('class' => 'pull-left plugin-checkbox-separator')); ?>
 			</div>
 		</div>
 	</div>
