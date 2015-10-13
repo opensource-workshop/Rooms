@@ -25,7 +25,7 @@ class RoomsRolesFormComponent extends Component {
  * @var array
  */
 	public $components = array(
-		'NetCommons.NetCommonsRoomRole'
+		'Workflow.Workflow'
 	);
 
 /**
@@ -74,7 +74,7 @@ class RoomsRolesFormComponent extends Component {
 		}
 
 		if (isset($this->settings['permissions'])) {
-			$results = $this->NetCommonsRoomRole->getRoomRolePermissions($roomId, $this->settings['permissions'], $type);
+			$results = $this->Workflow->getRoomRolePermissions($this->settings['permissions'], $type);
 			$defaultPermissions = Hash::remove($results['DefaultRolePermission'], '{s}.{s}.id');
 			$results['RoomRolePermission'] = Hash::merge($defaultPermissions, $results['RoomRolePermission']);
 

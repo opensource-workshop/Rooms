@@ -9,14 +9,12 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FormHelper', 'View/Helper');
-
 /**
  * RoomsRolesFormHelper
  *
  * @package NetCommons\Rooms\View\Helper
  */
-class RoomsRolesFormHelper extends FormHelper {
+class RoomsRolesFormHelper extends Helper {
 
 /**
  * Other helpers used by FormHelper
