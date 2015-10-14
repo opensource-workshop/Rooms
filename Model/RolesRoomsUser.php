@@ -142,9 +142,7 @@ class RolesRoomsUser extends RoomsAppModel {
  */
 	public function saveRolesRoomsUser($data) {
 		//トランザクションBegin
-		$this->setDataSource('master');
-		$dataSource = $this->getDataSource();
-		$dataSource->begin();
+		$this->begin();
 
 		//バリデーション
 		$this->set($data['RolesRoomsUser']);
@@ -160,13 +158,11 @@ class RolesRoomsUser extends RoomsAppModel {
 			}
 
 			//トランザクションCommit
-			$dataSource->commit();
+			$this->commit();
 
 		} catch (Exception $ex) {
 			//トランザクションRollback
-			$dataSource->rollback();
-			CakeLog::error($ex);
-			throw $ex;
+			$this->rollback($ex);
 		}
 
 		return $rolesRoomsUser;
@@ -181,9 +177,7 @@ class RolesRoomsUser extends RoomsAppModel {
  */
 	public function deleteRolesRoomsUser($data) {
 		//トランザクションBegin
-		$this->setDataSource('master');
-		$dataSource = $this->getDataSource();
-		$dataSource->begin();
+		$this->begin();
 
 		try {
 			//Roomデータの削除
@@ -192,13 +186,11 @@ class RolesRoomsUser extends RoomsAppModel {
 			}
 
 			//トランザクションCommit
-			$dataSource->commit();
+			$this->commit();
 
 		} catch (Exception $ex) {
 			//トランザクションRollback
-			$dataSource->rollback();
-			CakeLog::error($ex);
-			throw $ex;
+			$this->rollback($ex);
 		}
 
 		return true;
