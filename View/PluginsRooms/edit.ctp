@@ -34,7 +34,9 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 	</div>
 
 	<div class="panel-footer text-center">
-		<a class="btn btn-default btn-workflow" href="<?php echo $this->Html->url('/rooms/' . $space['Space']['default_setting_action']); ?>">
+		<a class="btn btn-default btn-workflow"
+			href="<?php echo $this->NetCommonsHtml->url('/rooms/' . $space['Space']['default_setting_action']); ?>">
+
 			<span class="glyphicon glyphicon-remove"></span>
 			<?php echo __d('net_commons', 'Cancel'); ?>
 		</a>

@@ -23,7 +23,9 @@ echo $this->NetCommonsHtml->css(
 
 <div class="user-search-index-head-margin">
 	<div class="text-center">
-		<a class="btn btn-info" href="<?php echo $this->Html->url('/user_manager/user_manager/search/'); ?>">
+		<a class="btn btn-info" href="<?php echo $this->NetCommonsHtml->url(
+				array('plugin' => 'user_manager', 'controller' => 'user_manager', 'action' => 'search')); ?>">
+
 			<span class="glyphicon glyphicon-search"></span>
 			<?php echo __d('users', 'Search for the members'); ?>
 		</a>
@@ -72,7 +74,7 @@ echo $this->NetCommonsHtml->css(
 <?php echo $this->element('NetCommons.paginator'); ?>
 
 <div class="text-center">
-	<a class="btn btn-default btn-workflow" href="<?php echo $this->Html->url('/rooms/' . $space['Space']['default_setting_action']); ?>">
+	<a class="btn btn-default btn-workflow" href="<?php echo $this->NetCommonsHtml->url('/rooms/' . $space['Space']['default_setting_action']); ?>">
 		<span class="glyphicon glyphicon-remove"></span>
 		<?php echo __d('net_commons', 'Close'); ?>
 	</a>
