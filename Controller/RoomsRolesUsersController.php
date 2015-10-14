@@ -65,7 +65,7 @@ class RoomsRolesUsersController extends RoomsAppController {
 			$roomId = $this->data['Room']['id'];
 		}
 		//ルームデータチェック＆セット
-		if (! $this->RoomsUtility->validRoom($roomId, Configure::read('Config.languageId'))) {
+		if (! $this->RoomsUtility->validRoom($roomId)) {
 			return;
 		}
 		//スペースデータチェック＆セット

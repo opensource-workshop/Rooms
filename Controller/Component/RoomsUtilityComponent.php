@@ -55,7 +55,7 @@ class RoomsUtilityComponent extends Component {
 			'conditions' => array(
 				'Room.space_id' => $spaceId,
 				'Room.parent_id' => $spaceRoomId,
-				'Language.id' => Configure::read('Config.languageId'),
+				'Language.id' => Current::read('Language.id'),
 			),
 			'order' => 'Room.lft',
 		);
@@ -72,7 +72,7 @@ class RoomsUtilityComponent extends Component {
 					'recursive' => 0,
 					'conditions' => array(
 						'RoomsLanguage.room_id' => array_keys($roomTreeList),
-						'RoomsLanguage.language_id' => Configure::read('Config.languageId')
+						'RoomsLanguage.language_id' => Current::read('Language.id')
 					),
 					'order' => 'Room.lft'
 				));
@@ -87,10 +87,9 @@ class RoomsUtilityComponent extends Component {
  * Get the room data
  *
  * @param int $roomId rooms.id
- * @param int $languageId languages.id
  * @return array Room data
  */
-	public function getRoom($roomId, $languageId) {
+	public function getRoom($roomId) {
 		if (! $parents = $this->Room->getPath($roomId)) {
 			return $parents;
 		}
@@ -102,7 +101,7 @@ class RoomsUtilityComponent extends Component {
 				'RoomsLanguage.room_id' => $room['Room']['id'],
 			);
 			if (isset($languageId)) {
-				$conditions['RoomsLanguage.language_id'] = $languageId;
+				$conditions['RoomsLanguage.language_id'] = Current::read('Language.id');
 			}
 			$ret = $this->RoomsLanguage->find('all', array(
 				'recursive' => -1,
@@ -134,10 +133,9 @@ class RoomsUtilityComponent extends Component {
  * Check rooms.id
  *
  * @param int $roomId rooms.id
- * @param int $languageId languages.id
  * @return bool True on success, false on failure
  */
-	public function validRoom($roomId, $languageId) {
+	public function validRoom($roomId) {
 		//ルームデータチェック
 		if ($roomId && ! $this->exist($roomId)) {
 			$this->controller->throwBadRequest();
@@ -146,13 +144,13 @@ class RoomsUtilityComponent extends Component {
 		//ルームデータセット
 		$this->controller->set('activeRoomId', $roomId);
 
-		$room = $this->getRoom($roomId, $languageId);
+		$room = $this->getRoom($roomId);
 		$this->controller->set('room', $room);
 
-		$roomNames = Hash::extract($room, 'Parent.{n}.RoomsLanguage.{n}[language_id=' . Configure::read('Config.languageId') . '].name');
+		$roomNames = Hash::extract($room, 'Parent.{n}.RoomsLanguage.{n}[language_id=' . Current::read('Language.id') . '].name');
 		$roomNames = Hash::merge(
 			$roomNames,
-			Hash::extract($room, 'RoomsLanguage.{n}[language_id=' . Configure::read('Config.languageId') . '].name')
+			Hash::extract($room, 'RoomsLanguage.{n}[language_id=' . Current::read('Language.id') . '].name')
 		);
 		$this->controller->set('roomNames', $roomNames);
 
