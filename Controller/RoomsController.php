@@ -103,7 +103,7 @@ class RoomsController extends RoomsAppController {
 			unset($this->request->data['save'], $this->request->data['active_lang_id']);
 
 			//登録処理
-			if ($room = $this->Room->saveRoom($data, true)) {
+			if ($room = $this->Room->saveRoom($this->request->data, true)) {
 				//正常の場合
 				$this->redirect('/rooms/rooms_roles_users/edit/' . $room['Room']['id'] . '/');
 				return;

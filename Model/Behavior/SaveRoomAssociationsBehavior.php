@@ -247,8 +247,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'Page' => 'Pages.Page',
 		]);
 
-		$slug = $model->generateKey('Page', $model->useDbConfig);
-		$page = Hash::merge(array(
+		$slug = OriginalKeyBehavior::generateKey('Page', $model->useDbConfig);
+		$page = Hash::merge($data, array(
 			'Page' => array(
 				'slug' => $slug,
 				'permalink' => $slug,
@@ -259,7 +259,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 				'language_id' => Current::read('Language.id'),
 				'name' => __d('rooms', 'Top')
 			),
-		), $data);
+		));
 
 		if (! $page = $model->Page->savePage($page, array('atomic' => false))) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
