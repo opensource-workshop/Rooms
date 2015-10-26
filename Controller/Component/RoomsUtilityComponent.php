@@ -99,10 +99,8 @@ class RoomsUtilityComponent extends Component {
 		foreach ($parents as $index => $room) {
 			$conditions = array(
 				'RoomsLanguage.room_id' => $room['Room']['id'],
+				'RoomsLanguage.language_id' => Current::read('Language.id')
 			);
-			if (isset($languageId)) {
-				$conditions['RoomsLanguage.language_id'] = Current::read('Language.id');
-			}
 			$ret = $this->RoomsLanguage->find('all', array(
 				'recursive' => -1,
 				'conditions' => $conditions,
