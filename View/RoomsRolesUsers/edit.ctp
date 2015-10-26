@@ -45,26 +45,17 @@ echo $this->NetCommonsHtml->css(
 			<th>
 				<input type="checkbox">
 			</th>
-			<?php foreach ($displayFields as $field) : ?>
-				<th>
-					<?php echo $this->UserValue->label($field); ?>
-				</th>
-			<?php endforeach; ?>
+			<?php echo $this->UserSearch->tableHeaders(); ?>
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($users as $index => $user) : ?>
+		<?php foreach ($users as $user) : ?>
 			<tr>
 				<td>
 					<input type="checkbox">
 				</td>
-
-				<?php $this->UserValue->set($user); ?>
-
-				<?php foreach ($displayFields as $field) : ?>
-					<td>
-						<?php echo $this->UserValue->display($field); ?>
-					</td>
+				<?php foreach ($displayFields as $fieldName) : ?>
+					<?php echo $this->UserSearch->tableCells($user, $fieldName); ?>
 				<?php endforeach; ?>
 			</tr>
 		<?php endforeach; ?>

@@ -40,6 +40,7 @@ class RoomsRolesUsersController extends RoomsAppController {
 		'ControlPanel.ControlPanelLayout',
 		'Rooms.RoomsUtility',
 		'Rooms.SpacesUtility',
+		'UserAttributes.UserAttributeLayout',
 		'Users.UserSearch',
 	);
 
@@ -49,8 +50,9 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var array
  */
 	public $helpers = array(
-		'Users.UserValue',
+		//'Users.UserValue',
 		'UserRoles.UserRoleForm',
+		'Users.UserSearch',
 	);
 
 /**
@@ -82,15 +84,10 @@ class RoomsRolesUsersController extends RoomsAppController {
 
 			$this->request->data = $data;
 		} else {
-			$results = $this->UserSearch->search();
+			$this->UserSearch->search();
 
-			$this->set('users', $results);
-
-			$displayFields = Hash::merge(
-				array('room_role_key'),
-				$this->User->dispayFields($this->params['plugin'] . '/' . $this->params['controller'])
-			);
-
+			$displayFields = $this->User->getDispayFields();
+			$displayFields = Hash::merge(array('room_role_key'), $displayFields);
 			$this->set('displayFields', $displayFields);
 		}
 	}
