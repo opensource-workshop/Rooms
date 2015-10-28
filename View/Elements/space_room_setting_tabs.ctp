@@ -13,13 +13,13 @@
 
 <ul class="nav nav-pills" role="tablist">
 	<li class="<?php echo ($this->params['controller'] === 'spaces' ? 'active' : ''); ?>">
-		<a href="<?php echo $this->Html->url('/rooms/spaces/edit/' . h($activeSpaceId) . '/'); ?>">
+		<a href="<?php echo $this->NetCommonsHtml->url(array('controller' => 'spaces', 'action' => 'edit', h($activeSpaceId))); ?>">
 			<?php echo __d('rooms', 'General setting'); ?>
 		</a>
 	</li>
 
 	<li class="<?php echo ($this->params['controller'] === 'plugins_spaces' ? 'active' : ''); ?>">
-		<a href="<?php echo $this->Html->url('/rooms/plugins_spaces/edit/' . h($activeSpaceId) . '/'); ?>">
+		<a href="<?php echo $this->NetCommonsHtml->url(array('controller' => 'plugins_spaces', 'action' => 'edit', h($activeSpaceId))); ?>">
 			<?php echo __d('rooms', 'Select the plugins to join'); ?>
 		</a>
 	</li>

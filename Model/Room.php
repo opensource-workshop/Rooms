@@ -140,9 +140,7 @@ class Room extends RoomsAppModel {
 		]);
 
 		//トランザクションBegin
-		$this->setDataSource('master');
-		$dataSource = $this->getDataSource();
-		$dataSource->begin();
+		$this->begin();
 
 		//バリデーション
 		if (! $this->validateRoom($data['Room'])) {
@@ -183,13 +181,11 @@ class Room extends RoomsAppModel {
 			}
 
 			//トランザクションCommit
-			$dataSource->commit();
+			$this->commit();
 
 		} catch (Exception $ex) {
 			//トランザクションRollback
-			$dataSource->rollback();
-			CakeLog::error($ex);
-			throw $ex;
+			$this->rollback($ex);
 		}
 
 		return $room;
@@ -224,9 +220,7 @@ class Room extends RoomsAppModel {
 		]);
 
 		//トランザクションBegin
-		$this->setDataSource('master');
-		$dataSource = $this->getDataSource();
-		$dataSource->begin();
+		$this->begin();
 
 		$children = $this->Room->children($data['Room']['id'], false, 'Room.id', 'Room.rght');
 		$roomIds = Hash::extract($children, '{n}.Room.id');
@@ -253,13 +247,11 @@ class Room extends RoomsAppModel {
 			}
 
 			//トランザクションCommit
-			$dataSource->commit();
+			$this->commit();
 
 		} catch (Exception $ex) {
 			//トランザクションRollback
-			$dataSource->rollback();
-			CakeLog::error($ex);
-			throw $ex;
+			$this->rollback($ex);
 		}
 
 		return true;

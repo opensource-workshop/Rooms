@@ -19,10 +19,10 @@ $roomName = str_repeat('<span class="rooms-tree"></span>', $nest) . h($roomName)
 <tr class="<?php echo (! $active ? 'danger' : ''); ?>">
 	<td>
 		<?php if ($isLink) : ?>
-			<a href="<?php echo $this->Html->url('/rooms/rooms/edit/' . $roomId); ?>">
+			<a href="<?php echo $this->NetCommonsHtml->url(array('action' => 'edit', $roomId)); ?>">
 				<?php echo $roomName; ?>
 			</a>
-			<a class="btn btn-xs btn-primary" href="<?php echo $this->Html->url('/rooms/rooms/edit/' . $roomId); ?>">
+			<a class="btn btn-xs btn-primary" href="<?php echo $this->NetCommonsHtml->url(array('action' => 'edit', $roomId)); ?>">
 				<span class="glyphicon glyphicon-edit"> </span>
 			</a>
 		<?php else : ?>
@@ -31,7 +31,7 @@ $roomName = str_repeat('<span class="rooms-tree"></span>', $nest) . h($roomName)
 	</td>
 	<td class="text-right">
 		<a class="btn btn-xs btn-success"
-			href="<?php echo $this->Html->url('/rooms/rooms/add/' . $spaceId . '/' . $roomId); ?>">
+			href="<?php echo $this->NetCommonsHtml->url(array('action' => 'add', $spaceId, $roomId)); ?>">
 
 			<span class="glyphicon glyphicon-plus"> </span>
 		</a>

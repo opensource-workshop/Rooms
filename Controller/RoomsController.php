@@ -94,25 +94,21 @@ class RoomsController extends RoomsAppController {
 		$this->$model = ClassRegistry::init($model . '.' . $model);
 
 		//ルームデータチェック＆セット
-		if (! $this->RoomsUtility->validRoom($roomId, Configure::read('Config.languageId'))) {
+		if (! $this->RoomsUtility->validRoom($roomId)) {
 			return;
 		}
 
 		if ($this->request->isPost()) {
-			//登録処理
-			$data = $this->data;
-
 			//不要パラメータ除去
-			unset($data['save'], $data['active_lang_id']);
+			unset($this->request->data['save'], $this->request->data['active_lang_id']);
 
 			//登録処理
-			if ($room = $this->Room->saveRoom($data, true)) {
+			if ($room = $this->Room->saveRoom($this->request->data, true)) {
 				//正常の場合
 				$this->redirect('/rooms/rooms_roles_users/edit/' . $room['Room']['id'] . '/');
 				return;
 			}
 			$this->NetCommons->handleValidationError($this->Room->validationErrors);
-			$this->request->data = $data;
 
 		} else {
 			//表示処理

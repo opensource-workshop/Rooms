@@ -54,7 +54,7 @@ class SpacesUtilityComponent extends Component {
 					'type' => 'LEFT',
 					'conditions' => array(
 						$this->Room->alias . '.id' . ' = ' . $this->RoomsLanguage->alias . ' .room_id',
-						$this->RoomsLanguage->alias . '.language_id' => Configure::read('Config.languageId')
+						$this->RoomsLanguage->alias . '.language_id' => Current::read('Language.id')
 					),
 				)
 			),

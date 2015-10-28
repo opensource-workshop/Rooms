@@ -50,7 +50,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		);
 		$wheres = array(
 			$model->Role->escapeField('type') . ' = ' . $db->value(Role::ROLE_TYPE_ROOM, 'string'),
-			$model->Role->escapeField('language_id') . ' = ' . $db->value(Configure::read('Config.languageId'), 'string'),
+			$model->Role->escapeField('language_id') . ' = ' . $db->value(Current::read('Language.id'), 'string'),
 		);
 
 		//--クエリの実行
@@ -220,7 +220,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		);
 		$wheres = array(
 			$model->Role->escapeField('type') . ' = ' . $db->value(Role::ROLE_TYPE_ROOM, 'string'),
-			$model->Role->escapeField('language_id') . ' = ' . $db->value(Configure::read('Config.languageId'), 'string'),
+			$model->Role->escapeField('language_id') . ' = ' . $db->value(Current::read('Language.id'), 'string'),
 			$model->RolesRoom->escapeField('room_id') . ' = ' . $db->value($data['Room']['id'], 'string'),
 			$model->DefaultRolePermission->escapeField('type') . ' = ' . $db->value(DefaultRolePermission::TYPE_ROOM_ROLE, 'string'),
 		);
@@ -247,8 +247,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'Page' => 'Pages.Page',
 		]);
 
-		$slug = $model->generateKey('Page', $model->useDbConfig);
-		$page = Hash::merge(array(
+		$slug = OriginalKeyBehavior::generateKey('Page', $model->useDbConfig);
+		$page = Hash::merge($data, array(
 			'Page' => array(
 				'slug' => $slug,
 				'permalink' => $slug,
@@ -256,10 +256,10 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 				'parent_id' => $data['Page']['parent_id']
 			),
 			'LanguagesPage' => array(
-				'language_id' => Configure::read('Config.languageId'),
+				'language_id' => Current::read('Language.id'),
 				'name' => __d('rooms', 'Top')
 			),
-		), $data);
+		));
 
 		if (! $page = $model->Page->savePage($page, array('atomic' => false))) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));

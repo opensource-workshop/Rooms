@@ -9,17 +9,9 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-echo $this->Html->css(
-	array(
-		'/rooms/css/style.css'
-	),
-	array(
-		'plugin' => false,
-		'once' => true,
-		'inline' => false
-	)
-);
+echo $this->NetCommonsHtml->css('/rooms/css/style.css');
 ?>
+
 <?php echo $this->element('Rooms.subtitle'); ?>
 
 <?php echo $this->element('Rooms.space_tabs'); ?>
@@ -47,15 +39,11 @@ echo $this->Html->css(
 	</div>
 
 	<div class="panel-footer text-center">
-		<a class="btn btn-default btn-workflow" href="<?php echo $this->Html->url('/rooms/' . $space['Space']['default_setting_action']); ?>">
-			<span class="glyphicon glyphicon-remove"></span>
-			<?php echo __d('net_commons', 'Cancel'); ?>
-		</a>
-
-		<?php echo $this->Form->button(__d('net_commons', 'OK'), array(
-				'class' => 'btn btn-primary btn-workflow',
-				'name' => 'save',
-			)); ?>
+		<?php echo $this->Button->cancelAndSave(
+				__d('net_commons', 'Cancel'),
+				__d('net_commons', 'OK'),
+				$this->NetCommonsHtml->url('/rooms/' . $space['Space']['default_setting_action'])
+			); ?>
 	</div>
 
 	<?php echo $this->Form->end(); ?>

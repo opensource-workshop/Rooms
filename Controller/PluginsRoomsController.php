@@ -38,17 +38,9 @@ class PluginsRoomsController extends RoomsAppController {
  */
 	public $components = array(
 		'ControlPanel.ControlPanelLayout',
+		'PluginManager.PluginsForm',
 		'Rooms.RoomsUtility',
 		'Rooms.SpacesUtility',
-	);
-
-/**
- * use helper
- *
- * @var array
- */
-	public $helpers = array(
-		'PluginManager.PluginsForm',
 	);
 
 /**
@@ -63,7 +55,7 @@ class PluginsRoomsController extends RoomsAppController {
 			$roomId = $this->data['Room']['id'];
 		}
 		//ルームデータチェック＆セット
-		if (! $this->RoomsUtility->validRoom($roomId, Configure::read('Config.languageId'))) {
+		if (! $this->RoomsUtility->validRoom($roomId)) {
 			return;
 		}
 		//スペースデータチェック＆セット
