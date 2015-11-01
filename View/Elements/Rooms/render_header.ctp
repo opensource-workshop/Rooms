@@ -1,8 +1,6 @@
 <?php
 /**
- * Subtitle template
- *   - $spaceName
- *   - $roomNames
+ * Rooms index template
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,6 +10,12 @@
  */
 ?>
 
-<?php $this->start('subtitle'); ?>
-	<?php echo $this->RoomsHtml->subtitle($activeSpaceId); ?>
-<?php $this->end();
+<tr>
+	<th>
+		<?php echo __d('rooms', 'Room name'); ?>
+	</th>
+	<th>
+		<?php echo __d('rooms', 'Status'); ?>
+	</th>
+	<th></th>
+</tr>

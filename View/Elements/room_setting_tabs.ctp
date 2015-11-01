@@ -1,5 +1,6 @@
 <?php
 /**
+ * 後で削除
  * Room setting tabs template
  *   - $activeRoomId: Active spaces.id.
  *

@@ -1,5 +1,6 @@
 <?php
 /**
+ * 後で削除
  * Space setting tabs template
  *   - $activeSpaceId: Active spaces.id.
  *

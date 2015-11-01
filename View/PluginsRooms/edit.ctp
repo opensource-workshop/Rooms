@@ -11,13 +11,10 @@
 
 echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 ?>
+
 <?php echo $this->element('Rooms.subtitle'); ?>
-
-<?php echo $this->element('Rooms.space_tabs'); ?>
-
-<?php echo $this->element('Rooms.room_setting_tabs'); ?>
-
-<br>
+<?php echo $this->RoomsHtml->tabs($activeSpaceId); ?>
+<?php echo $this->RoomsHtml->settingTabs(); ?>
 
 <div class="panel panel-default">
 	<?php echo $this->Form->create(null, array('novalidate' => true)); ?>

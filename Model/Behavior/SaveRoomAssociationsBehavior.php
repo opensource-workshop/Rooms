@@ -40,9 +40,9 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$values = array(
 			'room_id' => $db->value($data['Room']['id'], 'string'),
 			'role_key' => $model->Role->escapeField('key'),
-			'created' => $db->value($this->__now($model, 'created'), 'string'),
+			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
-			'modified' => $db->value($this->__now($model, 'modified'), 'string'),
+			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
 		);
 		$joins = array(
@@ -114,9 +114,9 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$values = array(
 			'roles_room_id' => $db->value($rolesRoom['RolesRoom']['id'], 'string'),
 			'user_id' => $model->User->escapeField('id'),
-			'created' => $db->value($this->__now($model, 'created'), 'string'),
+			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
-			'modified' => $db->value($this->__now($model, 'modified'), 'string'),
+			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
 		);
 		$joins = array(
@@ -158,9 +158,9 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$values = array(
 			'room_id' => $db->value($data['Room']['id'], 'string'),
 			'plugin_key' => $model->PluginsRoom->escapeField('plugin_key'),
-			'created' => $db->value($this->__now($model, 'created'), 'string'),
+			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
-			'modified' => $db->value($this->__now($model, 'modified'), 'string'),
+			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
 		);
 		$joins = array(
@@ -204,9 +204,9 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'roles_room_id' => $model->RolesRoom->escapeField('id'),
 			'permission' => $model->DefaultRolePermission->escapeField('permission'),
 			'value' => $model->DefaultRolePermission->escapeField('value'),
-			'created' => $db->value($this->__now($model, 'created'), 'string'),
+			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
-			'modified' => $db->value($this->__now($model, 'modified'), 'string'),
+			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
 		);
 		$joins = array(
@@ -319,25 +319,25 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 
 		return true;
 	}
-
-/**
- * Get now()
- *
- * @param Model $model Model using this behavior
- * @param string $field Room data
- * @return string now()
- */
-	private function __now(Model $model, $field) {
-		$db = $model->getDataSource();
-
-		$colType = array_merge(array('formatter' => 'date'), $db->columns[$model->getColumnType($field)]);
-		$time = time();
-		if (array_key_exists('format', $colType)) {
-			$time = call_user_func($colType['formatter'], $colType['format']);
-		}
-
-		return $time;
-	}
+//
+///**
+// * Get now()
+// *
+// * @param Model $model Model using this behavior
+// * @param string $field Room data
+// * @return string now()
+// */
+//	private function __now(Model $model, $field) {
+//		$db = $model->getDataSource();
+//
+//		$colType = array_merge(array('formatter' => 'date'), $db->columns[$model->getColumnType($field)]);
+//		$time = time();
+//		if (array_key_exists('format', $colType)) {
+//			$time = call_user_func($colType['formatter'], $colType['format']);
+//		}
+//
+//		return $time;
+//	}
 
 /**
  * Create query sql

@@ -10,11 +10,11 @@
 	margin-left: 10px;
 	margin-right: 10px;
 }
-
+/*
 .rooms-manager .table > tbody > tr > th,
 .rooms-manager .table > tbody > tr > td {
 	border-top-width: 0px;
-}
+}*/
 
 .rooms-manager-room-role-select {
 	width: 200px;

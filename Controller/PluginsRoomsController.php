@@ -24,24 +24,24 @@ class PluginsRoomsController extends RoomsAppController {
  *
  * @var array
  */
-	public $uses = array(
-		//'Rooms.RoomsLanguage',
-		//'Rooms.Room',
-		//'Rooms.Space',
-		//'Rooms.SpacesLanguage',
-	);
+//	public $uses = array(
+//		//'Rooms.RoomsLanguage',
+//		//'Rooms.Room',
+//		//'Rooms.Space',
+//		//'Rooms.SpacesLanguage',
+//	);
 
 /**
  * use component
  *
  * @var array
  */
-	public $components = array(
-		'ControlPanel.ControlPanelLayout',
-		'PluginManager.PluginsForm',
-		'Rooms.RoomsUtility',
-		'Rooms.SpacesUtility',
-	);
+//	public $components = array(
+//		'ControlPanel.ControlPanelLayout',
+//		'PluginManager.PluginsForm',
+//		'Rooms.RoomsUtility',
+//		'Rooms.SpacesUtility',
+//	);
 
 /**
  * edit
@@ -50,30 +50,30 @@ class PluginsRoomsController extends RoomsAppController {
  * @return void
  */
 	public function edit($roomId = null) {
-		//登録処理の場合、URLよりPOSTパラメータでチェックする
-		if ($this->request->isPost()) {
-			$roomId = $this->data['Room']['id'];
-		}
-		//ルームデータチェック＆セット
-		if (! $this->RoomsUtility->validRoom($roomId)) {
-			return;
-		}
-		//スペースデータチェック＆セット
-		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
-			return;
-		}
-
-		if ($this->request->isPost()) {
-			//登録処理
-			$data = $this->data;
-
-			//--不要パラメータ除去
-			unset($data['save']);
-
-			$this->request->data = $data;
-		} else {
-			$this->request->data = $this->viewVars['room'];
-		}
+//		//登録処理の場合、URLよりPOSTパラメータでチェックする
+//		if ($this->request->isPost()) {
+//			$roomId = $this->data['Room']['id'];
+//		}
+//		//ルームデータチェック＆セット
+//		if (! $this->RoomsUtility->validRoom($roomId)) {
+//			return;
+//		}
+//		//スペースデータチェック＆セット
+//		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
+//			return;
+//		}
+//
+//		if ($this->request->isPost()) {
+//			//登録処理
+//			$data = $this->data;
+//
+//			//--不要パラメータ除去
+//			unset($data['save']);
+//
+//			$this->request->data = $data;
+//		} else {
+//			$this->request->data = $this->viewVars['room'];
+//		}
 	}
 
 }

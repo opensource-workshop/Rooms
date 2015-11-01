@@ -38,7 +38,11 @@ msgstr "プラグイン選択"
 
 #: Rooms/View/Elements/subtitle.ctp:24
 msgid "Add new room"
-msgstr "ルーム作成"
+msgstr "ルーム"
+
+#: Rooms/View/Elements/subtitle.ctp:24
+msgid "Add new subroom"
+msgstr "サブルーム"
 
 #: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
 msgid "Room"
@@ -72,9 +76,17 @@ msgstr "状態"
 msgid "Under maintenance"
 msgstr "準備中"
 
+#: Rooms/View/Elements/Rooms/edit_form.ctp:97
+msgid "It will be in maintenance"
+msgstr "準備中にする"
+
 #: Rooms/View/Elements/Rooms/edit_form.ctp:98
 msgid "Open"
 msgstr "公開中"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:98
+msgid "Open the room"
+msgstr "公開中にする"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:64
 msgid "Room role"

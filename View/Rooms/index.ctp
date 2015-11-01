@@ -8,14 +8,13 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
-
-echo $this->NetCommonsHtml->css('/rooms/css/style.css');
 ?>
 
 <?php echo $this->element('Rooms.subtitle'); ?>
-
-<?php echo $this->element('Rooms.space_tabs'); ?>
+<?php echo $this->RoomsHtml->tabs($activeSpaceId); ?>
 
 <article class="rooms-manager">
-	<?php echo $this->element('Rooms.Rooms/render_index', array('elementPath' => 'Rooms/room_link')); ?>
+	<?php //echo $this->element('Rooms.Rooms/render_index', array('elementPath' => 'Rooms/room_link')); ?>
+
+	<?php echo $this->RoomsHtml->roomsRender($activeSpaceId, 'Rooms.Rooms/render_room_index', 'Rooms.Rooms/render_header'); ?>
 </article>

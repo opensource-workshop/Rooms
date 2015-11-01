@@ -9,15 +9,12 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-echo $this->NetCommonsHtml->css(
-	array('/users/css/style.css', '/rooms/css/style.css')
-);
+echo $this->NetCommonsHtml->css('/users/css/style.css');
 ?>
+
 <?php echo $this->element('Rooms.subtitle'); ?>
-
-<?php echo $this->element('Rooms.space_tabs'); ?>
-
-<?php echo $this->element('Rooms.room_setting_tabs'); ?>
+<?php echo $this->RoomsHtml->tabs($activeSpaceId); ?>
+<?php echo $this->RoomsHtml->settingTabs(); ?>
 
 <?php echo $this->Form->create(null, array('novalidate' => true)); ?>
 

@@ -17,41 +17,17 @@
 		</thead>
 	<?php endif; ?>
 	<tbody>
-		<?php echo $this->element($elementPath, array(
-				'spaceId' => $space['Space']['id'],
-				'roomId' => $space['Room']['id'],
-				'nest' => 0,
-				'roomName' => $space['RoomsLanguage']['name'],
-				'active' => (bool)$space['Room']['active'],
-				'isLink' => (bool)$space['Room']['page_id_top'],
-				'room' => $space,
-			)); ?>
+		<?php echo $this->element($dataElementPath, array('room' => $space, 'nest' => 0)); ?>
 
-		<?php foreach ($rooms as $room) : ?>
-			<?php echo $this->element($elementPath, array(
-					'spaceId' => $space['Space']['id'],
-					'roomId' => $room['Room']['id'],
-					'nest' => 1,
-					'roomName' => $room['RoomsLanguage']['name'],
-					'active' => (bool)$room['Room']['active'],
-					'isLink' => (bool)$room['Room']['page_id_top'],
-					'room' => $room,
-				)); ?>
-
-			<?php if (isset($room['TreeList'])) : ?>
-				<?php foreach ($room['TreeList'] as $roomId => $roomName) : ?>
-					<?php echo $this->element($elementPath, array(
-							'spaceId' => $space['Space']['id'],
-							'roomId' => $roomId,
-							'nest' => substr_count($roomName, chr(9)) + 1,
-							'roomName' => $room['children'][$roomId]['RoomsLanguage']['name'],
-							'active' => (bool)$room['children'][$roomId]['Room']['active'],
-							'isLink' => true,
-							'room' => $room['children'][$roomId],
-						)); ?>
-				<?php endforeach; ?>
-			<?php endif; ?>
-		<?php endforeach; ?>
+		<?php
+			foreach ($roomTreeList as $roomId => $tree) {
+				$nest = substr_count($tree, Room::$treeParser) + 1;
+				echo $this->element($dataElementPath, array(
+					'room' => $rooms[$roomId],
+					'nest' => $nest
+				));
+			}
+		?>
 	</tbody>
 </table>
 

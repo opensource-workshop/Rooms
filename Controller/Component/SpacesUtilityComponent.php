@@ -1,5 +1,6 @@
 <?php
 /**
+ * 後で削除
  * SpacesUtility Component
  *
  * @author Noriko Arai <arai@nii.ac.jp>
