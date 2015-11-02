@@ -48,9 +48,8 @@ class PluginsRoomsController extends RoomsAppController {
 	}
 
 /**
- * edit
+ * editアクション
  *
- * @param int $roomId rooms.id
  * @return void
  */
 	public function edit() {

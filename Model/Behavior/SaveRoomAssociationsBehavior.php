@@ -319,25 +319,6 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 
 		return true;
 	}
-//
-///**
-// * Get now()
-// *
-// * @param Model $model Model using this behavior
-// * @param string $field Room data
-// * @return string now()
-// */
-//	private function __now(Model $model, $field) {
-//		$db = $model->getDataSource();
-//
-//		$colType = array_merge(array('formatter' => 'date'), $db->columns[$model->getColumnType($field)]);
-//		$time = time();
-//		if (array_key_exists('format', $colType)) {
-//			$time = call_user_func($colType['formatter'], $colType['format']);
-//		}
-//
-//		return $time;
-//	}
 
 /**
  * Create query sql

@@ -49,6 +49,8 @@ class RoomBehavior extends ModelBehavior {
  *
  * @param Model $model ビヘイビア呼び出し元モデル
  * @param int $spaceId SpaceId
+ * @param array $addConditions 追加条件
+ * @param array $addJoins 追加JOINテーブルリスト
  * @return array ルームデータ取得条件
  */
 	public function getRoomsCondtions(Model $model, $spaceId, $addConditions = array(), $addJoins = array()) {

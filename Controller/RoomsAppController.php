@@ -62,7 +62,6 @@ class RoomsAppController extends AppController {
 
 		//ルームデータチェック＆セット
 		if ($this->params['action'] !== 'index') {
-
 			if ($this->request->isPost() && $this->params['controller'] === 'rooms') {
 				$roomId = $this->data['Room']['parent_id'];
 			} elseif ($this->request->isPost() || $this->request->isPut() || $this->request->isDelete()) {

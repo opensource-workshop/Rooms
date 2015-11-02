@@ -31,7 +31,6 @@ class RoomsComponent extends Component {
 
 		//Modelの呼び出し
 		$controller->Room = ClassRegistry::init('Rooms.Room');
-//		$this->RoomsLanguage = ClassRegistry::init('Rooms.RoomsLanguage');
 
 		$this->controller = $controller;
 	}

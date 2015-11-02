@@ -11,11 +11,11 @@
  * @param {function($scope)} Controller
  */
 NetCommonsApp.controller('RoomRolePermissions',
-  function($scope, RolePermission) {
+    function($scope, RolePermission) {
 
-    /**
-     * RolePermission
-     */
-    $scope.RolePermission = RolePermission;
+      /**
+       * RolePermission
+       */
+      $scope.RolePermission = RolePermission;
 
-  });
+    });

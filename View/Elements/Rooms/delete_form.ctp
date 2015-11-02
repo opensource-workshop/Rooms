@@ -11,7 +11,10 @@
 ?>
 
 <div class="nc-danger-zone" ng-init="dangerZone=false;">
-	<?php echo $this->NetCommonsForm->create('Room', array('type' => 'delete', 'url' => array('action' => 'delete'))); ?>
+	<?php echo $this->NetCommonsForm->create('Room', array('type' => 'delete',
+			'url' => array('action' => 'delete', $activeSpaceId, $activeRoomId)
+		)); ?>
+
 		<accordion close-others="false">
 			<accordion-group is-open="dangerZone" class="panel-danger">
 				<accordion-heading class="clearfix">

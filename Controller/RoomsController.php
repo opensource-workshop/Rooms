@@ -40,11 +40,10 @@ class RoomsController extends RoomsAppController {
 		'Rooms.RoomsRolesForm' => array(
 			'permissions' => array('content_publishable', 'html_not_limited')
 		),
-		'UserRoles.UserRoleForm',
 	);
 
 /**
- * index
+ * indexアクション
  *
  * @return void
  */
@@ -54,7 +53,7 @@ class RoomsController extends RoomsAppController {
 	}
 
 /**
- * addアクション
+ * 追加アクション
  *
  * @return void
  */
@@ -116,7 +115,7 @@ class RoomsController extends RoomsAppController {
 	}
 
 /**
- * edit
+ * 編集アクション
  *
  * @return void
  */
@@ -155,7 +154,7 @@ class RoomsController extends RoomsAppController {
 	}
 
 /**
- * delete
+ * 削除アクション
  *
  * @return void
  */
@@ -165,26 +164,37 @@ class RoomsController extends RoomsAppController {
 			return;
 		}
 
-//		//登録処理の場合、URLよりPOSTパラメータでチェックする
-//		$roomId = $this->data['Room']['id'];
-//		//ルームデータチェック＆セット
-//		if (! $this->RoomsUtility->validRoom($roomId, null)) {
-//			return;
-//		}
-//		//スペースデータチェック＆セット
-//		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
-//			return;
-//		}
-//
 		//削除処理
 		if (! $this->Room->deleteRoom($this->request->data)) {
 			$this->throwBadRequest();
 			return;
 		}
-//
-//		//$this->Room->deleteRoom($this->data);
+
 		$activeSpaceId = $this->viewVars['activeSpaceId'];
-		$this->redirect('/rooms/' . $this->viewVars['space'][$activeSpaceId]['Space']['default_setting_action']);
+		$this->redirect('/rooms/' . $this->viewVars['spaces'][$activeSpaceId]['Space']['default_setting_action']);
+	}
+
+/**
+ * 状態変更アクション
+ *
+ * @return void
+ */
+	public function active() {
+		if (! $this->request->isPut()) {
+			$this->throwBadRequest();
+			return;
+		}
+
+		if (! $this->Room->saveFieldByActive($this->request->data)) {
+			$this->throwBadRequest();
+			return;
+		}
+
+		$this->NetCommons->setFlashNotification(__d('net_commons', 'Successfully saved.'), array(
+			'class' => 'success',
+		));
+		$activeSpaceId = $this->viewVars['activeSpaceId'];
+		$this->redirect('/rooms/rooms/index/' . $activeSpaceId);
 	}
 
 }

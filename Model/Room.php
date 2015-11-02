@@ -187,6 +187,52 @@ class Room extends RoomsAppModel {
 	}
 
 /**
+ * Called before every deletion operation.
+ *
+ * @param bool $cascade If true records that depend on this record will also be deleted
+ * @return bool True if the operation should continue, false if it should abort
+ * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforedelete
+ * @throws InternalErrorException
+ * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+ */
+	public function beforeDelete($cascade = true) {
+		$roomId = $this->id;
+
+		$children = $this->Room->children($roomId, false, 'Room.id', 'Room.rght');
+		$roomIds = Hash::extract($children, '{n}.Room.id');
+		$roomIds[] = $roomId;
+
+		foreach ($roomIds as $childRoomId) {
+			//frameデータの削除
+			$this->deleteFramesByRoom($childRoomId);
+
+			//pageデータの削除
+			$this->deletePagesByRoom($childRoomId);
+
+			//Roomデータの削除
+			if ($roomId === $childRoomId) {
+				continue;
+			}
+			if (! $this->delete($childRoomId, false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+		}
+
+		return parent::beforeDelete($cascade);
+	}
+
+/**
+ * Called after every deletion operation.
+ *
+ * @return void
+ * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#afterdelete
+ */
+	public function afterDelete() {
+		//Roomの関連データの削除
+		$this->deleteRoomAssociations($this->id);
+	}
+
+/**
  * Save Room
  *
  * @param array $data received post data
@@ -226,19 +272,33 @@ class Room extends RoomsAppModel {
 	}
 
 /**
- * validate of Room
+ * Save Room
  *
  * @param array $data received post data
  * @return bool True on success, false on validation errors
+ * @throws InternalErrorException
  */
-//	public function validateRoom($data) {
-//		$this->set($data);
-//		$this->validates();
-//		if ($this->validationErrors) {
-//			return false;
-//		}
-//		return true;
-//	}
+	public function saveFieldByActive($data) {
+		//トランザクションBegin
+		$this->begin();
+
+		try {
+			//登録処理
+			$this->id = $data['Room']['id'];
+			if (! $this->saveField('active', (bool)$data['Room']['active'], array('callbacks' => false))) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$this->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$this->rollback($ex);
+		}
+
+		return true;
+	}
 
 /**
  * Save Room
@@ -256,29 +316,11 @@ class Room extends RoomsAppModel {
 		//トランザクションBegin
 		$this->begin();
 
-//		$children = $this->Room->children($data['Room']['id'], false, 'Room.id', 'Room.rght');
-//		$roomIds = Hash::extract($children, '{n}.Room.id');
-//		$roomIds[] = $data['Room']['id'];
-//
 		try {
-//			foreach ($roomIds as $roomId) {
-//				//プラグインデータの削除
-//				$this->deletePluginByRoom($roomId);
-//
-//				//frameデータの削除
-//				$this->deleteFramesByRoom($roomId);
-//
-//				//pageデータの削除
-//				$this->deletePagesByRoom($roomId);
-//
-//				//Roomデータの削除
-//				if (! $this->delete($roomId, false)) {
-//					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-//				}
-//
-//				//Roomの関連データの削除
-//				$this->deleteRoomAssociations($roomId);
-//			}
+			//Roomデータの削除
+			if (! $this->delete($data['Room']['id'], false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
 
 			//トランザクションCommit
 			$this->commit();

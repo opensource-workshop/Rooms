@@ -112,8 +112,8 @@ class Space extends RoomsAppModel {
 /**
  * RoomSpaceルームのデフォルト値
  *
- * @param Model $model Model ビヘイビア呼び出し元モデル
- * @return array Spaceルームのデフォルト値
+ * @param array $data 初期値データ配列
+ * @return array RoomSpaceルームのデフォルト値配列
  */
 	public function createRoom($data) {
 		$this->loadModels([

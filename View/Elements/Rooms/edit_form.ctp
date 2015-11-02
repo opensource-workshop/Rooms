@@ -40,7 +40,7 @@
 	));
 ?>
 
-<?php echo $this->UserRoleForm->selectDefaultRoomRoles('Room.default_role_key', array(
+<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
 		'label' => array('label' => __d('rooms', 'Default room role'))
 	)); ?>
 

@@ -144,19 +144,33 @@ class RoomsHelper extends AppHelper {
 		}
 
 		$output .= '<ul class="nav nav-pills" role="tablist">';
-		$output .= '<li class="' . ($this->_View->params['controller'] === 'rooms' ? 'active' : $disabled) . '">';
+		if ($this->_View->params['controller'] === 'rooms') {
+			$class = 'active';
+		} else {
+			$class = $disabled;
+		}
+		$output .= '<li class="' . $class . '">';
 		$output .= $this->NetCommonsHtml->link(__d('rooms', 'General setting'), $urlRooms);
 		$output .= '</li>';
 
-		if (isset($this->_View->request->data['Room']) &&
-				$this->_View->request->data['Room']['id'] !== Room::ROOM_PARENT_ID) {
-			$output .= '<li class="' . ($this->_View->params['controller'] === 'rooms_roles_users' ? 'active' : $disabled) . '">';
+		if (Hash::get($this->_View->request->data, 'Room.id') !== Room::ROOM_PARENT_ID) {
+			if ($this->_View->params['controller'] === 'rooms_roles_users') {
+				$class = 'active';
+			} else {
+				$class = $disabled;
+			}
+			$output .= '<li class="' . $class . '">';
 			$output .= $this->NetCommonsHtml->link(__d('rooms', 'Edit the members to join'), $urlRolesRoomsUsers);
 			$output .= '</li>';
 		}
 
 		if (isset($this->_View->request->data['Room']['parent_id'])) {
-			$output .= '<li class=' . ($this->_View->params['controller'] === 'plugins_rooms' ? 'active' : $disabled) . '>';
+			if ($this->_View->params['controller'] === 'plugins_rooms') {
+				$class = 'active';
+			} else {
+				$class = $disabled;
+			}
+			$output .= '<li class=' . $class . '>';
 			$output .= $this->NetCommonsHtml->link(__d('rooms', 'Select the plugins to join'), $urlPluginsRooms);
 			$output .= '</li>';
 		}
@@ -225,7 +239,6 @@ class RoomsHelper extends AppHelper {
  * 状態のラベルを出力
  *
  * @param array $room ルームデータ配列
- * @param string|null $prefix CSSクラスのプレフィックス
  * @return string HTML
  */
 	public function statusLabel($room) {
@@ -239,6 +252,7 @@ class RoomsHelper extends AppHelper {
 /**
  * 状態の変更
  *
+ * @param array $room ルームデータ配列
  * @return string HTML
  */
 	public function changeStatus($room) {
@@ -246,7 +260,9 @@ class RoomsHelper extends AppHelper {
 		$output = '';
 
 		$output .= $this->NetCommonsForm->create('Room', array(
-			'action' => $this->NetCommonsHtml->url(array('action' => 'active', $room['Space']['id'], $room['Room']['id']))
+			'url' => $this->NetCommonsHtml->url(array(
+				'action' => 'active', $room['Space']['id'], $room['Room']['id']
+			)),
 		));
 
 		$output .= $this->NetCommonsForm->hidden('Room.id');

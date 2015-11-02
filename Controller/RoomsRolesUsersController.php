@@ -34,8 +34,8 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var array
  */
 	public $components = array(
+		'Rooms.RoomsRolesForm',
 		'UserAttributes.UserAttributeLayout',
-		'UserRoles.UserRoleForm',
 		'Users.UserSearch',
 	);
 

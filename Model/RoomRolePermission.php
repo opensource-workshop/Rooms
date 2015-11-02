@@ -71,19 +71,4 @@ class RoomRolePermission extends RoomsAppModel {
 		return parent::beforeValidate($options);
 	}
 
-/**
- * validate of RoomRolePermission
- *
- * @param array $data received post data
- * @return bool True on success, false on validation errors
- */
-//	public function validateRoomRolePermission($data) {
-//		$this->set($data);
-//		$this->validates();
-//		if ($this->validationErrors) {
-//			return false;
-//		}
-//		return true;
-//	}
-
 }

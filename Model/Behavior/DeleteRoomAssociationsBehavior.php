@@ -20,24 +20,17 @@ App::uses('ModelBehavior', 'Model');
 class DeleteRoomAssociationsBehavior extends ModelBehavior {
 
 /**
- * Delete room association
+ * 外部キーにroom_idおよびrole_room_idがあるテーブルのデータ削除
  *
- * @param Model $model Model using this behavior
- * @param int $roomId rooms.id
+ * @param Model $model ビヘイビア呼び出し元モデル
+ * @param int $roomId ルームID
  * @return bool True on success
- * @throws InternalErrorException
  */
 	public function deleteRoomAssociations(Model $model, $roomId) {
-		$modelsByRoomId = [
-			'RoomsLanguage' => 'Rooms.RoomsLanguage',
+		//外部キーがrole_room_idのデータを削除
+		$model->loadModels([
 			'RolesRoom' => 'Rooms.RolesRoom',
-		];
-		$modelsByRolesRoomId = [
-			'RolesRoomsUser' => 'Rooms.RolesRoomsUser',
-			'RoomRolePermission' => 'Rooms.RoomRolePermission',
-		];
-		$model->loadModels(Hash::merge($modelsByRolesRoomId, $modelsByRoomId));
-
+		]);
 		$rolesRoomIds = $model->RolesRoom->find('list', array(
 			'recursive' => -1,
 			'conditions' => array(
@@ -45,89 +38,138 @@ class DeleteRoomAssociationsBehavior extends ModelBehavior {
 			),
 		));
 		$rolesRoomIds = array_keys($rolesRoomIds);
+		$this->queryDeleteAll($model, 'roles_room_id', $rolesRoomIds);
 
 		//外部キーがroom_idのデータを削除
-		foreach (array_keys($modelsByRoomId) as $assocModel) {
-			$conditions = array(
-				$model->$assocModel->alias . '.room_id' => $roomId
-			);
-			if (! $model->$assocModel->deleteAll($conditions, false)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
-		}
-
-		//外部キーがrole_room_idのデータを削除
-		foreach (array_keys($modelsByRolesRoomId) as $assocModel) {
-			$conditions = array(
-				$model->$assocModel->alias . '.roles_room_id' => $rolesRoomIds
-			);
-			if (! $model->$assocModel->deleteAll($conditions, false)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
-		}
+		$this->queryDeleteAll($model, 'room_id', $roomId);
 
 		return true;
 	}
 
 /**
- * Delete page data by room id
+ * 外部キーにpage_idがあるテーブルのデータ削除
  *
- * @param Model $model Model using this behavior
- * @param int $roomId rooms.id
+ * @param Model $model ビヘイビア呼び出し元モデル
+ * @param int $roomId ルームID
  * @return bool True on success
- * @throws InternalErrorException
  */
 	public function deletePagesByRoom(Model $model, $roomId) {
 		$model->loadModels([
 			'Page' => 'Pages.Page',
 		]);
 
+		//外部キーがpage_idのデータを削除
 		$pageIds = $model->Page->find('list', array(
 			'recursive' => -1,
+			//'fields' => array('id', 'key'),
 			'conditions' => array(
 				$model->Page->alias . '.room_id' => $roomId,
 			),
 		));
 		$pageIds = array_keys($pageIds);
-
-		foreach ($pageIds as $pageId) {
-			$page = array(
-				'Page' => array('id' => $pageId)
-			);
-			$model->Page->deletePage($page, array('atomic' => false));
-		}
+		$this->queryDeleteAll($model, 'page_id', $pageIds);
 
 		return true;
 	}
 
 /**
- * Delete frame data by room id
+ * 外部キーにframe_idおよびframe_keyがあるテーブルのデータ削除
  *
- * @param Model $model Model using this behavior
- * @param int $roomId rooms.id
+ * @param Model $model ビヘイビア呼び出し元モデル
+ * @param int $roomId ルームID
  * @return bool True on success
- * @throws InternalErrorException
  */
 	public function deleteFramesByRoom(Model $model, $roomId) {
-		//後で処理を入れる。削除するテーブルをピックアップする
-		$model->loadModels([]);
+		$model->loadModels([
+			'Frame' => 'Frames.Frame',
+		]);
 
-		return (bool)$roomId;
-		//return true;
+		$frames = $model->Frame->find('list', array(
+			'recursive' => -1,
+			'fields' => array('id', 'key'),
+			'conditions' => array(
+				$model->Frame->alias . '.room_id' => $roomId,
+			),
+		));
+		$frameIds = array_keys($frames);
+		$frameKeys = array_values($frames);
+
+		//外部キーがframe_idのデータを削除
+		$this->queryDeleteAll($model, 'frame_id', $frameIds);
+
+		//外部キーがframe_keyのデータを削除
+		$this->queryDeleteAll($model, 'frame_key', array_unique($frameKeys));
+
+		return true;
 	}
 
 /**
- * Delete plugin data by room id
+ * 外部キーにblock_idおよびblock_keyがあるテーブルのデータ削除
+ *
+ * @param Model $model ビヘイビア呼び出し元モデル
+ * @param int $roomId ルームID
+ * @return bool True on success
+ */
+	public function deleteBlocksByRoom(Model $model, $roomId) {
+		$model->loadModels([
+			'Block' => 'Blocks.Block',
+		]);
+
+		$blocks = $model->Block->find('list', array(
+			'recursive' => -1,
+			'fields' => array('id', 'key'),
+			'conditions' => array(
+				$model->Block->alias . '.room_id' => $roomId,
+			),
+		));
+		$blockIds = array_keys($blocks);
+		$blockKeys = array_values($blocks);
+
+		//外部キーがblock_idのデータを削除
+		$this->queryDeleteAll($model, 'block_id', $blockIds);
+
+		//外部キーがblock_keyのデータを削除
+		$this->queryDeleteAll($model, 'block_key', array_unique($blockKeys));
+
+		return true;
+	}
+
+/**
+ * フィールドのデータを一括削除
  *
  * @param Model $model Model using this behavior
- * @param int $roomId rooms.id
+ * @param int $field フィールド名
+ * @param mixed $value 値
  * @return bool True on success
- * @throws InternalErrorException
  */
-	public function deletePluginByRoom(Model $model, $roomId) {
-		$model->loadModels([]);
+	public function queryDeleteAll(Model $model, $field, $value) {
+		if (! $value) {
+			return true;
+		}
 
-		return (bool)$roomId;
-		//return true;
+		$tables = $model->query('SHOW TABLES');
+		$db = $model->getDataSource();
+		if (is_array($value)) {
+			$targets = array();
+			foreach ($value as $v) {
+				$targets[] = $db->value($v, 'string');
+			}
+		} else {
+			$targets = array($db->value($value, 'string'));
+		}
+		foreach ($tables as $table) {
+			$tableName = array_shift($table['TABLE_NAMES']);
+			$columns = $model->query('SHOW COLUMNS FROM ' . $tableName);
+			if (! Hash::check($columns, '{n}.COLUMNS[Field=' . $field . ']')) {
+				continue;
+			}
+
+			$sql = 'DELETE FROM ' . $tableName . ' WHERE ' . $field . ' IN (' . implode(', ', $targets) . ')';
+			CakeLog::info('[room deleting] ' . $sql);
+			$model->query($sql);
+		}
+
+		return true;
 	}
+
 }

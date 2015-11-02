@@ -24,8 +24,8 @@ echo $this->NetCommonsHtml->css('/users/css/style.css');
 				array('plugin' => 'user_manager', 'controller' => 'user_manager', 'action' => 'search')); ?>
 	</div>
 
-	<div class="form-group rooms-manager-room-role-select">
-		<?php echo $this->UserRoleForm->selectDefaultRoomRoles('Room.role_key', array(
+	<div class="form-group rooms-room-role-select">
+		<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.role_key', array(
 			'empty' => __d('rooms', '(Select room role)'),
 			'options' => array('delete' => __d('users', 'Non members'))
 		)); ?>
