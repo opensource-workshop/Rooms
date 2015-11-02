@@ -13,13 +13,12 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 ?>
 
 <?php echo $this->element('Rooms.subtitle'); ?>
-<?php echo $this->RoomsHtml->tabs($activeSpaceId); ?>
-<?php echo $this->RoomsHtml->settingTabs(); ?>
+<?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
+<?php echo $this->Rooms->settingTabs(); ?>
 
 <div class="panel panel-default">
-	<?php echo $this->Form->create(null, array('novalidate' => true)); ?>
-
-	<?php echo $this->Form->hidden('Room.id'); ?>
+	<?php echo $this->NetCommonsForm->create('Room'); ?>
+	<?php echo $this->NetCommonsForm->hidden('Room.id'); ?>
 
 	<div class="panel-body">
 		<div class="form-inline">
@@ -34,9 +33,9 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 		<?php echo $this->Button->cancelAndSave(
 				__d('net_commons', 'Cancel'),
 				__d('net_commons', 'OK'),
-				$this->NetCommonsHtml->url('/rooms/' . $space['Space']['default_setting_action'])
+				$this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'])
 			); ?>
 	</div>
 
-	<?php echo $this->Form->end(); ?>
+	<?php echo $this->NetCommonsForm->end(); ?>
 </div>

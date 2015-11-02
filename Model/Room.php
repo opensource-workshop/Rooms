@@ -51,7 +51,6 @@ class Room extends RoomsAppModel {
 		'NetCommons.OriginalKey',
 		'Rooms.DeleteRoomAssociations',
 		'Rooms.Room',
-//		'Rooms.Space',
 		'Rooms.SaveRoomAssociations',
 		'Tree',
 	);
@@ -115,27 +114,6 @@ class Room extends RoomsAppModel {
 	);
 
 /**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
-	//public $hasAndBelongsToMany = array(
-	//	'Language' => array(
-	//		'className' => 'M17n.Language',
-	//		'joinTable' => 'rooms_languages',
-	//		'foreignKey' => 'room_id',
-	//		'associationForeignKey' => 'language_id',
-	//		'unique' => 'keepExisting',
-	//		'conditions' => '',
-	//		'fields' => '',
-	//		'order' => '',
-	//		'limit' => '',
-	//		'offset' => '',
-	//		'finderQuery' => '',
-	//	)
-	//);
-
-/**
  * Constructor. Binds the model's database table to the object.
  *
  * @param bool|int|string|array $id Set this ID for this model on startup,
@@ -186,8 +164,7 @@ class Room extends RoomsAppModel {
 	public function afterSave($created, $options = array()) {
 		//RoomsLanguage登録
 		if (isset($this->data['RoomsLanguage'])) {
-			$roomsLanguages = $this->data['RoomsLanguage'];
-			$roomsLanguages = Hash::insert($roomsLanguages, '{n}.room_id', $this->data['Room']['id']);
+			$roomsLanguages = Hash::insert($this->data['RoomsLanguage'], '{n}.room_id', $this->data['Room']['id']);
 			foreach ($roomsLanguages as $index => $roomsLanguage) {
 				if (! $result = $this->RoomsLanguage->save($roomsLanguage, false, false)) {
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
@@ -205,27 +182,6 @@ class Room extends RoomsAppModel {
 			$this->saveDefaultRoomRolePermissions($room);
 			$this->saveDefaultPage($room);
 		}
-CakeLog::debug(print_r($this->data, true));
-
-//		//BbsArticleTree登録
-//		if (isset($this->BbsArticleTree->data['BbsArticleTree'])) {
-//			if (! $this->BbsArticleTree->data['BbsArticleTree']['bbs_article_key']) {
-//				$this->BbsArticleTree->data['BbsArticleTree']['bbs_article_key'] = $this->data[$this->alias]['key'];
-//			}
-//			if (! $this->BbsArticleTree->save(null, false)) {
-//				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-//			}
-//		}
-//
-//		//Bbsのbbs_article_count、bbs_article_modified
-//		if (isset($this->data['Bbs']['id']) && isset($this->data['Bbs']['key'])) {
-//			$this->updateBbsByBbsArticle($this->data['Bbs']['id'], $this->data['Bbs']['key'], $this->data[$this->alias]['language_id']);
-//		}
-//
-//		//コメント数の更新
-//		if (isset($this->data['BbsArticleTree']['root_id']) && $this->data['BbsArticleTree']['root_id']) {
-//			$this->updateBbsArticleChildCount($this->data['BbsArticleTree']['root_id'], $this->data[$this->alias]['language_id']);
-//		}
 
 		parent::afterSave($created, $options);
 	}
@@ -238,10 +194,10 @@ CakeLog::debug(print_r($this->data, true));
  * @throws InternalErrorException
  */
 	public function saveRoom($data) {
-//		$this->loadModels([
-//			'Room' => 'Rooms.Room',
-//			'RoomsLanguage' => 'Rooms.RoomsLanguage',
-//		]);
+		$this->loadModels([
+			'Room' => 'Rooms.Room',
+			'RoomsLanguage' => 'Rooms.RoomsLanguage',
+		]);
 
 		//トランザクションBegin
 		$this->begin();
@@ -251,43 +207,12 @@ CakeLog::debug(print_r($this->data, true));
 		if (! $this->validates()) {
 			return false;
 		}
-//		if (! $this->validateRoom($data['Room'])) {
-//			return false;
-//		}
-//		$roomsLanguages = $data['RoomsLanguage'];
-//		if (! $this->RoomsLanguage->validateMany($roomsLanguages)) {
-//			$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomsLanguage->validationErrors);
-//			return false;
-//		}
 
 		try {
-//			//登録処理
-//			$room['Page'] = $data['Page'];
-//
-			//Roomデータの登録
+			//登録処理
 			if (! $room = $this->save(null, false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
-CakeLog::debug(print_r($room, true));
-//			$room = Hash::merge($room, $ret);
-//
-//			//RoomsLanguageデータの登録
-//			$data = Hash::insert($data, 'RoomsLanguage.{n}.room_id', $room['Room']['id']);
-//			foreach ($data['RoomsLanguage'] as $index => $roomsLanguage) {
-//				if (! $ret = $this->RoomsLanguage->save($roomsLanguage, false, false)) {
-//					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-//				}
-//				$room['RoomsLanguage'][$index] = Hash::extract($ret, 'RoomsLanguage');
-//			}
-//
-//			//デフォルトデータ登録処理
-//			if ($created) {
-//				$this->saveDefaultRolesRoom($room);
-//				$this->saveDefaultRolesRoomsUsers($room);
-//				$this->saveDefaultRolesPluginsRoom($room);
-//				$this->saveDefaultRoomRolePermissions($room);
-//				$this->saveDefaultPage($room);
-//			}
 
 			//トランザクションCommit
 			$this->commit();
@@ -323,19 +248,19 @@ CakeLog::debug(print_r($room, true));
  * @throws InternalErrorException
  */
 	public function deleteRoom($data) {
-//		$this->loadModels([
-//			'Room' => 'Rooms.Room',
-//			'RoomsLanguage' => 'Rooms.RoomsLanguage',
-//		]);
-//
-//		//トランザクションBegin
-//		$this->begin();
-//
+		$this->loadModels([
+			'Room' => 'Rooms.Room',
+			'RoomsLanguage' => 'Rooms.RoomsLanguage',
+		]);
+
+		//トランザクションBegin
+		$this->begin();
+
 //		$children = $this->Room->children($data['Room']['id'], false, 'Room.id', 'Room.rght');
 //		$roomIds = Hash::extract($children, '{n}.Room.id');
 //		$roomIds[] = $data['Room']['id'];
 //
-//		try {
+		try {
 //			foreach ($roomIds as $roomId) {
 //				//プラグインデータの削除
 //				$this->deletePluginByRoom($roomId);
@@ -354,16 +279,16 @@ CakeLog::debug(print_r($room, true));
 //				//Roomの関連データの削除
 //				$this->deleteRoomAssociations($roomId);
 //			}
-//
-//			//トランザクションCommit
-//			$this->commit();
-//
-//		} catch (Exception $ex) {
-//			//トランザクションRollback
-//			$this->rollback($ex);
-//		}
-//
-//		return true;
+
+			//トランザクションCommit
+			$this->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$this->rollback($ex);
+		}
+
+		return true;
 	}
 
 /**

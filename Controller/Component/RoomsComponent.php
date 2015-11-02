@@ -1,6 +1,6 @@
 <?php
 /**
- * RoomsHtml Component
+ * Rooms Component
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,12 +12,12 @@
 App::uses('Component', 'Controller');
 
 /**
- * RoomsHtml Component
+ * Rooms Component
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Controller\Component
  */
-class RoomsHtmlComponent extends Component {
+class RoomsComponent extends Component {
 
 /**
  * Called before the Controller::beforeFilter().
@@ -27,12 +27,13 @@ class RoomsHtmlComponent extends Component {
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::initialize
  */
 	public function initialize(Controller $controller) {
-//		$this->controller = $controller;
-//		$this->controller->Paginator = $this->controller->Components->load('Paginator');
+		$controller->Paginator = $controller->Components->load('Paginator');
 
 		//Modelの呼び出し
-//		$this->Room = ClassRegistry::init('Rooms.Room');
+		$controller->Room = ClassRegistry::init('Rooms.Room');
 //		$this->RoomsLanguage = ClassRegistry::init('Rooms.RoomsLanguage');
+
+		$this->controller = $controller;
 	}
 
 /**
@@ -45,9 +46,29 @@ class RoomsHtmlComponent extends Component {
 	public function startup(Controller $controller) {
 		//スペースデータ取得＆viewVarsにセット
 		$spaces = $controller->Room->getSpaces();
-//		var_dump($spaces);
-//		$controller->set('spaces', Hash::combine($spaces, '{n}.Space.id', '{n}'));
 		$controller->set('spaces', $spaces);
+		$controller->helpers[] = 'Rooms.Rooms';
+	}
+
+/**
+ * ルームデータ取得
+ *
+ * @param int $spaceId スペースID
+ * @return void
+ */
+	public function setRoomsForPaginator($spaceId) {
+		$controller = $this->controller;
+
+		//ルームデータ取得
+		$controller->Paginator->settings = $controller->Room->getRoomsCondtions($spaceId);
+		$rooms = $controller->Paginator->paginate('Room');
+		$rooms = Hash::combine($rooms, '{n}.Room.id', '{n}');
+		$controller->set('rooms', $rooms);
+
+		//Treeリスト取得
+		$roomTreeList = $controller->Room->generateTreeList(
+				array('Room.id' => array_keys($rooms)), null, null, Room::$treeParser);
+		$controller->set('roomTreeList', $roomTreeList);
 	}
 
 }

@@ -146,8 +146,7 @@ class RolesRoomsUser extends RoomsAppModel {
 
 		//バリデーション
 		$this->set($data['RolesRoomsUser']);
-		$this->validates();
-		if ($this->validationErrors) {
+		if (! $this->validates()) {
 			return false;
 		}
 

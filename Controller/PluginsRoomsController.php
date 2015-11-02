@@ -24,24 +24,28 @@ class PluginsRoomsController extends RoomsAppController {
  *
  * @var array
  */
-//	public $uses = array(
-//		//'Rooms.RoomsLanguage',
-//		//'Rooms.Room',
-//		//'Rooms.Space',
-//		//'Rooms.SpacesLanguage',
-//	);
+	public $uses = array(
+		'PluginManager.PluginsRoom',
+	);
 
 /**
  * use component
  *
  * @var array
  */
-//	public $components = array(
-//		'ControlPanel.ControlPanelLayout',
-//		'PluginManager.PluginsForm',
-//		'Rooms.RoomsUtility',
-//		'Rooms.SpacesUtility',
-//	);
+	public $components = array(
+		'PluginManager.PluginsForm',
+	);
+
+/**
+ * beforeFilter
+ *
+ * @return void
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->PluginsForm->roomId = $this->viewVars['activeRoomId'];
+	}
 
 /**
  * edit
@@ -49,31 +53,23 @@ class PluginsRoomsController extends RoomsAppController {
  * @param int $roomId rooms.id
  * @return void
  */
-	public function edit($roomId = null) {
-//		//登録処理の場合、URLよりPOSTパラメータでチェックする
-//		if ($this->request->isPost()) {
-//			$roomId = $this->data['Room']['id'];
-//		}
-//		//ルームデータチェック＆セット
-//		if (! $this->RoomsUtility->validRoom($roomId)) {
-//			return;
-//		}
-//		//スペースデータチェック＆セット
-//		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
-//			return;
-//		}
-//
-//		if ($this->request->isPost()) {
-//			//登録処理
-//			$data = $this->data;
-//
-//			//--不要パラメータ除去
-//			unset($data['save']);
-//
-//			$this->request->data = $data;
-//		} else {
-//			$this->request->data = $this->viewVars['room'];
-//		}
+	public function edit() {
+		if ($this->request->isPut()) {
+			//登録処理
+			if ($this->PluginsRoom->savePluginsRoomsByRoomId(
+					$this->request->data['Room']['id'],
+					$this->request->data['PluginsRoom']['plugin_key']
+				)) {
+
+				$activeSpaceId = $this->viewVars['activeSpaceId'];
+				$this->redirect('/rooms/' . $this->viewVars['spaces'][$activeSpaceId]['Space']['default_setting_action']);
+			} else {
+				$this->throwBadRequest();
+			}
+
+		} else {
+			$this->request->data = $this->viewVars['room'];
+		}
 	}
 
 }

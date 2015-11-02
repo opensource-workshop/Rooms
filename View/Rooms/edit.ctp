@@ -11,8 +11,8 @@
 ?>
 
 <?php echo $this->element('Rooms.subtitle'); ?>
-<?php echo $this->RoomsHtml->tabs($activeSpaceId); ?>
-<?php echo $this->RoomsHtml->settingTabs(); ?>
+<?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
+<?php echo $this->Rooms->settingTabs(); ?>
 
 <div class="panel panel-default">
 	<?php echo $this->NetCommonsForm->create('Room'); ?>

@@ -13,19 +13,15 @@ echo $this->NetCommonsHtml->css('/users/css/style.css');
 ?>
 
 <?php echo $this->element('Rooms.subtitle'); ?>
-<?php echo $this->RoomsHtml->tabs($activeSpaceId); ?>
-<?php echo $this->RoomsHtml->settingTabs(); ?>
+<?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
+<?php echo $this->Rooms->settingTabs(); ?>
 
-<?php echo $this->Form->create(null, array('novalidate' => true)); ?>
+<?php echo $this->NetCommonsForm->create(null); ?>
 
 <div class="user-search-index-head-margin">
 	<div class="text-center">
-		<a class="btn btn-info" href="<?php echo $this->NetCommonsHtml->url(
-				array('plugin' => 'user_manager', 'controller' => 'user_manager', 'action' => 'search')); ?>">
-
-			<span class="glyphicon glyphicon-search"></span>
-			<?php echo __d('users', 'Search for the members'); ?>
-		</a>
+		<?php echo $this->Button->searchLink(__d('users', 'Search for the members'),
+				array('plugin' => 'user_manager', 'controller' => 'user_manager', 'action' => 'search')); ?>
 	</div>
 
 	<div class="form-group rooms-manager-room-role-select">
@@ -45,15 +41,14 @@ echo $this->NetCommonsHtml->css('/users/css/style.css');
 			<?php echo $this->UserSearch->tableHeaders(); ?>
 		</tr>
 	</thead>
+
 	<tbody>
-		<?php foreach ($users as $user) : ?>
+		<?php foreach ($users as $index => $user) : ?>
 			<tr>
 				<td>
 					<input type="checkbox">
 				</td>
-				<?php foreach ($displayFields as $fieldName) : ?>
-					<?php echo $this->UserSearch->tableCells($user, $fieldName); ?>
-				<?php endforeach; ?>
+				<?php echo $this->UserSearch->tableRow($user, false); ?>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
@@ -62,7 +57,7 @@ echo $this->NetCommonsHtml->css('/users/css/style.css');
 <?php echo $this->element('NetCommons.paginator'); ?>
 
 <div class="text-center">
-	<a class="btn btn-default btn-workflow" href="<?php echo $this->NetCommonsHtml->url('/rooms/' . $space['Space']['default_setting_action']); ?>">
+	<a class="btn btn-default btn-workflow" href="<?php echo $this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action']); ?>">
 		<span class="glyphicon glyphicon-remove"></span>
 		<?php echo __d('net_commons', 'Close'); ?>
 	</a>

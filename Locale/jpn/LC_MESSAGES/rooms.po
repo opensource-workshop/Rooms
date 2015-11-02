@@ -77,6 +77,10 @@ msgid "Under maintenance"
 msgstr "準備中"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:97
+msgid "(Under maintenance)"
+msgstr "【準備中】"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:97
 msgid "It will be in maintenance"
 msgstr "準備中にする"
 

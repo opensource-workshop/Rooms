@@ -17,7 +17,7 @@ App::uses('AppHelper', 'View/Helper');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\UserAttribute\View\Helper
  */
-class RoomsHtmlHelper extends AppHelper {
+class RoomsHelper extends AppHelper {
 
 /**
  * ルーム名のナビゲータの区切り文字
@@ -54,6 +54,7 @@ class RoomsHtmlHelper extends AppHelper {
 /**
  * サブタイトルの出力
  *
+ * @param int $activeSpaceId スペースID
  * @return string HTML
  */
 	public function subtitle($activeSpaceId) {
@@ -89,10 +90,12 @@ class RoomsHtmlHelper extends AppHelper {
 /**
  * タブの出力
  *
+ * @param int $activeSpaceId スペースID
  * @param bool $tabType タブの種類（tabs or pills）
+ * @param string|null $urlFormat URLフォーマット
  * @return string HTML
  */
-	public function tabs($activeSpaceId, $tabType = 'tabs', $urlFormat = null) {
+	public function spaceTabs($activeSpaceId, $tabType = 'tabs', $urlFormat = null) {
 		$output = '';
 		$output .= '<ul class="nav nav-' . $tabType . '" role="tablist">';
 		foreach ($this->_View->viewVars['spaces'] as $space) {
@@ -100,7 +103,7 @@ class RoomsHtmlHelper extends AppHelper {
 				$output .= '<li class="' . ($space['Space']['id'] === $activeSpaceId ? 'active' : '') . '">';
 
 				if (isset($urlFormat)) {
-					$url = sprintf($urlFormat, $space['Space']['id']);
+					$url = sprintf($urlFormat, (int)$space['Space']['id']);
 				} else {
 					$url = '/rooms/' . $space['Space']['default_setting_action'];
 				}
@@ -166,6 +169,9 @@ class RoomsHtmlHelper extends AppHelper {
 /**
  * ルーム一覧の出力
  *
+ * @param int $activeSpaceId スペースID
+ * @param string $dataElementPath データ表示エレメント
+ * @param string $headElementPath ヘッダ表示エレメント
  * @return string HTML
  */
 	public function roomsRender($activeSpaceId, $dataElementPath, $headElementPath = null) {
@@ -182,6 +188,8 @@ class RoomsHtmlHelper extends AppHelper {
 /**
  * ルーム名の出力
  *
+ * @param array $room ルームデータ配列
+ * @param int|null $nest インデント
  * @return string HTML
  */
 	public function roomName($room, $nest = null) {
@@ -201,12 +209,29 @@ class RoomsHtmlHelper extends AppHelper {
 /**
  * 状態によるCSSのクラス定義を返す
  *
+ * @param array $room ルームデータ配列
+ * @param string|null $prefix CSSクラスのプレフィックス
  * @return string HTML
  */
-	public function statusCss($room) {
+	public function statusCss($room, $prefix = '') {
 		$output = '';
 		if (! $room['Room']['active']) {
-			$output .= 'danger';
+			$output .= $prefix . 'danger';
+		}
+		return $output;
+	}
+
+/**
+ * 状態のラベルを出力
+ *
+ * @param array $room ルームデータ配列
+ * @param string|null $prefix CSSクラスのプレフィックス
+ * @return string HTML
+ */
+	public function statusLabel($room) {
+		$output = '';
+		if (! $room['Room']['active']) {
+			$output .= ' ' . __d('rooms', '(Under maintenance)');
 		}
 		return $output;
 	}

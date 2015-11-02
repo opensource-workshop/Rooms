@@ -20,16 +20,26 @@ App::uses('AppController', 'Controller');
 class RoomsAppController extends AppController {
 
 /**
+ * use model
+ *
+ * @var array
+ */
+	public $uses = array(
+		'Rooms.Room',
+	);
+
+/**
  * use component
  *
  * @var array
  */
 	public $components = array(
-		//アクセスの権限
+		'ControlPanel.ControlPanelLayout',
 		'NetCommons.Permission' => array(
 			'type' => PermissionComponent::CHECK_TYEP_SYSTEM_PLUGIN,
 			'allow' => array()
 		),
+		'Rooms.Rooms',
 		'Security',
 	);
 
@@ -41,6 +51,37 @@ class RoomsAppController extends AppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->deny('index', 'view');
+
+		//スペースデータチェック
+		$spaceId = $this->params['pass'][0];
+		if (! $this->Room->Space->exists($spaceId)) {
+			$this->throwBadRequest();
+			return false;
+		}
+		$this->set('activeSpaceId', $spaceId);
+
+		//ルームデータチェック＆セット
+		if ($this->params['action'] !== 'index') {
+
+			if ($this->request->isPost() && $this->params['controller'] === 'rooms') {
+				$roomId = $this->data['Room']['parent_id'];
+			} elseif ($this->request->isPost() || $this->request->isPut() || $this->request->isDelete()) {
+				$roomId = $this->data['Room']['id'];
+			} else {
+				$roomId = $this->params['pass'][1];
+			}
+			$room = $this->Room->findById($roomId);
+			if (! $room) {
+				$this->throwBadRequest();
+				return false;
+			}
+			$this->set('room', $room);
+			$this->set('activeRoomId', $roomId);
+			$this->set('activeSpaceId', $room['Space']['id']);
+
+			$parentRooms = $this->Room->getPath($roomId, null, 1);
+			$this->set('parentRooms', $parentRooms);
+		}
 	}
 
 }

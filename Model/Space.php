@@ -41,20 +41,6 @@ class Space extends RoomsAppModel {
 		PUBLIC_SPACE_ID = '2',
 		PRIVATE_SPACE_ID = '3',
 		ROOM_SPACE_ID = '4';
-//
-///**
-// * DefaultNeedApproval
-// *
-// * @var bool
-// */
-//	public $defaultNeedApproval = true;
-//
-///**
-// * DefaultParticipation
-// *
-// * @var bool
-// */
-//	public $defaultParticipation = false;
 
 /**
  * DefaultParticipationFixed

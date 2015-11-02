@@ -37,6 +37,7 @@ class RoomBehavior extends ModelBehavior {
 		parent::setup($model, $config);
 
 		$model->loadModels([
+			'RolesRoom' => 'Rooms.RolesRoom',
 			'Room' => 'Rooms.Room',
 			'RoomsLanguage' => 'Rooms.RoomsLanguage',
 			'Space' => 'Rooms.Space',
@@ -44,9 +45,9 @@ class RoomBehavior extends ModelBehavior {
 	}
 
 /**
- * Get rooms data by spaces.id
+ * ルームデータ取得用の条件取得
  *
- * @param Model $model Model ビヘイビア呼び出し元モデル
+ * @param Model $model ビヘイビア呼び出し元モデル
  * @param int $spaceId SpaceId
  * @return array ルームデータ取得条件
  */
@@ -72,6 +73,7 @@ class RoomBehavior extends ModelBehavior {
 /**
  * スペースデータ取得
  *
+ * @param Model $model ビヘイビア呼び出し元モデル
  * @return array スペースデータ配列
  */
 	public function getSpaces(Model $model) {
@@ -94,6 +96,30 @@ class RoomBehavior extends ModelBehavior {
 		self::$__spaces = Hash::combine($spaces, '{n}.Space.id', '{n}');
 
 		return self::$__spaces;
+	}
+
+/**
+ * ロールルームデータの取得
+ *
+ * @param Model $model ビヘイビア呼び出し元モデル
+ * @param array $conditions 条件配列
+ * @return array
+ */
+	public function getRolesRooms(Model $model, $conditions = array()) {
+		$conditions = Hash::merge(array(
+			'Room.page_id_top NOT' => null,
+		), $conditions);
+
+		$rolesRoomsUsers = $model->RolesRoom->find('all', array(
+			'recursive' => 0,
+			'fields' => array(
+				$model->RolesRoom->alias . '.*',
+				$model->Room->alias . '.*',
+			),
+			'conditions' => $conditions,
+		));
+
+		return $rolesRoomsUsers;
 	}
 
 }

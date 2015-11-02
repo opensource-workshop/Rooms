@@ -10,9 +10,9 @@
  */
 ?>
 
-<tr class="<?php echo $this->RoomsHtml->statusCss($room); ?>">
+<tr class="<?php echo $this->Rooms->statusCss($room); ?>">
 	<td>
-		<?php echo $this->RoomsHtml->roomName($room, $nest); ?>
+		<?php echo $this->Rooms->roomName($room, $nest); ?>
 
 		<?php echo $this->Button->editLink('',
 				array($room['Space']['id'], $room['Room']['id']),
@@ -23,7 +23,7 @@
 	<td>
 		<?php
 			if ($nest !== 0) {
-				echo $this->RoomsHtml->changeStatus($room);
+				echo $this->Rooms->changeStatus($room);
 			}
 		?>
 	</td>
