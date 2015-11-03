@@ -20,15 +20,22 @@
 		<?php echo $this->element($dataElementPath, array('room' => $space, 'nest' => 0)); ?>
 
 		<?php
-			foreach ($roomTreeList as $roomId => $tree) {
-				$nest = substr_count($tree, Room::$treeParser) + 1;
-				echo $this->element($dataElementPath, array(
-					'room' => $rooms[$roomId],
-					'nest' => $nest
-				));
+			if ($roomTreeList) {
+				foreach ($roomTreeList as $roomId => $tree) {
+					if (isset($rooms[$roomId])) {
+						$nest = substr_count($tree, Room::$treeParser) + 1;
+						echo $this->element($dataElementPath, array(
+							'room' => $rooms[$roomId],
+							'nest' => $nest
+						));
+					}
+				}
 			}
 		?>
 	</tbody>
 </table>
 
-<?php echo $this->element('NetCommons.paginator');
+<?php
+if ($paginator) {
+	echo $this->element('NetCommons.paginator');
+}

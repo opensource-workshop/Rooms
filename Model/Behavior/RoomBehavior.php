@@ -38,6 +38,7 @@ class RoomBehavior extends ModelBehavior {
 
 		$model->loadModels([
 			'RolesRoom' => 'Rooms.RolesRoom',
+			'RolesRoomsUser' => 'Rooms.RolesRoomsUser',
 			'Room' => 'Rooms.Room',
 			'RoomsLanguage' => 'Rooms.RoomsLanguage',
 			'Space' => 'Rooms.Space',
@@ -49,16 +50,12 @@ class RoomBehavior extends ModelBehavior {
  *
  * @param Model $model ビヘイビア呼び出し元モデル
  * @param int $spaceId SpaceId
- * @param array $addConditions 追加条件
- * @param array $addJoins 追加JOINテーブルリスト
+ * @param array $conditions 条件配列
  * @return array ルームデータ取得条件
  */
-	public function getRoomsCondtions(Model $model, $spaceId, $addConditions = array(), $addJoins = array()) {
+	public function getRoomsCondtions(Model $model, $spaceId, $conditions = array()) {
 		$spaces = $this->getSpaces($model);
-		$addOptions = array(
-			'conditions' => $addConditions,
-			'joins' => $addJoins
-		);
+var_dump($spaces);
 
 		$options = Hash::merge(array(
 			//'recursive' => 0,
@@ -67,7 +64,50 @@ class RoomBehavior extends ModelBehavior {
 				'Room.root_id' => $spaces[$spaceId]['Room']['id'],
 			),
 			'order' => 'Room.lft',
-		), $addOptions);
+		), array('conditions' => $conditions));
+
+		return $options;
+	}
+
+/**
+ * ルームデータ取得用の条件取得
+ *
+ * @param Model $model ビヘイビア呼び出し元モデル
+ * @param int $spaceId SpaceId
+ * @param array $conditions 条件配列
+ * @return array ルームデータ取得条件
+ */
+	public function getReadableRoomsCondtions(Model $model, $spaceId, $conditions = array()) {
+		$spaces = $this->getSpaces($model);
+
+		$options = Hash::merge(array(
+			//'recursive' => 0,
+			'fields' => '*',
+			'conditions' => array(
+				$model->Room->alias . '.space_id' => $spaceId,
+				$model->Room->alias . '.root_id' => $spaces[$spaceId]['Room']['id'],
+			),
+			'joins' => array(
+				array(
+					'table' => $model->RolesRoom->table,
+					'alias' => $model->RolesRoom->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$model->RolesRoom->alias . '.room_id' . ' = ' . $model->Room->alias . ' .id',
+					),
+				),
+				array(
+					'table' => $model->RolesRoomsUser->table,
+					'alias' => $model->RolesRoomsUser->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$model->RolesRoomsUser->alias . '.roles_room_id' . ' = ' . $model->RolesRoom->alias . ' .id',
+						$model->RolesRoomsUser->alias . '.user_id' => Current::read('User.id'),
+					),
+				),
+			),
+			'order' => 'Room.lft',
+		), array('conditions' => $conditions));
 
 		return $options;
 	}
@@ -89,8 +129,28 @@ class RoomBehavior extends ModelBehavior {
 			'hasMany' => array('ChildRoom')
 		));
 		$spaces = $model->Room->find('all', array(
+			'fields' => '*',
 			'conditions' => array(
 				$model->Room->alias . '.parent_id' => null,
+			),
+			'joins' => array(
+				array(
+					'table' => $model->RolesRoom->table,
+					'alias' => $model->RolesRoom->alias,
+					'type' => 'LEFT',
+					'conditions' => array(
+						$model->RolesRoom->alias . '.room_id' . ' = ' . $model->Room->alias . ' .id',
+					),
+				),
+				array(
+					'table' => $model->RolesRoomsUser->table,
+					'alias' => $model->RolesRoomsUser->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$model->RolesRoomsUser->alias . '.roles_room_id' . ' = ' . $model->RolesRoom->alias . ' .id',
+						$model->RolesRoomsUser->alias . '.user_id' => Current::read('User.id'),
+					),
+				),
 			),
 			'order' => 'Room.lft'
 		));

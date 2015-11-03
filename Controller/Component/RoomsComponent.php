@@ -31,6 +31,7 @@ class RoomsComponent extends Component {
 
 		//Modelの呼び出し
 		$controller->Room = ClassRegistry::init('Rooms.Room');
+		$this->Role = ClassRegistry::init('Roles.Role');
 
 		$this->controller = $controller;
 	}
@@ -47,6 +48,18 @@ class RoomsComponent extends Component {
 		$spaces = $controller->Room->getSpaces();
 		$controller->set('spaces', $spaces);
 		$controller->helpers[] = 'Rooms.Rooms';
+
+		$defaultRoles = $this->Role->find('list', array(
+			'recursive' => -1,
+			'fields' => array('key', 'name'),
+			'conditions' => array(
+				'is_systemized' => true,
+				'language_id' => Current::read('Language.id'),
+				'type' => Role::ROLE_TYPE_ROOM
+			),
+			'order' => array('id' => 'asc')
+		));
+		$controller->set('defaultRoles', $defaultRoles);
 	}
 
 /**

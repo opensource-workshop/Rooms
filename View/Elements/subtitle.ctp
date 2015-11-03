@@ -13,5 +13,5 @@
 ?>
 
 <?php $this->start('subtitle'); ?>
-	<?php echo $this->Rooms->subtitle($activeSpaceId); ?>
+	<?php echo $this->Rooms->roomsNavi($activeSpaceId); ?>
 <?php $this->end();

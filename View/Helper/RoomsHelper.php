@@ -52,12 +52,12 @@ class RoomsHelper extends AppHelper {
 	}
 
 /**
- * サブタイトルの出力
+ * ルームナビの出力
  *
  * @param int $activeSpaceId スペースID
  * @return string HTML
  */
-	public function subtitle($activeSpaceId) {
+	public function roomsNavi($activeSpaceId) {
 		$output = '';
 
 		if (isset($this->_View->viewVars['parentRooms'])) {
@@ -92,22 +92,26 @@ class RoomsHelper extends AppHelper {
  *
  * @param int $activeSpaceId スペースID
  * @param bool $tabType タブの種類（tabs or pills）
- * @param string|null $urlFormat URLフォーマット
+ * @param string|null $urls URLオプション
  * @return string HTML
  */
-	public function spaceTabs($activeSpaceId, $tabType = 'tabs', $urlFormat = null) {
+	public function spaceTabs($activeSpaceId, $tabType = 'tabs', $urls = null) {
 		$output = '';
 		$output .= '<ul class="nav nav-' . $tabType . '" role="tablist">';
 		foreach ($this->_View->viewVars['spaces'] as $space) {
 			if ($space['Space']['default_setting_action']) {
 				$output .= '<li class="' . ($space['Space']['id'] === $activeSpaceId ? 'active' : '') . '">';
 
-				if (isset($urlFormat)) {
-					$url = sprintf($urlFormat, (int)$space['Space']['id']);
-				} else {
+				$attributes = array();
+				if (! isset($urls)) {
 					$url = '/rooms/' . $space['Space']['default_setting_action'];
+				} elseif (is_string($urls)) {
+					$url = sprintf($urls, (int)$space['Space']['id']);
+				} elseif (isset($urls[$space['Space']['id']])) {
+					$url = Hash::get($urls[$space['Space']['id']], 'url');
+					$attributes = (array)Hash::get($urls[$space['Space']['id']], 'attributes');
 				}
-				$output .= $this->NetCommonsHtml->link($this->roomName($space), $url);
+				$output .= $this->NetCommonsHtml->link($this->roomName($space), $url, $attributes);
 				$output .= '</li>';
 			}
 		}
@@ -185,15 +189,25 @@ class RoomsHelper extends AppHelper {
  *
  * @param int $activeSpaceId スペースID
  * @param string $dataElementPath データ表示エレメント
- * @param string $headElementPath ヘッダ表示エレメント
+ * @param string|null $headElementPath ヘッダ表示エレメント
+ * @param array|null $roomTreeList ルームのTreeリスト
+ * @param bool $paginator ページネーションの有無
  * @return string HTML
+ * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
-	public function roomsRender($activeSpaceId, $dataElementPath, $headElementPath = null) {
+	public function roomsRender($activeSpaceId, $dataElementPath, $headElementPath = null, $roomTreeList = null, $paginator = true) {
 		$output = '';
+
+		if (! isset($roomTreeList)) {
+			$roomTreeList = Hash::get($this->_View->viewVars, 'roomTreeList');
+		}
+
 		$output .= $this->_View->element('Rooms.Rooms/render_index', array(
 			'headElementPath' => $headElementPath,
 			'dataElementPath' => $dataElementPath,
+			'roomTreeList' => $roomTreeList,
 			'space' => $this->_View->viewVars['spaces'][$activeSpaceId],
+			'paginator' => $paginator
 		));
 
 		return $output;
@@ -239,12 +253,18 @@ class RoomsHelper extends AppHelper {
  * 状態のラベルを出力
  *
  * @param array $room ルームデータ配列
+ * @param string $messageFormat メッセージフォーマット
+ * @param bool $displayActive アクティブの表示有無
  * @return string HTML
+ * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
-	public function statusLabel($room) {
+	public function statusLabel($room, $messageFormat = '%s', $displayActive = false) {
 		$output = '';
+
 		if (! $room['Room']['active']) {
-			$output .= ' ' . __d('rooms', '(Under maintenance)');
+			$output .= ' ' . __d('rooms', sprintf($messageFormat, 'Under maintenance'));
+		} elseif ($displayActive) {
+			$output .= ' ' . __d('rooms', sprintf($messageFormat, 'Open'));
 		}
 		return $output;
 	}
@@ -284,6 +304,27 @@ class RoomsHelper extends AppHelper {
 		$output .= $this->NetCommonsForm->end();
 
 		return $output;
+	}
+
+/**
+ * ルームロール名の出力
+ *
+ * @param string $roomRoleKey ルームロールKey
+ * @return string HTML
+ */
+	public function roomRoleName($roomRoleKey) {
+		if (is_array($roomRoleKey)) {
+			if (isset($roomRoleKey['RolesRoom']['role_key'])) {
+				$roomRoleKey = $roomRoleKey['RolesRoom']['role_key'];
+			} else {
+				$roomRoleKey = '';
+			}
+		}
+		if (isset($this->_View->viewVars['defaultRoles'][$roomRoleKey])) {
+			return h($this->_View->viewVars['defaultRoles'][$roomRoleKey]);
+		} else {
+			return '';
+		}
 	}
 
 }

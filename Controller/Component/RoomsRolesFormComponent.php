@@ -43,7 +43,6 @@ class RoomsRolesFormComponent extends Component {
 		$controller->helpers[] = 'Rooms.RoomsRolesForm';
 
 		$this->DefaultRolePermission = ClassRegistry::init('Roles.DefaultRolePermission');
-		$this->Role = ClassRegistry::init('Roles.Role');
 	}
 
 /**
@@ -80,18 +79,6 @@ class RoomsRolesFormComponent extends Component {
 			$controller->request->data = Hash::merge($controller->request->data, $results);
 			$controller->set('roles', $results['RoomRole']);
 		}
-
-		$defaultRoles = $this->Role->find('list', array(
-			'recursive' => -1,
-			'fields' => array('key', 'name'),
-			'conditions' => array(
-				'is_systemized' => true,
-				'language_id' => Current::read('Language.id'),
-				'type' => Role::ROLE_TYPE_ROOM
-			),
-			'order' => array('id' => 'asc')
-		));
-		$controller->set('defaultRoles', $defaultRoles);
 	}
 
 }
