@@ -128,33 +128,37 @@ class RoomBehavior extends ModelBehavior {
 			'hasMany' => array('ChildRoom')
 		));
 		$spaces = $model->Room->find('all', array(
+			//'recursive' => 0,
 			'fields' => '*',
 			'conditions' => array(
 				$model->Room->alias . '.parent_id' => null,
 			),
-			//'joins' => array(
-			//	array(
-			//		'table' => $model->RolesRoom->table,
-			//		'alias' => $model->RolesRoom->alias,
-			//		'type' => 'LEFT',
-			//		'conditions' => array(
-			//			$model->RolesRoom->alias . '.room_id' . ' = ' . $model->Room->alias . ' .id',
-			//		),
-			//	),
-			//	array(
-			//		'table' => $model->RolesRoomsUser->table,
-			//		'alias' => $model->RolesRoomsUser->alias,
-			//		'type' => 'LEFT',
-			//		'conditions' => array(
-			//			$model->RolesRoomsUser->alias . '.roles_room_id' . ' = ' . $model->RolesRoom->alias . ' .id',
-			//			$model->RolesRoomsUser->alias . '.user_id' => Current::read('User.id'),
-			//		),
-			//	),
-			//),
 			'order' => 'Room.lft'
 		));
 
-		self::$__spaces = Hash::combine($spaces, '{n}.Space.id', '{n}');
+		$spaces = Hash::combine($spaces, '{n}.Room.id', '{n}');
+
+		$result = $model->RolesRoom->find('all', array(
+			'recursive' => -1,
+			'fields' => '*',
+			'conditions' => array(
+				$model->RolesRoom->alias . '.room_id' => array(Room::PUBLIC_PARENT_ID, Room::PRIVATE_PARENT_ID),
+			),
+			'joins' => array(
+				array(
+					'table' => $model->RolesRoomsUser->table,
+					'alias' => $model->RolesRoomsUser->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$model->RolesRoomsUser->alias . '.roles_room_id' . ' = ' . $model->RolesRoom->alias . ' .id',
+						$model->RolesRoomsUser->alias . '.user_id' => Current::read('User.id'),
+					),
+				),
+			),
+		));
+		$result = Hash::combine($result, '{n}.RolesRoom.room_id', '{n}');
+
+		self::$__spaces = Hash::combine(Hash::merge($spaces, $result), '{n}.Space.id', '{n}');
 
 		return self::$__spaces;
 	}
