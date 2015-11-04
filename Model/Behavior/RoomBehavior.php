@@ -55,7 +55,6 @@ class RoomBehavior extends ModelBehavior {
  */
 	public function getRoomsCondtions(Model $model, $spaceId, $conditions = array()) {
 		$spaces = $this->getSpaces($model);
-var_dump($spaces);
 
 		$options = Hash::merge(array(
 			//'recursive' => 0,
