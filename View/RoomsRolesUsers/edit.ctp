@@ -38,6 +38,9 @@ echo $this->NetCommonsHtml->css('/users/css/style.css');
 			<th>
 				<input type="checkbox">
 			</th>
+			<th>
+				<?php echo __d('rooms', 'Room role'); ?>
+			</th>
 			<?php echo $this->UserSearch->tableHeaders(); ?>
 		</tr>
 	</thead>
@@ -47,6 +50,9 @@ echo $this->NetCommonsHtml->css('/users/css/style.css');
 			<tr>
 				<td>
 					<input type="checkbox">
+				</td>
+				<td>
+
 				</td>
 				<?php echo $this->UserSearch->tableRow($user, false); ?>
 			</tr>
