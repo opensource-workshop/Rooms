@@ -99,3 +99,7 @@ msgstr "ルーム内の役割"
 #: Rooms/View/Elements/Rooms/edit_form.ctp:64
 msgid "(Select room role)"
 msgstr "(ルーム内の役割)"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:64
+msgid "Last access datetime"
+msgstr "最終アクセス日時"
