@@ -20,7 +20,7 @@
 			echo $this->NetCommonsForm->hidden('RoomsLanguage.' . $index . '.language_id');
 			echo $this->NetCommonsForm->input('RoomsLanguage.' . $index . '.name', array(
 				'type' => 'text',
-				'label' => __d('rooms', 'Room name'),
+				'label' => $this->SwitchLanguage->inputLabel(__d('rooms', 'Room name'), $languageId),
 				'required' => true,
 				//'disabled' => ! (bool)$this->data['Room']['parent_id']
 			));
