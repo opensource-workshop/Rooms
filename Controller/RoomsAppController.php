@@ -55,8 +55,8 @@ class RoomsAppController extends AppController {
 		//スペースデータチェック
 		$spaceId = $this->params['pass'][0];
 		if (! $this->Room->Space->exists($spaceId)) {
-			$this->throwBadRequest();
-			return false;
+			$this->setAction('throwBadRequest');
+			return;
 		}
 		$this->set('activeSpaceId', $spaceId);
 
@@ -71,8 +71,8 @@ class RoomsAppController extends AppController {
 			}
 			$room = $this->Room->findById($roomId);
 			if (! $room) {
-				$this->throwBadRequest();
-				return false;
+				$this->setAction('throwBadRequest');
+				return;
 			}
 			$this->set('room', $room);
 			$this->set('activeRoomId', $roomId);
