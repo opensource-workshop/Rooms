@@ -38,7 +38,7 @@ class RoomsController extends RoomsAppController {
 		'M17n.SwitchLanguage',
 		'Paginator',
 		'Rooms.RoomsRolesForm' => array(
-			'permissions' => array('content_publishable', 'html_not_limited')
+			'permissions' => array('content_publishable', 'html_not_limited', 'calendar_creatable')
 		),
 	);
 

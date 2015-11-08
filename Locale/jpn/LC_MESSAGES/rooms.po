@@ -68,6 +68,10 @@ msgstr "コンテンツの承認機能を使わない"
 msgid "Allow HTML tags?  e.g.) Javascript or iframe"
 msgstr "HTMLタグの書き込み制限 (Javascript、iframe 等) "
 
+#: Rooms/View/Elements/Rooms/edit_form.ctp:85
+msgid "Calendar plan entry authority setting"
+msgstr "カレンダーに予定を追加できる権限"
+
 #: Rooms/View/Elements/Rooms/edit_form.ctp:93
 msgid "Status"
 msgstr "状態"

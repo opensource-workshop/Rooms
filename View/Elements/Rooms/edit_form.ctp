@@ -63,6 +63,10 @@
 		'label' => __d('rooms', 'Allow HTML tags?  e.g.) Javascript or iframe')
 	)); ?>
 
+<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.calendar_creatable', array(
+		'label' => __d('rooms', 'Calendar plan entry authority setting')
+	)); ?>
+
 <div class="form-inline form-group">
 	<?php echo $this->NetCommonsForm->input('Room.active', array(
 			'type' => 'select',
