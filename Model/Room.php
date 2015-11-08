@@ -182,7 +182,7 @@ class Room extends RoomsAppModel {
 			$this->saveDefaultRoomRolePermissions($room);
 			$this->saveDefaultPage($room);
 		}
-
+//CakeLog::debug('Room::afterSave $room = ' . print_r($room, true));
 		parent::afterSave($created, $options);
 	}
 
