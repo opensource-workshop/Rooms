@@ -148,6 +148,20 @@ class Room extends RoomsAppModel {
 			return false;
 		}
 
+		if (! isset($this->data['RoomRolePermission'])) {
+			return true;
+		}
+
+		$this->loadModels(array(
+			'RoomRolePermission' => 'Rooms.RoomRolePermission',
+		));
+
+		foreach ($this->data[$this->RoomRolePermission->alias] as $permission) {
+			if (! $this->RoomRolePermission->validateMany($permission)) {
+				$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomRolePermission->validationErrors);
+				return false;
+			}
+		}
 		return parent::beforeValidate($options);
 	}
 
@@ -172,6 +186,10 @@ class Room extends RoomsAppModel {
 				$this->data['RoomsLanguage'][$index] = $result;
 			}
 		}
+		if (! isset($this->data['RoomRolePermission'])) {
+			parent::afterSave($created, $options);
+			return;
+		}
 
 		//デフォルトデータ登録処理
 		$room = $this->data;
@@ -181,8 +199,31 @@ class Room extends RoomsAppModel {
 			$this->saveDefaultRolesPluginsRoom($room);
 			$this->saveDefaultRoomRolePermissions($room);
 			$this->saveDefaultPage($room);
+
+			$roomRolePermissions = $this->RoomRolePermission->find('all', array(
+				'recursive' => 0,
+				'conditions' => array(
+					'RolesRoom.room_id' => $room['Room']['id'],
+					'RoomRolePermission.permission' => array_keys($room['RoomRolePermission'])
+				)
+			));
+			$roomRolePermissions = Hash::combine($roomRolePermissions,
+				'{n}.RolesRoom.role_key',
+				'{n}.RoomRolePermission',
+				'{n}.RoomRolePermission.permission'
+			);
+			$room['RoomRolePermission'] = Hash::remove($room['RoomRolePermission'], '{s}.{s}.id');
+			$room['RoomRolePermission'] = Hash::merge($roomRolePermissions, $room['RoomRolePermission']);
 		}
-//CakeLog::debug('Room::afterSave $room = ' . print_r($room, true));
+
+		if (isset($room['RoomRolePermission'])) {
+			foreach ($room['RoomRolePermission'] as $permission) {
+				if (! $this->RoomRolePermission->saveMany($permission, ['validate' => false])) {
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+			}
+		}
+
 		parent::afterSave($created, $options);
 	}
 
