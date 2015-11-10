@@ -71,14 +71,14 @@ class RoomRecords extends NetCommonsMigration {
 			array('id' => '10', 'room_id' => '3', 'role_key' => 'general_user'),
 			array('id' => '11', 'room_id' => '3', 'role_key' => 'visitor'),
 		),
-		'RolesRoomsUser' => array(
-			//パブリックスペース
-			array('id' => '1', 'roles_room_id' => '1', 'user_id' => '1', 'room_id' => '1'),
-			//プライベートスペース
-			array('id' => '2', 'roles_room_id' => '6', 'user_id' => '1', 'room_id' => '2'),
-			//グループスペース
-			array('id' => '3', 'roles_room_id' => '7', 'user_id' => '1', 'room_id' => '3'),
-		),
+		//'RolesRoomsUser' => array(
+		//	//パブリックスペース
+		//	array('id' => '1', 'roles_room_id' => '1', 'user_id' => '1', 'room_id' => '1'),
+		//	//プライベートスペース
+		//	array('id' => '2', 'roles_room_id' => '6', 'user_id' => '1', 'room_id' => '2'),
+		//	//グループスペース
+		//	array('id' => '3', 'roles_room_id' => '7', 'user_id' => '1', 'room_id' => '3'),
+		//),
 		'RoomRolePermission' => array(
 			//パブリックスペース
 			//--ルーム管理者
@@ -245,7 +245,7 @@ class RoomRecords extends NetCommonsMigration {
 				'page_id_top' => null,
 				'parent_id' => null,
 				'lft' => '3',
-				'rght' => '6',
+				'rght' => '4',
 				'active' => '1',
 				'default_role_key' => 'room_administrator',
 				'need_approval' => '0',

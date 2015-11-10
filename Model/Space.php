@@ -115,7 +115,7 @@ class Space extends RoomsAppModel {
  * @param array $data 初期値データ配列
  * @return array RoomSpaceルームのデフォルト値配列
  */
-	public function createRoom($data) {
+	public function createRoom($data = array()) {
 		$this->loadModels([
 			'Room' => 'Rooms.Room',
 			'RoomsLanguage' => 'Rooms.RoomsLanguage',

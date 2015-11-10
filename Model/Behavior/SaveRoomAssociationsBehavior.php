@@ -39,18 +39,17 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$tableName = $model->RolesRoom->tablePrefix . $model->RolesRoom->table;
 		$values = array(
 			'room_id' => $db->value($data['Room']['id'], 'string'),
-			'role_key' => $model->Role->escapeField('key'),
+			'role_key' => $model->RolesRoom->escapeField('role_key'),
 			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
-			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'created_user' => $db->value(Current::read('User.id'), 'string'),
 			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
-			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
-			$model->Role->tablePrefix . $model->Role->table . ' AS ' . $model->Role->alias => null,
+			$model->RolesRoom->tablePrefix . $model->RolesRoom->table . ' AS ' . $model->RolesRoom->alias => null,
 		);
 		$wheres = array(
-			$model->Role->escapeField('type') . ' = ' . $db->value(Role::ROLE_TYPE_ROOM, 'string'),
-			$model->Role->escapeField('language_id') . ' = ' . $db->value(Current::read('Language.id'), 'string'),
+			$model->RolesRoom->escapeField('room_id') . ' = ' . $db->value($data['Room']['parent_id'], 'string'),
 		);
 
 		//--クエリの実行
@@ -68,10 +67,11 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
+ * @param bool $isRoomCreate ルーム作成時かどうか
  * @return bool True on success
  * @throws InternalErrorException
  */
-	public function saveDefaultRolesRoomsUser(Model $model, $data) {
+	public function saveDefaultRolesRoomsUser(Model $model, $data, $isRoomCreate) {
 		$model->loadModels([
 			'Role' => 'Roles.Role',
 			'RolesRoom' => 'Rooms.RolesRoom',
@@ -81,23 +81,31 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		]);
 		$db = $model->getDataSource();
 
+		if (Hash::check($data, 'RolesRoomsUser.user_id')) {
+			$userId = Hash::get($data, 'RolesRoomsUser.user_id');
+		} else {
+			$userId = Current::read('User.id');
+		}
+
 		//登録者のRolesRoomsUsersをルーム管理者で登録する
 		$rolesRoom = $model->RolesRoom->find('first', array(
 			'recursive' => -1,
 			'conditions' => array(
 				'room_id' => $data['Room']['id'],
-				'role_key' => ROLE::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR
+				'role_key' => $data['Room']['default_role_key'],
 			)
 		));
 		$rolesRoomsUser = array(
+			'id' => null,
 			'roles_room_id' => $rolesRoom['RolesRoom']['id'],
 			'room_id' => $data['Room']['id'],
-			'user_id' => AuthComponent::user('id')
+			'user_id' => $userId
 		);
+		$model->RolesRoomsUser->create(null);
 		if (! $model->RolesRoomsUser->save($rolesRoomsUser)) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
-		if (! $data['Room']['default_participation']) {
+		if (! $data['Room']['default_participation'] || ! $isRoomCreate) {
 			return true;
 		}
 
@@ -117,15 +125,15 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'user_id' => $model->User->escapeField('id'),
 			'room_id' => $db->value($data['Room']['id'], 'string'),
 			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
-			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'created_user' => $db->value(Current::read('User.id'), 'string'),
 			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
-			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
 			$model->User->tablePrefix . $model->User->table . ' AS ' . $model->User->alias => null,
 		);
 		$wheres = array(
-			$model->User->escapeField('id') . ' != ' . $db->value(AuthComponent::user('id'), 'string'),
+			$model->User->escapeField('id') . ' != ' . $db->value($userId, 'string'),
 		);
 
 		//--クエリの実行
@@ -161,9 +169,9 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'room_id' => $db->value($data['Room']['id'], 'string'),
 			'plugin_key' => $model->PluginsRoom->escapeField('plugin_key'),
 			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
-			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'created_user' => $db->value(Current::read('User.id'), 'string'),
 			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
-			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
 			$model->PluginsRoom->tablePrefix . $model->PluginsRoom->table . ' AS ' . $model->PluginsRoom->alias => null,
@@ -207,9 +215,9 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'permission' => $model->DefaultRolePermission->escapeField('permission'),
 			'value' => $model->DefaultRolePermission->escapeField('value'),
 			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
-			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'created_user' => $db->value(Current::read('User.id'), 'string'),
 			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
-			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
 			$model->Role->tablePrefix . $model->Role->table . ' AS ' . $model->Role->alias => null,

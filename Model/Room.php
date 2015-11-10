@@ -186,37 +186,34 @@ class Room extends RoomsAppModel {
 				$this->data['RoomsLanguage'][$index] = $result;
 			}
 		}
-		if (! isset($this->data['RoomRolePermission'])) {
-			parent::afterSave($created, $options);
-			return;
-		}
 
 		//デフォルトデータ登録処理
 		$room = $this->data;
 		if ($created) {
 			$this->saveDefaultRolesRoom($room);
-			$this->saveDefaultRolesRoomsUser($room);
+			$this->saveDefaultRolesRoomsUser($room, true);
 			$this->saveDefaultRolesPluginsRoom($room);
 			$this->saveDefaultRoomRolePermission($room);
 			$this->saveDefaultPage($room);
-
-			$roomRolePermissions = $this->RoomRolePermission->find('all', array(
-				'recursive' => 0,
-				'conditions' => array(
-					'RolesRoom.room_id' => $room['Room']['id'],
-					'RoomRolePermission.permission' => array_keys($room['RoomRolePermission'])
-				)
-			));
-			$roomRolePermissions = Hash::combine($roomRolePermissions,
-				'{n}.RolesRoom.role_key',
-				'{n}.RoomRolePermission',
-				'{n}.RoomRolePermission.permission'
-			);
-			$room['RoomRolePermission'] = Hash::remove($room['RoomRolePermission'], '{s}.{s}.id');
-			$room['RoomRolePermission'] = Hash::merge($roomRolePermissions, $room['RoomRolePermission']);
 		}
 
 		if (isset($room['RoomRolePermission'])) {
+			if ($created) {
+				$roomRolePermissions = $this->RoomRolePermission->find('all', array(
+					'recursive' => 0,
+					'conditions' => array(
+						'RolesRoom.room_id' => $room['Room']['id'],
+						'RoomRolePermission.permission' => array_keys($room['RoomRolePermission'])
+					)
+				));
+				$roomRolePermissions = Hash::combine($roomRolePermissions,
+					'{n}.RolesRoom.role_key',
+					'{n}.RoomRolePermission',
+					'{n}.RoomRolePermission.permission'
+				);
+				$room['RoomRolePermission'] = Hash::remove($room['RoomRolePermission'], '{s}.{s}.id');
+				$room['RoomRolePermission'] = Hash::merge($roomRolePermissions, $room['RoomRolePermission']);
+			}
 			foreach ($room['RoomRolePermission'] as $permission) {
 				if (! $this->RoomRolePermission->saveMany($permission, ['validate' => false])) {
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
