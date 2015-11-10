@@ -26,6 +26,7 @@ class RoomsRolesUsersController extends RoomsAppController {
  */
 	public $uses = array(
 		'Rooms.Room',
+		'Rooms.RolesRoomsUser'
 	);
 
 /**
@@ -58,8 +59,37 @@ class RoomsRolesUsersController extends RoomsAppController {
 		$room = $this->viewVars['room'];
 
 		//登録処理
-		if ($this->request->isPost()) {
+		if ($this->request->isPut()) {
+			foreach ($this->request->data['RolesRoomsUser'] as $i => $rolesRoomsUser) {
+				if (! $rolesRoomsUser['user_id']) {
+					unset($this->request->data['RolesRoomsUser'][$i]);
+					continue;
+				}
+			}
 
+			if ($this->request->data['Role']['key'] !== 'delete') {
+				$rolesRooms = $this->Room->getRolesRooms(array(
+					'Room.id' => $room['Room']['id'],
+					'RolesRoom.role_key' => $this->request->data['Role']['key']
+				));
+				if ($rolesRooms) {
+					$rolesRoomId = $rolesRooms[0]['RolesRoom']['id'];
+				}
+				$this->request->data['RolesRoomsUser'] = Hash::insert($this->request->data['RolesRoomsUser'], '{n}.roles_room_id', $rolesRoomId);
+				$result = $this->RolesRoomsUser->saveRolesRoomsUsers($this->request->data);
+			} else {
+				$result = $this->RolesRoomsUser->deleteRolesRoomsUsers($this->request->data);
+			}
+
+			//登録処理
+			if ($result) {
+				//正常の場合
+				$this->NetCommons->setFlashNotification(__d('net_commons', 'Successfully saved.'), array(
+					'class' => 'success',
+				));
+			} else {
+				$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
+			}
 		}
 
 		$this->UserSearch->search(
@@ -73,5 +103,6 @@ class RoomsRolesUsersController extends RoomsAppController {
 		$this->set('displayFields', $fields);
 
 		$this->request->data = $room;
+		$this->request->data['RolesRoomsUser'] = Hash::combine($this->viewVars['users'], '{n}.User.id', '{n}.RolesRoomsUser');
 	}
 }

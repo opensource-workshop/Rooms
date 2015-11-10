@@ -175,7 +175,7 @@ class RoomBehavior extends ModelBehavior {
 			'Room.page_id_top NOT' => null,
 		), $conditions);
 
-		$rolesRoomsUsers = $model->RolesRoom->find('all', array(
+		$rolesRooms = $model->RolesRoom->find('all', array(
 			'recursive' => 0,
 			'fields' => array(
 				$model->RolesRoom->alias . '.*',
@@ -184,7 +184,7 @@ class RoomBehavior extends ModelBehavior {
 			'conditions' => $conditions,
 		));
 
-		return $rolesRoomsUsers;
+		return $rolesRooms;
 	}
 
 }
