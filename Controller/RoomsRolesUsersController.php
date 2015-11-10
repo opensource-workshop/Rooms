@@ -62,7 +62,16 @@ class RoomsRolesUsersController extends RoomsAppController {
 
 		}
 
-		$this->UserSearch->search();
+		$this->UserSearch->search(
+			array(),
+			array('RolesRoomsUser' => array(
+				'RolesRoomsUser.room_id' => $room['Room']['id']
+			))
+		);
+
+		$fields = Hash::merge(array('room_role_key'), $this->User->getDispayFields());
+		$this->set('displayFields', $fields);
+
 		$this->request->data = $room;
 	}
 }

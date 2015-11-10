@@ -20,7 +20,7 @@ App::uses('ModelBehavior', 'Model');
 class SaveRoomAssociationsBehavior extends ModelBehavior {
 
 /**
- * Save default RolesRoom
+ * RolesRoomのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
@@ -64,14 +64,14 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Save default RolesRoomsUsers
+ * RolesRoomsUserのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
  */
-	public function saveDefaultRolesRoomsUsers(Model $model, $data) {
+	public function saveDefaultRolesRoomsUser(Model $model, $data) {
 		$model->loadModels([
 			'Role' => 'Roles.Role',
 			'RolesRoom' => 'Rooms.RolesRoom',
@@ -91,6 +91,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		));
 		$rolesRoomsUser = array(
 			'roles_room_id' => $rolesRoom['RolesRoom']['id'],
+			'room_id' => $data['Room']['id'],
 			'user_id' => AuthComponent::user('id')
 		);
 		if (! $model->RolesRoomsUser->save($rolesRoomsUser)) {
@@ -114,6 +115,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$values = array(
 			'roles_room_id' => $db->value($rolesRoom['RolesRoom']['id'], 'string'),
 			'user_id' => $model->User->escapeField('id'),
+			'room_id' => $db->value($data['Room']['id'], 'string'),
 			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
 			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
@@ -137,7 +139,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Save default PluginsRoom
+ * RolesPluginsRoomのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
@@ -181,14 +183,14 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Save default RoomRolePermissions
+ * RoomRolePermissionのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
  */
-	public function saveDefaultRoomRolePermissions(Model $model, $data) {
+	public function saveDefaultRoomRolePermission(Model $model, $data) {
 		$model->loadModels([
 			'Role' => 'Roles.Role',
 			'DefaultRolePermission' => 'Roles.DefaultRolePermission',
@@ -235,7 +237,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Save default RoomRolePermissions
+ * Pageのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
@@ -276,52 +278,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Convert model RoomRolePermissions
- *
- * @param Model $model Model using this behavior
- * @param array $data Room data
- * @return array Model array
- */
-	public function convertRoomRolePermissions(Model $model, $data) {
-		//var_dump($data);
-		//$model->loadModels([
-		//	'UserRoleSetting' => 'UserRoles.UserRoleSetting',
-		//	'UserAttributesRole' => 'UserRoles.UserAttributesRole',
-		//	'PluginsRole' => 'PluginManager.PluginsRole',
-		//]);
-		//
-		//$pluginsRoles = $model->PluginsRole->find('all', array(
-		//	'recursive' => -1,
-		//	'conditions' => array(
-		//		'plugin_key' => 'user_manager',
-		//	)
-		//));
-		//
-		//$userRoleSettings = $model->UserRoleSetting->find('all', array('recursive' => -1));
-		//
-		//foreach ($userRoleSettings as $userRoleSetting) {
-		//	$params = array(
-		//		'role_key' => $userRoleSetting['UserRoleSetting']['role_key'],
-		//		'default_role_key' => $userRoleSetting['UserRoleSetting']['default_role_key'],
-		//		'user_attribute_key' => $data['UserAttributeSetting']['user_attribute_key'],
-		//		'only_administrator' => (bool)$data['UserAttributeSetting']['only_administrator'],
-		//		'is_systemized' => (bool)$data['UserAttributeSetting']['is_systemized']
-		//	);
-		//
-		//	$params['is_usable_user_manager'] =
-		//			(bool)Hash::extract($pluginsRoles, '{n}.PluginsRole[role_key=' . $params['role_key'] . ']');
-		//
-		//	$userAttributeRole = $model->UserAttributesRole->defaultUserAttributeRolePermissions($params);
-		//	if (! $model->UserAttributesRole->save($userAttributeRole, array('validate' => false))) {
-		//		throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-		//	}
-		//}
-
-		return true;
-	}
-
-/**
- * Create query sql
+ * INSERT INTO ... SELETEのSQL生成
  *
  * @param string $tableName Table name
  * @param array $fields Insert query fields

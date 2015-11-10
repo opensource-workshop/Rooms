@@ -195,9 +195,9 @@ class Room extends RoomsAppModel {
 		$room = $this->data;
 		if ($created) {
 			$this->saveDefaultRolesRoom($room);
-			$this->saveDefaultRolesRoomsUsers($room);
+			$this->saveDefaultRolesRoomsUser($room);
 			$this->saveDefaultRolesPluginsRoom($room);
-			$this->saveDefaultRoomRolePermissions($room);
+			$this->saveDefaultRoomRolePermission($room);
 			$this->saveDefaultPage($room);
 
 			$roomRolePermissions = $this->RoomRolePermission->find('all', array(
