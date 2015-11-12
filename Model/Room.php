@@ -247,6 +247,9 @@ class Room extends RoomsAppModel {
 			//pageデータの削除
 			$this->deletePagesByRoom($childRoomId);
 
+			//blockデータの削除
+			$this->deleteBlocksByRoom($childRoomId);
+
 			//Roomデータの削除
 			if ($roomId === $childRoomId) {
 				continue;
