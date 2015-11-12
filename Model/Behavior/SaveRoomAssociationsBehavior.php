@@ -86,13 +86,17 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		} else {
 			$userId = Current::read('User.id');
 		}
-
-		//登録者のRolesRoomsUsersをルーム管理者で登録する
+		if ($isRoomCreate) {
+			//ルーム作成者をRolesRoomsUsersのルーム管理者で登録する
+			$roleKey = ROLE::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR;
+		} else {
+			$roleKey = $data['Room']['default_role_key'];
+		}
 		$rolesRoom = $model->RolesRoom->find('first', array(
 			'recursive' => -1,
 			'conditions' => array(
 				'room_id' => $data['Room']['id'],
-				'role_key' => $data['Room']['default_role_key'],
+				'role_key' => $roleKey,
 			)
 		));
 		$rolesRoomsUser = array(

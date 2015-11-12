@@ -96,7 +96,8 @@ class RoomsRolesUsersController extends RoomsAppController {
 			array(),
 			array('RolesRoomsUser' => array(
 				'RolesRoomsUser.room_id' => $room['Room']['id']
-			))
+			)),
+			array('RoomRole.level' => 'asc')
 		);
 
 		$fields = Hash::merge(array('room_role_key'), $this->User->getDispayFields());
