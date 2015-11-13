@@ -10,9 +10,12 @@
  */
 ?>
 
-<?php echo $this->element('Rooms.subtitle'); ?>
-<?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-
-<article class="rooms-manager">
-	<?php echo $this->Rooms->roomsRender($activeSpaceId, 'Rooms.Rooms/render_room_index', 'Rooms.Rooms/render_header'); ?>
-</article>
+<tr>
+	<th>
+		<?php echo __d('rooms', 'Room name'); ?>
+	</th>
+	<th>
+		<?php echo __d('rooms', 'Status'); ?>
+	</th>
+	<th></th>
+</tr>

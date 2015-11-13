@@ -20,7 +20,7 @@ App::uses('ModelBehavior', 'Model');
 class SaveRoomAssociationsBehavior extends ModelBehavior {
 
 /**
- * Save default RolesRoom
+ * RolesRoomのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
@@ -39,18 +39,17 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$tableName = $model->RolesRoom->tablePrefix . $model->RolesRoom->table;
 		$values = array(
 			'room_id' => $db->value($data['Room']['id'], 'string'),
-			'role_key' => $model->Role->escapeField('key'),
-			'created' => $db->value($this->__now($model, 'created'), 'string'),
-			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
-			'modified' => $db->value($this->__now($model, 'modified'), 'string'),
-			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'role_key' => $model->RolesRoom->escapeField('role_key'),
+			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
+			'created_user' => $db->value(Current::read('User.id'), 'string'),
+			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
+			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
-			$model->Role->tablePrefix . $model->Role->table . ' AS ' . $model->Role->alias => null,
+			$model->RolesRoom->tablePrefix . $model->RolesRoom->table . ' AS ' . $model->RolesRoom->alias => null,
 		);
 		$wheres = array(
-			$model->Role->escapeField('type') . ' = ' . $db->value(Role::ROLE_TYPE_ROOM, 'string'),
-			$model->Role->escapeField('language_id') . ' = ' . $db->value(Current::read('Language.id'), 'string'),
+			$model->RolesRoom->escapeField('room_id') . ' = ' . $db->value($data['Room']['parent_id'], 'string'),
 		);
 
 		//--クエリの実行
@@ -64,14 +63,15 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Save default RolesRoomsUsers
+ * RolesRoomsUserのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
+ * @param bool $isRoomCreate ルーム作成時かどうか
  * @return bool True on success
  * @throws InternalErrorException
  */
-	public function saveDefaultRolesRoomsUsers(Model $model, $data) {
+	public function saveDefaultRolesRoomsUser(Model $model, $data, $isRoomCreate) {
 		$model->loadModels([
 			'Role' => 'Roles.Role',
 			'RolesRoom' => 'Rooms.RolesRoom',
@@ -81,22 +81,35 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		]);
 		$db = $model->getDataSource();
 
-		//登録者のRolesRoomsUsersをルーム管理者で登録する
+		if (Hash::check($data, 'RolesRoomsUser.user_id')) {
+			$userId = Hash::get($data, 'RolesRoomsUser.user_id');
+		} else {
+			$userId = Current::read('User.id');
+		}
+		if ($isRoomCreate) {
+			//ルーム作成者をRolesRoomsUsersのルーム管理者で登録する
+			$roleKey = ROLE::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR;
+		} else {
+			$roleKey = $data['Room']['default_role_key'];
+		}
 		$rolesRoom = $model->RolesRoom->find('first', array(
 			'recursive' => -1,
 			'conditions' => array(
 				'room_id' => $data['Room']['id'],
-				'role_key' => ROLE::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR
+				'role_key' => $roleKey,
 			)
 		));
 		$rolesRoomsUser = array(
+			'id' => null,
 			'roles_room_id' => $rolesRoom['RolesRoom']['id'],
-			'user_id' => AuthComponent::user('id')
+			'room_id' => $data['Room']['id'],
+			'user_id' => $userId
 		);
+		$model->RolesRoomsUser->create(null);
 		if (! $model->RolesRoomsUser->save($rolesRoomsUser)) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
-		if (! $data['Room']['default_participation']) {
+		if (! $data['Room']['default_participation'] || ! $isRoomCreate) {
 			return true;
 		}
 
@@ -114,16 +127,17 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$values = array(
 			'roles_room_id' => $db->value($rolesRoom['RolesRoom']['id'], 'string'),
 			'user_id' => $model->User->escapeField('id'),
-			'created' => $db->value($this->__now($model, 'created'), 'string'),
-			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
-			'modified' => $db->value($this->__now($model, 'modified'), 'string'),
-			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'room_id' => $db->value($data['Room']['id'], 'string'),
+			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
+			'created_user' => $db->value(Current::read('User.id'), 'string'),
+			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
+			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
 			$model->User->tablePrefix . $model->User->table . ' AS ' . $model->User->alias => null,
 		);
 		$wheres = array(
-			$model->User->escapeField('id') . ' != ' . $db->value(AuthComponent::user('id'), 'string'),
+			$model->User->escapeField('id') . ' != ' . $db->value($userId, 'string'),
 		);
 
 		//--クエリの実行
@@ -137,7 +151,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Save default PluginsRoom
+ * RolesPluginsRoomのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
@@ -158,10 +172,10 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$values = array(
 			'room_id' => $db->value($data['Room']['id'], 'string'),
 			'plugin_key' => $model->PluginsRoom->escapeField('plugin_key'),
-			'created' => $db->value($this->__now($model, 'created'), 'string'),
-			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
-			'modified' => $db->value($this->__now($model, 'modified'), 'string'),
-			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
+			'created_user' => $db->value(Current::read('User.id'), 'string'),
+			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
+			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
 			$model->PluginsRoom->tablePrefix . $model->PluginsRoom->table . ' AS ' . $model->PluginsRoom->alias => null,
@@ -181,14 +195,14 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Save default RoomRolePermissions
+ * RoomRolePermissionのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
  */
-	public function saveDefaultRoomRolePermissions(Model $model, $data) {
+	public function saveDefaultRoomRolePermission(Model $model, $data) {
 		$model->loadModels([
 			'Role' => 'Roles.Role',
 			'DefaultRolePermission' => 'Roles.DefaultRolePermission',
@@ -204,10 +218,10 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'roles_room_id' => $model->RolesRoom->escapeField('id'),
 			'permission' => $model->DefaultRolePermission->escapeField('permission'),
 			'value' => $model->DefaultRolePermission->escapeField('value'),
-			'created' => $db->value($this->__now($model, 'created'), 'string'),
-			'created_user' => $db->value(AuthComponent::user('id'), 'string'),
-			'modified' => $db->value($this->__now($model, 'modified'), 'string'),
-			'modified_user' => $db->value(AuthComponent::user('id'), 'string'),
+			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
+			'created_user' => $db->value(Current::read('User.id'), 'string'),
+			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
+			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
 			$model->Role->tablePrefix . $model->Role->table . ' AS ' . $model->Role->alias => null,
@@ -235,7 +249,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Save default RoomRolePermissions
+ * Pageのデフォルトデータ登録処理
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
@@ -276,71 +290,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * Convert model RoomRolePermissions
- *
- * @param Model $model Model using this behavior
- * @param array $data Room data
- * @return array Model array
- */
-	public function convertRoomRolePermissions(Model $model, $data) {
-		//var_dump($data);
-		//$model->loadModels([
-		//	'UserRoleSetting' => 'UserRoles.UserRoleSetting',
-		//	'UserAttributesRole' => 'UserRoles.UserAttributesRole',
-		//	'PluginsRole' => 'PluginManager.PluginsRole',
-		//]);
-		//
-		//$pluginsRoles = $model->PluginsRole->find('all', array(
-		//	'recursive' => -1,
-		//	'conditions' => array(
-		//		'plugin_key' => 'user_manager',
-		//	)
-		//));
-		//
-		//$userRoleSettings = $model->UserRoleSetting->find('all', array('recursive' => -1));
-		//
-		//foreach ($userRoleSettings as $userRoleSetting) {
-		//	$params = array(
-		//		'role_key' => $userRoleSetting['UserRoleSetting']['role_key'],
-		//		'default_role_key' => $userRoleSetting['UserRoleSetting']['default_role_key'],
-		//		'user_attribute_key' => $data['UserAttributeSetting']['user_attribute_key'],
-		//		'only_administrator' => (bool)$data['UserAttributeSetting']['only_administrator'],
-		//		'is_systemized' => (bool)$data['UserAttributeSetting']['is_systemized']
-		//	);
-		//
-		//	$params['is_usable_user_manager'] =
-		//			(bool)Hash::extract($pluginsRoles, '{n}.PluginsRole[role_key=' . $params['role_key'] . ']');
-		//
-		//	$userAttributeRole = $model->UserAttributesRole->defaultUserAttributeRolePermissions($params);
-		//	if (! $model->UserAttributesRole->save($userAttributeRole, array('validate' => false))) {
-		//		throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-		//	}
-		//}
-
-		return true;
-	}
-
-/**
- * Get now()
- *
- * @param Model $model Model using this behavior
- * @param string $field Room data
- * @return string now()
- */
-	private function __now(Model $model, $field) {
-		$db = $model->getDataSource();
-
-		$colType = array_merge(array('formatter' => 'date'), $db->columns[$model->getColumnType($field)]);
-		$time = time();
-		if (array_key_exists('format', $colType)) {
-			$time = call_user_func($colType['formatter'], $colType['format']);
-		}
-
-		return $time;
-	}
-
-/**
- * Create query sql
+ * INSERT INTO ... SELETEのSQL生成
  *
  * @param string $tableName Table name
  * @param array $fields Insert query fields

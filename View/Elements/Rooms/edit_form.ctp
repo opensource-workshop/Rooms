@@ -8,99 +8,71 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
+	foreach ($this->request->data['RoomsLanguage'] as $index => $roomLanguage) {
+		$languageId = $roomLanguage['language_id'];
+		if (isset($languages[$languageId])) {
+			echo '<div id="rooms-rooms-' . $languageId . '" ' .
+						'class="tab-pane' . ($activeLangId === (string)$languageId ? ' active' : '') . '">';
+
+			echo $this->NetCommonsForm->hidden('RoomsLanguage.' . $index . '.id');
+			echo $this->NetCommonsForm->hidden('RoomsLanguage.' . $index . '.room_id');
+			echo $this->NetCommonsForm->hidden('RoomsLanguage.' . $index . '.language_id');
+			echo $this->NetCommonsForm->input('RoomsLanguage.' . $index . '.name', array(
+				'type' => 'text',
+				'label' => $this->SwitchLanguage->inputLabel(__d('rooms', 'Room name'), $languageId),
+				'required' => true,
+				//'disabled' => ! (bool)$this->data['Room']['parent_id']
+			));
+
+			echo '</div>';
+		}
+	}
 ?>
 
-<?php foreach ($this->request->data['RoomsLanguage'] as $index => $roomLanguage) : ?>
-	<?php $languageId = $roomLanguage['language_id']; ?>
+<?php
+	if ($participationFixed) {
+		echo $this->NetCommonsForm->hidden('Room.default_participation');
+	}
+	echo $this->NetCommonsForm->inlineCheckbox('Room.default_participation', array(
+		'label' => __d('rooms', 'Open for all members'),
+		'disabled' => $participationFixed,
+	));
+?>
 
-	<?php if (isset($languages[$languageId])) : ?>
-		<div id="rooms-rooms-<?php echo $languageId; ?>"
-				class="tab-pane<?php echo ($activeLangId === (string)$languageId ? ' active' : ''); ?>">
-
-			<?php echo $this->Form->hidden('RoomsLanguage.' . $index . '.id'); ?>
-
-			<?php echo $this->Form->hidden('RoomsLanguage.' . $index . '.room_id'); ?>
-
-			<?php echo $this->Form->hidden('RoomsLanguage.' . $index . '.language_id'); ?>
-
-			<div class="form-group">
-				<?php echo $this->Form->input('RoomsLanguage.' . $index . '.name', array(
-						'type' => 'text',
-						'label' => __d('rooms', 'Room name') . $this->element('NetCommons.required'),
-						'class' => 'form-control',
-						'error' => false,
-						'disabled' => ! (bool)$this->data['Room']['parent_id']
-					)); ?>
-
-				<div class="has-error">
-					<?php echo $this->Form->error('RoomsLanguage.' . $index . '.name', null, array(
-							'class' => 'help-block'
-						)); ?>
-				</div>
-			</div>
-		</div>
-	<?php endif; ?>
-<?php endforeach; ?>
+<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
+		'label' => array('label' => __d('rooms', 'Default room role'))
+	)); ?>
 
 <div class="form-group">
-	<?php if ($participationFixed) : ?>
-		<?php echo $this->Form->hidden('Room.default_participation'); ?>
-	<?php endif; ?>
+	<?php
+		$options = array('1' => __d('rooms', 'Authority to publish approved content'));
+		echo $this->NetCommonsHtml->div(array(), $this->NetCommonsForm->radio('Room.need_approval', $options));
 
-	<?php echo $this->Form->checkbox('Room.default_participation', array(
-			'div' => false,
-			'disabled' => $participationFixed,
-		)); ?>
+		echo $this->RoomsRolesForm->checkboxRoomRoles(
+			'RoomRolePermission.content_publishable',
+			array('outerDiv' => false)
+		);
 
-	<?php echo $this->Form->label(
-			'Room.default_participation',
-			__d('rooms', 'Open for all members')
-		); ?>
+		$options = array('0' => __d('rooms', 'Do not use the approval'));
+		echo $this->NetCommonsHtml->div(array(), $this->NetCommonsForm->radio('Room.need_approval', $options));
+	?>
 </div>
 
-<div class="form-group">
-	<?php echo $this->UserRoleForm->selectDefaultRoomRoles('Room.default_role_key', array(
-			'label' => array(
-				'label' => __d('rooms', 'Default room role'),
-			),
-		)); ?>
-</div>
-
-<div class="form-group">
-	<div>
-		<?php echo $this->Form->radio('Room.need_approval', array('1' => __d('rooms', 'Authority to publish approved content'))); ?>
-	</div>
-
-	<div class="form-inline">
-		<div class="form-group checkbox-separator"></div>
-		<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.content_publishable'); ?>
-	</div>
-
-	<div>
-		<?php echo $this->Form->radio('Room.need_approval', array('0' => __d('rooms', 'Do not use the approval'))); ?>
-	</div>
-</div>
-
-<div class="form-group">
-	<?php echo $this->Form->label('RoomRolePermission.html_not_limited', __d('rooms', 'Allow HTML tags?  e.g.) Javascript or iframe')); ?>
-	<div class="form-inline">
-		<div class="form-group checkbox-separator"></div>
-		<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.html_not_limited'); ?>
-	</div>
-</div>
+<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.html_not_limited', array(
+		'label' => __d('rooms', 'Allow HTML tags?  e.g.) Javascript or iframe')
+	)); ?>
 
 <div class="form-inline form-group">
-	<?php echo $this->Form->label('Room.active', __d('rooms', 'Status')); ?>
-
-	<?php echo $this->Form->select('Room.active',
-			array(
+	<?php echo $this->NetCommonsForm->input('Room.active', array(
+			'type' => 'select',
+			'label' => __d('rooms', 'Status'),
+			'options' => array(
 				'0' => __d('rooms', 'Under maintenance'),
 				'1' => __d('rooms', 'Open'),
 			),
-			array(
-				'class' => 'form-control',
-				'empty' => false
-			)
-		); ?>
+			'between' => ' ',
+			'disabled' => ! (bool)$this->data['Room']['parent_id']
+		)); ?>
 </div>
 

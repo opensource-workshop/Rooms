@@ -38,7 +38,11 @@ msgstr "プラグイン選択"
 
 #: Rooms/View/Elements/subtitle.ctp:24
 msgid "Add new room"
-msgstr "ルーム作成"
+msgstr "ルーム"
+
+#: Rooms/View/Elements/subtitle.ctp:24
+msgid "Add new subroom"
+msgstr "サブルーム"
 
 #: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
 msgid "Room"
@@ -64,6 +68,10 @@ msgstr "コンテンツの承認機能を使わない"
 msgid "Allow HTML tags?  e.g.) Javascript or iframe"
 msgstr "HTMLタグの書き込み制限 (Javascript、iframe 等) "
 
+#: Rooms/View/Elements/Rooms/edit_form.ctp:85
+msgid "Calendar plan entry authority setting"
+msgstr "カレンダーに予定を追加できる権限"
+
 #: Rooms/View/Elements/Rooms/edit_form.ctp:93
 msgid "Status"
 msgstr "状態"
@@ -72,9 +80,21 @@ msgstr "状態"
 msgid "Under maintenance"
 msgstr "準備中"
 
+#: Rooms/View/Elements/Rooms/edit_form.ctp:97
+msgid "(Under maintenance)"
+msgstr "【準備中】"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:97
+msgid "It will be in maintenance"
+msgstr "準備中にする"
+
 #: Rooms/View/Elements/Rooms/edit_form.ctp:98
 msgid "Open"
 msgstr "公開中"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:98
+msgid "Open the room"
+msgstr "公開中にする"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:64
 msgid "Room role"
@@ -83,3 +103,7 @@ msgstr "ルーム内の役割"
 #: Rooms/View/Elements/Rooms/edit_form.ctp:64
 msgid "(Select room role)"
 msgstr "(ルーム内の役割)"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:64
+msgid "Last access datetime"
+msgstr "最終アクセス日時"

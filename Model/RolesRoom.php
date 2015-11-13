@@ -139,27 +139,4 @@ class RolesRoom extends RoomsAppModel {
 		return parent::beforeValidate($options);
 	}
 
-/**
- * Return roles_rooms
- *
- * @param array $conditions Conditions by Model::find
- * @return array
- */
-	public function getRolesRooms($conditions = array()) {
-		$conditions = Hash::merge(array(
-				'Room.page_id_top NOT' => null,
-			), $conditions);
-
-		$rolesRoomsUsers = $this->find('all', array(
-			'recursive' => 0,
-			'fields' => array(
-				$this->alias . '.*',
-				$this->Room->alias . '.*',
-			),
-			'conditions' => $conditions,
-		));
-
-		return $rolesRoomsUsers;
-	}
-
 }

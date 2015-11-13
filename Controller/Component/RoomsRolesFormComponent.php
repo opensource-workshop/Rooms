@@ -40,8 +40,7 @@ class RoomsRolesFormComponent extends Component {
 		if (! empty($controller->request->params['requested'])) {
 			return;
 		}
-		$this->controller = $controller;
-		$this->controller->helpers[] = 'Rooms.RoomsRolesForm';
+		$controller->helpers[] = 'Rooms.RoomsRolesForm';
 
 		$this->DefaultRolePermission = ClassRegistry::init('Roles.DefaultRolePermission');
 	}
@@ -59,7 +58,6 @@ class RoomsRolesFormComponent extends Component {
 		if (! empty($controller->request->params['requested'])) {
 			return;
 		}
-		$this->controller = $controller;
 
 		//RoomRolePermissionデータセット
 		if (isset($this->settings['room_id'])) {
@@ -74,11 +72,12 @@ class RoomsRolesFormComponent extends Component {
 		}
 
 		if (isset($this->settings['permissions'])) {
-			$results = $this->Workflow->getRoomRolePermissions($this->settings['permissions'], $type);
+			$results = $this->Workflow->getRoomRolePermissions($this->settings['permissions'], $type, $roomId);
 			$defaultPermissions = Hash::remove($results['DefaultRolePermission'], '{s}.{s}.id');
 			$results['RoomRolePermission'] = Hash::merge($defaultPermissions, $results['RoomRolePermission']);
 
-			$this->controller->request->data = Hash::merge($this->controller->request->data, $results);
+			$controller->request->data = Hash::merge($controller->request->data, $results);
+			$controller->set('roles', $results['RoomRole']);
 		}
 	}
 

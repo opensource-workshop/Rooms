@@ -9,66 +9,67 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-echo $this->NetCommonsHtml->css(
-	array('/users/css/style.css', '/rooms/css/style.css')
-);
+echo $this->NetCommonsHtml->css('/users/css/style.css');
+echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 ?>
+
 <?php echo $this->element('Rooms.subtitle'); ?>
+<?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
+<?php echo $this->Rooms->settingTabs(); ?>
 
-<?php echo $this->element('Rooms.space_tabs'); ?>
+<?php echo $this->NetCommonsForm->create('Room'); ?>
+	<?php echo $this->NetCommonsForm->hidden('Room.id'); ?>
 
-<?php echo $this->element('Rooms.room_setting_tabs'); ?>
+	<div class="user-search-index-head-margin">
+		<div class="text-center">
+			<?php echo $this->Button->searchLink(__d('users', 'Search for the members'),
+					array('plugin' => 'user_manager', 'controller' => 'user_manager', 'action' => 'search')); ?>
+		</div>
 
-<?php echo $this->Form->create(null, array('novalidate' => true)); ?>
-
-<div class="user-search-index-head-margin">
-	<div class="text-center">
-		<a class="btn btn-info" href="<?php echo $this->NetCommonsHtml->url(
-				array('plugin' => 'user_manager', 'controller' => 'user_manager', 'action' => 'search')); ?>">
-
-			<span class="glyphicon glyphicon-search"></span>
-			<?php echo __d('users', 'Search for the members'); ?>
-		</a>
+		<div class="form-group rooms-room-role-select">
+			<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
+				'empty' => __d('rooms', '(Select room role)'),
+				'options' => array('delete' => __d('users', 'Non members')),
+				'onchange' => 'submit();'
+			)); ?>
+		</div>
 	</div>
 
-	<div class="form-group rooms-manager-room-role-select">
-		<?php echo $this->UserRoleForm->selectDefaultRoomRoles('Room.role_key', array(
-			'empty' => __d('rooms', '(Select room role)'),
-			'options' => array('delete' => __d('users', 'Non members'))
-		)); ?>
-	</div>
-</div>
-
-<table class="table table-condensed">
-	<thead>
-		<tr>
-			<th>
-				<input type="checkbox">
-			</th>
-			<?php echo $this->UserSearch->tableHeaders(); ?>
-		</tr>
-	</thead>
-	<tbody>
-		<?php foreach ($users as $user) : ?>
+	<table class="table table-condensed" ng-controller="RoomsRolesUsers">
+		<thead>
 			<tr>
-				<td>
-					<input type="checkbox">
-				</td>
-				<?php foreach ($displayFields as $fieldName) : ?>
-					<?php echo $this->UserSearch->tableCells($user, $fieldName); ?>
-				<?php endforeach; ?>
+				<th>
+					<input class="form-control" type="checkbox" ng-click="allCheck($event)">
+				</th>
+				<?php echo $this->UserSearch->tableHeaders(); ?>
 			</tr>
-		<?php endforeach; ?>
-	</tbody>
-</table>
+		</thead>
 
-<?php echo $this->element('NetCommons.paginator'); ?>
+		<tbody>
+			<?php foreach ($users as $index => $user) : ?>
+				<tr>
+					<td>
+						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id'); ?>
+						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id', array('value' => $this->data['Room']['id'])); ?>
+						<?php echo $this->NetCommonsForm->input('RolesRoomsUser.' . $user['User']['id'] . '.user_id', array(
+							'label' => false,
+							'div' => false,
+							'type' => 'checkbox',
+							'value' => $user['User']['id'],
+							'checked' => false,
+						)); ?>
+					</td>
+					<?php echo $this->UserSearch->tableRow($user, false); ?>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
 
-<div class="text-center">
-	<a class="btn btn-default btn-workflow" href="<?php echo $this->NetCommonsHtml->url('/rooms/' . $space['Space']['default_setting_action']); ?>">
-		<span class="glyphicon glyphicon-remove"></span>
-		<?php echo __d('net_commons', 'Close'); ?>
-	</a>
-</div>
+	<?php echo $this->element('NetCommons.paginator'); ?>
+
+	<div class="text-center">
+		<?php echo $this->Button->cancel(__d('net_commons', 'Close'),
+				$this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'])); ?>
+	</div>
 
 <?php echo $this->Form->end();

@@ -43,20 +43,6 @@ class Space extends RoomsAppModel {
 		ROOM_SPACE_ID = '4';
 
 /**
- * DefaultNeedApproval
- *
- * @var bool
- */
-	public $defaultNeedApproval = true;
-
-/**
- * DefaultParticipation
- *
- * @var bool
- */
-	public $defaultParticipation = false;
-
-/**
  * DefaultParticipationFixed
  *
  * @var bool
@@ -124,24 +110,35 @@ class Space extends RoomsAppModel {
 	);
 
 /**
- * hasAndBelongsToMany associations
+ * RoomSpaceルームのデフォルト値
  *
- * @var array
+ * @param array $data 初期値データ配列
+ * @return array RoomSpaceルームのデフォルト値配列
  */
-	public $hasAndBelongsToMany = array(
-		'Language' => array(
-			'className' => 'M17n.Language',
-			'joinTable' => 'spaces_languages',
-			'foreignKey' => 'space_id',
-			'associationForeignKey' => 'language_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-		)
-	);
+	public function createRoom($data = array()) {
+		$this->loadModels([
+			'Room' => 'Rooms.Room',
+			'RoomsLanguage' => 'Rooms.RoomsLanguage',
+		]);
+
+		$result = $this->Room->create(Hash::merge(array(
+			'id' => null,
+			'active' => true,
+		), $data));
+
+		$languages = Current::readM17n(null, 'Language');
+		foreach ($languages as $i => $language) {
+			$roomsLanguage = $this->RoomsLanguage->create(array(
+				'id' => null,
+				'language_id' => $language['Language']['id'],
+				'room_id' => null,
+				'name' => '',
+			));
+
+			$result['RoomsLanguage'][$i] = $roomsLanguage['RoomsLanguage'];
+		}
+
+		return $result;
+	}
 
 }

@@ -40,6 +40,10 @@ msgstr ""
 msgid "Add new room"
 msgstr ""
 
+#: Rooms/View/Elements/subtitle.ctp:24
+msgid "Add new subroom"
+msgstr ""
+
 #: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
 msgid "Room"
 msgstr ""

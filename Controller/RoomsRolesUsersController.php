@@ -25,10 +25,8 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var array
  */
 	public $uses = array(
-		//'Rooms.RoomsLanguage',
-		'Rooms.RolesRoomsUser',
-		//'Rooms.Space',
-		//'Rooms.SpacesLanguage',
+		'Rooms.Room',
+		'Rooms.RolesRoomsUser'
 	);
 
 /**
@@ -37,9 +35,7 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var array
  */
 	public $components = array(
-		'ControlPanel.ControlPanelLayout',
-		'Rooms.RoomsUtility',
-		'Rooms.SpacesUtility',
+		'Rooms.RoomsRolesForm',
 		'UserAttributes.UserAttributeLayout',
 		'Users.UserSearch',
 	);
@@ -50,45 +46,66 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var array
  */
 	public $helpers = array(
-		//'Users.UserValue',
-		'UserRoles.UserRoleForm',
 		'Users.UserSearch',
 	);
 
 /**
  * edit
  *
- * @param int $roomId rooms.id
  * @return void
  */
-	public function edit($roomId = null) {
-		//登録処理の場合、URLよりPOSTパラメータでチェックする
-		if ($this->request->isPost()) {
-			$roomId = $this->data['Room']['id'];
-		}
-		//ルームデータチェック＆セット
-		if (! $this->RoomsUtility->validRoom($roomId)) {
-			return;
-		}
-		//スペースデータチェック＆セット
-		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
-			return;
-		}
+	public function edit() {
+		//ルームデータチェック
+		$room = $this->viewVars['room'];
 
-		if ($this->request->isPost()) {
+		//登録処理
+		if ($this->request->isPut()) {
+			foreach ($this->request->data['RolesRoomsUser'] as $i => $rolesRoomsUser) {
+				if (! $rolesRoomsUser['user_id']) {
+					unset($this->request->data['RolesRoomsUser'][$i]);
+					continue;
+				}
+			}
+
+			if ($this->request->data['Role']['key'] !== 'delete') {
+				$rolesRooms = $this->Room->getRolesRooms(array(
+					'Room.id' => $room['Room']['id'],
+					'RolesRoom.role_key' => $this->request->data['Role']['key']
+				));
+				if ($rolesRooms) {
+					$rolesRoomId = $rolesRooms[0]['RolesRoom']['id'];
+				}
+				$this->request->data['RolesRoomsUser'] = Hash::insert($this->request->data['RolesRoomsUser'], '{n}.roles_room_id', $rolesRoomId);
+				$result = $this->RolesRoomsUser->saveRolesRoomsUsers($this->request->data);
+			} else {
+				$result = $this->RolesRoomsUser->deleteRolesRoomsUsers($this->request->data);
+			}
+
 			//登録処理
-			$data = $this->data;
-
-			//--不要パラメータ除去
-			unset($data['save']);
-
-			$this->request->data = $data;
-		} else {
-			$this->UserSearch->search();
-
-			$displayFields = $this->User->getDispayFields();
-			$displayFields = Hash::merge(array('room_role_key'), $displayFields);
-			$this->set('displayFields', $displayFields);
+			if ($result) {
+				//正常の場合
+				$this->NetCommons->setFlashNotification(__d('net_commons', 'Successfully saved.'), array(
+					'class' => 'success',
+				));
+			} else {
+				$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
+			}
 		}
+
+		$this->UserSearch->search(
+			array(
+				//'RolesRoomsUser.room_id NOT' => null,
+			),
+			array('RolesRoomsUser' => array(
+				'RolesRoomsUser.room_id' => $room['Room']['id'],
+			)),
+			array('RoomRole.level' => 'desc')
+		);
+
+		$fields = Hash::merge(array('room_role_key'), $this->User->getDispayFields());
+		$this->set('displayFields', $fields);
+
+		$this->request->data = $room;
+		$this->request->data['RolesRoomsUser'] = Hash::combine($this->viewVars['users'], '{n}.User.id', '{n}.RolesRoomsUser');
 	}
 }

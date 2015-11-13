@@ -134,9 +134,9 @@ class RolesRoomsUser extends RoomsAppModel {
 	}
 
 /**
- * Save RolesRoomsUser
+ * RolesRoomsUserの登録処理
  *
- * @param array $data received post data
+ * @param array $data リクエストデータ
  * @return bool True on success, false on validation errors
  * @throws InternalErrorException
  */
@@ -146,8 +146,7 @@ class RolesRoomsUser extends RoomsAppModel {
 
 		//バリデーション
 		$this->set($data['RolesRoomsUser']);
-		$this->validates();
-		if ($this->validationErrors) {
+		if (! $this->validates()) {
 			return false;
 		}
 
@@ -169,9 +168,42 @@ class RolesRoomsUser extends RoomsAppModel {
 	}
 
 /**
- * Delete RolesRoomsUser
+ * RolesRoomsUserの一括登録
  *
- * @param array $data received post data
+ * @param array $data リクエストデータ
+ * @return bool True on success, false on validation errors
+ * @throws InternalErrorException
+ */
+	public function saveRolesRoomsUsers($data) {
+		//トランザクションBegin
+		$this->begin();
+
+		//バリデーション
+		if (! $this->validateMany($data['RolesRoomsUser'])) {
+			return false;
+		}
+
+		try {
+			//RolesRoomsUserデータの登録
+			if (! $this->saveMany($data['RolesRoomsUser'], ['validate' => false])) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$this->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$this->rollback($ex);
+		}
+
+		return true;
+	}
+
+/**
+ * RolesRoomsUserの削除処理
+ *
+ * @param array $data リクエストデータ
  * @return mixed On success Model::$data if its not empty or true, false on failure
  * @throws InternalErrorException
  */
@@ -180,8 +212,37 @@ class RolesRoomsUser extends RoomsAppModel {
 		$this->begin();
 
 		try {
-			//Roomデータの削除
+			//RolesRoomsUserデータの削除
 			if (! $this->delete($data['RolesRoomsUser']['id'], false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$this->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$this->rollback($ex);
+		}
+
+		return true;
+	}
+
+/**
+ * RolesRoomsUserの一括削除処理
+ *
+ * @param array $data リクエストデータ
+ * @return mixed On success Model::$data if its not empty or true, false on failure
+ * @throws InternalErrorException
+ */
+	public function deleteRolesRoomsUsers($data) {
+		//トランザクションBegin
+		$this->begin();
+
+		try {
+			//RolesRoomsUserデータの削除
+			$ids = Hash::extract($data['RolesRoomsUser'], '{n}.id');
+			if (! $this->deleteAll(array($this->alias . '.id' => $ids), false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 

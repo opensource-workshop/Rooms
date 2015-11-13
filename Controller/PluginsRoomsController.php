@@ -25,10 +25,7 @@ class PluginsRoomsController extends RoomsAppController {
  * @var array
  */
 	public $uses = array(
-		//'Rooms.RoomsLanguage',
-		//'Rooms.Room',
-		//'Rooms.Space',
-		//'Rooms.SpacesLanguage',
+		'PluginManager.PluginsRoom',
 	);
 
 /**
@@ -37,40 +34,38 @@ class PluginsRoomsController extends RoomsAppController {
  * @var array
  */
 	public $components = array(
-		'ControlPanel.ControlPanelLayout',
 		'PluginManager.PluginsForm',
-		'Rooms.RoomsUtility',
-		'Rooms.SpacesUtility',
 	);
 
 /**
- * edit
+ * beforeFilter
  *
- * @param int $roomId rooms.id
  * @return void
  */
-	public function edit($roomId = null) {
-		//登録処理の場合、URLよりPOSTパラメータでチェックする
-		if ($this->request->isPost()) {
-			$roomId = $this->data['Room']['id'];
-		}
-		//ルームデータチェック＆セット
-		if (! $this->RoomsUtility->validRoom($roomId)) {
-			return;
-		}
-		//スペースデータチェック＆セット
-		if (! $this->SpacesUtility->validSpace($this->viewVars['room']['Room']['space_id'])) {
-			return;
-		}
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->PluginsForm->roomId = $this->viewVars['activeRoomId'];
+	}
 
-		if ($this->request->isPost()) {
+/**
+ * editアクション
+ *
+ * @return void
+ */
+	public function edit() {
+		if ($this->request->isPut()) {
 			//登録処理
-			$data = $this->data;
+			if ($this->PluginsRoom->savePluginsRoomsByRoomId(
+					$this->request->data['Room']['id'],
+					$this->request->data['PluginsRoom']['plugin_key']
+				)) {
 
-			//--不要パラメータ除去
-			unset($data['save']);
+				$activeSpaceId = $this->viewVars['activeSpaceId'];
+				$this->redirect('/rooms/' . $this->viewVars['spaces'][$activeSpaceId]['Space']['default_setting_action']);
+			} else {
+				$this->throwBadRequest();
+			}
 
-			$this->request->data = $data;
 		} else {
 			$this->request->data = $this->viewVars['room'];
 		}
