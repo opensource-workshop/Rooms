@@ -72,6 +72,7 @@ class RoomsComponent extends Component {
 		$controller = $this->controller;
 
 		//ルームデータ取得
+		$spaces = $controller->Room->getSpaces();
 		$controller->Paginator->settings = $controller->Room->getRoomsCondtions($spaceId);
 		$rooms = $controller->Paginator->paginate('Room');
 		$rooms = Hash::combine($rooms, '{n}.Room.id', '{n}');
@@ -79,7 +80,7 @@ class RoomsComponent extends Component {
 
 		//Treeリスト取得
 		$roomTreeList = $controller->Room->generateTreeList(
-				array('Room.id' => array_keys($rooms)), null, null, Room::$treeParser);
+				array('Room.id' => array_merge(array($spaces[$spaceId]['Room']['id']), array_keys($rooms))), null, null, Room::$treeParser);
 		$controller->set('roomTreeList', $roomTreeList);
 	}
 

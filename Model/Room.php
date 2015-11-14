@@ -43,6 +43,17 @@ class Room extends RoomsAppModel {
 	public static $treeParser;
 
 /**
+ * スペースルームIDのリスト
+ *
+ * @var array
+ */
+	public static $spaceRooms = array(
+		self::PUBLIC_PARENT_ID,
+		self::PRIVATE_PARENT_ID,
+		self::ROOM_PARENT_ID,
+	);
+
+/**
  * Behaviors
  *
  * @var array
