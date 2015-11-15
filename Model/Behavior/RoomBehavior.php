@@ -78,10 +78,12 @@ class RoomBehavior extends ModelBehavior {
 		$spaceIds[] = Space::PUBLIC_SPACE_ID;
 		if (Current::read('User.id')) {
 			$spaceIds[] = Space::ROOM_SPACE_ID;
-			$spaceIds[] = Space::PRIVATE_SPACE_ID;
 			$joinType = 'INNER';
 		} else {
 			$joinType = 'LEFT';
+		}
+		if (Current::read('User.UserRoleSetting.use_private_room')) {
+			$spaceIds[] = Space::PRIVATE_SPACE_ID;
 		}
 
 		$options = Hash::merge(array(
