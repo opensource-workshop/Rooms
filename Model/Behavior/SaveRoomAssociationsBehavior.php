@@ -88,7 +88,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		}
 		if ($isRoomCreate) {
 			//ルーム作成者をRolesRoomsUsersのルーム管理者で登録する
-			$roleKey = ROLE::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR;
+			$roleKey = Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR;
 		} else {
 			$roleKey = $data['Room']['default_role_key'];
 		}
