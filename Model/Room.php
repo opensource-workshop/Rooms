@@ -285,7 +285,7 @@ class Room extends RoomsAppModel {
 	}
 
 /**
- * Save Room
+ * ルームの登録処理
  *
  * @param array $data received post data
  * @return bool True on success, false on validation errors
@@ -324,13 +324,13 @@ class Room extends RoomsAppModel {
 	}
 
 /**
- * Save Room
+ * 状態の登録処理
  *
  * @param array $data received post data
  * @return bool True on success, false on validation errors
  * @throws InternalErrorException
  */
-	public function saveFieldByActive($data) {
+	public function saveActive($data) {
 		//トランザクションBegin
 		$this->begin();
 
@@ -353,7 +353,7 @@ class Room extends RoomsAppModel {
 	}
 
 /**
- * Save Room
+ * ルームの削除処理
  *
  * @param array $data received post data
  * @return bool True on success, false on validation errors
@@ -384,42 +384,4 @@ class Room extends RoomsAppModel {
 
 		return true;
 	}
-
-/**
- * Return readable rooms
- * 検索、新着で使っている＞＞＞後で削除
- *
- * @param array $conditions conditions.
- * @return array
- */
-	//public function getReadableRooms($conditions = []) {
-	//	$room = [
-	//		0 => [
-	//			'Room' => [
-	//				'id' => 1
-	//			],
-	//			'Page' => [
-	//				'id' => 1
-	//			],
-	//			'LanguagesPage' => [
-	//				'id' => 1,
-	//				'name' => '2000年度入学者',
-	//			],
-	//		],
-	//		1 => [
-	//			'Room' => [
-	//				'id' => 2
-	//			],
-	//			'Page' => [
-	//				'id' => 2
-	//			],
-	//			'LanguagesPage' => [
-	//				'id' => 2,
-	//				'name' => '2001年度入学者',
-	//			],
-	//		],
-	//	];
-	//
-	//	return $room;
-	//}
 }

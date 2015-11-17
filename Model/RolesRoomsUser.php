@@ -201,6 +201,38 @@ class RolesRoomsUser extends RoomsAppModel {
 	}
 
 /**
+ * アクセス日時の登録処理
+ *
+ * @param int $roleRoomUserId ロール・ルーム・ユーザID
+ * @return bool True on success, false on validation errors
+ * @throws InternalErrorException
+ */
+	public function saveAccessed($roleRoomUserId) {
+		//トランザクションBegin
+		$this->begin();
+
+		try {
+			//登録処理
+			$this->id = $roleRoomUserId;
+			if (! $this->saveField('accessed', date('Y-m-d H:i:s'), array('callbacks' => false))) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$this->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			CakeLog::error($ex);
+			$this->rollback();
+		}
+
+		//$this->setSlaveDataSource();
+
+		return true;
+	}
+
+/**
  * RolesRoomsUserの削除処理
  *
  * @param array $data リクエストデータ

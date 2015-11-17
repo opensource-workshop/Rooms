@@ -185,7 +185,7 @@ class RoomsController extends RoomsAppController {
 			return;
 		}
 
-		if (! $this->Room->saveFieldByActive($this->request->data)) {
+		if (! $this->Room->saveActive($this->request->data)) {
 			$this->throwBadRequest();
 			return;
 		}
