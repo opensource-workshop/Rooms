@@ -12,7 +12,7 @@
 
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-<?php echo $this->Rooms->settingTabs(); ?>
+<?php echo $this->RoomForm->settingTabs(); ?>
 
 <div class="panel panel-default">
 	<?php echo $this->NetCommonsForm->create('Room'); ?>

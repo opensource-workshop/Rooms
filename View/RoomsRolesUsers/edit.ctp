@@ -15,7 +15,7 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-<?php echo $this->Rooms->settingTabs(); ?>
+<?php echo $this->RoomForm->settingTabs(); ?>
 
 <?php echo $this->NetCommonsForm->create('Room'); ?>
 	<?php echo $this->NetCommonsForm->hidden('Room.id'); ?>

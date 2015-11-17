@@ -32,6 +32,7 @@ class RoomsHelper extends AppHelper {
  * @var array
  */
 	public $helpers = array(
+		'NetCommons.Date',
 		'NetCommons.NetCommonsForm',
 		'NetCommons.NetCommonsHtml',
 	);
@@ -114,69 +115,6 @@ class RoomsHelper extends AppHelper {
 				$output .= $this->NetCommonsHtml->link($this->roomName($space), $url, $attributes);
 				$output .= '</li>';
 			}
-		}
-		$output .= '</ul>';
-		$output .= '<br>';
-
-		return $output;
-	}
-
-/**
- * ルーム設定タブの出力
- *
- * @return string HTML
- */
-	public function settingTabs() {
-		$activeSpaceId = $this->_View->viewVars['activeSpaceId'];
-		if (isset($this->_View->viewVars['activeRoomId'])) {
-			$activeRoomId = $this->_View->viewVars['activeRoomId'];
-		} else {
-			$activeRoomId = null;
-		}
-
-		$output = '';
-		if ($this->_View->params['action'] === 'add') {
-			$disabled = 'disabled';
-			$urlRooms = '';
-			$urlRolesRoomsUsers = '';
-			$urlPluginsRooms = '';
-		} else {
-			$disabled = '';
-			$urlRooms = '/rooms/rooms/' . $this->_View->params['action'] . '/' . h($activeSpaceId) . '/' . h($activeRoomId) . '/';
-			$urlRolesRoomsUsers = '/rooms/rooms_roles_users/edit/' . h($activeSpaceId) . '/' . h($activeRoomId) . '/';
-			$urlPluginsRooms = '/rooms/plugins_rooms/edit/' . h($activeSpaceId) . '/' . h($activeRoomId) . '/';
-		}
-
-		$output .= '<ul class="nav nav-pills" role="tablist">';
-		if ($this->_View->params['controller'] === 'rooms') {
-			$class = 'active';
-		} else {
-			$class = $disabled;
-		}
-		$output .= '<li class="' . $class . '">';
-		$output .= $this->NetCommonsHtml->link(__d('rooms', 'General setting'), $urlRooms);
-		$output .= '</li>';
-
-		if (Hash::get($this->_View->request->data, 'Room.id') !== Room::ROOM_PARENT_ID) {
-			if ($this->_View->params['controller'] === 'rooms_roles_users') {
-				$class = 'active';
-			} else {
-				$class = $disabled;
-			}
-			$output .= '<li class="' . $class . '">';
-			$output .= $this->NetCommonsHtml->link(__d('rooms', 'Edit the members to join'), $urlRolesRoomsUsers);
-			$output .= '</li>';
-		}
-
-		if (isset($this->_View->request->data['Room']['parent_id'])) {
-			if ($this->_View->params['controller'] === 'plugins_rooms') {
-				$class = 'active';
-			} else {
-				$class = $disabled;
-			}
-			$output .= '<li class=' . $class . '>';
-			$output .= $this->NetCommonsHtml->link(__d('rooms', 'Select the plugins to join'), $urlPluginsRooms);
-			$output .= '</li>';
 		}
 		$output .= '</ul>';
 		$output .= '<br>';
@@ -270,43 +208,6 @@ class RoomsHelper extends AppHelper {
 	}
 
 /**
- * 状態の変更
- *
- * @param array $room ルームデータ配列
- * @return string HTML
- */
-	public function changeStatus($room) {
-		$this->_View->request->data = $room;
-		$output = '';
-
-		$output .= $this->NetCommonsForm->create('Room', array(
-			'url' => $this->NetCommonsHtml->url(array(
-				'action' => 'active', $room['Space']['id'], $room['Room']['id']
-			)),
-		));
-
-		$output .= $this->NetCommonsForm->hidden('Room.id');
-		if ($room['Room']['active']) {
-			$output .= $this->NetCommonsForm->hidden('Room.active', array('value' => false));
-			$output .= $this->NetCommonsForm->button(__d('rooms', 'It will be in maintenance'), array(
-				'name' => 'save',
-				'class' => 'btn-link',
-				'ng-disabled' => 'sending'
-			));
-		} else {
-			$output .= $this->NetCommonsForm->hidden('Room.active', array('value' => true));
-			$output .= $this->NetCommonsForm->button(__d('rooms', 'Open the room'), array(
-				'name' => 'save',
-				'class' => 'btn-link',
-				'ng-disabled' => 'sending'
-			));
-		}
-		$output .= $this->NetCommonsForm->end();
-
-		return $output;
-	}
-
-/**
  * ルームロール名の出力
  *
  * @param string $roomRoleKey ルームロールKey
@@ -325,6 +226,22 @@ class RoomsHelper extends AppHelper {
 		} else {
 			return '';
 		}
+	}
+
+/**
+ * ルームのアクセス日時の出力
+ *
+ * @param array $room ルームデータ配列
+ * @return string HTML
+ */
+	public function roomAccessed($room) {
+		$output = '';
+
+		if (Hash::get($room, 'RolesRoomsUser.accessed')) {
+			$output .= $this->Date->dateFormat(Hash::get($room, 'RolesRoomsUser.accessed'));
+		}
+
+		return $output;
 	}
 
 }
