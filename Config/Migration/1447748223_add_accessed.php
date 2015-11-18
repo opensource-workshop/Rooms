@@ -11,8 +11,8 @@
 /**
  * Migration file
  *
- * ルームのアクセス日時の表示のための修正
- * * roles_rooms_usersテーブルにアクセス日時(accessed)のフィールド追加
+ * ルームのアクセス情報の表示のための修正
+ * * roles_rooms_usersテーブルにアクセス数(access_count)、アクセス日時(accessed)のフィールド追加
  *
  * @package NetCommons\Rooms\Config\Migration
  */
@@ -34,13 +34,14 @@ class AddAccessed extends CakeMigration {
 		'up' => array(
 			'create_field' => array(
 				'roles_rooms_users' => array(
-					'accessed' => array('type' => 'datetime', 'null' => true, 'default' => null, 'after' => 'room_id'),
+					'access_count' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false, 'after' => 'room_id'),
+					'accessed' => array('type' => 'datetime', 'null' => true, 'default' => null, 'after' => 'access_count'),
 				),
 			),
 		),
 		'down' => array(
 			'drop_field' => array(
-				'roles_rooms_users' => array('accessed'),
+				'roles_rooms_users' => array('access_count', 'accessed'),
 			),
 		),
 	);

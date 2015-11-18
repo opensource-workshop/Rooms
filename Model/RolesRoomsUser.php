@@ -211,10 +211,16 @@ class RolesRoomsUser extends RoomsAppModel {
 		//トランザクションBegin
 		$this->begin();
 
+		$db = $this->getDataSource();
+
 		try {
 			//登録処理
-			$this->id = $roleRoomUserId;
-			if (! $this->saveField('accessed', date('Y-m-d H:i:s'), array('callbacks' => false))) {
+			$update = array(
+				$this->alias . '.access_count' => 'access_count + 1',
+				$this->alias . '.accessed' => $db->value(date('Y-m-d H:i:s'), 'string'),
+			);
+			$conditions = array($this->alias . '.id' => (int)$roleRoomUserId);
+			if (! $this->updateAll($update, $conditions)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
@@ -227,6 +233,7 @@ class RolesRoomsUser extends RoomsAppModel {
 			$this->rollback();
 		}
 
+		//うまく動作しない
 		//$this->setSlaveDataSource();
 
 		return true;
