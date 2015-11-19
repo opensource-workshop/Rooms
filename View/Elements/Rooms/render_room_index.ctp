@@ -23,7 +23,7 @@
 	<td>
 		<?php
 			if ($nest !== 0) {
-				echo $this->Rooms->changeStatus($room);
+				echo $this->RoomForm->changeStatus($room);
 			}
 		?>
 	</td>

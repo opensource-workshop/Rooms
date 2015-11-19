@@ -44,6 +44,15 @@ class RoomsAppController extends AppController {
 	);
 
 /**
+ * use helpers
+ *
+ * @var array
+ */
+	public $helpers = array(
+		'Rooms.RoomForm',
+	);
+
+/**
  * beforeFilter
  *
  * @return void
