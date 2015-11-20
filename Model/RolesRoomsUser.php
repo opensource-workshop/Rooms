@@ -233,8 +233,7 @@ class RolesRoomsUser extends RoomsAppModel {
 			$this->rollback();
 		}
 
-		//うまく動作しない
-		//$this->setSlaveDataSource();
+		$this->setSlaveDataSource();
 
 		return true;
 	}

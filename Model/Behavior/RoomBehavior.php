@@ -92,7 +92,7 @@ class RoomBehavior extends ModelBehavior {
 				$model->Room->alias . '.*',
 				$model->RolesRoom->alias . '.*',
 				$model->RolesRoomsUser->alias . '.*',
-				$model->Space->alias . '.*',
+				//$model->Space->alias . '.*',
 			),
 			'conditions' => array(
 				$model->Room->alias . '.space_id' => $spaceIds,
