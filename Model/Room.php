@@ -60,6 +60,7 @@ class Room extends RoomsAppModel {
  */
 	public $actsAs = array(
 		'NetCommons.OriginalKey',
+		'PrivateSpace.PrivateSpace',
 		'Rooms.DeleteRoomAssociations',
 		'Rooms.Room',
 		'Rooms.SaveRoomAssociations',
