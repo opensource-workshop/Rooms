@@ -275,6 +275,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			),
 		));
 
+		$model->Page->create(false);
 		if (! $page = $model->Page->savePage($page, array('atomic' => false))) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
