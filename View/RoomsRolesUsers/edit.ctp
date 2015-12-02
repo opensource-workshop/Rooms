@@ -21,10 +21,8 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 	<?php echo $this->NetCommonsForm->hidden('Room.id'); ?>
 
 	<div class="user-search-index-head-margin">
-		<div class="text-center">
-			<?php echo $this->Button->searchLink(__d('users', 'Search for the members'),
-					array('plugin' => 'user_manager', 'controller' => 'user_manager', 'action' => 'search')); ?>
-		</div>
+		<?php echo $this->UserSearchForm->displaySearchButton(
+				'/rooms/rooms_roles_users/edit/' . h($activeSpaceId) . '/' . h($activeRoomId) . '/'); ?>
 
 		<div class="form-group rooms-room-role-select">
 			<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(

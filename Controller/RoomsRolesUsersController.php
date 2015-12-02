@@ -20,6 +20,25 @@ App::uses('RoomsAppController', 'Rooms.Controller');
 class RoomsRolesUsersController extends RoomsAppController {
 
 /**
+ * Limit定数
+ *
+ * @var const
+ */
+	const DEFAULT_LIMIT = 30;
+
+/**
+ * 会員一覧の表示する項目
+ *
+ * @var const
+ */
+	public static $displaFields = array(
+		'room_role_key',
+		'handlename',
+		'name',
+		'role_key',
+	);
+
+/**
  * use model
  *
  * @var array
@@ -46,6 +65,7 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var array
  */
 	public $helpers = array(
+		'UserManager.UserSearchForm',
 		'Users.UserSearch',
 	);
 
@@ -92,18 +112,27 @@ class RoomsRolesUsersController extends RoomsAppController {
 			}
 		}
 
+		$sessionConditions = $this->Session->read(UserSearchComponent::$sessionKey);
+		if (! isset($sessionConditions)) {
+			$type = 'INNER';
+		} else {
+			$type = 'LEFT';
+		}
+
 		$this->UserSearch->search(
-			array(
-				//'RolesRoomsUser.room_id NOT' => null,
-			),
+			array(),
 			array('RolesRoomsUser' => array(
-				'RolesRoomsUser.room_id' => $room['Room']['id'],
+				'type' => $type,
+				'conditions' => array(
+					'RolesRoomsUser.room_id' => $room['Room']['id'],
+				)
 			)),
-			array('RoomRole.level' => 'desc')
+			array('RoomRole.level' => 'desc'),
+			self::DEFAULT_LIMIT
 		);
 
-		$fields = Hash::merge(array('room_role_key'), $this->User->getDispayFields());
-		$this->set('displayFields', $fields);
+		$fields = array_combine(self::$displaFields, self::$displaFields);
+		$this->set('displayFields', $this->User->cleanSearchFields($fields));
 
 		$this->request->data = $room;
 		$this->request->data['RolesRoomsUser'] = Hash::combine($this->viewVars['users'], '{n}.User.id', '{n}.RolesRoomsUser');
