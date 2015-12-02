@@ -126,6 +126,14 @@ class RolesRoomsUser extends RoomsAppModel {
 						$this->RolesRoom->alias . '.room_id' . ' = ' . $this->Room->alias . ' .id',
 					),
 				),
+				array(
+					'table' => $this->User->table,
+					'alias' => $this->User->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->alias . '.user_id' . ' = ' . $this->User->alias . ' .id',
+					),
+				),
 			),
 			'conditions' => $conditions,
 		));
