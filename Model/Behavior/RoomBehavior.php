@@ -85,6 +85,9 @@ class RoomBehavior extends ModelBehavior {
 		if (Current::read('User.UserRoleSetting.use_private_room')) {
 			$spaceIds[] = Space::PRIVATE_SPACE_ID;
 		}
+		if (! Current::allowSystemPlugin('rooms')) {
+			$conditions = Hash::merge(array('Room.active' => true), $conditions);
+		}
 
 		$options = Hash::merge(array(
 			//'recursive' => -1,
