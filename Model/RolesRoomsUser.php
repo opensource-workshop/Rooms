@@ -237,6 +237,7 @@ class RolesRoomsUser extends RoomsAppModel {
 
 		} catch (Exception $ex) {
 			//トランザクションRollback
+			//エラーになったとしても、throwにしない
 			CakeLog::error($ex);
 			$this->rollback();
 		}
