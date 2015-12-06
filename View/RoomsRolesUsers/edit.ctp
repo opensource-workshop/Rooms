@@ -37,7 +37,7 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 		<thead>
 			<tr>
 				<th>
-					<input class="form-control" type="checkbox" ng-click="allCheck($event)">
+					<input class="form-control rooms-roles-users-checkbox" type="checkbox" ng-click="allCheck($event)">
 				</th>
 				<?php echo $this->UserSearch->tableHeaders(); ?>
 			</tr>
@@ -55,6 +55,7 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 							'type' => 'checkbox',
 							'value' => $user['User']['id'],
 							'checked' => false,
+							'class' => 'form-control rooms-roles-users-checkbox'
 						)); ?>
 					</td>
 					<?php echo $this->UserSearch->tableRow($user, false); ?>

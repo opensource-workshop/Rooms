@@ -110,6 +110,8 @@ class RoomsRolesUsersController extends RoomsAppController {
 			} else {
 				$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
 			}
+		} else {
+			$this->UserSearch->clearConditions();
 		}
 
 		$sessionConditions = $this->Session->read(UserSearchComponent::$sessionKey);
