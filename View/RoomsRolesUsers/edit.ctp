@@ -45,7 +45,8 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 
 		<tbody>
 			<?php foreach ($users as $index => $user) : ?>
-				<tr>
+				<tr ng-init="<?php echo $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id'); ?>=false;"
+					ng-class="{active: <?php echo $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id'); ?>}">
 					<td>
 						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id'); ?>
 						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id', array('value' => $this->data['Room']['id'])); ?>
@@ -55,7 +56,9 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 							'type' => 'checkbox',
 							'value' => $user['User']['id'],
 							'checked' => false,
-							'class' => 'form-control rooms-roles-users-checkbox'
+							'class' => 'form-control rooms-roles-users-checkbox',
+							'ng-click' => 'check($event)'
+							//'ng-model' => $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id')
 						)); ?>
 					</td>
 					<?php echo $this->UserSearch->tableRow($user, false); ?>
