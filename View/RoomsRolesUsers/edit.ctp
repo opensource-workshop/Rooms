@@ -39,6 +39,10 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 				<th>
 					<input class="form-control rooms-roles-users-checkbox" type="checkbox" ng-click="allCheck($event)">
 				</th>
+				<th>
+					<?php echo $this->Paginator->sort('RoomRole.level', __d('rooms', 'Room role')); ?>
+				</th>
+				<th class="rooms-roles-users-separator"> </th>
 				<?php echo $this->UserSearch->tableHeaders(); ?>
 			</tr>
 		</thead>
@@ -61,8 +65,14 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 							//'ng-model' => $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id')
 						)); ?>
 					</td>
+					<td>
+						<?php echo $this->UserSearch->tableCell($user, 'RolesRoom', 'room_role_key', false, false); ?>
+					</td>
+					<td class="rooms-roles-users-separator"> </td>
 					<?php echo $this->UserSearch->tableRow($user, false); ?>
 				</tr>
+
+
 			<?php endforeach; ?>
 		</tbody>
 	</table>

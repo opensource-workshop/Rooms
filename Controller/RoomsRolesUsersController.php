@@ -32,7 +32,7 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var const
  */
 	public static $displaFields = array(
-		'room_role_key',
+		//'room_role_key',
 		'handlename',
 		'name',
 		'role_key',
