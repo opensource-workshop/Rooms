@@ -32,7 +32,7 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var const
  */
 	public static $displaFields = array(
-		'room_role_key',
+		//'room_role_key',
 		'handlename',
 		'name',
 		'role_key',
@@ -110,6 +110,8 @@ class RoomsRolesUsersController extends RoomsAppController {
 			} else {
 				$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
 			}
+		} else {
+			$this->UserSearch->clearConditions();
 		}
 
 		$sessionConditions = $this->Session->read(UserSearchComponent::$sessionKey);

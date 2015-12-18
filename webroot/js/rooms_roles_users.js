@@ -21,8 +21,16 @@ NetCommonsApp.controller('RoomsRolesUsers', function($scope) {
     for (var i = 0; i < elements.length; i++) {
       if (elements[i].name) {
         elements[i].checked = $event.currentTarget.checked;
+        $scope[elements[i].id] = $event.currentTarget.checked;
       }
     }
+  };
+
+  /**
+   * Check on click
+   */
+  $scope.check = function($event) {
+    $scope[$event.target.id] = $event.target.checked;
   };
 
 });

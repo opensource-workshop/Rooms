@@ -14,3 +14,12 @@
 .rooms-room-role-select {
 	width: 200px;
 }
+
+input[type="checkbox"].rooms-roles-users-checkbox {
+	height: 21px;
+	margin: 2px;
+}
+
+.rooms-roles-users-separator {
+	border-left: 1px solid #ddd;
+}

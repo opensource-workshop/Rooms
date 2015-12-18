@@ -225,7 +225,8 @@ class RolesRoomsUser extends RoomsAppModel {
 			//登録処理
 			$update = array(
 				$this->alias . '.access_count' => 'access_count + 1',
-				$this->alias . '.accessed' => $db->value(date('Y-m-d H:i:s'), 'string'),
+				$this->alias . '.previous_accessed' => 'last_accessed',
+				$this->alias . '.last_accessed' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			);
 			$conditions = array($this->alias . '.id' => (int)$roleRoomUserId);
 			if (! $this->updateAll($update, $conditions)) {
