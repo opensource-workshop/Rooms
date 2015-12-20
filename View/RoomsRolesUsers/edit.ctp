@@ -24,10 +24,11 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 		<?php echo $this->UserSearchForm->displaySearchButton(
 				'/rooms/rooms_roles_users/edit/' . h($activeSpaceId) . '/' . h($activeRoomId) . '/'); ?>
 
-		<div class="form-group rooms-room-role-select">
+		<div class="form-group form-inline">
 			<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
-				'empty' => __d('rooms', '(Select room role)'),
+				'empty' => __d('rooms', 'Change the user role of the room'),
 				'options' => array('delete' => __d('users', 'Non members')),
+				'optionFormat' => __d('rooms', 'Changed to the %s role'),
 				'onchange' => 'submit();'
 			)); ?>
 		</div>
@@ -66,7 +67,21 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 						)); ?>
 					</td>
 					<td>
-						<?php echo $this->UserSearch->tableCell($user, 'RolesRoom', 'room_role_key', false, false); ?>
+						<div class="pull-left">
+							<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('', array(
+								'empty' => '',
+								//'onchange' => 'submit();',
+								'value' => Hash::get($user, 'RolesRoom.role_key', ''),
+								'class' => 'form-control input-sm'
+							)); ?>
+						</div>
+						<div>
+							<?php echo $this->Button->cancel(__d('users', 'Non members'), null, array(
+									'iconSize' => 'sm'
+								)); ?>
+						</div>
+
+						<?php //echo $this->UserSearch->tableCell($user, 'RolesRoom', 'room_role_key', false, false); ?>
 					</td>
 					<td class="rooms-roles-users-separator"> </td>
 					<?php echo $this->UserSearch->tableRow($user, false); ?>

@@ -29,22 +29,19 @@ class RoomsRolesFormHelper extends AppHelper {
 	);
 
 /**
- * After render file callback.
- * Called after any view fragment is rendered.
+ * Before render callback. beforeRender is called before the view file is rendered.
  *
  * Overridden in subclasses.
  *
- * @param string $viewFile The file just be rendered.
- * @param string $content The content that was rendered.
+ * @param string $viewFile The view file that is going to be rendered
  * @return void
  */
-	public function afterRenderFile($viewFile, $content) {
-		$content = $this->NetCommonsHtml->script(array(
-					'/rooms/js/role_permissions.js',
-					'/rooms/js/room_role_permissions.js'
-				)) . $content;
-
-		parent::afterRenderFile($viewFile, $content);
+	public function beforeRender($viewFile) {
+		$this->NetCommonsHtml->script(array(
+			'/rooms/js/role_permissions.js',
+			'/rooms/js/room_role_permissions.js'
+		));
+		parent::beforeRender($viewFile);
 	}
 
 /**
@@ -140,12 +137,25 @@ class RoomsRolesFormHelper extends AppHelper {
  */
 	public function selectDefaultRoomRoles($fieldName, $attributes = array()) {
 		$defaultRoles = $this->_View->viewVars['defaultRoles'];
-		if (isset($attributes['options'])) {
-			$defaultRoles = Hash::merge($defaultRoles, $attributes['options']);
-			unset($attributes['options']);
+
+		//Option
+		$defaultRoles = Hash::merge(
+			$this->_View->viewVars['defaultRoles'],
+			Hash::get($attributes, 'options', array())
+		);
+		$attributes = Hash::remove($attributes, 'options');
+
+		//OptionのFormat
+		$optionFormat = Hash::get($attributes, 'optionFormat', '%s');
+		$attributes = Hash::remove($attributes, 'optionFormat');
+
+		//OptionのFormat変換
+		foreach ($defaultRoles as $key => $value) {
+			$defaultRoles[$key] = sprintf($optionFormat, $value);
 		}
 
-		$html = '<div class="form-group">';
+		$html = '';
+		//$html = '<div class="form-group">';
 
 		if (isset($attributes['label'])) {
 			if (is_array($attributes['label'])) {
@@ -165,7 +175,7 @@ class RoomsRolesFormHelper extends AppHelper {
 		), $attributes);
 		$html .= $this->NetCommonsForm->select($fieldName, $defaultRoles, $attributes);
 
-		$html .= '</div>';
+		//$html .= '</div>';
 		return $html;
 	}
 

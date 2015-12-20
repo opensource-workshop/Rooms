@@ -85,6 +85,6 @@ msgid "Room role"
 msgstr ""
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:64
-msgid "(Select room role)"
+msgid "Change the user role of the room"
 msgstr ""
 

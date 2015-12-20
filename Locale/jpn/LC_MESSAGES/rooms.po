@@ -101,8 +101,12 @@ msgid "Room role"
 msgstr "ルーム内の役割"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:64
-msgid "(Select room role)"
-msgstr "(ルーム内の役割)"
+msgid "Change the user role of the room"
+msgstr "ルーム内の役割を変更する"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:64
+msgid "Changed to the %s role"
+msgstr "%sに変更する"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:64
 msgid "Last access datetime"
