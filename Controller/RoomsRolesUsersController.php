@@ -65,7 +65,8 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var array
  */
 	public $helpers = array(
-		'UserManager.UserSearchForm',
+		'UserAttributes.UserAttributeLayout',
+		'Users.UserSearchForm',
 		'Users.UserSearch',
 	);
 
@@ -139,4 +140,29 @@ class RoomsRolesUsersController extends RoomsAppController {
 		$this->request->data = $room;
 		$this->request->data['RolesRoomsUser'] = Hash::combine($this->viewVars['users'], '{n}.User.id', '{n}.RolesRoomsUser');
 	}
+
+/**
+ * 検索フォーム表示アクション
+ *
+ * @return void
+ */
+	public function search_conditions() {
+		//検索フォーム表示
+		$this->UserSearch->conditions();
+	}
+
+/**
+ * 検索アクション
+ *
+ * @return void
+ */
+	public function search_result() {
+		//検索のための条件をセッションに保持
+		CakeLog::debug(var_export($this->request->data, true));
+		$fields = $this->User->cleanSearchFields($this->request->data);
+		CakeLog::debug(var_export($fields, true));
+		//CakeLog::debug(print_r($this->request->url, true));
+		$this->Session->write(UserSearchComponent::$sessionKey, $fields);
+	}
+
 }
