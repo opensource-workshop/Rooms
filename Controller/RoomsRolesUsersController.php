@@ -150,19 +150,4 @@ class RoomsRolesUsersController extends RoomsAppController {
 		//検索フォーム表示
 		$this->UserSearch->conditions();
 	}
-
-/**
- * 検索アクション
- *
- * @return void
- */
-	public function search_result() {
-		//検索のための条件をセッションに保持
-		CakeLog::debug(var_export($this->request->data, true));
-		$fields = $this->User->cleanSearchFields($this->request->data);
-		CakeLog::debug(var_export($fields, true));
-		//CakeLog::debug(print_r($this->request->url, true));
-		$this->Session->write(UserSearchComponent::$sessionKey, $fields);
-	}
-
 }
