@@ -111,12 +111,9 @@ class RoomsRolesUsersController extends RoomsAppController {
 			} else {
 				$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
 			}
-		} else {
-			$this->UserSearch->clearConditions();
 		}
 
-		$sessionConditions = $this->Session->read(UserSearchComponent::$sessionKey);
-		if (! isset($sessionConditions)) {
+		if (! $this->request->query) {
 			$type = 'INNER';
 		} else {
 			$type = 'LEFT';
