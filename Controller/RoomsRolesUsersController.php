@@ -65,7 +65,8 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @var array
  */
 	public $helpers = array(
-		'UserManager.UserSearchForm',
+		'UserAttributes.UserAttributeLayout',
+		'Users.UserSearchForm',
 		'Users.UserSearch',
 	);
 
@@ -110,12 +111,9 @@ class RoomsRolesUsersController extends RoomsAppController {
 			} else {
 				$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
 			}
-		} else {
-			$this->UserSearch->clearConditions();
 		}
 
-		$sessionConditions = $this->Session->read(UserSearchComponent::$sessionKey);
-		if (! isset($sessionConditions)) {
+		if (! $this->request->query) {
 			$type = 'INNER';
 		} else {
 			$type = 'LEFT';
@@ -138,5 +136,15 @@ class RoomsRolesUsersController extends RoomsAppController {
 
 		$this->request->data = $room;
 		$this->request->data['RolesRoomsUser'] = Hash::combine($this->viewVars['users'], '{n}.User.id', '{n}.RolesRoomsUser');
+	}
+
+/**
+ * 検索フォーム表示アクション
+ *
+ * @return void
+ */
+	public function search_conditions() {
+		//検索フォーム表示
+		$this->UserSearch->conditions();
 	}
 }
