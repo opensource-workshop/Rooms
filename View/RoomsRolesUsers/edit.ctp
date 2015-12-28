@@ -17,7 +17,10 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
 <?php echo $this->RoomForm->settingTabs(); ?>
 
-<?php echo $this->NetCommonsForm->create('Room'); ?>
+<?php echo $this->NetCommonsForm->create('Room', array(
+		'ng-controller' => 'RoomsRolesUsers',
+		'ng-init' => 'initialize(' . json_encode(array('Room' => array('id' => Hash::get($this->data, 'Room.id')), 'Role' => array('key' => '')), JSON_FORCE_OBJECT) . ')',
+	)); ?>
 	<?php echo $this->NetCommonsForm->hidden('Room.id'); ?>
 
 	<div class="user-search-index-head-margin">
@@ -33,7 +36,7 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 		</div>
 	</div>
 
-	<table class="table table-condensed" ng-controller="RoomsRolesUsers">
+	<table class="table table-condensed">
 		<thead>
 			<tr>
 				<th>
@@ -49,29 +52,44 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 
 		<tbody>
 			<?php foreach ($users as $index => $user) : ?>
-				<tr ng-init="<?php echo $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id'); ?>=false;"
+				<?php
+					$appendData = array(
+						'User' => array(
+							'id' => array($user['User']['id'] => $user['User']['id'])
+						),
+						'RolesRoom' => array(
+							$user['User']['id'] => array(
+								'role_key' => Hash::get($user, 'RolesRoom.role_key', '')
+							)
+						),
+					);
+				?>
+				<tr ng-init="appendUser(<?php echo '\'' . $user['User']['id'] . '\', \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\''; ?>)"
 					ng-class="{active: <?php echo $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id'); ?>}">
 					<td>
-						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id'); ?>
-						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id', array('value' => $this->data['Room']['id'])); ?>
-						<?php echo $this->NetCommonsForm->input('RolesRoomsUser.' . $user['User']['id'] . '.user_id', array(
+						<?php //echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id'); ?>
+						<?php //echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id', array('value' => $this->data['Room']['id'])); ?>
+						<?php echo $this->NetCommonsForm->input('User.id.' . $user['User']['id'], array(
 							'label' => false,
 							'div' => false,
 							'type' => 'checkbox',
-							'value' => $user['User']['id'],
+							//'value' => $user['User']['id'],
 							'checked' => false,
 							'class' => 'form-control rooms-roles-users-checkbox',
-							'ng-click' => 'check($event)'
+							'ng-click' => 'check($event)',
+							//'hiddenField' => false
 							//'ng-model' => $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id')
 						)); ?>
 					</td>
 					<td>
 						<div class="pull-left">
-							<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('', array(
+							<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
 								'empty' => '',
 								//'onchange' => 'submit();',
 								'value' => Hash::get($user, 'RolesRoom.role_key', ''),
-								'class' => 'form-control input-sm'
+								'class' => 'form-control input-sm',
+								'ng-model' => 'RolesRoom.' . $user['User']['id'] . '.role_key',
+								'ng-change' => 'save()'
 							)); ?>
 						</div>
 						<div>
