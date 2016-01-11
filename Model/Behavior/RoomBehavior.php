@@ -73,7 +73,7 @@ class RoomBehavior extends ModelBehavior {
  * @param array $conditions 条件配列
  * @return array ルームデータ取得条件
  */
-	public function getReadableRoomsCondtions(Model $model, $conditions = array()) {
+	public function getReadableRoomsConditions(Model $model, $conditions = array()) {
 		$spaceIds = array();
 		$spaceIds[] = Space::PUBLIC_SPACE_ID;
 		if (Current::read('User.id')) {
