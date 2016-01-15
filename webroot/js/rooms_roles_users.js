@@ -8,9 +8,16 @@
  * RoomsRolesUsers Javascript
  *
  * @param {string} Controller name
- * @param {function($scope)} Controller
+ * @param {function($scope, $http)} Controller
  */
-NetCommonsApp.controller('RoomsRolesUsers', function($scope) {
+NetCommonsApp.controller('RoomsRolesUsers', function($scope, $http) {
+
+  /**
+   * アクションURL
+   *
+   * @type string
+   */
+  $scope.actionUrl = null;
 
   /**
    * リクエストデータ
@@ -22,43 +29,36 @@ NetCommonsApp.controller('RoomsRolesUsers', function($scope) {
   /**
    * initialize
    */
-  $scope.initialize = function(data) {
+  $scope.initialize = function(data, formTagDomId) {
     var token = {};
-    var elements = $('input[name="_method"]');
+    var elements = $('input[name="data[_Token][unlocked]"]');
     if (! angular.isUndefined(elements[0])) {
-      token = angular.extend(token, {_mthod: elements[0].value});
+      token = angular.extend(token, {_Token: {unlocked: elements[0].value}});
     }
-//    var elements = $('input[name="data[_Token][fields]"]');
-//    if (! angular.isUndefined(elements[0])) {
-//      token = angular.extend(token, {_Token: {fields: elements[0].value}});
-//    }
-//    var elements = $('input[name="data[_Token][unlocked]"]');
-//    if (! angular.isUndefined(elements[0])) {
-//      token = angular.extend(token, {_Token: {unlocked: elements[0].value}});
-//    }
 
     $scope.data = angular.extend({
       _Token: {key: ''},
       RolesRoom: {},
+      RolesRoomsUser: {},
       User: {id: {}}
     }, token, data);
 
-    console.log($scope.data);
+    $scope.actionUrl = $('#' + formTagDomId)[0].action;
   };
 
   /**
    * appendUser
    */
-  $scope.appendUser = function(userId, roleKey) {
-    if (angular.isUndefined(roleKey)) {
-      roleKey = ''
-    }
-    $scope.data['RolesRoom'][userId] = {
-      role_key: roleKey
-    };
-    $scope.data['User']['id'][userId] = false;
-
-    console.log($scope.data);
+  $scope.appendUser = function(data) {
+    $scope.data['User']['id'] = angular.extend(
+      $scope.data['User']['id'], data['User']['id']
+    );
+    $scope.data['RolesRoom'] = angular.extend(
+      $scope.data['RolesRoom'], data['RolesRoom']
+    );
+    $scope.data['RolesRoomsUser'] = angular.extend(
+      $scope.data['RolesRoomsUser'], data['RolesRoomsUser']
+    );
   };
 
   /**
@@ -85,8 +85,50 @@ NetCommonsApp.controller('RoomsRolesUsers', function($scope) {
   /**
    * 保存処理
    */
-  $scope.save = function() {
-    console.log($scope.data);
+  $scope.save = function(userId, roleKey) {
+    $scope.data['RolesRoom'][userId]['role_key'] = $('#' + roleKey)[0].value;
+
+    if (! $('#' + roleKey)[0].value) {
+      $scope.data['Role']['key'] = 'delete';
+    } else {
+      $scope.data['Role']['key'] = $('#' + roleKey)[0].value;
+    }
+    $scope.data['User']['id'][userId] = '1';
+
+    var elements = $('input[name="data[_Token][fields]"]');
+    if (! angular.isUndefined(elements[0])) {
+      $scope.data['_Token'] = angular.extend(
+        $scope.data['_Token'], {fields: elements[0].value}
+      );
+    }
+
+    $http.get($scope.baseUrl + '/net_commons/net_commons/csrfToken.json')
+      .success(function(token) {
+          $scope.data._Token.key = token.data._Token.key;
+          //POSTリクエスト
+          $http.post($scope.actionUrl,
+              $.param({_method: 'PUT', data: $scope.data}),
+              {cache: false,
+                headers:
+                    {'Content-Type': 'application/x-www-form-urlencoded'}
+              }
+          ).success(function(data) {
+            $scope.flashMessage(data.name, data.class, data.interval);
+            $scope.$parent.sending = false;
+          }).error(function(data, status) {
+            $scope.flashMessage(data['name'], 'danger', 0);
+            $scope.$parent.sending = false;
+          });
+        });
+  };
+
+  /**
+   * 保存処理
+   */
+  $scope.delete = function(userId, roleKey) {
+    $('#' + roleKey)[0].value = '';
+    $scope[roleKey] = '';
+    $scope.save(userId, roleKey);
   };
 
 });

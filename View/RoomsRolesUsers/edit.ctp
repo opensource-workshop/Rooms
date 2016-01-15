@@ -12,6 +12,7 @@
 echo $this->NetCommonsHtml->css('/users/css/style.css');
 echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 ?>
+<?php echo $this->element('NetCommons.javascript_alert'); ?>
 
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
@@ -19,7 +20,10 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 
 <?php echo $this->NetCommonsForm->create('Room', array(
 		'ng-controller' => 'RoomsRolesUsers',
-		'ng-init' => 'initialize(' . json_encode(array('Room' => array('id' => Hash::get($this->data, 'Room.id')), 'Role' => array('key' => '')), JSON_FORCE_OBJECT) . ')',
+		'ng-init' => 'initialize(' . json_encode(array(
+						'Room' => array('id' => Hash::get($this->data, 'Room.id')),
+						'Role' => array('key' => '')), JSON_FORCE_OBJECT) .
+					',  \'RoomEditForm\');',
 	)); ?>
 	<?php echo $this->NetCommonsForm->hidden('Room.id'); ?>
 
@@ -55,46 +59,55 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 				<?php
 					$appendData = array(
 						'User' => array(
-							'id' => array($user['User']['id'] => $user['User']['id'])
+							'id' => array($user['User']['id'] => '0')
 						),
 						'RolesRoom' => array(
 							$user['User']['id'] => array(
 								'role_key' => Hash::get($user, 'RolesRoom.role_key', '')
 							)
 						),
+						'RolesRoomsUser' => array(
+							$user['User']['id'] => array(
+								'id' => Hash::get($this->request->data, 'RolesRoomsUser.' . $user['User']['id'] . '.id', ''),
+								'user_id' => $user['User']['id'],
+								'room_id' => Hash::get($this->request->data, 'Room.id', ''),
+							),
+						),
 					);
+					$domUserId = $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id');
+					$domUserRoleKey = $this->NetCommonsForm->domId('RolesRoom.' . $user['User']['id'] . '.role_key');
 				?>
-				<tr ng-init="appendUser(<?php echo '\'' . $user['User']['id'] . '\', \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\''; ?>)"
-					ng-class="{active: <?php echo $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id'); ?>}">
+				<tr ng-init="appendUser(<?php echo h(json_encode($appendData, JSON_FORCE_OBJECT)); ?>);"
+					ng-class="{active: <?php echo $domUserId; ?>}">
 					<td>
-						<?php //echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id'); ?>
-						<?php //echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id', array('value' => $this->data['Room']['id'])); ?>
+						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id'); ?>
+						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.user_id', array('value' => $user['User']['id'])); ?>
+						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id', array('value' => $this->data['Room']['id'])); ?>
 						<?php echo $this->NetCommonsForm->input('User.id.' . $user['User']['id'], array(
 							'label' => false,
 							'div' => false,
 							'type' => 'checkbox',
-							//'value' => $user['User']['id'],
 							'checked' => false,
 							'class' => 'form-control rooms-roles-users-checkbox',
 							'ng-click' => 'check($event)',
-							//'hiddenField' => false
-							//'ng-model' => $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id')
 						)); ?>
 					</td>
 					<td>
 						<div class="pull-left">
 							<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
 								'empty' => '',
-								//'onchange' => 'submit();',
 								'value' => Hash::get($user, 'RolesRoom.role_key', ''),
 								'class' => 'form-control input-sm',
-								'ng-model' => 'RolesRoom.' . $user['User']['id'] . '.role_key',
-								'ng-change' => 'save()'
+								'ng-init' => $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';',
+								'ng-model' => $domUserRoleKey,
+								'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')'
 							)); ?>
 						</div>
 						<div>
 							<?php echo $this->Button->cancel(__d('users', 'Non members'), null, array(
-									'iconSize' => 'sm'
+									'iconSize' => 'sm',
+									'ng-click' => 'delete(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\');',
+									'ng-disabled' => '!' . $domUserRoleKey
 								)); ?>
 						</div>
 
@@ -103,8 +116,6 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 					<td class="rooms-roles-users-separator"> </td>
 					<?php echo $this->UserSearch->tableRow($user, false); ?>
 				</tr>
-
-
 			<?php endforeach; ?>
 		</tbody>
 	</table>
