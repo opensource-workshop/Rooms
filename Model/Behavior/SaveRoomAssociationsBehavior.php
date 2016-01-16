@@ -267,7 +267,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 				'slug' => $slug,
 				'permalink' => $slug,
 				'room_id' => $data['Room']['id'],
-				'parent_id' => $data['Page']['parent_id']
+				'parent_id' => null
 			),
 			'LanguagesPage' => array(
 				'language_id' => Current::read('Language.id'),

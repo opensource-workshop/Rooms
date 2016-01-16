@@ -81,9 +81,9 @@ class RoomsRolesUsersController extends RoomsAppController {
 
 		//登録処理
 		if ($this->request->isPut()) {
-			foreach ($this->request->data['RolesRoomsUser'] as $i => $rolesRoomsUser) {
-				if (! $rolesRoomsUser['user_id']) {
-					unset($this->request->data['RolesRoomsUser'][$i]);
+			foreach ($this->request->data['User']['id'] as $userId => $checked) {
+				if (! $checked) {
+					unset($this->request->data['RolesRoomsUser'][$userId]);
 					continue;
 				}
 			}
@@ -93,9 +93,7 @@ class RoomsRolesUsersController extends RoomsAppController {
 					'Room.id' => $room['Room']['id'],
 					'RolesRoom.role_key' => $this->request->data['Role']['key']
 				));
-				if ($rolesRooms) {
-					$rolesRoomId = $rolesRooms[0]['RolesRoom']['id'];
-				}
+				$rolesRoomId = Hash::get($rolesRooms, '0.RolesRoom.id');
 				$this->request->data['RolesRoomsUser'] = Hash::insert($this->request->data['RolesRoomsUser'], '{n}.roles_room_id', $rolesRoomId);
 				$result = $this->RolesRoomsUser->saveRolesRoomsUsers($this->request->data);
 			} else {
