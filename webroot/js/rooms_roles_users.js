@@ -14,8 +14,6 @@ NetCommonsApp.controller('RoomsRolesUsers', function($scope, $http) {
 
   /**
    * アクションURL
-   *
-   * @type string
    */
   $scope.actionUrl = null;
 
@@ -51,14 +49,11 @@ NetCommonsApp.controller('RoomsRolesUsers', function($scope, $http) {
    */
   $scope.appendUser = function(data) {
     $scope.data['User']['id'] = angular.extend(
-      $scope.data['User']['id'], data['User']['id']
-    );
+        $scope.data['User']['id'], data['User']['id']);
     $scope.data['RolesRoom'] = angular.extend(
-      $scope.data['RolesRoom'], data['RolesRoom']
-    );
+        $scope.data['RolesRoom'], data['RolesRoom']);
     $scope.data['RolesRoomsUser'] = angular.extend(
-      $scope.data['RolesRoomsUser'], data['RolesRoomsUser']
-    );
+        $scope.data['RolesRoomsUser'], data['RolesRoomsUser']);
   };
 
   /**
@@ -98,8 +93,7 @@ NetCommonsApp.controller('RoomsRolesUsers', function($scope, $http) {
     var elements = $('input[name="data[_Token][fields]"]');
     if (! angular.isUndefined(elements[0])) {
       $scope.data['_Token'] = angular.extend(
-        $scope.data['_Token'], {fields: elements[0].value}
-      );
+          $scope.data['_Token'], {fields: elements[0].value});
     }
 
     $http.get($scope.baseUrl + '/net_commons/net_commons/csrfToken.json')
