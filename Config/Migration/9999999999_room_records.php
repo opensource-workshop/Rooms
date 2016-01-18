@@ -237,6 +237,7 @@ class RoomRecords extends NetCommonsMigration {
 				'need_approval' => '1',
 				'default_participation' => '1',
 				'page_layout_permitted' => '1',
+				'theme' => 'Default',
 			),
 			//プライベート
 			array(
@@ -251,6 +252,7 @@ class RoomRecords extends NetCommonsMigration {
 				'need_approval' => '0',
 				'default_participation' => '0',
 				'page_layout_permitted' => '0',
+				'theme' => 'Default',
 			),
 			//グループスペース
 			array(
@@ -265,6 +267,7 @@ class RoomRecords extends NetCommonsMigration {
 				'need_approval' => '1',
 				'default_participation' => '1',
 				'page_layout_permitted' => '1',
+				'theme' => 'Default',
 			),
 		),
 		'RoomsLanguage' => array(
