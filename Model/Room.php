@@ -354,6 +354,35 @@ class Room extends RoomsAppModel {
 	}
 
 /**
+ * テーマの登録処理
+ *
+ * @param array $data received post data
+ * @return bool True on success, false on validation errors
+ * @throws InternalErrorException
+ */
+	public function saveTheme($data) {
+		//トランザクションBegin
+		$this->begin();
+
+		try {
+			//登録処理
+			$this->id = $data['Room']['id'];
+			if (! $this->saveField('theme', $data['Room']['theme'], array('callbacks' => false))) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//トランザクションCommit
+			$this->commit();
+
+		} catch (Exception $ex) {
+			//トランザクションRollback
+			$this->rollback($ex);
+		}
+
+		return true;
+	}
+
+/**
  * ルームの削除処理
  *
  * @param array $data received post data
