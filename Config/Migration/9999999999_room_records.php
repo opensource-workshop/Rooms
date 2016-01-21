@@ -119,7 +119,7 @@ class RoomRecords extends NetCommonsMigration {
 			array('roles_room_id' => '3', 'permission' => 'mail_content_receivable', 'value' => '1'),
 			//--一般
 			array('roles_room_id' => '4', 'permission' => 'block_editable', 'value' => '0'),
-			array('roles_room_id' => '4', 'permission' => 'content_comment_creatable', 'value' => '0'),
+			array('roles_room_id' => '4', 'permission' => 'content_comment_creatable', 'value' => '1'),
 			array('roles_room_id' => '4', 'permission' => 'content_comment_editable', 'value' => '0'),
 			array('roles_room_id' => '4', 'permission' => 'content_comment_publishable', 'value' => '0'),
 			array('roles_room_id' => '4', 'permission' => 'content_creatable', 'value' => '1'),
@@ -193,7 +193,7 @@ class RoomRecords extends NetCommonsMigration {
 			array('roles_room_id' => '9', 'permission' => 'mail_content_receivable', 'value' => '1'),
 			//--一般
 			array('roles_room_id' => '10', 'permission' => 'block_editable', 'value' => '0'),
-			array('roles_room_id' => '10', 'permission' => 'content_comment_creatable', 'value' => '0'),
+			array('roles_room_id' => '10', 'permission' => 'content_comment_creatable', 'value' => '1'),
 			array('roles_room_id' => '10', 'permission' => 'content_comment_editable', 'value' => '0'),
 			array('roles_room_id' => '10', 'permission' => 'content_comment_publishable', 'value' => '0'),
 			array('roles_room_id' => '10', 'permission' => 'content_creatable', 'value' => '1'),
