@@ -16,14 +16,14 @@ App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Config\Migration
  */
-class RoomRecords extends NetCommonsMigration {
+class Records extends NetCommonsMigration {
 
 /**
  * Migration description
  *
  * @var string
  */
-	public $description = 'room_records';
+	public $description = 'records';
 
 /**
  * Actions to be performed
@@ -41,6 +41,44 @@ class RoomRecords extends NetCommonsMigration {
  * @var array $records
  */
 	public $records = array(
+		'Space' => array(
+			array(
+				'id' => '1',
+				'parent_id' => null,
+				'lft' => '1',
+				'rght' => '8',
+				'type' => '1',
+				'plugin_key' => null,
+				'default_setting_action' => null
+			),
+			array(
+				'id' => '2',
+				'parent_id' => '1',
+				'lft' => '2',
+				'rght' => '3',
+				'type' => '2',
+				'plugin_key' => 'public_space',
+				'default_setting_action' => 'rooms/index/2'
+			),
+			array(
+				'id' => '3',
+				'parent_id' => '1',
+				'lft' => '4',
+				'rght' => '5',
+				'type' => '3',
+				'plugin_key' => 'private_space',
+				'default_setting_action' => ''
+			),
+			array(
+				'id' => '4',
+				'parent_id' => '1',
+				'lft' => '6',
+				'rght' => '7',
+				'type' => '4',
+				'plugin_key' => 'room_space',
+				'default_setting_action' => 'rooms/index/4'
+			),
+		),
 		'DefaultRolePermission' => array(
 			//HTMLタグの書き込み制限
 			array('role_key' => 'room_administrator', 'type' => 'room_role', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
