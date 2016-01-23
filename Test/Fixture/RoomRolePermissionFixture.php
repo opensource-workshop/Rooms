@@ -234,7 +234,7 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
 		array(
 			'roles_room_id' => '4',
 			'permission' => 'content_comment_creatable',
-			'value' => '0',
+			'value' => '1',
 		),
 		array(
 			'roles_room_id' => '4',

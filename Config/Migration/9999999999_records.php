@@ -16,14 +16,14 @@ App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Config\Migration
  */
-class RoomRecords extends NetCommonsMigration {
+class Records extends NetCommonsMigration {
 
 /**
  * Migration description
  *
  * @var string
  */
-	public $description = 'room_records';
+	public $description = 'records';
 
 /**
  * Actions to be performed
@@ -41,6 +41,44 @@ class RoomRecords extends NetCommonsMigration {
  * @var array $records
  */
 	public $records = array(
+		'Space' => array(
+			array(
+				'id' => '1',
+				'parent_id' => null,
+				'lft' => '1',
+				'rght' => '8',
+				'type' => '1',
+				'plugin_key' => null,
+				'default_setting_action' => null
+			),
+			array(
+				'id' => '2',
+				'parent_id' => '1',
+				'lft' => '2',
+				'rght' => '3',
+				'type' => '2',
+				'plugin_key' => 'public_space',
+				'default_setting_action' => 'rooms/index/2'
+			),
+			array(
+				'id' => '3',
+				'parent_id' => '1',
+				'lft' => '4',
+				'rght' => '5',
+				'type' => '3',
+				'plugin_key' => 'private_space',
+				'default_setting_action' => ''
+			),
+			array(
+				'id' => '4',
+				'parent_id' => '1',
+				'lft' => '6',
+				'rght' => '7',
+				'type' => '4',
+				'plugin_key' => 'room_space',
+				'default_setting_action' => 'rooms/index/4'
+			),
+		),
 		'DefaultRolePermission' => array(
 			//HTMLタグの書き込み制限
 			array('role_key' => 'room_administrator', 'type' => 'room_role', 'permission' => 'html_not_limited', 'value' => '0', 'fixed' => '0', ),
@@ -119,7 +157,7 @@ class RoomRecords extends NetCommonsMigration {
 			array('roles_room_id' => '3', 'permission' => 'mail_content_receivable', 'value' => '1'),
 			//--一般
 			array('roles_room_id' => '4', 'permission' => 'block_editable', 'value' => '0'),
-			array('roles_room_id' => '4', 'permission' => 'content_comment_creatable', 'value' => '0'),
+			array('roles_room_id' => '4', 'permission' => 'content_comment_creatable', 'value' => '1'),
 			array('roles_room_id' => '4', 'permission' => 'content_comment_editable', 'value' => '0'),
 			array('roles_room_id' => '4', 'permission' => 'content_comment_publishable', 'value' => '0'),
 			array('roles_room_id' => '4', 'permission' => 'content_creatable', 'value' => '1'),
@@ -193,7 +231,7 @@ class RoomRecords extends NetCommonsMigration {
 			array('roles_room_id' => '9', 'permission' => 'mail_content_receivable', 'value' => '1'),
 			//--一般
 			array('roles_room_id' => '10', 'permission' => 'block_editable', 'value' => '0'),
-			array('roles_room_id' => '10', 'permission' => 'content_comment_creatable', 'value' => '0'),
+			array('roles_room_id' => '10', 'permission' => 'content_comment_creatable', 'value' => '1'),
 			array('roles_room_id' => '10', 'permission' => 'content_comment_editable', 'value' => '0'),
 			array('roles_room_id' => '10', 'permission' => 'content_comment_publishable', 'value' => '0'),
 			array('roles_room_id' => '10', 'permission' => 'content_creatable', 'value' => '1'),
@@ -237,6 +275,7 @@ class RoomRecords extends NetCommonsMigration {
 				'need_approval' => '1',
 				'default_participation' => '1',
 				'page_layout_permitted' => '1',
+				'theme' => 'Default',
 			),
 			//プライベート
 			array(
@@ -251,6 +290,7 @@ class RoomRecords extends NetCommonsMigration {
 				'need_approval' => '0',
 				'default_participation' => '0',
 				'page_layout_permitted' => '0',
+				'theme' => 'Default',
 			),
 			//グループスペース
 			array(
@@ -265,6 +305,7 @@ class RoomRecords extends NetCommonsMigration {
 				'need_approval' => '1',
 				'default_participation' => '1',
 				'page_layout_permitted' => '1',
+				'theme' => 'Default',
 			),
 		),
 		'RoomsLanguage' => array(
