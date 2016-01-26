@@ -9,8 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('RoomsController', 'Rooms.Controller');
-App::uses('YAControllerTestCase', 'NetCommons.TestSuite');
+App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
 
 /**
  * RoomsController Test Case
@@ -18,7 +17,7 @@ App::uses('YAControllerTestCase', 'NetCommons.TestSuite');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Controller
  */
-class RoomsControllerTest extends YAControllerTestCase {
+class RoomsControllerTest extends NetCommonsControllerTestCase {
 
 /**
  * Fixtures
