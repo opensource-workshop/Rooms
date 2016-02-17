@@ -64,24 +64,43 @@ class RolesRoomsUser extends RoomsAppModel {
  */
 	public function beforeValidate($options = array()) {
 		$this->validate = Hash::merge($this->validate, array(
-			//'roles_room_id' => array(
-			//	'numeric' => array(
-			//		'rule' => array('numeric'),
-			//		'message' => __d('net_commons', 'Invalid request.'),
-			//		//'allowEmpty' => false,
-			//		//'required' => false,
-			//		//'last' => false, // Stop validation after this rule
-			//		//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			//	),
-			//),
+			'roles_room_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => true,
+				),
+			),
 			'user_id' => array(
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+					'required' => true,
+				),
+			),
+			'room_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => true,
+				),
+			),
+			'access_count' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'last_accessed' => array(
+				'datetime' => array(
+					'rule' => array('datetime'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'previous_accessed' => array(
+				'datetime' => array(
+					'rule' => array('datetime'),
+					'message' => __d('net_commons', 'Invalid request.'),
 				),
 			),
 		));
