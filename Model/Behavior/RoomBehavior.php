@@ -21,10 +21,11 @@ class RoomBehavior extends ModelBehavior {
 
 /**
  * スペースデータ
+ * ※publicにしているのは、UnitTestで使用するため
  *
  * @var array
  */
-	private static $__spaces;
+	public static $spaces;
 
 /**
  * Setup this behavior with the specified configuration settings.
@@ -55,7 +56,7 @@ class RoomBehavior extends ModelBehavior {
  */
 	public function getRoomsCondtions(Model $model, $spaceId, $conditions = array()) {
 		$options = Hash::merge(array(
-			//'recursive' => 0,
+			'recursive' => 1,
 			'conditions' => array(
 				'Room.space_id' => $spaceId,
 				$model->Room->alias . '.page_id_top NOT' => null,
@@ -90,7 +91,7 @@ class RoomBehavior extends ModelBehavior {
 		}
 
 		$options = Hash::merge(array(
-			//'recursive' => -1,
+			'recursive' => 1,
 			'fields' => array(
 				$model->Room->alias . '.*',
 				$model->RolesRoom->alias . '.*',
@@ -135,8 +136,8 @@ class RoomBehavior extends ModelBehavior {
  * @return array スペースデータ配列
  */
 	public function getSpaces(Model $model) {
-		if (self::$__spaces) {
-			return self::$__spaces;
+		if (self::$spaces) {
+			return self::$spaces;
 		}
 
 		//スペースデータ取得
@@ -145,8 +146,7 @@ class RoomBehavior extends ModelBehavior {
 			'hasMany' => array('ChildRoom')
 		));
 		$spaces = $model->Room->find('all', array(
-			//'recursive' => 0,
-			//'fields' => '*',
+			'recursive' => 1,
 			'conditions' => array(
 				$model->Room->alias . '.parent_id' => null,
 			),
@@ -175,9 +175,9 @@ class RoomBehavior extends ModelBehavior {
 		));
 		$result = Hash::combine($result, '{n}.RolesRoom.room_id', '{n}');
 
-		self::$__spaces = Hash::combine(Hash::merge($spaces, $result), '{n}.Space.id', '{n}');
+		self::$spaces = Hash::combine(Hash::merge($spaces, $result), '{n}.Space.id', '{n}');
 
-		return self::$__spaces;
+		return self::$spaces;
 	}
 
 /**
