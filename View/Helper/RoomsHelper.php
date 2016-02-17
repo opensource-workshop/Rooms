@@ -38,18 +38,16 @@ class RoomsHelper extends AppHelper {
 	);
 
 /**
- * After render file callback.
- * Called after any view fragment is rendered.
+ * Before render callback. beforeRender is called before the view file is rendered.
  *
  * Overridden in subclasses.
  *
- * @param string $viewFile The file just be rendered.
- * @param string $content The content that was rendered.
+ * @param string $viewFile The view file that is going to be rendered
  * @return void
  */
-	public function afterRenderFile($viewFile, $content) {
-		$content = $this->NetCommonsHtml->css('/rooms/css/style.css') . $content;
-		parent::afterRenderFile($viewFile, $content);
+	public function beforeRender($viewFile) {
+		$this->NetCommonsHtml->css('/rooms/css/style.css');
+		parent::beforeRender($viewFile);
 	}
 
 /**
