@@ -54,6 +54,13 @@ class Room extends RoomsAppModel {
 	);
 
 /**
+ * Validation rules
+ *
+ * @var array
+ */
+	public $validate = array();
+
+/**
  * Behaviors
  *
  * @var array
@@ -150,30 +157,103 @@ class Room extends RoomsAppModel {
  * @see Model::save()
  */
 	public function beforeValidate($options = array()) {
-		//RoomsLanguageのバリデーション
-		$roomsLanguages = $this->data['RoomsLanguage'];
-		if (! $this->RoomsLanguage->validateMany($roomsLanguages)) {
-			$this->validationErrors = Hash::merge(
-				$this->validationErrors,
-				$this->RoomsLanguage->validationErrors
-			);
-			return false;
-		}
-
-		if (! isset($this->data['RoomRolePermission'])) {
-			return true;
-		}
-
-		$this->loadModels(array(
-			'RoomRolePermission' => 'Rooms.RoomRolePermission',
+		$this->validate = Hash::merge($this->validate, array(
+			'space_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => true,
+				),
+			),
+			'page_id_top' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					//'required' => true,
+				),
+			),
+			'root_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => true,
+					//'required' => true,
+				),
+			),
+			//TreeBehaviorで使用
+			'parent_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => true,
+				),
+			),
+			//TreeBehaviorで使用
+			'lft' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			//TreeBehaviorで使用
+			'rght' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'active' => array(
+				'boolean' => array(
+					'rule' => array('boolean'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'need_approval' => array(
+				'boolean' => array(
+					'rule' => array('boolean'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'default_participation' => array(
+				'boolean' => array(
+					'rule' => array('boolean'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'page_layout_permitted' => array(
+				'boolean' => array(
+					'rule' => array('boolean'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
 		));
 
-		foreach ($this->data[$this->RoomRolePermission->alias] as $permission) {
-			if (! $this->RoomRolePermission->validateMany($permission)) {
-				$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomRolePermission->validationErrors);
+		// * RoomsLanguageのバリデーション
+		if (isset($this->data['RoomsLanguage'])) {
+			$roomsLanguages = $this->data['RoomsLanguage'];
+			if (! $this->RoomsLanguage->validateMany($roomsLanguages)) {
+				$this->validationErrors = Hash::merge(
+					$this->validationErrors,
+					$this->RoomsLanguage->validationErrors
+				);
 				return false;
 			}
 		}
+
+		// * RoomRolePermissionのバリデーション
+		if (isset($this->data['RoomRolePermission'])) {
+			$this->loadModels(array(
+				'RoomRolePermission' => 'Rooms.RoomRolePermission',
+			));
+
+			foreach ($this->data[$this->RoomRolePermission->alias] as $permission) {
+				if (! $this->RoomRolePermission->validateMany($permission)) {
+					$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomRolePermission->validationErrors);
+					return false;
+				}
+			}
+		}
+
 		return parent::beforeValidate($options);
 	}
 
