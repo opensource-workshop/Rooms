@@ -43,6 +43,17 @@ class Space extends RoomsAppModel {
 		ROOM_SPACE_ID = '4';
 
 /**
+ * Space type
+ *
+ * @var const
+ */
+	const
+		WHOLE_SITE_TYPE = '1',
+		PUBLIC_SPACE_TYPE = '2',
+		PRIVATE_SPACE_TYPE = '3',
+		ROOM_SPACE_TYPE= '4';
+
+/**
  * DefaultParticipationFixed
  *
  * @var bool
@@ -108,6 +119,58 @@ class Space extends RoomsAppModel {
 			'counterQuery' => ''
 		)
 	);
+
+/**
+ * Called during validation operations, before validation. Please note that custom
+ * validation rules can be defined in $validate.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if validate operation should continue, false to abort
+ * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforevalidate
+ * @see Model::save()
+ */
+	public function beforeValidate($options = array()) {
+		$this->validate = Hash::merge($this->validate, array(
+			//TreeBehaviorで使用
+			'parent_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => true,
+				),
+			),
+			//TreeBehaviorで使用
+			'lft' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			//TreeBehaviorで使用
+			'rght' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'type' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+				'inList' => array(
+					'rule' => array('inList', array(
+						self::WHOLE_SITE_TYPE, self::PUBLIC_SPACE_TYPE,
+						self::PRIVATE_SPACE_TYPE, self::ROOM_SPACE_TYPE
+					)),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => true
+				),
+			),
+		));
+
+		return parent::beforeValidate($options);
+	}
 
 /**
  * RoomSpaceルームのデフォルト値
