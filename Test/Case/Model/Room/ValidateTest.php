@@ -132,7 +132,7 @@ class RoomValidateTest extends NetCommonsValidateTest {
 
 		//データ生成
 		$data['Room'] = (new RoomFixture())->records[0];
-		$data['RoomRolePermission'][0] = (new RoomRolePermissionFixture())->records[0];
+		$data['RoomRolePermission'][0][0] = (new RoomRolePermissionFixture())->records[0];
 
 		//テスト実施
 		$this->$model->set($data);
@@ -153,7 +153,7 @@ class RoomValidateTest extends NetCommonsValidateTest {
 
 		//データ生成
 		$data['Room'] = (new RoomFixture())->records[0];
-		$data['RoomRolePermission'][0] = (new RoomRolePermissionFixture())->records[0];
+		$data['RoomRolePermission'][0][0] = (new RoomRolePermissionFixture())->records[0];
 
 		//テスト実施
 		$this->$model->set($data);

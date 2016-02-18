@@ -185,6 +185,7 @@ class Room extends RoomsAppModel {
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => true,
 					'required' => false,
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
