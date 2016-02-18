@@ -180,34 +180,6 @@ class Room extends RoomsAppModel {
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
-			//TreeBehaviorで使用
-			'parent_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-					'message' => __d('net_commons', 'Invalid request.'),
-					'allowEmpty' => true,
-					'required' => false,
-					'on' => 'update', // Limit validation to 'create' or 'update' operations
-				),
-			),
-			//TreeBehaviorで使用
-			'lft' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-					'message' => __d('net_commons', 'Invalid request.'),
-					'required' => false,
-					'on' => 'update', // Limit validation to 'create' or 'update' operations
-				),
-			),
-			//TreeBehaviorで使用
-			'rght' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-					'message' => __d('net_commons', 'Invalid request.'),
-					'required' => false,
-					'on' => 'update', // Limit validation to 'create' or 'update' operations
-				),
-			),
 			'active' => array(
 				'boolean' => array(
 					'rule' => array('boolean'),
@@ -232,8 +204,33 @@ class Room extends RoomsAppModel {
 					'message' => __d('net_commons', 'Invalid request.'),
 				),
 			),
+			//TreeBehaviorで使用
+			'parent_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => true,
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'lft' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'rght' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
+				),
+			),
 		));
-
 		// * RoomsLanguageのバリデーション
 		if (isset($this->data['RoomsLanguage'])) {
 			$roomsLanguages = $this->data['RoomsLanguage'];
@@ -245,13 +242,9 @@ class Room extends RoomsAppModel {
 				return false;
 			}
 		}
-
 		// * RoomRolePermissionのバリデーション
 		if (isset($this->data['RoomRolePermission'])) {
-			$this->loadModels(array(
-				'RoomRolePermission' => 'Rooms.RoomRolePermission',
-			));
-
+			$this->loadModels(array('RoomRolePermission' => 'Rooms.RoomRolePermission'));
 			foreach ($this->data[$this->RoomRolePermission->alias] as $permission) {
 				if (! $this->RoomRolePermission->validateMany($permission)) {
 					$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomRolePermission->validationErrors);

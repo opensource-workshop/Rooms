@@ -71,8 +71,6 @@ class RoomRolePermissionValidateTest extends NetCommonsValidateTest {
 	public function dataProviderValidationError() {
 		$data['RoomRolePermission'] = (new RoomRolePermissionFixture())->records[0];
 
-		//TODO:テストパタンを書く
-		debug($data);
 		return array(
 			array('data' => $data, 'field' => 'roles_room_id', 'value' => 'a',
 				'message' => __d('net_commons', 'Invalid request.')),

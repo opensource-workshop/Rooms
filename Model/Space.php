@@ -51,7 +51,7 @@ class Space extends RoomsAppModel {
 		WHOLE_SITE_TYPE = '1',
 		PUBLIC_SPACE_TYPE = '2',
 		PRIVATE_SPACE_TYPE = '3',
-		ROOM_SPACE_TYPE= '4';
+		ROOM_SPACE_TYPE = '4';
 
 /**
  * DefaultParticipationFixed

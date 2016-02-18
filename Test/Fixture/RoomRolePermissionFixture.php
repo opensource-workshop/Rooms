@@ -47,6 +47,7 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
  */
 	public $records = array(
 		array(
+			'id' => '1',
 			'roles_room_id' => '1',
 			'permission' => 'page_editable',
 			'value' => '1',
