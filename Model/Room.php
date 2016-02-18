@@ -169,7 +169,7 @@ class Room extends RoomsAppModel {
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
-					//'required' => true,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'root_id' => array(
@@ -177,7 +177,7 @@ class Room extends RoomsAppModel {
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => true,
-					//'required' => true,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			//TreeBehaviorで使用
@@ -185,7 +185,8 @@ class Room extends RoomsAppModel {
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
-					'allowEmpty' => true,
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			//TreeBehaviorで使用
@@ -193,6 +194,8 @@ class Room extends RoomsAppModel {
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			//TreeBehaviorで使用
@@ -200,6 +203,8 @@ class Room extends RoomsAppModel {
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'active' => array(
