@@ -60,18 +60,10 @@ class RoomsRolesFormComponent extends Component {
 		}
 
 		//RoomRolePermissionデータセット
-		if (isset($this->settings['room_id'])) {
-			$roomId = $this->settings['room_id'];
-		} else {
-			$roomId = null;
-		}
-		if (isset($this->settings['type'])) {
-			$type = $this->settings['type'];
-		} else {
-			$type = null;
-		}
-
 		if (isset($this->settings['permissions'])) {
+			$roomId = Hash::get($this->settings, 'room_id');
+			$type = Hash::get($this->settings, 'type');
+
 			$results = $this->Workflow->getRoomRolePermissions($this->settings['permissions'], $type, $roomId);
 			$defaultPermissions = Hash::remove($results['DefaultRolePermission'], '{s}.{s}.id');
 			$results['RoomRolePermission'] = Hash::merge($defaultPermissions, $results['RoomRolePermission']);
