@@ -75,7 +75,7 @@ class RoomsRolesFormComponentStartupTest extends NetCommonsControllerTestCase {
 		));
 
 		//チェック
-		$pattern = '/' . preg_quote('Controller/Component/TestRoomsRolesFormComponent', '/') . '/';
+		$pattern = '/' . preg_quote('Controller/Component/TestRoomsRolesFormComponent/index', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
 		$this->assertTrue(in_array('Rooms.RoomsRolesForm', $this->controller->helpers));
@@ -87,14 +87,14 @@ class RoomsRolesFormComponentStartupTest extends NetCommonsControllerTestCase {
  *
  * @return void
  */
-	public function testStartupRequestAction() {
+	public function testRequestAction() {
 		//テスト実行
 		$this->_testNcAction('/test_rooms/test_rooms_roles_form_component/index_request_action', array(
 			'method' => 'get'
 		));
 
 		//チェック
-		$pattern = '/' . preg_quote('Controller/Component/TestRoomsRolesFormComponent', '/') . '/';
+		$pattern = '/' . preg_quote('Controller/Component/TestRoomsRolesFormComponent/index', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
 		$pattern = '/' . preg_quote('Controller/Component/TestRoomsRolesFormComponent/index_request_action', '/') . '/';

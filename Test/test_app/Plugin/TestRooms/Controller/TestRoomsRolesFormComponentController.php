@@ -48,4 +48,28 @@ class TestRoomsRolesFormComponentController extends AppController {
 		$this->set('view', $view);
 	}
 
+/**
+ * index
+ *
+ * @return void
+ */
+	public function index_before_render() {
+		$this->autoRender = true;
+		$this->view = 'index';
+		$this->RoomsRolesForm->settings['permissions'] = array('content_publishable');
+		$this->RoomsRolesForm->settings['type'] = 'room_role';
+		$this->RoomsRolesForm->settings['room_id'] = '1';
+	}
+
+/**
+ * index_request_action
+ *
+ * @return void
+ */
+	public function index_before_render_request_action() {
+		$this->autoRender = true;
+		$view = $this->requestAction('/' . $this->params['plugin'] . '/' . $this->params['controller'] . '/index_before_render', array('return'));
+		$this->set('view', $view);
+	}
+
 }
