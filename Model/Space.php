@@ -137,6 +137,8 @@ class Space extends RoomsAppModel {
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => true,
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			//TreeBehaviorで使用
@@ -144,6 +146,8 @@ class Space extends RoomsAppModel {
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			//TreeBehaviorで使用
@@ -151,12 +155,15 @@ class Space extends RoomsAppModel {
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'type' => array(
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => true
 				),
 				'inList' => array(
 					'rule' => array('inList', array(
