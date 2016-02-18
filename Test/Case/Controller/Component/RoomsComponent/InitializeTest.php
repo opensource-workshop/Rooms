@@ -78,7 +78,7 @@ class RoomsComponentInitializeTest extends NetCommonsControllerTestCase {
 		));
 
 		//チェック
-		$pattern = '/' . preg_quote('Controller/Component/RoomsComponent', '/') . '/';
+		$pattern = '/' . preg_quote('Controller/Component/TestRoomsComponent', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 		$this->assertNotEmpty(get_class($this->controller->Rooms->controller));
 		$this->assertNotEmpty(get_class($this->controller->Rooms->controller->Paginator));

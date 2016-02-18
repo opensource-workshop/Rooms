@@ -10,4 +10,4 @@
  */
 ?>
 
-Controller/Component/RoomsComponent
+Controller/Component/TestRoomsComponent

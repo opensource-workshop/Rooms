@@ -108,7 +108,7 @@ class RoomsComponentStartupTest extends NetCommonsControllerTestCase {
 		));
 
 		//チェック
-		$pattern = '/' . preg_quote('Controller/Component/RoomsComponent', '/') . '/';
+		$pattern = '/' . preg_quote('Controller/Component/TestRoomsComponent', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
 		// * viewVars['spaces']のチェック
