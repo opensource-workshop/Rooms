@@ -63,33 +63,31 @@ class RoomsAppController extends AppController {
 
 		//スペースデータチェック
 		$spaceId = $this->params['pass'][0];
-		if ($this->Room->Space->exists($spaceId)) {
-			$this->set('activeSpaceId', $spaceId);
-
-			//ルームデータチェック＆セット
-			if ($this->params['action'] !== 'index') {
-				if ($this->request->isPost() && $this->params['controller'] === 'rooms') {
-					$roomId = $this->data['Room']['parent_id'];
-				} elseif ($this->request->isPost() || $this->request->isPut() || $this->request->isDelete()) {
-					$roomId = $this->data['Room']['id'];
-				} else {
-					$roomId = $this->params['pass'][1];
-				}
-				$room = $this->Room->findById($roomId);
-				if (! $room) {
-					$this->setAction('throwBadRequest');
-					return;
-				}
-				$this->set('room', $room);
-				$this->set('activeRoomId', $roomId);
-				$this->set('activeSpaceId', $room['Space']['id']);
-
-				$parentRooms = $this->Room->getPath($roomId, null, 1);
-				$this->set('parentRooms', $parentRooms);
-			}
-
-		} else {
+		if (! $this->Room->Space->exists($spaceId)) {
 			$this->setAction('throwBadRequest');
+		}
+
+		$this->set('activeSpaceId', $spaceId);
+
+		//ルームデータチェック＆セット
+		if ($this->params['action'] !== 'index') {
+			if ($this->request->isPost()) {
+				$roomId = $this->data['Room']['parent_id'];
+			} elseif ($this->request->isPut() || $this->request->isDelete()) {
+				$roomId = $this->data['Room']['id'];
+			} else {
+				$roomId = $this->params['pass'][1];
+			}
+			$room = $this->Room->findById($roomId);
+			if (! $room) {
+				$this->setAction('throwBadRequest');
+			}
+			$this->set('room', $room);
+			$this->set('activeRoomId', $roomId);
+			$this->set('activeSpaceId', $room['Space']['id']);
+
+			$parentRooms = $this->Room->getPath($roomId, null, 1);
+			$this->set('parentRooms', $parentRooms);
 		}
 	}
 

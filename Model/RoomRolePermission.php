@@ -68,6 +68,7 @@ class RoomRolePermission extends RoomsAppModel {
 					'rule' => array('notBlank'),
 					'message' => __d('net_commons', 'Invalid request.'),
 					'required' => true,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'value' => array(

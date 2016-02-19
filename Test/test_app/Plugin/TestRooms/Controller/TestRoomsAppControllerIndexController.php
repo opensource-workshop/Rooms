@@ -17,7 +17,7 @@ App::uses('RoomsAppController', 'Rooms.Controller');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\test_app\Plugin\TestRooms\Controller
  */
-class TestRoomsAppControllerController extends RoomsAppController {
+class TestRoomsAppControllerIndexController extends RoomsAppController {
 
 /**
  * index
@@ -25,15 +25,6 @@ class TestRoomsAppControllerController extends RoomsAppController {
  * @return void
  */
 	public function index() {
-		$this->autoRender = true;
-	}
-
-/**
- * view
- *
- * @return void
- */
-	public function view() {
 		$this->autoRender = true;
 	}
 

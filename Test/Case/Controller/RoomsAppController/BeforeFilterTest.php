@@ -25,7 +25,9 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
  *
  * @var array
  */
-	public $fixtures = array();
+	public $fixtures = array(
+		'plugin.rooms.rooms_language4test',
+	);
 
 /**
  * Plugin name
@@ -60,9 +62,10 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 	}
 
 /**
- * index及びview用DataProvider
+ * index用DataProvider
  *
  * ### 戻り値
+ *  - spaceId スペースID
  *  - login ログインの有無
  *  - exception ExceptionErrorの有無
  *
@@ -76,6 +79,8 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 		$results[0] = array('spaceId' => '2', 'login' => false, 'exception' => 'ForbiddenException');
 		// * ログインあり、BadRequestエラー
 		$results[1] = array('spaceId' => '99', 'login' => true, 'exception' => 'BadRequestException');
+		// * ログインあり、正常
+		$results[2] = array('spaceId' => '2', 'login' => true, 'exception' => false);
 
 		return $results;
 	}
@@ -96,46 +101,206 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 		}
 
 		//テスト実行
-		if ($exception) {
-			$this->setExpectedException($exception);
-		}
-		$this->_testNcAction('/test_rooms/test_rooms_app_controller_index/index/' . $spaceId, array(
-			'method' => 'get'
-		));
+		$this->_testGetAction('/test_rooms/test_rooms_app_controller_index/index/' . $spaceId, null, $exception);
 
 		//チェック
-		if ($exception) {
-			//何もしない
-		} elseif ($login) {
-			$header = $this->controller->response->header();
-			debub($header['Location']);
-			//$pattern = '/' . preg_quote('/user_attributes/user_attributes/index', '/') . '/';
-			//$this->assertRegExp($pattern, $header['Location']);
-		} else {
+		if (! $exception) {
 			$pattern = '/' . preg_quote('Controller/TestRoomsAppController/index', '/') . '/';
 			$this->assertRegExp($pattern, $this->view);
+			$this->assertEquals($spaceId, $this->vars['activeSpaceId']);
 		}
 	}
 
 /**
- * ログインありのview()のテスト
+ * edit用DataProvider
  *
+ * ### 戻り値
+ *  - spaceId スペースID
+ *  - roomId ルームID
+ *  - login ログインの有無
+ *  - exception ExceptionErrorの有無
+ *
+ * @return array
+ */
+	public function dataProviderEditGet() {
+		$results = array();
+
+		//テストデータ
+		// * ログインなし
+		$results[0] = array(
+			'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'login' => false, 'exception' => 'ForbiddenException'
+		);
+		// * ログインあり、spaceId不正、BadRequestエラー
+		$results[1] = array(
+			'spaceId' => '99', 'roomId' => '1', 'parentRoomId' => null,
+			'login' => true, 'exception' => 'BadRequestException'
+		);
+		// * ログインあり、roomId不正、BadRequestエラー
+		$results[2] = array(
+			'spaceId' => '2', 'roomId' => '99', 'parentRoomId' => null,
+			'login' => true, 'exception' => 'BadRequestException'
+		);
+		// * ログインあり、正常
+		$results[3] = array(
+			'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'login' => true, 'exception' => false
+		);
+		// * ログインあり、正常(サブルーム)
+		$results[4] = array(
+			'spaceId' => '2', 'roomId' => '4', 'parentRoomId' => '1',
+			'login' => true, 'exception' => false
+		);
+
+		return $results;
+	}
+
+/**
+ * edit()のテスト
+ *
+ * @param int $spaceId スペースID
+ * @param int $roomId ルームID
+ * @param int $parentRoomId 親ルームID
+ * @param bool $login ログインの有無
+ * @param false|string $exception ExceptionErrorの文字列。falseの場合、Exceptionなし
+ * @dataProvider dataProviderEditGet
  * @return void
  */
-	public function testView() {
+	public function testEditGet($spaceId, $roomId, $parentRoomId, $login, $exception) {
 		//ログイン
-		TestAuthGeneral::login($this);
-
-		//TODO:テストデータ
+		if ($login) {
+			TestAuthGeneral::login($this);
+		}
 
 		//テスト実行
-		$this->_testNcAction('/test_rooms/test_rooms_app_controller_index/index/2', array(
-			'method' => 'get'
-		));
+		$this->_testGetAction('/test_rooms/test_rooms_app_controller_index/edit/' . $spaceId . '/' . $roomId, null, $exception);
 
 		//チェック
-		//TODO:assert追加
-		debug($this->view);
+		if (! $exception) {
+			$pattern = '/' . preg_quote('Controller/TestRoomsAppController/edit', '/') . '/';
+			$this->assertRegExp($pattern, $this->view);
+			$this->assertEquals($spaceId, $this->vars['activeSpaceId']);
+			$this->assertEquals($roomId, $this->vars['activeRoomId']);
+
+			if ($parentRoomId) {
+				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array());
+				$this->__assertRoom(
+					$this->vars['parentRooms'][0], $spaceId, $parentRoomId, null, array('4', '5')
+				);
+				$this->__assertRoom($this->vars['parentRooms'][1], $spaceId, $roomId, $parentRoomId, array());
+			} else {
+				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('4', '5'));
+				$this->__assertRoom($this->vars['parentRooms'][0], $spaceId, $roomId, $parentRoomId, array('4', '5'));
+			}
+		}
+	}
+
+/**
+ * edit用DataProvider
+ *
+ * ### 戻り値
+ *  - method アクションタイプ(POST or PUT or DELETE)
+ *  - spaceId スペースID
+ *  - roomId ルームID
+ *  - parentRoomId 親ルームID
+ *  - login ログインの有無
+ *  - exception ExceptionErrorの文字列。falseの場合、Exceptionなし
+ *
+ * @return array
+ */
+	public function dataProviderEditPost() {
+		$results = array();
+
+		//テストデータ
+		// * POST
+		$results[] = array(
+			'method' => 'post', 'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'login' => true, 'exception' => false
+		);
+		//PUT
+		$results[] = array(
+			'method' => 'put', 'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'login' => true, 'exception' => false
+		);
+		//DELETE
+		$results[] = array(
+			'method' => 'put', 'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'login' => true, 'exception' => false
+		);
+
+		return $results;
+	}
+
+/**
+ * edit()のテスト
+ *
+ * @param int $spaceId スペースID
+ * @param int $roomId ルームID
+ * @param int $parentRoomId 親ルームID
+ * @param bool $login ログインの有無
+ * @param false|string $exception ExceptionErrorの文字列。falseの場合、Exceptionなし
+ * @dataProvider dataProviderEditPost
+ * @return void
+ */
+	public function testEditPost($method, $spaceId, $roomId, $parentRoomId, $login, $exception) {
+		//ログイン
+		if ($login) {
+			TestAuthGeneral::login($this);
+		}
+
+		//テスト実行
+		$url = '/test_rooms/test_rooms_app_controller_index/edit/' . $spaceId . '/' . $roomId;
+		if ($method === 'post') {
+			$data = array(
+				'Room' => array('id' => null, 'parent_id' => $roomId)
+			);
+		} else {
+			$data = array(
+				'Room' => array('id' => $roomId, 'parent_id' => $parentRoomId)
+			);
+		}
+		$this->_testPostAction($method, $data, $url, $exception);
+
+		//チェック
+		if (! $exception) {
+			$pattern = '/' . preg_quote('Controller/TestRoomsAppController/edit', '/') . '/';
+			$this->assertRegExp($pattern, $this->view);
+			$this->assertEquals($spaceId, $this->vars['activeSpaceId']);
+			$this->assertEquals($roomId, $this->vars['activeRoomId']);
+
+			if ($parentRoomId) {
+				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array());
+				$this->__assertRoom(
+					$this->vars['parentRooms'][0], $spaceId, $parentRoomId, null, array('4', '5')
+				);
+				$this->__assertRoom($this->vars['parentRooms'][1], $spaceId, $roomId, $parentRoomId, array());
+			} else {
+				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('4', '5'));
+				$this->__assertRoom($this->vars['parentRooms'][0], $spaceId, $roomId, $parentRoomId, array('4', '5'));
+			}
+		}
+	}
+
+/**
+ * roomのチェック
+ *
+ * @param array $result ルーム配列
+ * @param int $spaceId スペースID
+ * @param int $roomId ルームID
+ * @param int $parentRoomId 親ルームID
+ * @param array $childRoom 子ルームID
+ * @return void
+ */
+	private function __assertRoom($result, $spaceId, $roomId, $parentRoomId, $childRoom) {
+		$this->assertEquals($roomId, Hash::get($result, 'Room.id'));
+		$this->assertEquals($spaceId, Hash::get($result, 'Room.space_id'));
+		$this->assertEquals($spaceId, Hash::get($result, 'Space.id'));
+		$this->assertEquals($parentRoomId, Hash::get($result, 'ParentRoom.id'));
+		$this->assertEquals($childRoom, Hash::extract($result, 'ChildRoom.{n}.id'));
+		$this->assertEquals($roomId, Hash::get($result, 'RoomsLanguage.0.room_id'));
+		$this->assertEquals($roomId, Hash::get($result, 'RoomsLanguage.1.room_id'));
+		$this->assertNotEmpty(Hash::extract($result, 'RoomsLanguage.0.name'));
+		$this->assertNotEmpty(Hash::extract($result, 'RoomsLanguage.1.name'));
 	}
 
 }
