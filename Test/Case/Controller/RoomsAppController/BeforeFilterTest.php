@@ -234,6 +234,7 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 /**
  * edit()のテスト
  *
+ * @param string $method リクエストタイプ
  * @param int $spaceId スペースID
  * @param int $roomId ルームID
  * @param int $parentRoomId 親ルームID

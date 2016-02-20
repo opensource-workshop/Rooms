@@ -62,6 +62,7 @@ class RoomsComponentStartupTest extends NetCommonsControllerTestCase {
 /**
  * spaceのチェック
  *
+ * @param array $result 結果
  * @param int $spaceId スペースID
  * @param int $roomId ルームID
  * @param string $pluginKey プラグインキー
