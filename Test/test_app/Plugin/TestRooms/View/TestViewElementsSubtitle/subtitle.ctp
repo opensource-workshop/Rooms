@@ -1,6 +1,6 @@
 <?php
 /**
- * Subtitle template
+ * View/Elements/subtitleテスト用Viewファイル
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -10,6 +10,8 @@
  */
 ?>
 
-<?php $this->start('subtitle'); ?>
-	<?php echo $this->Rooms->roomsNavi($activeSpaceId); ?>
-<?php $this->end();
+View/Elements/subtitle
+
+<?php echo $this->element('Rooms.subtitle'); ?>
+
+<?php echo $this->fetch('subtitle');
