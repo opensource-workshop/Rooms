@@ -63,7 +63,7 @@ class RoomsViewElementsSubtitleTest extends NetCommonsControllerTestCase {
 		$pattern = '/' . preg_quote('View/Elements/subtitle', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
-		$pattern = '/.*?' . preg_quote('(<div class="', '/') . '.*?">.*?' . preg_quote('</div>)', '/') . '/';
+		$pattern = '/.*?' . preg_quote('(<div class="', '/') . '.*?">.+?' . preg_quote('</div>)', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 	}
 
