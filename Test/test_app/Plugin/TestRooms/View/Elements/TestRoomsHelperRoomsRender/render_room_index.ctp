@@ -12,6 +12,6 @@
 
 <tr>
 	<td>
-		View/Helper/TestRoomsHelperRoomsRender/render_room_index/<?php echo $room['Room']['id']; ?>
+		View/Helper/TestRoomsHelperRoomsRender/render_room_index/<?php echo $room['Room']['id'] . '/' . $nest; ?>
 	</td>
 </tr>
