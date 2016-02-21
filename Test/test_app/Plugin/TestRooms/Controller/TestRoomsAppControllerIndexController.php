@@ -29,15 +29,6 @@ class TestRoomsAppControllerIndexController extends RoomsAppController {
 	}
 
 /**
- * add
- *
- * @return void
- */
-	public function add() {
-		$this->autoRender = true;
-	}
-
-/**
  * edit
  *
  * @return void

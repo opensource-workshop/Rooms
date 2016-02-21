@@ -60,7 +60,7 @@ class RoomsHelperRoomsRenderTest extends NetCommonsHelperTestCase {
 			// * roomTreeList指定なし
 			array('roomTreeList' => null),
 			// * roomTreeList指定あり
-			array('roomTreeList' => array('5' => chr(9) .  chr(9) . '5')),
+			array('roomTreeList' => array('5' => chr(9) . chr(9) . '5')),
 		);
 	}
 
