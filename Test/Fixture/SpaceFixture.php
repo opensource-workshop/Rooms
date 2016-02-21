@@ -71,7 +71,7 @@ class SpaceFixture extends CakeTestFixture {
 			'rght' => '5',
 			'type' => '3',
 			'plugin_key' => 'private_space',
-			'default_setting_action' => 'rooms/edit/2'
+			'default_setting_action' => ''
 		),
 		array(
 			'id' => '4',
