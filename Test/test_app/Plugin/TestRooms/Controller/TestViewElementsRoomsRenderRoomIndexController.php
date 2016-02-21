@@ -1,6 +1,6 @@
 <?php
 /**
- * View/Elements/Rooms/render_indexテスト用Controller
+ * View/Elements/Rooms/render_room_indexテスト用Controller
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,12 +12,12 @@
 App::uses('RoomsController', 'Rooms.Controller');
 
 /**
- * View/Elements/Rooms/render_indexテスト用Controller
+ * View/Elements/Rooms/render_room_indexテスト用Controller
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\test_app\Plugin\TestRooms\Controller
  */
-class TestViewElementsRoomsRenderIndexController extends RoomsController {
+class TestViewElementsRoomsRenderRoomIndexController extends RoomsController {
 
 /**
  * use component
@@ -39,24 +39,39 @@ class TestViewElementsRoomsRenderIndexController extends RoomsController {
 
 		parent::beforeFilter();
 
+		$this->params['plugin'] = 'rooms';
+		$this->params['controller'] = 'rooms';
 		$this->params['action'] = $action;
 	}
 
 /**
- * render_index
+ * render_room_index
  *
  * @return void
  */
-	public function render_index() {
+	public function render_room_index() {
 		parent::index();
 		$this->autoRender = true;
 
 		$this->set('options', array(
-			'headElementPath' => 'TestRooms.TestViewElementsRoomsRenderIndex/render_header',
-			'dataElementPath' => 'TestRooms.TestViewElementsRoomsRenderIndex/render_room_index',
-			'roomTreeList' => $this->viewVars['roomTreeList'],
-			'space' => $this->viewVars['spaces']['2'],
-			'paginator' => true
+			'room' => $this->viewVars['rooms']['4'],
+			'nest' => 1
+		));
+	}
+
+/**
+ * render_room_index_root
+ *
+ * @return void
+ */
+	public function render_room_index_root() {
+		parent::index();
+		$this->autoRender = true;
+		$this->view = 'render_room_index';
+
+		$this->set('options', array(
+			'room' => $this->viewVars['spaces']['2'],
+			'nest' => 0
 		));
 	}
 
