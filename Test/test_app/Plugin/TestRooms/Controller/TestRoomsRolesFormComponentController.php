@@ -61,15 +61,4 @@ class TestRoomsRolesFormComponentController extends AppController {
 		$this->RoomsRolesForm->settings['room_id'] = '1';
 	}
 
-/**
- * index_request_action
- *
- * @return void
- */
-	public function index_before_render_request_action() {
-		$this->autoRender = true;
-		$view = $this->requestAction('/' . $this->params['plugin'] . '/' . $this->params['controller'] . '/index_before_render', array('return'));
-		$this->set('view', $view);
-	}
-
 }
