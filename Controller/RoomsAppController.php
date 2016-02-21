@@ -62,7 +62,7 @@ class RoomsAppController extends AppController {
 		$this->Auth->deny('index', 'view');
 
 		//スペースデータチェック
-		$spaceId = $this->params['pass'][0];
+		$spaceId = Hash::get($this->params['pass'], '0');
 		if (! $this->Room->Space->exists($spaceId)) {
 			$this->setAction('throwBadRequest');
 		}
@@ -72,11 +72,11 @@ class RoomsAppController extends AppController {
 		//ルームデータチェック＆セット
 		if ($this->params['action'] !== 'index') {
 			if ($this->request->isPost()) {
-				$roomId = $this->data['Room']['parent_id'];
+				$roomId = Hash::get($this->data, 'Room.parent_id');
 			} elseif ($this->request->isPut() || $this->request->isDelete()) {
-				$roomId = $this->data['Room']['id'];
+				$roomId = Hash::get($this->data, 'Room.id');
 			} else {
-				$roomId = $this->params['pass'][1];
+				$roomId = Hash::get($this->params['pass'], '1');
 			}
 			$room = $this->Room->findById($roomId);
 			if (! $room) {
