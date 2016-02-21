@@ -1,6 +1,6 @@
 <?php
 /**
- * RoomsHelper::roomsRender()のテスト
+ * RoomsHelper::roomsRender()テスト用Element
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
