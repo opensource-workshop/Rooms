@@ -63,6 +63,14 @@ class RoomsLanguage4testFixture extends RoomsLanguageFixture {
 		array('id' => '9', 'language_id' => '2', 'room_id' => '5', 'name' => 'サブルーム２'),
 		//--英語
 		array('id' => '10', 'language_id' => '1', 'room_id' => '5', 'name' => 'Sub room 2'),
+		//--日本語
+		array('id' => '11', 'language_id' => '2', 'room_id' => '6', 'name' => 'ルーム１'),
+		//--英語
+		array('id' => '12', 'language_id' => '1', 'room_id' => '6', 'name' => 'Room 1'),
+		//--日本語
+		array('id' => '13', 'language_id' => '2', 'room_id' => '7', 'name' => 'マイルーム'),
+		//--英語
+		array('id' => '14', 'language_id' => '1', 'room_id' => '7', 'name' => 'My room'),
 	);
 
 }

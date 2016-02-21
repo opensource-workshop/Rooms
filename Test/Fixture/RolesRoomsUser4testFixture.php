@@ -1,6 +1,6 @@
 <?php
 /**
- * RolesRoomsUserFixture
+ * RoomsLanguageFixture
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -9,36 +9,29 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
+App::uses('RolesRoomsUserFixture', 'Rooms.Test/Fixture');
+
 /**
- * RolesRoomsUserFixture
+ * RoomsLanguageFixture
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Fixture
  */
-class RolesRoomsUserFixture extends CakeTestFixture {
+class RolesRoomsUser4testFixture extends RolesRoomsUserFixture {
 
 /**
- * Fields
+ * Model name
  *
- * @var array
+ * @var string
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'roles_room_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'room_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'access_count' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
-		'last_accessed' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'previous_accessed' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
-	);
+	public $name = 'RolesRoomsUser';
+
+/**
+ * Full Table Name
+ *
+ * @var string
+ */
+	public $table = 'roles_rooms_users';
 
 /**
  * Records
@@ -94,6 +87,20 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'roles_room_id' => '7',
 			'user_id' => '1',
 			'room_id' => '5',
+		),
+		//別ルーム(room_id=6, 準備中)
+		array(
+			'id' => '8',
+			'roles_room_id' => '8',
+			'user_id' => '1',
+			'room_id' => '6',
+		),
+		//別ルーム(room_id=7, プライベートルーム)
+		array(
+			'id' => '9',
+			'roles_room_id' => '9',
+			'user_id' => '1',
+			'room_id' => '7',
 		),
 	);
 

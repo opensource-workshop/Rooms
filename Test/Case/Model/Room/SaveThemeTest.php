@@ -65,7 +65,7 @@ class RoomSaveThemeTest extends NetCommonsModelTestCase {
 		$methodName = $this->_methodName;
 
 		//データ生成
-		$roomId = '6';
+		$roomId = '4';
 		$theme = 'Test';
 		$data = array(
 			'Room' => array('id' => $roomId, 'theme' => $theme)
@@ -108,7 +108,7 @@ class RoomSaveThemeTest extends NetCommonsModelTestCase {
 		$this->setExpectedException('InternalErrorException');
 
 		//データ生成
-		$roomId = '6';
+		$roomId = '4';
 		$theme = 'Test';
 		$data = array(
 			'Room' => array('id' => $roomId, 'theme' => $theme)

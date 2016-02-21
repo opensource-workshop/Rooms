@@ -27,7 +27,7 @@ class RoomSaveActiveTest extends NetCommonsModelTestCase {
 	public $fixtures = array(
 		'plugin.rooms.roles_room',
 		'plugin.rooms.roles_rooms_user',
-		'plugin.rooms.room',
+		'plugin.rooms.room4test',
 		'plugin.rooms.room_role',
 		'plugin.rooms.room_role_permission',
 		'plugin.rooms.rooms_language',
