@@ -1,6 +1,6 @@
 <?php
 /**
- * RoomsController::active()のテスト
+ * RoomsController::delete()のテスト
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,12 +12,12 @@
 App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
 
 /**
- * RoomsController::active()のテスト
+ * RoomsController::delete()のテスト
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Controller\RoomsController
  */
-class RoomsControllerActiveTest extends NetCommonsControllerTestCase {
+class RoomsControllerDeleteTest extends NetCommonsControllerTestCase {
 
 /**
  * Fixtures
@@ -30,7 +30,7 @@ class RoomsControllerActiveTest extends NetCommonsControllerTestCase {
 		'plugin.rooms.room',
 		'plugin.rooms.room_role',
 		'plugin.rooms.room_role_permission',
-		'plugin.rooms.rooms_language4test',
+		'plugin.rooms.rooms_language',
 		'plugin.rooms.space',
 	);
 
@@ -55,6 +55,7 @@ class RoomsControllerActiveTest extends NetCommonsControllerTestCase {
  */
 	public function setUp() {
 		parent::setUp();
+
 		//ログイン
 		TestAuthGeneral::login($this);
 	}
@@ -67,30 +68,31 @@ class RoomsControllerActiveTest extends NetCommonsControllerTestCase {
 	public function tearDown() {
 		//ログアウト
 		TestAuthGeneral::logout($this);
+
 		parent::tearDown();
 	}
 
 /**
- * active()アクションのテスト(GETのテスト)
+ * delete()アクションのテスト(GETのテスト)
  *
  * @return void
  */
-	public function testActiveGet() {
+	public function testDeleteGet() {
 		//テスト実行
-		$this->_testGetAction(array('action' => 'active', '2', '4'), null, 'BadRequestException', 'view');
+		$this->_testGetAction(array('action' => 'delete', '2', '4'), null, 'BadRequestException', 'view');
 	}
 
 /**
- * active()アクションのテスト(POSTのテスト)
+ * delete()アクションのテスト(POSTのテスト)
  *
  * @return void
  */
-	public function testActivePost() {
-		$this->_mockForReturnTrue('Rooms.Room', 'saveActive');
+	public function testDeletePost() {
+		$this->_mockForReturnTrue('Rooms.Room', 'deleteRoom');
 
 		//テスト実行
 		$data = array('Room' => array('id' => '4'));
-		$this->_testPostAction('put', $data, array('action' => 'active', '2', '4'), null, 'view');
+		$this->_testPostAction('delete', $data, array('action' => 'delete', '2', '4'), null, 'view');
 
 		//チェック
 		$header = $this->controller->response->header();
@@ -99,16 +101,16 @@ class RoomsControllerActiveTest extends NetCommonsControllerTestCase {
 	}
 
 /**
- * active()アクションのテスト(POSTのテスト、Saveエラー)
+ * delete()アクションのテスト(POSTのテスト、Deleteエラー)
  *
  * @return void
  */
-	public function testActivePostSaveError() {
-		$this->_mockForReturnFalse('Rooms.Room', 'saveActive');
+	public function testDeletePostSaveError() {
+		$this->_mockForReturnFalse('Rooms.Room', 'deleteRoom');
 
 		//テスト実行
 		$data = array('Room' => array('id' => '4'));
-		$this->_testPostAction('put', $data, array('action' => 'active', '2', '4'), 'BadRequestException', 'view');
+		$this->_testPostAction('delete', $data, array('action' => 'delete', '2', '4'), 'BadRequestException', 'view');
 	}
 
 }

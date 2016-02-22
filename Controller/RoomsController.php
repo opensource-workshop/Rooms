@@ -160,14 +160,12 @@ class RoomsController extends RoomsAppController {
  */
 	public function delete() {
 		if (! $this->request->isDelete()) {
-			$this->throwBadRequest();
-			return;
+			return $this->throwBadRequest();
 		}
 
 		//削除処理
 		if (! $this->Room->deleteRoom($this->request->data)) {
-			$this->throwBadRequest();
-			return;
+			return $this->throwBadRequest();
 		}
 
 		$activeSpaceId = $this->viewVars['activeSpaceId'];
@@ -181,13 +179,11 @@ class RoomsController extends RoomsAppController {
  */
 	public function active() {
 		if (! $this->request->isPut()) {
-			$this->throwBadRequest();
-			return;
+			return $this->throwBadRequest();
 		}
 
 		if (! $this->Room->saveActive($this->request->data)) {
-			$this->throwBadRequest();
-			return;
+			return $this->throwBadRequest();
 		}
 
 		$this->NetCommons->setFlashNotification(__d('net_commons', 'Successfully saved.'), array(
