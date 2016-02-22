@@ -102,6 +102,13 @@ class RolesRoomsUser4testFixture extends RolesRoomsUserFixture {
 			'user_id' => '1',
 			'room_id' => '7',
 		),
+		//サブサブルーム(room_id=8)
+		array(
+			'id' => '10',
+			'roles_room_id' => '10',
+			'user_id' => '1',
+			'room_id' => '8',
+		),
 	);
 
 }

@@ -88,6 +88,12 @@ class RolesRoom4testFixture extends RolesRoomFixture {
 			'room_id' => '7',
 			'role_key' => 'room_administrator',
 		),
+		//サブサブルーム(room_id=8)
+		array(
+			'id' => '10',
+			'room_id' => '8',
+			'role_key' => 'room_administrator',
+		),
 	);
 
 }
