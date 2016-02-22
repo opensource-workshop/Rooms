@@ -1,6 +1,6 @@
 <?php
 /**
- * RoomsLanguageFixture
+ * RolesRoomsUser4testFixture
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,7 +12,7 @@
 App::uses('RolesRoomsUserFixture', 'Rooms.Test/Fixture');
 
 /**
- * RoomsLanguageFixture
+ * RolesRoomsUser4testFixture
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Fixture
