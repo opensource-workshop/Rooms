@@ -230,13 +230,14 @@ class RoomsHelper extends AppHelper {
  * ルームのアクセス日時の出力
  *
  * @param array $room ルームデータ配列
+ * @param string $field フィールド
  * @return string HTML
  */
-	public function roomAccessed($room) {
+	public function roomAccessed($room, $field = 'last_accessed') {
 		$output = '';
 
-		if (Hash::get($room, 'RolesRoomsUser.accessed')) {
-			$output .= $this->Date->dateFormat(Hash::get($room, 'RolesRoomsUser.accessed'));
+		if (Hash::get($room, 'RolesRoomsUser.' . $field)) {
+			$output .= $this->Date->dateFormat(Hash::get($room, 'RolesRoomsUser.' . $field));
 		}
 
 		return $output;
