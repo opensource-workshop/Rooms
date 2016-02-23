@@ -80,6 +80,8 @@ class RolesRoomsUser4testFixture extends RolesRoomsUserFixture {
 			'roles_room_id' => '6',
 			'user_id' => '1',
 			'room_id' => '4',
+			'last_accessed' => '2015-06-17 00:00:00',
+			'previous_accessed' => '2014-06-17 00:00:00',
 		),
 		// * 別ルーム(room_id=5、ブロックなし)
 		array(
