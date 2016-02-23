@@ -74,6 +74,14 @@ class Room extends RoomsAppModel {
 		'Tree',
 	);
 
+/**
+ * 削除の子ルームID
+ * beforeDeleteで取得し、aftereDeleteで使用する
+ *
+ * @var array
+ */
+	protected $_childRoomIds = array();
+
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
@@ -325,13 +333,12 @@ class Room extends RoomsAppModel {
  * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
 	public function beforeDelete($cascade = true) {
-		$roomId = $this->id;
+		$children = $this->Room->children($this->id, false, 'Room.id', 'Room.rght');
+		$this->_childRoomIds = Hash::extract($children, '{n}.Room.id');
+		$deleteRoomIds = $this->_childRoomIds;
+		$deleteRoomIds[] = $this->id;
 
-		$children = $this->Room->children($roomId, false, 'Room.id', 'Room.rght');
-		$roomIds = Hash::extract($children, '{n}.Room.id');
-		$roomIds[] = $roomId;
-
-		foreach ($roomIds as $childRoomId) {
+		foreach ($deleteRoomIds as $childRoomId) {
 			//frameデータの削除
 			$this->deleteFramesByRoom($childRoomId);
 
@@ -340,14 +347,6 @@ class Room extends RoomsAppModel {
 
 			//blockデータの削除
 			$this->deleteBlocksByRoom($childRoomId);
-
-			//Roomデータの削除
-			if ($roomId === $childRoomId) {
-				continue;
-			}
-			if (! $this->delete($childRoomId, false)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
 		}
 
 		return parent::beforeDelete($cascade);
@@ -360,8 +359,13 @@ class Room extends RoomsAppModel {
  * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#afterdelete
  */
 	public function afterDelete() {
+		$deleteRoomIds = $this->_childRoomIds;
+		$deleteRoomIds[] = $this->id;
+
 		//Roomの関連データの削除
-		$this->deleteRoomAssociations($this->id);
+		foreach ($deleteRoomIds as $childRoomId) {
+			$this->deleteRoomAssociations($childRoomId);
+		}
 	}
 
 /**
@@ -479,7 +483,7 @@ class Room extends RoomsAppModel {
 
 		try {
 			//Roomデータの削除
-			if (! $this->delete($data['Room']['id'], false)) {
+			if (! $this->delete($data['Room']['id'], false, true)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
