@@ -396,7 +396,8 @@ class Room extends RoomsAppModel {
 
 		try {
 			//登録処理
-			if (! $room = $this->save(null, false)) {
+			$room = $this->save(null, false);
+			if (! $room) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
