@@ -10,7 +10,6 @@
  */
 
 App::uses('NetCommonsDeleteTest', 'NetCommons.TestSuite');
-App::uses('RoomFixture', 'Rooms.Test/Fixture');
 
 /**
  * Room::deleteRoom()のテスト
@@ -93,23 +92,8 @@ class RoomDeleteRoomTest extends NetCommonsDeleteTest {
 		$this->_mockForReturnTrue($model, 'Rooms.Room', 'deleteBlocksByRoom', 4);
 		$this->_mockForReturnTrue($model, 'Rooms.Room', 'deleteRoomAssociations', 4);
 
-		//事前チェック
-		$roomIds = array('1', '4', '5', '8');
-		$count = $this->$model->find('count', array(
-			'recursive' => -1,
-			'conditions' => array('id' => $roomIds)
-		));
-		$this->assertEquals(4, $count);
-
 		//テスト実施
 		parent::testDelete($data, $associationModels);
-
-		//テスト後のチェック
-		$count = $this->$model->find('count', array(
-			'recursive' => -1,
-			'conditions' => array('id' => $roomIds)
-		));
-		$this->assertEquals(0, $count);
 	}
 
 /**
@@ -123,7 +107,7 @@ class RoomDeleteRoomTest extends NetCommonsDeleteTest {
  * @return array テストデータ
  */
 	public function dataProviderDeleteOnExceptionError() {
-		$data['Room'] = (new RoomFixture())->records[0];
+		$data['Room'] = array('id' => '1');
 
 		return array(
 			array($data, 'Rooms.Room', 'delete'),

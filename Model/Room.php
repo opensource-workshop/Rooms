@@ -333,7 +333,7 @@ class Room extends RoomsAppModel {
  * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
 	public function beforeDelete($cascade = true) {
-		$children = $this->Room->children($this->id, false, 'Room.id', 'Room.rght');
+		$children = $this->children($this->id, false, 'Room.id', 'Room.rght');
 		$this->_childRoomIds = Hash::extract($children, '{n}.Room.id');
 		$deleteRoomIds = $this->_childRoomIds;
 		$deleteRoomIds[] = $this->id;
@@ -382,7 +382,6 @@ class Room extends RoomsAppModel {
  */
 	public function saveRoom($data) {
 		$this->loadModels([
-			'Room' => 'Rooms.Room',
 			'RoomsLanguage' => 'Rooms.RoomsLanguage',
 		]);
 
@@ -479,7 +478,6 @@ class Room extends RoomsAppModel {
  */
 	public function deleteRoom($data) {
 		$this->loadModels([
-			'Room' => 'Rooms.Room',
 			'RoomsLanguage' => 'Rooms.RoomsLanguage',
 		]);
 
