@@ -362,6 +362,11 @@ class Room extends RoomsAppModel {
 		$deleteRoomIds = $this->_childRoomIds;
 		$deleteRoomIds[] = $this->id;
 
+		//子Roomデータの削除
+		if (! $this->deleteAll(array($this->alias . '.id' => $this->_childRoomIds), false)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		}
+
 		//Roomの関連データの削除
 		foreach ($deleteRoomIds as $childRoomId) {
 			$this->deleteRoomAssociations($childRoomId);
@@ -483,7 +488,7 @@ class Room extends RoomsAppModel {
 
 		try {
 			//Roomデータの削除
-			if (! $this->delete($data['Room']['id'], false, true)) {
+			if (! $this->delete($data['Room']['id'], false)) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
