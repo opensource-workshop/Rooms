@@ -72,12 +72,13 @@ class RoomBehaviorGetReadableRoomsConditionsTest extends NetCommonsModelTestCase
 		$result = $this->Room->find('all', $options);
 
 		//チェック
-		$this->assertCount(5, $result);
+		$this->assertCount(6, $result);
 		$this->__assertRoom($result[0], '2', '1', array('4', '5'));
-		$this->__assertRoom($result[1], '2', '4', array());
-		$this->__assertRoom($result[2], '2', '5', array());
-		$this->__assertRoom($result[3], '3', '7', array());
-		$this->__assertRoom($result[4], '4', '6', array());
+		$this->__assertRoom($result[1], '2', '4', array('8'));
+		$this->__assertRoom($result[2], '2', '8', array());
+		$this->__assertRoom($result[3], '2', '5', array());
+		$this->__assertRoom($result[4], '3', '7', array());
+		$this->__assertRoom($result[5], '4', '6', array());
 	}
 
 /**
@@ -97,11 +98,12 @@ class RoomBehaviorGetReadableRoomsConditionsTest extends NetCommonsModelTestCase
 		$result = $this->Room->find('all', $options);
 
 		//チェック
-		$this->assertCount(4, $result);
+		$this->assertCount(5, $result);
 		$this->__assertRoom($result[0], '2', '1', array('4', '5'));
-		$this->__assertRoom($result[1], '2', '4', array());
-		$this->__assertRoom($result[2], '2', '5', array());
-		$this->__assertRoom($result[3], '4', '6', array());
+		$this->__assertRoom($result[1], '2', '4', array('8'));
+		$this->__assertRoom($result[2], '2', '8', array());
+		$this->__assertRoom($result[3], '2', '5', array());
+		$this->__assertRoom($result[4], '4', '6', array());
 	}
 
 /**
@@ -142,10 +144,11 @@ class RoomBehaviorGetReadableRoomsConditionsTest extends NetCommonsModelTestCase
 		$result = $this->Room->find('all', $options);
 
 		//チェック
-		$this->assertCount(3, $result);
+		$this->assertCount(4, $result);
 		$this->__assertRoom($result[0], '2', '1', array('4', '5'));
-		$this->__assertRoom($result[1], '2', '4', array());
-		$this->__assertRoom($result[2], '2', '5', array());
+		$this->__assertRoom($result[1], '2', '4', array('8'));
+		$this->__assertRoom($result[2], '2', '8', array());
+		$this->__assertRoom($result[3], '2', '5', array());
 	}
 
 /**
