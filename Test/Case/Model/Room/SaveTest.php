@@ -122,15 +122,16 @@ class RoomSaveTest extends NetCommonsModelTestCase {
  * Roomのチェック
  *
  * @param int $roomId ルームID
+ * @param int $pageIdTop 最初のページID
  * @return void
  */
-	private function __acualRoom($roomId) {
+	private function __acualRoom($roomId, $pageIdTop) {
 		$model = $this->_modelName;
 
 		$expected = array('Room' => array (
 			'id' => $roomId,
 			'space_id' => '2',
-			'page_id_top' => '1',
+			'page_id_top' => $pageIdTop,
 			'root_id' => '1',
 			'parent_id' => '1',
 			'lft' => '8',
@@ -199,7 +200,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 
 		//TODO:Assertを書く
 		$roomId = '9';
-		$this->__acualRoom($roomId);
+		$this->__acualRoom($roomId, '5');
 		$this->__acualRoomsLanguage($roomId, '1', '17');
 		$this->__acualRoomsLanguage($roomId, '2', '18');
 	}
@@ -223,7 +224,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		$this->assertNotEmpty($result);
 
 		//チェック
-		$this->__acualRoom('9');
+		$this->__acualRoom('9', null); //モックのため、page_id_topはnull
 	}
 
 /**
