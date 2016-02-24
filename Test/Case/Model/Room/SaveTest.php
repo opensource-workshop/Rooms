@@ -25,6 +25,11 @@ class RoomSaveTest extends NetCommonsModelTestCase {
  * @var array
  */
 	public $fixtures = array(
+		'plugin.pages.languages_page',
+		'plugin.roles.default_role_permission',
+		'plugin.rooms.plugins_room4test',
+		'plugin.rooms.plugin4test',
+		'plugin.rooms.plugins_role4test',
 		'plugin.rooms.roles_room4test',
 		'plugin.rooms.roles_rooms_user4test',
 		'plugin.rooms.room4test',
@@ -32,6 +37,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		'plugin.rooms.room_role_permission4test',
 		'plugin.rooms.rooms_language4test',
 		'plugin.rooms.space',
+		'plugin.user_roles.user_role_setting',
 	);
 
 /**
@@ -58,21 +64,24 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 /**
  * Save用Data
  *
+ * @param bool $useMock モックを使うかどうか
  * @param bool $count モックを通る回数
  * @return array テストデータ
  */
-	private function __data($count) {
+	private function __data($useMock, $count = 1) {
 		$model = $this->_modelName;
 
-		$this->$model = $this->getMockForModel('Rooms.Room', array(
-			'saveDefaultRolesRoom', 'saveDefaultRolesRoomsUser', 'saveDefaultRolesPluginsRoom',
-			'saveDefaultRoomRolePermission', 'saveDefaultPage'
-		));
-		$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultRolesRoom', $count);
-		$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultRolesRoomsUser', $count);
-		$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultRolesPluginsRoom', $count);
-		$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultRoomRolePermission', $count);
-		$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultPage', $count);
+		if ($useMock) {
+			$this->$model = $this->getMockForModel('Rooms.Room', array(
+				'saveDefaultRolesRoom', 'saveDefaultRolesRoomsUser', 'saveDefaultRolesPluginsRoom',
+				'saveDefaultRoomRolePermission', 'saveDefaultPage'
+			));
+			$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultRolesRoom', $count);
+			$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultRolesRoomsUser', $count);
+			$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultRolesPluginsRoom', $count);
+			$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultRoomRolePermission', $count);
+			$this->_mockForReturnTrue($model, 'Rooms.Room', 'saveDefaultPage', $count);
+		}
 
 		$roomId = '';
 		$data = array (
@@ -88,8 +97,8 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 			),
 			'Page' => array ('parent_id' => '1'),
 			'RoomsLanguage' => array (
-				0 => array ('id' => '', 'room_id' => $roomId, 'language_id' => '1', 'name' => 'Test room'),
-				1 => array ('id' => '', 'room_id' => $roomId, 'language_id' => '2', 'name' => 'Test room'),
+				0 => array ('id' => '', 'room_id' => $roomId, 'language_id' => '1', 'name' => 'Test room(lang=1)'),
+				1 => array ('id' => '', 'room_id' => $roomId, 'language_id' => '2', 'name' => 'Test room(lang=2)'),
 			),
 			'RoomRolePermission' => array (
 				'content_publishable' => array (
@@ -118,12 +127,54 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 	private function __acualRoom($roomId) {
 		$model = $this->_modelName;
 
-		$result = $this->$modle->find('first', array(
-			'recursive' => -1,
-			'condtions' => array('id' => $roomId),
+		$expected = array('Room' => array (
+			'id' => $roomId,
+			'space_id' => '2',
+			'page_id_top' => '1',
+			'root_id' => '1',
+			'parent_id' => '1',
+			'lft' => '8',
+			'rght' => '9',
+			'default_participation' => true,
+			'default_role_key' => 'visitor',
+			'need_approval' => true,
+			'active' => true,
 		));
 
-		debug($result);
+		$result = $this->$model->find('first', array(
+			'recursive' => -1,
+			'fields' => array_keys($expected['Room']),
+			'conditions' => array('id' => $roomId),
+		));
+
+		$this->assertEquals($expected, $result);
+	}
+
+/**
+ * RoomsLanguageのチェック
+ *
+ * @param int $roomId ルームID
+ * @param int $languageId 言語ID
+ * @param int $roomsLangId ルーム言語ID
+ * @return void
+ */
+	private function __acualRoomsLanguage($roomId, $languageId, $roomsLangId) {
+		$model = $this->_modelName;
+
+		$expected = array('RoomsLanguage' => array (
+			'id' => $roomsLangId,
+			'room_id' => $roomId,
+			'language_id' => $languageId,
+			'name' => sprintf('Test room(lang=%s)', $languageId),
+		));
+
+		$result = $this->$model->RoomsLanguage->find('first', array(
+			'recursive' => -1,
+			'fields' => array_keys($expected['RoomsLanguage']),
+			'conditions' => array('room_id' => $roomId, 'language_id' => $languageId),
+		));
+
+		$this->assertEquals($expected, $result);
 	}
 
 /**
@@ -137,12 +188,20 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		$methodName = $this->_methodName;
 
 		//テスト実施
-		$data = $this->__data(1);
+		Current::$current = Hash::insert(Current::$current, 'User.id', '1');
+		Current::$current = Hash::insert(Current::$current, 'Language.id', '2');
+		$data = $this->__data(false);
 		$result = $this->$model->$methodName($data);
+		$this->assertNotEmpty($result);
 
 		//チェック
+		debug($result);
+
 		//TODO:Assertを書く
-		$this->__acualRoom('9');
+		$roomId = '9';
+		$this->__acualRoom($roomId);
+		$this->__acualRoomsLanguage($roomId, '1', '17');
+		$this->__acualRoomsLanguage($roomId, '2', '18');
 	}
 
 /**
@@ -158,8 +217,10 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		$this->_mockForReturnTrue($model, 'Rooms.RoomRolePermission', 'saveMany', 0);
 
 		//テスト実施
-		$data = $this->__data(1);
+		$data = $this->__data(true, 1);
+
 		$result = $this->$model->$methodName(array('Room' => $data[$this->$model->alias]));
+		$this->assertNotEmpty($result);
 
 		//チェック
 		$this->__acualRoom('9');
@@ -174,7 +235,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		$model = $this->_modelName;
 		$methodName = $this->_methodName;
 
-		$data = $this->__data(0);
+		$data = $this->__data(true, 0);
 		$this->_mockForReturnFalse($model, 'Rooms.RoomsLanguage', 'save');
 
 		//テスト実施
@@ -191,7 +252,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		$model = $this->_modelName;
 		$methodName = $this->_methodName;
 
-		$data = $this->__data(1);
+		$data = $this->__data(true, 1);
 		$this->_mockForReturnFalse($model, 'Rooms.RoomRolePermission', 'saveMany');
 
 		//テスト実施
