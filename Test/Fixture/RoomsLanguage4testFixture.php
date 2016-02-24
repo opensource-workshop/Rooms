@@ -54,24 +54,28 @@ class RoomsLanguage4testFixture extends RoomsLanguageFixture {
 		array('id' => '5', 'language_id' => '2', 'room_id' => '3', 'name' => 'グループスペース'),
 		//--英語
 		array('id' => '6', 'language_id' => '1', 'room_id' => '3', 'name' => 'Group space'),
-		//パブリックスペース
+
+		//パブリックスペース、別ルーム(room_id=4)
 		//--日本語
 		array('id' => '7', 'language_id' => '2', 'room_id' => '4', 'name' => 'サブルーム１'),
 		//--英語
 		array('id' => '8', 'language_id' => '1', 'room_id' => '4', 'name' => 'Sub room 1'),
+		//パブリックスペース、別ルーム(room_id=5、ブロックなし)
 		//--日本語
 		array('id' => '9', 'language_id' => '2', 'room_id' => '5', 'name' => 'サブルーム２'),
 		//--英語
 		array('id' => '10', 'language_id' => '1', 'room_id' => '5', 'name' => 'Sub room 2'),
+		//グループスペース、別ルーム(room_id=6, 準備中)
 		//--日本語
 		array('id' => '11', 'language_id' => '2', 'room_id' => '6', 'name' => 'ルーム１'),
 		//--英語
 		array('id' => '12', 'language_id' => '1', 'room_id' => '6', 'name' => 'Room 1'),
+		//パブリックスペース、別ルーム(room_id=7, プライベートルーム)
 		//--日本語
 		array('id' => '13', 'language_id' => '2', 'room_id' => '7', 'name' => 'マイルーム'),
 		//--英語
 		array('id' => '14', 'language_id' => '1', 'room_id' => '7', 'name' => 'My room'),
-		//サブサブルーム(room_id=8)
+		//パブリックスペース、サブサブルーム(room_id=8)
 		//--日本語
 		array('id' => '15', 'language_id' => '2', 'room_id' => '8', 'name' => 'サブサブルーム１'),
 		//--英語

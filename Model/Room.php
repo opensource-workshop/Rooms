@@ -253,11 +253,13 @@ class Room extends RoomsAppModel {
 		// * RoomRolePermissionのバリデーション
 		if (isset($this->data['RoomRolePermission'])) {
 			$this->loadModels(array('RoomRolePermission' => 'Rooms.RoomRolePermission'));
-			foreach ($this->data[$this->RoomRolePermission->alias] as $permission) {
-				if (! $this->RoomRolePermission->validateMany($permission)) {
+			foreach ($this->data[$this->RoomRolePermission->alias] as $permission => $data) {
+				$data = Hash::insert($data, '{s}.permission', $permission);
+				if (! $this->RoomRolePermission->validateMany($data)) {
 					$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomRolePermission->validationErrors);
 					return false;
 				}
+				$this->data['RoomRolePermission'][$permission] = $data;
 			}
 		}
 

@@ -39,6 +39,7 @@ class RolesRoomsUser4testFixture extends RolesRoomsUserFixture {
  * @var array
  */
 	public $records = array(
+		//パブリックスペース
 		// * ルームID=1、ユーザID=1
 		array(
 			'id' => '1',
@@ -74,7 +75,7 @@ class RolesRoomsUser4testFixture extends RolesRoomsUserFixture {
 			'user_id' => '5',
 			'room_id' => '1',
 		),
-		// * 別ルーム(room_id=4)
+		//パブリックスペース、別ルーム(room_id=4)
 		array(
 			'id' => '6',
 			'roles_room_id' => '6',
@@ -83,7 +84,7 @@ class RolesRoomsUser4testFixture extends RolesRoomsUserFixture {
 			'last_accessed' => '2015-06-17 00:00:00',
 			'previous_accessed' => '2014-06-17 00:00:00',
 		),
-		// * 別ルーム(room_id=5、ブロックなし)
+		//パブリックスペース、別ルーム(room_id=5、ブロックなし)
 		array(
 			'id' => '7',
 			'roles_room_id' => '7',

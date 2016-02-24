@@ -55,7 +55,7 @@ class Room4testFixture extends RoomFixture {
 			'page_layout_permitted' => true,
 			'theme' => null,
 		),
-		//別ルーム(room_id=4)
+		//パブリックスペース、別ルーム(room_id=4)
 		array(
 			'id' => '4',
 			'space_id' => '2',
@@ -71,7 +71,7 @@ class Room4testFixture extends RoomFixture {
 			'page_layout_permitted' => true,
 			'theme' => null,
 		),
-		//サブサブルーム(room_id=8)
+		//パブリックスペース、サブサブルーム(room_id=8)
 		array(
 			'id' => '8',
 			'space_id' => '2',
@@ -87,7 +87,7 @@ class Room4testFixture extends RoomFixture {
 			'page_layout_permitted' => true,
 			'theme' => null,
 		),
-		//別ルーム(room_id=5、ブロックなし)
+		//パブリックスペース、別ルーム(room_id=5、ブロックなし)
 		array(
 			'id' => '5',
 			'space_id' => '2',
@@ -103,7 +103,7 @@ class Room4testFixture extends RoomFixture {
 			'page_layout_permitted' => true,
 			'theme' => null,
 		),
-		//プライベート
+		//プライベートスペース
 		array(
 			'id' => '2',
 			'space_id' => '3',
@@ -119,7 +119,7 @@ class Room4testFixture extends RoomFixture {
 			'page_layout_permitted' => false,
 			'theme' => null,
 		),
-		//別ルーム(room_id=7, プライベートルーム)
+		//プライベートスペース、別ルーム(room_id=7, プライベートルーム)
 		array(
 			'id' => '7',
 			'space_id' => '3',
@@ -151,7 +151,7 @@ class Room4testFixture extends RoomFixture {
 			'page_layout_permitted' => true,
 			'theme' => null,
 		),
-		//別ルーム(room_id=6, 準備中)
+		//グループスペース、別ルーム(room_id=6, 準備中)
 		array(
 			'id' => '6',
 			'space_id' => '4',
