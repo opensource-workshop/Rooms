@@ -10,7 +10,6 @@
  */
 
 App::uses('NetCommonsSaveTest', 'NetCommons.TestSuite');
-App::uses('RoomFixture', 'Rooms.Test/Fixture');
 
 /**
  * Room::saveRoom()のテスト
@@ -207,7 +206,6 @@ class RoomSaveRoomTest extends NetCommonsSaveTest {
 		);
 		$expected[$this->$model->alias] = Hash::remove($expected[$this->$model->alias], 'modified');
 		$expected[$this->$model->alias] = Hash::remove($expected[$this->$model->alias], 'modified_user');
-
 	}
 
 /**
@@ -221,7 +219,7 @@ class RoomSaveRoomTest extends NetCommonsSaveTest {
  * @return array テストデータ
  */
 	public function dataProviderSaveOnExceptionError() {
-		$data['Room'] = (new RoomFixture())->records[0];
+		$data = $this->dataProviderSave()[0][0];
 
 		return array(
 			array($data, 'Rooms.Room', 'save'),
@@ -239,9 +237,8 @@ class RoomSaveRoomTest extends NetCommonsSaveTest {
  * @return array テストデータ
  */
 	public function dataProviderSaveOnValidationError() {
-		$data['Room'] = (new RoomFixture())->records[0];
+		$data = $this->dataProviderSave()[0][0];
 
-		//TODO:テストパタンを書く
 		return array(
 			array($data, 'Rooms.Room'),
 		);
