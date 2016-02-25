@@ -356,6 +356,7 @@ class Room extends RoomsAppModel {
  *
  * @return void
  * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#afterdelete
+ * @throws InternalErrorException
  */
 	public function afterDelete() {
 		$deleteRoomIds = $this->_childRoomIds;

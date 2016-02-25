@@ -72,7 +72,6 @@ class RoomDeleteTest extends NetCommonsModelTestCase {
 		$this->_mockForReturnTrue($model, 'Rooms.Room', 'deletePagesByRoom', 4);
 		$this->_mockForReturnTrue($model, 'Rooms.Room', 'deleteBlocksByRoom', 4);
 		$this->_mockForReturnTrue($model, 'Rooms.Room', 'deleteRoomAssociations', 4);
-		$data['Room'] = array('id' => '1');
 
 		//事前チェック
 		$roomIds = array('1', '4', '5', '8');

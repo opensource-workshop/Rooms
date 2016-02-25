@@ -126,7 +126,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 	private function __acualPage($roomId, $pageId) {
 		$expected = array('Page' => array (
 			'id' => $pageId,
-			'room_id' =>$roomId,
+			'room_id' => $roomId,
 			'parent_id' => null,
 			'lft' => '9',
 			'rght' => '10',
