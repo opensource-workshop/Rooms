@@ -24,7 +24,9 @@ class RoomsRolesFormComponentBeforeRenderTest extends NetCommonsControllerTestCa
  *
  * @var array
  */
-	public $fixtures = array();
+	public $fixtures = array(
+		'plugin.rooms.room_role_permission4test',
+	);
 
 /**
  * Plugin name
@@ -125,7 +127,7 @@ class RoomsRolesFormComponentBeforeRenderTest extends NetCommonsControllerTestCa
 			$roles, array_keys($result['RoomRolePermission']['content_publishable'])
 		);
 		$this->assertEquals(
-			array('7', '17', '27', '37', '47'), Hash::extract($result, 'RoomRolePermission.content_publishable.{s}.id')
+			array('7', '18', '29', '40', '51'), Hash::extract($result, 'RoomRolePermission.content_publishable.{s}.id')
 		);
 		$this->assertEquals(
 			array('1', '2', '3', '4', '5'), Hash::extract($result, 'RoomRolePermission.content_publishable.{s}.roles_room_id')

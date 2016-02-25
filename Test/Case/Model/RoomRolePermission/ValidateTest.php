@@ -10,7 +10,7 @@
  */
 
 App::uses('NetCommonsValidateTest', 'NetCommons.TestSuite');
-App::uses('RoomRolePermissionFixture', 'Rooms.Test/Fixture');
+App::uses('RoomRolePermission4testFixture', 'Rooms.Test/Fixture');
 
 /**
  * RoomRolePermission::validate()のテスト
@@ -30,7 +30,7 @@ class RoomRolePermissionValidateTest extends NetCommonsValidateTest {
 		'plugin.rooms.roles_rooms_user',
 		'plugin.rooms.room',
 		'plugin.rooms.room_role',
-		'plugin.rooms.room_role_permission',
+		'plugin.rooms.room_role_permission4test',
 		'plugin.rooms.rooms_language',
 		'plugin.rooms.space',
 	);
@@ -69,7 +69,7 @@ class RoomRolePermissionValidateTest extends NetCommonsValidateTest {
  * @return array テストデータ
  */
 	public function dataProviderValidationError() {
-		$data['RoomRolePermission'] = (new RoomRolePermissionFixture())->records[0];
+		$data['RoomRolePermission'] = (new RoomRolePermission4testFixture())->records[0];
 
 		return array(
 			array('data' => $data, 'field' => 'roles_room_id', 'value' => 'a',

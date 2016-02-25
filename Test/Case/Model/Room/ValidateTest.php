@@ -12,7 +12,7 @@
 App::uses('NetCommonsValidateTest', 'NetCommons.TestSuite');
 App::uses('RoomFixture', 'Rooms.Test/Fixture');
 App::uses('RoomsLanguageFixture', 'Rooms.Test/Fixture');
-App::uses('RoomRolePermissionFixture', 'Rooms.Test/Fixture');
+App::uses('RoomRolePermission4testFixture', 'Rooms.Test/Fixture');
 
 /**
  * Room::validate()のテスト
@@ -132,7 +132,7 @@ class RoomValidateTest extends NetCommonsValidateTest {
 
 		//データ生成
 		$data['Room'] = (new RoomFixture())->records[0];
-		$data['RoomRolePermission'][0][0] = (new RoomRolePermissionFixture())->records[0];
+		$data['RoomRolePermission'][0][0] = (new RoomRolePermission4testFixture())->records[0];
 
 		//テスト実施
 		$this->$model->set($data);
@@ -153,7 +153,7 @@ class RoomValidateTest extends NetCommonsValidateTest {
 
 		//データ生成
 		$data['Room'] = (new RoomFixture())->records[0];
-		$data['RoomRolePermission'][0][0] = (new RoomRolePermissionFixture())->records[0];
+		$data['RoomRolePermission'][0][0] = (new RoomRolePermission4testFixture())->records[0];
 
 		//テスト実施
 		$this->$model->set($data);
