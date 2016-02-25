@@ -187,7 +187,9 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		//--クエリの実行
 		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
 		$model->PluginsRoom->query($sql);
-		if (! $model->PluginsRoom->getAffectedRows() > 0) {
+
+		$result = $model->PluginsRoom->getAffectedRows() > 0;
+		if (! $result) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 

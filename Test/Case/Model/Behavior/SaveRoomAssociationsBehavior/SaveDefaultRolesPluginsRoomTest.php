@@ -86,25 +86,38 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesPluginsRoomTest extends NetCom
 	}
 
 /**
+ * saveDefaultRolesPluginsRoom()のExceptionErrorテスト
+ *
+ * @param array $data Room data
+ * @dataProvider dataProvider
+ * @return void
+ */
+	public function testSaveDefaultRolesPluginsRoomOnExceptionError($data) {
+		$this->_mockForReturn('TestModel', 'PluginManager.PluginsRoom', 'getAffectedRows', 0);
+
+		//テスト実施
+		$this->setExpectedException('InternalErrorException');
+		$this->TestModel->saveDefaultRolesPluginsRoom($data);
+	}
+
+/**
  * Roomのチェック
  *
  * @param int $roomId ルームID
  * @return void
  */
 	private function __acualPluginsRoom($roomId) {
-//		$expected = array('Room' => array (
-//			'id' => $roomId,
-//			'space_id' => '2',
-//			'page_id_top' => $pageIdTop,
-//		));
+		$expected = array(
+			array('PluginsRoom' => array ('id' => '3', 'room_id' => $roomId, 'plugin_key' => 'test')),
+			array('PluginsRoom' => array ('id' => '4', 'room_id' => $roomId, 'plugin_key' => 'test2')),
+		);
 
 		$result = $this->TestModel->PluginsRoom->find('all', array(
 			'recursive' => -1,
-			//'fields' => array_keys($expected['Room']),
-			'conditions' => array('id' => $roomId),
+			'fields' => array_keys($expected[0]['PluginsRoom']),
+			'conditions' => array('room_id' => $roomId),
 		));
-debug($result);
-		//$this->assertEquals($expected, $result);
+		$this->assertEquals($expected, $result);
 	}
 
 }
