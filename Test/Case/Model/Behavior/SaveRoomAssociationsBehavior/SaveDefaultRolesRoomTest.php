@@ -1,6 +1,6 @@
 <?php
 /**
- * SaveRoomAssociationsBehavior::saveDefaultRolesPluginsRoom()のテスト
+ * SaveRoomAssociationsBehavior::saveDefaultRolesRoom()のテスト
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,23 +12,19 @@
 App::uses('NetCommonsModelTestCase', 'NetCommons.TestSuite');
 
 /**
- * SaveRoomAssociationsBehavior::saveDefaultRolesPluginsRoom()のテスト
+ * SaveRoomAssociationsBehavior::saveDefaultRolesRoom()のテスト
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Model\Behavior\SaveRoomAssociationsBehavior
  */
-class SaveRoomAssociationsBehaviorSaveDefaultRolesPluginsRoomTest extends NetCommonsModelTestCase {
+class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomTest extends NetCommonsModelTestCase {
 
 /**
  * Fixtures
  *
  * @var array
  */
-	public $fixtures = array(
-		'plugin.rooms.plugins_role4test',
-		'plugin.rooms.plugin4test',
-		'plugin.rooms.plugins_room4test',
-	);
+	public $fixtures = array();
 
 /**
  * Plugin name
@@ -51,7 +47,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesPluginsRoomTest extends NetCom
 	}
 
 /**
- * saveDefaultRolesPluginsRoom()テストのDataProvider
+ * saveDefaultRolesRoom()テストのDataProvider
  *
  * ### 戻り値
  *  - data Room data
@@ -65,58 +61,62 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesPluginsRoomTest extends NetCom
 	}
 
 /**
- * saveDefaultRolesPluginsRoom()のテスト
+ * saveDefaultRolesRoom()のテスト
  *
  * @param array $data Room data
  * @dataProvider dataProvider
  * @return void
  */
-	public function testSaveDefaultRolesPluginsRoom($data) {
+	public function testSaveDefaultRolesRoom($data) {
 		//テストデータ作成
 		Current::$current = Hash::insert(Current::$current, 'User.id', '1');
 		Current::$current = Hash::insert(Current::$current, 'Language.id', '2');
 		$roomId = $data['Room']['id'];
 
 		//テスト実施
-		$result = $this->TestModel->saveDefaultRolesPluginsRoom($data);
+		$result = $this->TestModel->saveDefaultRolesRoom($data);
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__acualPluginsRoom($roomId);
+		$this->__acualRolesRoom($roomId);
 	}
 
 /**
- * saveDefaultRolesPluginsRoom()のExceptionErrorテスト
+ * saveDefaultRolesRoom()のExceptionErrorテスト
  *
  * @param array $data Room data
  * @dataProvider dataProvider
  * @return void
  */
-	public function testSaveDefaultRolesPluginsRoomOnExceptionError($data) {
-		$this->_mockForReturn('TestModel', 'PluginManager.PluginsRoom', 'getAffectedRows', 0);
+	public function testSaveDefaultRolesRoomOnExceptionError($data) {
+		$this->_mockForReturn('TestModel', 'Rooms.RolesRoom', 'getAffectedRows', 0);
 
 		//テスト実施
 		$this->setExpectedException('InternalErrorException');
-		$this->TestModel->saveDefaultRolesPluginsRoom($data);
+		$this->TestModel->saveDefaultRolesRoom($data);
 	}
 
 /**
- * PluginsRoomのチェック
+ * RolesRoomのチェック
  *
  * @param int $roomId ルームID
  * @return void
  */
-	private function __acualPluginsRoom($roomId) {
+	private function __acualRolesRoom($roomId) {
 		$expected = array(
-			array('PluginsRoom' => array ('id' => '3', 'room_id' => $roomId, 'plugin_key' => 'test')),
-			array('PluginsRoom' => array ('id' => '4', 'room_id' => $roomId, 'plugin_key' => 'test2')),
+			array('RolesRoom' => array ('id' => '8', 'room_id' => $roomId, 'role_key' => 'room_administrator')),
+			array('RolesRoom' => array ('id' => '9', 'room_id' => $roomId, 'role_key' => 'chief_editor')),
+			array('RolesRoom' => array ('id' => '10', 'room_id' => $roomId, 'role_key' => 'editor')),
+			array('RolesRoom' => array ('id' => '11', 'room_id' => $roomId, 'role_key' => 'general_user')),
+			array('RolesRoom' => array ('id' => '12', 'room_id' => $roomId, 'role_key' => 'visitor')),
 		);
 
-		$result = $this->TestModel->PluginsRoom->find('all', array(
+		$result = $this->TestModel->RolesRoom->find('all', array(
 			'recursive' => -1,
-			'fields' => array_keys($expected[0]['PluginsRoom']),
+			'fields' => array_keys($expected[0]['RolesRoom']),
 			'conditions' => array('room_id' => $roomId),
 		));
+
 		$this->assertEquals($expected, $result);
 	}
 
