@@ -26,7 +26,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
  */
 	public $fixtures = array(
 		'plugin.pages.languages_page',
-		'plugin.roles.default_role_permission',
+		'plugin.rooms.default_role_permission4test',
 		'plugin.rooms.plugins_room4test',
 		'plugin.rooms.plugin4test',
 		'plugin.rooms.plugins_role4test',
@@ -179,6 +179,30 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 	}
 
 /**
+ * RoomRolePermissionのチェック
+ *
+ * @param string $permission パーミッション
+ * @param array $expected 期待値
+ * @return void
+ */
+	private function __acualRoomRolePermission($permission, $expected) {
+		$model = $this->_modelName;
+		$expected = Hash::insert($expected, '{s}.permission', $permission);
+
+		$result = $this->$model->RoomRolePermission->find('all', array(
+			'recursive' => -1,
+			'fields' => array_keys($expected[0]['RoomRolePermission']),
+			'conditions' => array(
+				'roles_room_id' => Hash::extract($expected, '{n}.{s}.roles_room_id'),
+				'permission' => $permission
+			),
+			'order' => array('roles_room_id' => 'asc'),
+		));
+
+		$this->assertEquals($expected, $result);
+	}
+
+/**
  * save()のテスト
  *
  * @param array $data 登録データ
@@ -196,13 +220,40 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		$this->assertNotEmpty($result);
 
 		//チェック
-		debug($result);
-
-		//TODO:Assertを書く
 		$roomId = '9';
 		$this->__acualRoom($roomId, '5');
 		$this->__acualRoomsLanguage($roomId, '1', '17');
 		$this->__acualRoomsLanguage($roomId, '2', '18');
+
+		$rolesRooms = $this->$model->RolesRoom->find('list', array(
+			'recursive' => -1,
+			'fields' => array('id', 'role_key'),
+			'conditions' => array('room_id' => $roomId),
+			'order' => array('id' => 'asc'),
+		));
+		$this->assertEquals(array(
+			'15' => 'room_administrator',
+			'16' => 'chief_editor',
+			'17' => 'editor',
+			'18' => 'general_user',
+			'19' => 'visitor',
+		), $rolesRooms);
+
+		$this->__acualRoomRolePermission('content_publishable', array(
+			array('RoomRolePermission' => array('roles_room_id' => '15', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '16', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '17', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '18', 'value' => false)),
+			array('RoomRolePermission' => array('roles_room_id' => '19', 'value' => false)),
+		));
+
+		$this->__acualRoomRolePermission('html_not_limited', array(
+			array('RoomRolePermission' => array('roles_room_id' => '15', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '16', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '17', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '18', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '19', 'value' => false)),
+		));
 	}
 
 /**

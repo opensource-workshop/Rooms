@@ -244,8 +244,7 @@ class Room extends RoomsAppModel {
 			$roomsLanguages = $this->data['RoomsLanguage'];
 			if (! $this->RoomsLanguage->validateMany($roomsLanguages)) {
 				$this->validationErrors = Hash::merge(
-					$this->validationErrors,
-					$this->RoomsLanguage->validationErrors
+					$this->validationErrors, $this->RoomsLanguage->validationErrors
 				);
 				return false;
 			}
@@ -259,10 +258,8 @@ class Room extends RoomsAppModel {
 					$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomRolePermission->validationErrors);
 					return false;
 				}
-				$this->data['RoomRolePermission'][$permission] = $data;
 			}
 		}
-
 		return parent::beforeValidate($options);
 	}
 
