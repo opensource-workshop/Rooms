@@ -72,7 +72,6 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 	public function testSaveDefaultPage($data) {
 		//テストデータ作成
 		Current::$current = Hash::insert(Current::$current, 'Language.id', '2');
-
 		$roomId = $data['Room']['id'];
 
 		//テスト実施
