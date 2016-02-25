@@ -259,6 +259,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	public function saveDefaultPage(Model $model, $data) {
 		$model->loadModels([
 			'Page' => 'Pages.Page',
+			'Room' => 'Rooms.Room',
 		]);
 
 		$slug = OriginalKeyBehavior::generateKey('Page', $model->useDbConfig);
@@ -276,7 +277,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		));
 
 		$model->Page->create(false);
-		if (! $page = $model->Page->savePage($page, array('atomic' => false))) {
+		$page = $model->Page->savePage($page, array('atomic' => false));
+		if (! $page) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 
