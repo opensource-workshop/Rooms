@@ -25,6 +25,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
  * @var array
  */
 	public $fixtures = array(
+		'plugin.rooms.roles_room4test',
 		'plugin.user_roles.user_role_setting',
 	);
 
@@ -123,7 +124,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__acualRolesRoomsUser($roomId, $userId, '12');
+		$this->__acualRolesRoomsUser($roomId, $userId, '19');
 	}
 
 /**
@@ -152,7 +153,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__acualRolesRoomsUser($roomId, '2', '8');
+		$this->__acualRolesRoomsUser($roomId, '2', '15');
 	}
 
 /**
@@ -209,11 +210,11 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
  */
 	private function __acualRolesRoom($roomId) {
 		$expected = array(
-			array('RolesRoom' => array('id' => '8', 'room_id' => $roomId, 'role_key' => 'room_administrator')),
-			array('RolesRoom' => array('id' => '9', 'room_id' => $roomId, 'role_key' => 'chief_editor')),
-			array('RolesRoom' => array('id' => '10', 'room_id' => $roomId, 'role_key' => 'editor')),
-			array('RolesRoom' => array('id' => '11', 'room_id' => $roomId, 'role_key' => 'general_user')),
-			array('RolesRoom' => array('id' => '12', 'room_id' => $roomId, 'role_key' => 'visitor')),
+			array('RolesRoom' => array('id' => '15', 'room_id' => $roomId, 'role_key' => 'room_administrator')),
+			array('RolesRoom' => array('id' => '16', 'room_id' => $roomId, 'role_key' => 'chief_editor')),
+			array('RolesRoom' => array('id' => '17', 'room_id' => $roomId, 'role_key' => 'editor')),
+			array('RolesRoom' => array('id' => '18', 'room_id' => $roomId, 'role_key' => 'general_user')),
+			array('RolesRoom' => array('id' => '19', 'room_id' => $roomId, 'role_key' => 'visitor')),
 		);
 
 		$result = $this->TestModel->RolesRoom->find('all', array(
@@ -233,7 +234,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
  * @param int $rolesRoomId ロールルームID
  * @return void
  */
-	private function __acualRolesRoomsUser($roomId, $userId = null, $rolesRoomId = '8') {
+	private function __acualRolesRoomsUser($roomId, $userId = null, $rolesRoomId = '15') {
 		if ($userId) {
 			$expected = array(
 				array('RolesRoomsUser' => array(
@@ -241,7 +242,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
 				)),
 			);
 		} else {
-			$visitorRolesRoomId = '12';
+			$visitorRolesRoomId = '19';
 			$expected = array(
 				array('RolesRoomsUser' => array(
 					'id' => '8', 'roles_room_id' => $rolesRoomId, 'user_id' => '2', 'room_id' => $roomId,
