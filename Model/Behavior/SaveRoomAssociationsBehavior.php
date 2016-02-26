@@ -68,7 +68,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
- * @param bool $isRoomCreate ルーム作成時かどうか
+ * @param bool $isRoomCreate ルーム作成時かどうか。trueの場合、ルーム作成時に呼ばれ、falseの場合、ユーザ作成時に呼ばれる
  * @return bool True on success
  * @throws InternalErrorException
  */
