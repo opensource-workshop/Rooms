@@ -1,6 +1,6 @@
 <?php
 /**
- * Block.key削除用Fixture
+ * Frame.id削除用Fixture
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -10,12 +10,12 @@
  */
 
 /**
- * Block.key削除用Fixture
+ * Frame.id削除用Fixture
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Fixture
  */
-class DeleteTestBlockKeyFixture extends CakeTestFixture {
+class DeleteTestFrameIdFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -24,7 +24,7 @@ class DeleteTestBlockKeyFixture extends CakeTestFixture {
  */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'block_key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'frame_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
@@ -41,9 +41,12 @@ class DeleteTestBlockKeyFixture extends CakeTestFixture {
  * @var array
  */
 	public $records = array(
-		array('id' => '1', 'block_key' => 'block_1'),
-		array('id' => '2', 'block_key' => 'delete_block_1'),
-		array('id' => '3', 'block_key' => 'delete_block_2'),
+		array('id' => '1', 'frame_id' => '1'),
+		array('id' => '2', 'frame_id' => '2'),
+		array('id' => '3', 'frame_id' => '3'),
+		array('id' => '4', 'frame_id' => '4'),
+		array('id' => '5', 'frame_id' => '5'),
+		array('id' => '6', 'frame_id' => '6'),
 	);
 
 }

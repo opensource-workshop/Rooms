@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('BlockFixture', 'Blocks.Test/Fixture');
+App::uses('FrameFixture', 'Frames.Test/Fixture');
 
 /**
  * 削除用Fixture
@@ -17,21 +17,21 @@ App::uses('BlockFixture', 'Blocks.Test/Fixture');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Fixture
  */
-class Block4deleteFixture extends BlockFixture {
+class Frame4deleteFixture extends FrameFixture {
 
 /**
  * Model name
  *
  * @var string
  */
-	public $name = 'Block';
+	public $name = 'Frame';
 
 /**
  * Full Table Name
  *
  * @var string
  */
-	public $table = 'blocks';
+	public $table = 'frames';
 
 /**
  * Records
@@ -44,56 +44,74 @@ class Block4deleteFixture extends BlockFixture {
 			'id' => '1',
 			'language_id' => '1',
 			'room_id' => '1',
+			'box_id' => '3',
 			'plugin_key' => 'test',
-			'key' => 'block_1',
-			'name' => 'Block name',
-			'public_type' => '1',
+			'block_id' => '1',
+			'key' => 'frame_1',
+			'name' => 'Test frame',
+			'weight' => '1',
+			'is_deleted' => '0',
 		),
 		array(
 			'id' => '2',
 			'language_id' => '2',
 			'room_id' => '1',
+			'box_id' => '3',
 			'plugin_key' => 'test',
-			'key' => 'block_1',
-			'name' => 'Block name',
-			'public_type' => '1',
+			'block_id' => '1',
+			'key' => 'frame_1',
+			'name' => 'Test frame',
+			'weight' => '1',
+			'is_deleted' => '0',
 		),
 		//削除対象のデータ
 		array(
 			'id' => '3',
 			'language_id' => '1',
 			'room_id' => '4',
+			'box_id' => '3',
 			'plugin_key' => 'test',
-			'key' => 'delete_block_1',
-			'name' => 'Block name 1',
-			'public_type' => '1',
+			'block_id' => '3',
+			'key' => 'delete_frame_1',
+			'name' => 'Test frame',
+			'weight' => '1',
+			'is_deleted' => '0',
 		),
 		array(
 			'id' => '4',
 			'language_id' => '2',
 			'room_id' => '4',
+			'box_id' => '3',
 			'plugin_key' => 'test',
-			'key' => 'delete_block_1',
-			'name' => 'Block name 1',
-			'public_type' => '1',
+			'block_id' => '4',
+			'key' => 'delete_frame_1',
+			'name' => 'Test frame',
+			'weight' => '1',
+			'is_deleted' => '0',
 		),
 		array(
 			'id' => '5',
 			'language_id' => '1',
 			'room_id' => '4',
+			'box_id' => '3',
 			'plugin_key' => 'test',
-			'key' => 'delete_block_2',
-			'name' => 'Block name 2',
-			'public_type' => '1',
+			'block_id' => '5',
+			'key' => 'delete_frame_2',
+			'name' => 'Test frame',
+			'weight' => '1',
+			'is_deleted' => '0',
 		),
 		array(
 			'id' => '6',
 			'language_id' => '2',
 			'room_id' => '4',
+			'box_id' => '3',
 			'plugin_key' => 'test',
-			'key' => 'delete_block_2',
-			'name' => 'Block name 2',
-			'public_type' => '1',
+			'block_id' => '6',
+			'key' => 'delete_frame_2',
+			'name' => 'Test frame',
+			'weight' => '1',
+			'is_deleted' => '0',
 		),
 	);
 
