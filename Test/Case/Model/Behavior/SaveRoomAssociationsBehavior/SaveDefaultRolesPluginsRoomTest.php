@@ -108,8 +108,8 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesPluginsRoomTest extends NetCom
  */
 	private function __acualPluginsRoom($roomId) {
 		$expected = array(
-			array('PluginsRoom' => array ('id' => '3', 'room_id' => $roomId, 'plugin_key' => 'test')),
-			array('PluginsRoom' => array ('id' => '4', 'room_id' => $roomId, 'plugin_key' => 'test2')),
+			array('PluginsRoom' => array('id' => '3', 'room_id' => $roomId, 'plugin_key' => 'test')),
+			array('PluginsRoom' => array('id' => '4', 'room_id' => $roomId, 'plugin_key' => 'test2')),
 		);
 
 		$result = $this->TestModel->PluginsRoom->find('all', array(

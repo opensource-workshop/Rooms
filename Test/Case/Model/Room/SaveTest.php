@@ -84,8 +84,8 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		}
 
 		$roomId = '';
-		$data = array (
-			'Room' => array (
+		$data = array(
+			'Room' => array(
 				'id' => $roomId,
 				'space_id' => '2',
 				'root_id' => '1',
@@ -95,22 +95,22 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 				'need_approval' => '1',
 				'active' => '1',
 			),
-			'Page' => array ('parent_id' => '1'),
-			'RoomsLanguage' => array (
-				0 => array ('id' => '', 'room_id' => $roomId, 'language_id' => '1', 'name' => 'Test room(lang=1)'),
-				1 => array ('id' => '', 'room_id' => $roomId, 'language_id' => '2', 'name' => 'Test room(lang=2)'),
+			'Page' => array('parent_id' => '1'),
+			'RoomsLanguage' => array(
+				0 => array('id' => '', 'room_id' => $roomId, 'language_id' => '1', 'name' => 'Test room(lang=1)'),
+				1 => array('id' => '', 'room_id' => $roomId, 'language_id' => '2', 'name' => 'Test room(lang=2)'),
 			),
-			'RoomRolePermission' => array (
-				'content_publishable' => array (
-					'room_administrator' => array ('id' => ''),
-					'chief_editor' => array ('id' => '', 'value' => '1'),
-					'editor' => array ('id' => '', 'value' => '1'),
+			'RoomRolePermission' => array(
+				'content_publishable' => array(
+					'room_administrator' => array('id' => ''),
+					'chief_editor' => array('id' => '', 'value' => '1'),
+					'editor' => array('id' => '', 'value' => '1'),
 				),
-				'html_not_limited' => array (
-					'room_administrator' => array ('id' => '', 'value' => '1'),
-					'chief_editor' => array ('id' => '', 'value' => '1'),
-					'editor' => array ('id' => '', 'value' => '1'),
-					'general_user' => array ('id' => '', 'value' => '1'),
+				'html_not_limited' => array(
+					'room_administrator' => array('id' => '', 'value' => '1'),
+					'chief_editor' => array('id' => '', 'value' => '1'),
+					'editor' => array('id' => '', 'value' => '1'),
+					'general_user' => array('id' => '', 'value' => '1'),
 				),
 			),
 		);
@@ -128,7 +128,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 	private function __acualRoom($roomId, $pageIdTop) {
 		$model = $this->_modelName;
 
-		$expected = array('Room' => array (
+		$expected = array('Room' => array(
 			'id' => $roomId,
 			'space_id' => '2',
 			'page_id_top' => $pageIdTop,
@@ -162,7 +162,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 	private function __acualRoomsLanguage($roomId, $languageId, $roomsLangId) {
 		$model = $this->_modelName;
 
-		$expected = array('RoomsLanguage' => array (
+		$expected = array('RoomsLanguage' => array(
 			'id' => $roomsLangId,
 			'room_id' => $roomId,
 			'language_id' => $languageId,

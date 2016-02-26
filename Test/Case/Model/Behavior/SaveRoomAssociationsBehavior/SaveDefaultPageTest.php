@@ -124,7 +124,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
  * @return void
  */
 	private function __acualPage($roomId, $pageId) {
-		$expected = array('Page' => array (
+		$expected = array('Page' => array(
 			'id' => $pageId,
 			'room_id' => $roomId,
 			'parent_id' => null,
@@ -172,7 +172,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
  * @return void
  */
 	private function __acualRoom($roomId, $pageIdTop) {
-		$expected = array('Room' => array (
+		$expected = array('Room' => array(
 			'id' => $roomId,
 			'space_id' => '2',
 			'page_id_top' => $pageIdTop,

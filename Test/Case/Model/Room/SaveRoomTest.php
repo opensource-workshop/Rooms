@@ -68,7 +68,7 @@ class RoomSaveRoomTest extends NetCommonsSaveTest {
 		// * 編集の登録処理
 		$roomId = '4';
 		$results[0] = array(array(
-			'Room' => array (
+			'Room' => array(
 				'id' => $roomId,
 				'space_id' => '2',
 				'root_id' => '1',
@@ -78,29 +78,29 @@ class RoomSaveRoomTest extends NetCommonsSaveTest {
 				'need_approval' => '1',
 				'active' => '1',
 			),
-			'Page' => array ('parent_id' => '1'),
-			'RoomsLanguage' => array (
-				0 => array ('id' => '7', 'room_id' => $roomId, 'language_id' => '1', 'name' => 'Test room'),
-				1 => array ('id' => '8', 'room_id' => $roomId, 'language_id' => '2', 'name' => 'Test room'),
+			'Page' => array('parent_id' => '1'),
+			'RoomsLanguage' => array(
+				0 => array('id' => '7', 'room_id' => $roomId, 'language_id' => '1', 'name' => 'Test room'),
+				1 => array('id' => '8', 'room_id' => $roomId, 'language_id' => '2', 'name' => 'Test room'),
 			),
-			'RoomRolePermission' => array (
-				'content_publishable' => array (
-					'room_administrator' => array ('id' => '62'),
-					'chief_editor' => array ('id' => '67', 'value' => '1'),
-					'editor' => array ('id' => '69', 'value' => '0'),
+			'RoomRolePermission' => array(
+				'content_publishable' => array(
+					'room_administrator' => array('id' => '62'),
+					'chief_editor' => array('id' => '67', 'value' => '1'),
+					'editor' => array('id' => '69', 'value' => '0'),
 				),
-				'html_not_limited' => array (
-					'room_administrator' => array ('id' => '65', 'value' => '1'),
-					'chief_editor' => array ('id' => '68', 'value' => '1'),
-					'editor' => array ('id' => '70', 'value' => '1'),
-					'general_user' => array ('id' => '71', 'value' => '1'),
+				'html_not_limited' => array(
+					'room_administrator' => array('id' => '65', 'value' => '1'),
+					'chief_editor' => array('id' => '68', 'value' => '1'),
+					'editor' => array('id' => '70', 'value' => '1'),
+					'general_user' => array('id' => '71', 'value' => '1'),
 				),
 			),
 		));
 		// * 新規の登録処理
 		$roomId = '';
-		$results[1] = array(array (
-			'Room' => array (
+		$results[1] = array(array(
+			'Room' => array(
 				'id' => $roomId,
 				'space_id' => '2',
 				'root_id' => '1',
@@ -110,22 +110,22 @@ class RoomSaveRoomTest extends NetCommonsSaveTest {
 				'need_approval' => '1',
 				'active' => '1',
 			),
-			'Page' => array ('parent_id' => '1'),
-			'RoomsLanguage' => array (
-				0 => array ('id' => '', 'room_id' => $roomId, 'language_id' => '1', 'name' => 'Test room'),
-				1 => array ('id' => '', 'room_id' => $roomId, 'language_id' => '2', 'name' => 'Test room'),
+			'Page' => array('parent_id' => '1'),
+			'RoomsLanguage' => array(
+				0 => array('id' => '', 'room_id' => $roomId, 'language_id' => '1', 'name' => 'Test room'),
+				1 => array('id' => '', 'room_id' => $roomId, 'language_id' => '2', 'name' => 'Test room'),
 			),
-			'RoomRolePermission' => array (
-				'content_publishable' => array (
-					'room_administrator' => array ('id' => ''),
-					'chief_editor' => array ('id' => '', 'value' => '1'),
-					'editor' => array ('id' => '', 'value' => '1'),
+			'RoomRolePermission' => array(
+				'content_publishable' => array(
+					'room_administrator' => array('id' => ''),
+					'chief_editor' => array('id' => '', 'value' => '1'),
+					'editor' => array('id' => '', 'value' => '1'),
 				),
-				'html_not_limited' => array (
-					'room_administrator' => array ('id' => '', 'value' => '1'),
-					'chief_editor' => array ('id' => '', 'value' => '1'),
-					'editor' => array ('id' => '', 'value' => '1'),
-					'general_user' => array ('id' => '', 'value' => '1'),
+				'html_not_limited' => array(
+					'room_administrator' => array('id' => '', 'value' => '1'),
+					'chief_editor' => array('id' => '', 'value' => '1'),
+					'editor' => array('id' => '', 'value' => '1'),
+					'general_user' => array('id' => '', 'value' => '1'),
 				),
 			),
 		));
