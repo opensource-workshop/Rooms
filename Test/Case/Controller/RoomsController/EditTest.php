@@ -223,6 +223,12 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
 
 		$pattern = '/<button name="save"/';
 		$this->assertRegExp($pattern, $this->view);
+
+		if ($roomId === '6') {
+			$this->assertTextContains('dangerZone', $this->view);
+		} else {
+			$this->assertTextNotContains('dangerZone', $this->view);
+		}
 	}
 
 /**
