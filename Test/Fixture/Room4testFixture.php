@@ -163,7 +163,7 @@ class Room4testFixture extends RoomFixture {
 			'active' => '0',
 			'default_role_key' => 'general_user',
 			'need_approval' => true,
-			'default_participation' => true,
+			'default_participation' => false,
 			'page_layout_permitted' => true,
 			'theme' => null,
 		),

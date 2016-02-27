@@ -65,8 +65,8 @@ msgid "Do not use the approval"
 msgstr "コンテンツの承認機能を使わない"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:85
-msgid "Allow HTML tags?  e.g.) Javascript or iframe"
-msgstr "HTMLタグの書き込み制限 (Javascript、iframe 等) "
+msgid "Allow all html tags?  e.g.) Javascript or iframe"
+msgstr "全てのHTMLタグの書き込み許可<br>(Javascript等の書き込みを許可するため、脆弱性の原因になる可能性があります)"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:85
 msgid "Calendar plan entry authority setting"
