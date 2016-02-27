@@ -51,7 +51,7 @@ class RoomFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 	public function testSettingTabsByActionAdd() {
 		//テストデータ生成
 		$spaceId = '4';
-		$roomId = '';
+		$roomId = null;
 		$parentId = '1';
 		$controller = 'rooms';
 
