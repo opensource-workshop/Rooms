@@ -120,13 +120,12 @@ class RoomsControllerAddTest extends NetCommonsControllerTestCase {
 		$this->_testGetAction(array('action' => 'add', $spaceId, $roomId), array('method' => 'assertNotEmpty'), null, 'view');
 
 		//チェック
-		$this->__assetAdd($this->view, $spaceId, $roomId, $rootId, $parentId, $pageId);
+		$this->__assetAdd($spaceId, $roomId, $rootId, $parentId, $pageId);
 	}
 
 /**
  * add()アクションのチェック
  *
- * @param string $result 結果
  * @param int $spaceId スペースID
  * @param int $roomId ルームID
  * @param int $rootId ルートID
@@ -134,66 +133,156 @@ class RoomsControllerAddTest extends NetCommonsControllerTestCase {
  * @param int $pageId ページID
  * @return void
  */
-	private function __assetAdd($result, $spaceId, $roomId, $rootId, $parentId, $pageId) {
+	private function __assetAdd($spaceId, $roomId, $rootId, $parentId, $pageId) {
+		$this->assertEqual(null, $this->controller->RoomsRolesForm->settings['room_id']);
+		$this->assertEqual('room_role', $this->controller->RoomsRolesForm->settings['type']);
+
+		$data = $this->__data($spaceId, '', $rootId, $parentId, $pageId, '');
+		if ($spaceId === '4') {
+			$data = Hash::insert($data, 'Room.default_participation', false);
+			$data = Hash::insert($data, 'Room.default_role_key', 'general_user');
+		}
+		$this->__assetRequestData($data, 'Room.id');
+		$this->__assetRequestData($data, 'Room.space_id');
+		$this->__assetRequestData($data, 'Room.root_id');
+		$this->__assetRequestData($data, 'Room.parent_id');
+		$this->__assetRequestData($data, 'Room.default_participation');
+		$this->__assetRequestData($data, 'Room.default_role_key');
+		$this->__assetRequestData($data, 'Room.need_approval');
+		$this->__assetRequestData($data, 'Room.active');
+		$this->__assetRequestData($data, 'Page.parent_id');
+		$this->__assetRequestData($data, 'RoomsLanguage.0.id');
+		$this->__assetRequestData($data, 'RoomsLanguage.0.room_id');
+		$this->__assetRequestData($data, 'RoomsLanguage.0.language_id');
+		$this->__assetRequestData($data, 'RoomsLanguage.0.name');
+		$this->__assetRequestData($data, 'RoomsLanguage.1.id');
+		$this->__assetRequestData($data, 'RoomsLanguage.1.room_id');
+		$this->__assetRequestData($data, 'RoomsLanguage.1.language_id');
+		$this->__assetRequestData($data, 'RoomsLanguage.1.name');
+		$this->__assetRequestData($data, 'RoomRolePermission.content_publishable.room_administrator.id');
+		$this->__assetRequestData($data, 'RoomRolePermission.content_publishable.chief_editor.id');
+		$this->__assetRequestData($data, 'RoomRolePermission.content_publishable.chief_editor.value');
+		$this->__assetRequestData($data, 'RoomRolePermission.content_publishable.editor.id');
+		$this->__assetRequestData($data, 'RoomRolePermission.content_publishable.editor.value');
+		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.room_administrator.id');
+		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.room_administrator.value');
+		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.chief_editor.id');
+		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.chief_editor.value');
+		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.editor.id');
+		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.editor.value');
+		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.general_user.id');
+		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.general_user.value');
+
 		$pattern = '/<form action=".*?' . preg_quote('/rooms/rooms/add/' . $spaceId . '/' . $roomId, '/') . '"/';
-		$this->assertRegExp($pattern, $result);
+		$this->assertRegExp($pattern, $this->view);
 
-		$this->assertInput('input', '_method', 'POST', $result);
-		$this->assertInput('input', 'data[Room][id]', null, $result);
-		$this->assertInput('input', 'data[Room][space_id]', $spaceId, $result);
-		$this->assertInput('input', 'data[Room][root_id]', $rootId, $result);
-		$this->assertInput('input', 'data[Room][parent_id]', $parentId, $result);
-		$this->assertInput('input', 'data[Page][parent_id]', $pageId, $result);
+		$this->assertInput('input', '_method', 'POST', $this->view);
+		$this->assertInput('input', 'data[Room][id]', null, $this->view);
+		$this->assertInput('input', 'data[Room][space_id]', $spaceId, $this->view);
+		$this->assertInput('input', 'data[Room][root_id]', $rootId, $this->view);
+		$this->assertInput('input', 'data[Room][parent_id]', $parentId, $this->view);
+		$this->assertInput('input', 'data[Page][parent_id]', $pageId, $this->view);
 
-		$this->assertInput('input', 'data[RoomsLanguage][0][name]', null, $result);
+		$this->assertInput('input', 'data[RoomsLanguage][0][name]', null, $this->view);
 
 		$pattern = '/<button type="button".*?".*?onclick=".*?' . preg_quote('/rooms/rooms/index/' . $spaceId, '/') . '\'" name="cancel">/';
-		$this->assertRegExp($pattern, $result);
+		$this->assertRegExp($pattern, $this->view);
 
 		$pattern = '/<button name="save"/';
-		$this->assertRegExp($pattern, $result);
+		$this->assertRegExp($pattern, $this->view);
 	}
 
 /**
- * add()アクションのチェック
+ * request->dataのチェック
  *
- * @param string $result 結果
+ * @param array $data データ
+ * @param string $keyPath Hashのキー
+ * @return void
+ */
+	private function __assetRequestData($data, $keyPath) {
+		if (preg_match('/^RoomRolePermission\..+?\..+?\.value$/', $keyPath)) {
+			if (Hash::get($data, $keyPath) === '0') {
+				$expected = false;
+			} else {
+				$expected = true;
+			}
+		} else {
+			$expected = Hash::get($data, $keyPath);
+		}
+		$this->assertEquals($expected, Hash::get($this->controller->request->data, $keyPath));
+	}
+
+/**
+ * リクエストデータ作成
+ *
  * @param int $spaceId スペースID
  * @param int $roomId ルームID
  * @param int $rootId ルートID
  * @param int $parentId 親ルームID
  * @param int $pageId ページID
- * @return void
+ * @param string $name ルーム名
+ * @return array リクエストデータ
  */
-	private function __data() {
-		$roomId = '';
+	private function __data($spaceId, $roomId, $rootId, $parentId, $pageId, $name) {
 		$data = array(
 			'Room' => array(
 				'id' => $roomId,
-				'space_id' => '2',
-				'root_id' => '1',
-				'parent_id' => '1',
+				'space_id' => $spaceId,
+				'root_id' => $rootId,
+				'parent_id' => $parentId,
 				'default_participation' => '1',
 				'default_role_key' => 'visitor',
 				'need_approval' => '1',
 				'active' => '1',
 			),
-			'Page' => array('parent_id' => '1'),
+			'Page' => array(
+				'parent_id' => $pageId
+			),
 			'RoomsLanguage' => array(
-				0 => array('id' => '', 'room_id' => $roomId, 'language_id' => '1', 'name' => 'Test room'),
-				1 => array('id' => '', 'room_id' => $roomId, 'language_id' => '2', 'name' => 'Test room'),
+				0 => array(
+					'id' => '',
+					'room_id' => $roomId,
+					'language_id' => '1',
+					'name' => $name
+				),
+				1 => array(
+					'id' => '',
+					'room_id' => $roomId,
+					'language_id' => '2',
+					'name' => $name
+				),
 			),
 			'RoomRolePermission' => array(
 				'content_publishable' => array(
-					'room_administrator' => array('id' => ''),
-					'chief_editor' => array('id' => '', 'value' => '1'),
-					'editor' => array('id' => '', 'value' => '1'),
+					'room_administrator' => array(
+						'id' => ''
+					),
+					'chief_editor' => array(
+						'id' => '',
+						'value' => '1'
+					),
+					'editor' => array(
+						'id' => '',
+						'value' => '0'
+					),
 				),
 				'html_not_limited' => array(
-					'room_administrator' => array('id' => '', 'value' => '1'),
-					'chief_editor' => array('id' => '', 'value' => '1'),
-					'editor' => array('id' => '', 'value' => '1'),
-					'general_user' => array('id' => '', 'value' => '1'),
+					'room_administrator' => array(
+						'id' => '',
+						'value' => '0'
+					),
+					'chief_editor' => array(
+						'id' => '',
+						'value' => '0'
+					),
+					'editor' => array(
+						'id' => '',
+						'value' => '0'
+					),
+					'general_user' => array(
+						'id' => '',
+						'value' => '0'
+					),
 				),
 			),
 		);
@@ -207,7 +296,7 @@ class RoomsControllerAddTest extends NetCommonsControllerTestCase {
  */
 	public function testAddPost() {
 		//テスト実行
-		$data = $this->__data();
+		$data = $this->__data('2', '', '1', '1', '1', 'Test room');
 		$this->_testPostAction('post', $data, array('action' => 'add', '2', '1'), null, 'view');
 
 		//チェック
@@ -223,12 +312,11 @@ class RoomsControllerAddTest extends NetCommonsControllerTestCase {
  */
 	public function testAddPostValidationError() {
 		//テスト実行
-		$data = $this->__data();
-		$data = Hash::insert($data, 'RoomsLanguage.{n}.name', '');
+		$data = $this->__data('2', '', '1', '1', '1', '');
 		$this->_testPostAction('post', $data, array('action' => 'add', '2', '1'), null, 'view');
 
 		//チェック
-		$this->__assetAdd($this->view, '2', '1', '1', '1', '1');
+		$this->__assetAdd('2', '1', '1', '1', '1');
 
 		$pattern = '<div class="help-block">' .
 						sprintf(__d('net_commons', 'Please input %s.'), __d('rooms', 'Room name')) .
