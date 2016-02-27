@@ -10,6 +10,7 @@
  */
 
 App::uses('AppHelper', 'View/Helper');
+App::uses('Room', 'Rooms.Model');
 
 /**
  * ルーム表示ヘルパー
@@ -45,9 +46,9 @@ class RoomFormHelper extends AppHelper {
 		$output = '';
 		if ($this->_View->params['action'] === 'add') {
 			$disabled = 'disabled';
-			$urlRooms = '';
-			$urlRolesRoomsUsers = '';
-			$urlPluginsRooms = '';
+			$urlRooms = '#';
+			$urlRolesRoomsUsers = '#';
+			$urlPluginsRooms = '#';
 		} else {
 			$disabled = '';
 			$urlRooms = '/rooms/rooms/' . $this->_View->params['action'] . '/' . h($activeSpaceId) . '/' . h($activeRoomId) . '/';
@@ -82,7 +83,7 @@ class RoomFormHelper extends AppHelper {
 			} else {
 				$class = $disabled;
 			}
-			$output .= '<li class=' . $class . '>';
+			$output .= '<li class="' . $class . '">';
 			$output .= $this->NetCommonsHtml->link(__d('rooms', 'Select the plugins to join'), $urlPluginsRooms);
 			$output .= '</li>';
 		}
