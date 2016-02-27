@@ -184,7 +184,8 @@ class RolesRoomsUser extends RoomsAppModel {
 
 		try {
 			//Roomデータの登録
-			if (! $rolesRoomsUser = $this->save($data['RolesRoomsUser'], false, false)) {
+			$rolesRoomsUser = $this->save($data['RolesRoomsUser'], false, false);
+			if (! $rolesRoomsUser) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
