@@ -89,18 +89,23 @@ class RolesRoomsUser extends RoomsAppModel {
 				'numeric' => array(
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => false,
 				),
 			),
 			'last_accessed' => array(
 				'datetime' => array(
 					'rule' => array('datetime'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => true,
+					'required' => false,
 				),
 			),
 			'previous_accessed' => array(
 				'datetime' => array(
 					'rule' => array('datetime'),
 					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => true,
+					'required' => false,
 				),
 			),
 		));

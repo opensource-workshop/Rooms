@@ -52,6 +52,9 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'roles_room_id' => '1',
 			'user_id' => '1',
 			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
 		// * ルームID=1、ユーザID=2
 		array(
@@ -59,6 +62,9 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'roles_room_id' => '2',
 			'user_id' => '2',
 			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
 		// * ルームID=1、ユーザID=3
 		array(
@@ -66,6 +72,9 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'roles_room_id' => '3',
 			'user_id' => '3',
 			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
 		// * ルームID=1、ユーザID=4
 		array(
@@ -73,6 +82,9 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'roles_room_id' => '4',
 			'user_id' => '4',
 			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
 		// * ルームID=1、ユーザID=5
 		array(
@@ -80,6 +92,9 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'roles_room_id' => '5',
 			'user_id' => '5',
 			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
 		// * 別ルーム(room_id=4)
 		array(
@@ -87,6 +102,9 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'roles_room_id' => '6',
 			'user_id' => '1',
 			'room_id' => '4',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
 		// * 別ルーム(room_id=5、ブロックなし)
 		array(
@@ -94,6 +112,9 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'roles_room_id' => '7',
 			'user_id' => '1',
 			'room_id' => '5',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
 	);
 
