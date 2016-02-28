@@ -1,8 +1,6 @@
 <?php
 /**
  * Subtitle template
- *   - $spaceName
- *   - $roomNames
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>

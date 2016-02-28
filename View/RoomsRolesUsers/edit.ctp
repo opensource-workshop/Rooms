@@ -103,15 +103,14 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 								'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')'
 							)); ?>
 						</div>
+						<div class="pull-left">&nbsp;</div>
 						<div>
 							<?php echo $this->Button->cancel(__d('users', 'Non members'), null, array(
-									'iconSize' => 'sm',
+									'class' => 'btn btn-default btn-sm',
 									'ng-click' => 'delete(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\');',
 									'ng-disabled' => '!' . $domUserRoleKey
 								)); ?>
 						</div>
-
-						<?php //echo $this->UserSearch->tableCell($user, 'RolesRoom', 'room_role_key', false, false); ?>
 					</td>
 					<td class="rooms-roles-users-separator"> </td>
 					<?php echo $this->UserSearch->tableRow($user, false); ?>

@@ -70,8 +70,6 @@ class RoomsLanguage extends RoomsAppModel {
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => false,
 					'required' => true,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'room_id' => array(
@@ -79,8 +77,7 @@ class RoomsLanguage extends RoomsAppModel {
 					'rule' => array('numeric'),
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => false,
-					'required' => false,
-					//'last' => false, // Stop validation after this rule
+					'required' => true,
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
@@ -88,10 +85,7 @@ class RoomsLanguage extends RoomsAppModel {
 				'notBlank' => array(
 					'rule' => array('notBlank'),
 					'message' => sprintf(__d('net_commons', 'Please input %s.'), __d('rooms', 'Room name')),
-					//'allowEmpty' => false,
-					//'required' => false,
-					//'last' => false, // Stop validation after this rule
-					//'on' => 'create', // Limit validation to 'create' or 'update' operations
+					'required' => true,
 				),
 			),
 		));

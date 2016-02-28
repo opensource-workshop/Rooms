@@ -38,18 +38,16 @@ class RoomsHelper extends AppHelper {
 	);
 
 /**
- * After render file callback.
- * Called after any view fragment is rendered.
+ * Before render callback. beforeRender is called before the view file is rendered.
  *
  * Overridden in subclasses.
  *
- * @param string $viewFile The file just be rendered.
- * @param string $content The content that was rendered.
+ * @param string $viewFile The view file that is going to be rendered
  * @return void
  */
-	public function afterRenderFile($viewFile, $content) {
-		$content = $this->NetCommonsHtml->css('/rooms/css/style.css') . $content;
-		parent::afterRenderFile($viewFile, $content);
+	public function beforeRender($viewFile) {
+		$this->NetCommonsHtml->css('/rooms/css/style.css');
+		parent::beforeRender($viewFile);
 	}
 
 /**
@@ -210,35 +208,28 @@ class RoomsHelper extends AppHelper {
 /**
  * ルームロール名の出力
  *
- * @param string $roomRoleKey ルームロールKey
+ * @param string|array $roomRoleKey ルームロールKey
  * @return string HTML
  */
 	public function roomRoleName($roomRoleKey) {
 		if (is_array($roomRoleKey)) {
-			if (isset($roomRoleKey['RolesRoom']['role_key'])) {
-				$roomRoleKey = $roomRoleKey['RolesRoom']['role_key'];
-			} else {
-				$roomRoleKey = '';
-			}
+			$roomRoleKey = Hash::get($roomRoleKey, 'RolesRoom.role_key', '');
 		}
-		if (isset($this->_View->viewVars['defaultRoles'][$roomRoleKey])) {
-			return h($this->_View->viewVars['defaultRoles'][$roomRoleKey]);
-		} else {
-			return '';
-		}
+		return h(Hash::get($this->_View->viewVars, 'defaultRoles.' . $roomRoleKey, ''));
 	}
 
 /**
  * ルームのアクセス日時の出力
  *
  * @param array $room ルームデータ配列
+ * @param string $field フィールド
  * @return string HTML
  */
-	public function roomAccessed($room) {
+	public function roomAccessed($room, $field = 'last_accessed') {
 		$output = '';
 
-		if (Hash::get($room, 'RolesRoomsUser.accessed')) {
-			$output .= $this->Date->dateFormat(Hash::get($room, 'RolesRoomsUser.accessed'));
+		if (Hash::get($room, 'RolesRoomsUser.' . $field)) {
+			$output .= $this->Date->dateFormat(Hash::get($room, 'RolesRoomsUser.' . $field));
 		}
 
 		return $output;

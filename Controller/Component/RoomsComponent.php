@@ -27,11 +27,12 @@ class RoomsComponent extends Component {
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::initialize
  */
 	public function initialize(Controller $controller) {
+		//コンポーネント内でPaginatorを使うため、Paginatorがロードされている必要がある
 		$controller->Paginator = $controller->Components->load('Paginator');
 
 		//Modelの呼び出し
 		$controller->Room = ClassRegistry::init('Rooms.Room');
-		$this->Role = ClassRegistry::init('Roles.Role');
+		$controller->Role = ClassRegistry::init('Roles.Role');
 
 		$this->controller = $controller;
 	}
@@ -49,7 +50,7 @@ class RoomsComponent extends Component {
 		$controller->set('spaces', $spaces);
 		$controller->helpers[] = 'Rooms.Rooms';
 
-		$defaultRoles = $this->Role->find('list', array(
+		$defaultRoles = $controller->Role->find('list', array(
 			'recursive' => -1,
 			'fields' => array('key', 'name'),
 			'conditions' => array(

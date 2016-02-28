@@ -155,7 +155,6 @@ class RoomsRolesFormHelper extends AppHelper {
 		}
 
 		$html = '';
-		//$html = '<div class="form-group">';
 
 		if (isset($attributes['label'])) {
 			if (is_array($attributes['label'])) {
@@ -175,7 +174,6 @@ class RoomsRolesFormHelper extends AppHelper {
 		), $attributes);
 		$html .= $this->NetCommonsForm->select($fieldName, $defaultRoles, $attributes);
 
-		//$html .= '</div>';
 		return $html;
 	}
 

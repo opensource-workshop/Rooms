@@ -46,77 +46,75 @@ class RolesRoomsUserFixture extends CakeTestFixture {
  * @var array
  */
 	public $records = array(
+		// * ルームID=1、ユーザID=1
 		array(
-			'id' => 1,
-			'roles_room_id' => 1,
-			'user_id' => 1,
-			'room_id' => 1,
-			'created_user' => 1,
-			'created' => '2015-08-04 07:58:25',
-			'modified_user' => 1,
-			'modified' => '2015-08-04 07:58:25'
+			'id' => '1',
+			'roles_room_id' => '1',
+			'user_id' => '1',
+			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
+		// * ルームID=1、ユーザID=2
 		array(
-			'id' => 2,
-			'roles_room_id' => 2,
-			'user_id' => 2,
-			'room_id' => 1,
-			'created_user' => 1,
-			'created' => '2014-10-11 04:57:10',
-			'modified_user' => 1,
-			'modified' => '2014-10-11 04:57:10'
+			'id' => '2',
+			'roles_room_id' => '2',
+			'user_id' => '2',
+			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
+		// * ルームID=1、ユーザID=3
 		array(
-			'id' => 3,
-			'roles_room_id' => 3,
-			'user_id' => 3,
-			'room_id' => 1,
-			'created_user' => 1,
-			'created' => '2014-10-11 04:57:10',
-			'modified_user' => 1,
-			'modified' => '2014-10-11 04:57:10'
+			'id' => '3',
+			'roles_room_id' => '3',
+			'user_id' => '3',
+			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
+		// * ルームID=1、ユーザID=4
 		array(
-			'id' => 4,
-			'roles_room_id' => 4,
-			'user_id' => 4,
-			'room_id' => 1,
-			'created_user' => 1,
-			'created' => '2014-10-11 04:57:10',
-			'modified_user' => 1,
-			'modified' => '2014-10-11 04:57:10'
+			'id' => '4',
+			'roles_room_id' => '4',
+			'user_id' => '4',
+			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
+		// * ルームID=1、ユーザID=5
 		array(
-			'id' => 5,
-			'roles_room_id' => 5,
-			'user_id' => 5,
-			'room_id' => 1,
-			'created_user' => 1,
-			'created' => '2014-10-11 04:57:10',
-			'modified_user' => 1,
-			'modified' => '2014-10-11 04:57:10'
+			'id' => '5',
+			'roles_room_id' => '5',
+			'user_id' => '5',
+			'room_id' => '1',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
-		//別ルーム(room_id=4)
+		// * 別ルーム(room_id=4)
 		array(
-			'id' => 6,
-			'roles_room_id' => 6,
-			'user_id' => 1,
-			'room_id' => 4,
-			'created_user' => 1,
-			'created' => '2015-08-04 07:58:25',
-			'modified_user' => 1,
-			'modified' => '2015-08-04 07:58:25'
+			'id' => '6',
+			'roles_room_id' => '6',
+			'user_id' => '1',
+			'room_id' => '4',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
-		//別ルーム(room_id=5、ブロックなし)
+		// * 別ルーム(room_id=5、ブロックなし)
 		array(
-			'id' => 7,
-			'roles_room_id' => 7,
-			'user_id' => 1,
-			'room_id' => 5,
-			'created_user' => 1,
-			'created' => '2015-08-04 07:58:25',
-			'modified_user' => 1,
-			'modified' => '2015-08-04 07:58:25'
+			'id' => '7',
+			'roles_room_id' => '7',
+			'user_id' => '1',
+			'room_id' => '5',
+			'access_count' => '0',
+			'last_accessed' => null,
+			'previous_accessed' => null,
 		),
 	);
 

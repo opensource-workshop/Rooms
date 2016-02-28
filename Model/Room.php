@@ -54,6 +54,13 @@ class Room extends RoomsAppModel {
 	);
 
 /**
+ * Validation rules
+ *
+ * @var array
+ */
+	public $validate = array();
+
+/**
  * Behaviors
  *
  * @var array
@@ -66,6 +73,14 @@ class Room extends RoomsAppModel {
 		'Rooms.SaveRoomAssociations',
 		'Tree',
 	);
+
+/**
+ * 削除の子ルームID
+ * beforeDeleteで取得し、aftereDeleteで使用する
+ *
+ * @var array
+ */
+	protected $_childRoomIds = array();
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -150,28 +165,99 @@ class Room extends RoomsAppModel {
  * @see Model::save()
  */
 	public function beforeValidate($options = array()) {
-		//RoomsLanguageのバリデーション
-		$roomsLanguages = $this->data['RoomsLanguage'];
-		if (! $this->RoomsLanguage->validateMany($roomsLanguages)) {
-			$this->validationErrors = Hash::merge(
-				$this->validationErrors,
-				$this->RoomsLanguage->validationErrors
-			);
-			return false;
-		}
-
-		if (! isset($this->data['RoomRolePermission'])) {
-			return true;
-		}
-
-		$this->loadModels(array(
-			'RoomRolePermission' => 'Rooms.RoomRolePermission',
+		$this->validate = Hash::merge($this->validate, array(
+			'space_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => true,
+				),
+			),
+			'page_id_top' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'root_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => true,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'active' => array(
+				'boolean' => array(
+					'rule' => array('boolean'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'need_approval' => array(
+				'boolean' => array(
+					'rule' => array('boolean'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'default_participation' => array(
+				'boolean' => array(
+					'rule' => array('boolean'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			'page_layout_permitted' => array(
+				'boolean' => array(
+					'rule' => array('boolean'),
+					'message' => __d('net_commons', 'Invalid request.'),
+				),
+			),
+			//TreeBehaviorで使用
+			'parent_id' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'allowEmpty' => true,
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'lft' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
+				),
+			),
+			'rght' => array(
+				'numeric' => array(
+					'rule' => array('numeric'),
+					'message' => __d('net_commons', 'Invalid request.'),
+					'required' => false,
+					'on' => 'update', // Limit validation to 'create' or 'update' operations
+				),
+			),
 		));
-
-		foreach ($this->data[$this->RoomRolePermission->alias] as $permission) {
-			if (! $this->RoomRolePermission->validateMany($permission)) {
-				$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomRolePermission->validationErrors);
+		// * RoomsLanguageのバリデーション
+		if (isset($this->data['RoomsLanguage'])) {
+			$roomsLanguages = $this->data['RoomsLanguage'];
+			if (! $this->RoomsLanguage->validateMany($roomsLanguages)) {
+				$this->validationErrors = Hash::merge(
+					$this->validationErrors, $this->RoomsLanguage->validationErrors
+				);
 				return false;
+			}
+		}
+		// * RoomRolePermissionのバリデーション
+		if (isset($this->data['RoomRolePermission'])) {
+			$this->loadModels(array('RoomRolePermission' => 'Rooms.RoomRolePermission'));
+			foreach ($this->data[$this->RoomRolePermission->alias] as $permission => $data) {
+				$data = Hash::insert($data, '{s}.permission', $permission);
+				if (! $this->RoomRolePermission->validateMany($data)) {
+					$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomRolePermission->validationErrors);
+					return false;
+				}
 			}
 		}
 		return parent::beforeValidate($options);
@@ -246,13 +332,12 @@ class Room extends RoomsAppModel {
  * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
 	public function beforeDelete($cascade = true) {
-		$roomId = $this->id;
+		$children = $this->children($this->id, false, 'Room.id', 'Room.rght');
+		$this->_childRoomIds = Hash::extract($children, '{n}.Room.id');
+		$deleteRoomIds = $this->_childRoomIds;
+		$deleteRoomIds[] = $this->id;
 
-		$children = $this->Room->children($roomId, false, 'Room.id', 'Room.rght');
-		$roomIds = Hash::extract($children, '{n}.Room.id');
-		$roomIds[] = $roomId;
-
-		foreach ($roomIds as $childRoomId) {
+		foreach ($deleteRoomIds as $childRoomId) {
 			//frameデータの削除
 			$this->deleteFramesByRoom($childRoomId);
 
@@ -261,14 +346,6 @@ class Room extends RoomsAppModel {
 
 			//blockデータの削除
 			$this->deleteBlocksByRoom($childRoomId);
-
-			//Roomデータの削除
-			if ($roomId === $childRoomId) {
-				continue;
-			}
-			if (! $this->delete($childRoomId, false)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
 		}
 
 		return parent::beforeDelete($cascade);
@@ -279,10 +356,21 @@ class Room extends RoomsAppModel {
  *
  * @return void
  * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#afterdelete
+ * @throws InternalErrorException
  */
 	public function afterDelete() {
+		$deleteRoomIds = $this->_childRoomIds;
+		$deleteRoomIds[] = $this->id;
+
+		//子Roomデータの削除
+		if (! $this->deleteAll(array($this->alias . '.id' => $this->_childRoomIds), false)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		}
+
 		//Roomの関連データの削除
-		$this->deleteRoomAssociations($this->id);
+		foreach ($deleteRoomIds as $childRoomId) {
+			$this->deleteRoomAssociations($childRoomId);
+		}
 	}
 
 /**
@@ -294,7 +382,6 @@ class Room extends RoomsAppModel {
  */
 	public function saveRoom($data) {
 		$this->loadModels([
-			'Room' => 'Rooms.Room',
 			'RoomsLanguage' => 'Rooms.RoomsLanguage',
 		]);
 
@@ -309,7 +396,8 @@ class Room extends RoomsAppModel {
 
 		try {
 			//登録処理
-			if (! $room = $this->save(null, false)) {
+			$room = $this->save(null, false);
+			if (! $room) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
@@ -391,7 +479,6 @@ class Room extends RoomsAppModel {
  */
 	public function deleteRoom($data) {
 		$this->loadModels([
-			'Room' => 'Rooms.Room',
 			'RoomsLanguage' => 'Rooms.RoomsLanguage',
 		]);
 

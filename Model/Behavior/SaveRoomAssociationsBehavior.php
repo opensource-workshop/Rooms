@@ -55,7 +55,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		//--クエリの実行
 		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
 		$model->RolesRoom->query($sql);
-		if (! $model->RolesRoom->getAffectedRows() > 0) {
+		$result = $model->RolesRoom->getAffectedRows() > 0;
+		if (! $result) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 
@@ -67,7 +68,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
  *
  * @param Model $model Model using this behavior
  * @param array $data Room data
- * @param bool $isRoomCreate ルーム作成時かどうか
+ * @param bool $isRoomCreate ルーム作成時かどうか。trueの場合、ルーム作成時に呼ばれ、falseの場合、ユーザ作成時に呼ばれる
  * @return bool True on success
  * @throws InternalErrorException
  */
@@ -143,7 +144,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		//--クエリの実行
 		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
 		$model->RolesRoomsUser->query($sql);
-		if (! $model->RolesRoomsUser->getAffectedRows() > 0) {
+		$result = $model->RolesRoomsUser->getAffectedRows() > 0;
+		if (! $result) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 
@@ -187,7 +189,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		//--クエリの実行
 		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
 		$model->PluginsRoom->query($sql);
-		if (! $model->PluginsRoom->getAffectedRows() > 0) {
+		$result = $model->PluginsRoom->getAffectedRows() > 0;
+		if (! $result) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 
@@ -242,7 +245,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		//--クエリの実行
 		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
 		$model->RoomRolePermission->query($sql);
-		if (! $model->RoomRolePermission->getAffectedRows() > 0) {
+		$result = $model->RoomRolePermission->getAffectedRows() > 0;
+		if (! $result) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 		return true;
@@ -259,6 +263,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	public function saveDefaultPage(Model $model, $data) {
 		$model->loadModels([
 			'Page' => 'Pages.Page',
+			'Room' => 'Rooms.Room',
 		]);
 
 		$slug = OriginalKeyBehavior::generateKey('Page', $model->useDbConfig);
@@ -276,7 +281,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		));
 
 		$model->Page->create(false);
-		if (! $page = $model->Page->savePage($page, array('atomic' => false))) {
+		$page = $model->Page->savePage($page, array('atomic' => false));
+		if (! $page) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 

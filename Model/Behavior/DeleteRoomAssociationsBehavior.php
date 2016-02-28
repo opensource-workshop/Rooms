@@ -147,7 +147,6 @@ class DeleteRoomAssociationsBehavior extends ModelBehavior {
 			return true;
 		}
 
-		$tables = $model->query('SHOW TABLES');
 		$db = $model->getDataSource();
 		if (is_array($value)) {
 			$targets = array();
@@ -157,6 +156,8 @@ class DeleteRoomAssociationsBehavior extends ModelBehavior {
 		} else {
 			$targets = array($db->value($value, 'string'));
 		}
+
+		$tables = $model->query('SHOW TABLES');
 		foreach ($tables as $table) {
 			$tableName = array_shift($table['TABLE_NAMES']);
 			$columns = $model->query('SHOW COLUMNS FROM ' . $tableName);
