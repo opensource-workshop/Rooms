@@ -62,7 +62,7 @@
 </div>
 
 <?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.html_not_limited', array(
-		'label' => __d('rooms', 'Allow HTML tags?  e.g.) Javascript or iframe')
+		'label' => __d('rooms', 'Allow all html tags?  e.g.) Javascript or iframe')
 	)); ?>
 
 <div class="form-inline form-group">
