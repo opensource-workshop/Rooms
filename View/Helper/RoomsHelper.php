@@ -208,22 +208,14 @@ class RoomsHelper extends AppHelper {
 /**
  * ルームロール名の出力
  *
- * @param string $roomRoleKey ルームロールKey
+ * @param string|array $roomRoleKey ルームロールKey
  * @return string HTML
  */
 	public function roomRoleName($roomRoleKey) {
 		if (is_array($roomRoleKey)) {
-			if (isset($roomRoleKey['RolesRoom']['role_key'])) {
-				$roomRoleKey = $roomRoleKey['RolesRoom']['role_key'];
-			} else {
-				$roomRoleKey = '';
-			}
+			$roomRoleKey = Hash::get($roomRoleKey, 'RolesRoom.role_key', '');
 		}
-		if (isset($this->_View->viewVars['defaultRoles'][$roomRoleKey])) {
-			return h($this->_View->viewVars['defaultRoles'][$roomRoleKey]);
-		} else {
-			return '';
-		}
+		return h(Hash::get($this->_View->viewVars, 'defaultRoles.' . $roomRoleKey, ''));
 	}
 
 /**
