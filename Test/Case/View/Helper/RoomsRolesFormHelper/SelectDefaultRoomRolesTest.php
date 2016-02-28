@@ -133,6 +133,44 @@ class RoomsRolesFormHelperSelectDefaultRoomRolesTest extends NetCommonsHelperTes
 	}
 
 /**
+ * selectDefaultRoomRoles()のテスト
+ * [deleteオプション追加]
+ *
+ * @return void
+ */
+	public function testWithEmptyOption() {
+		//テスト実施
+		$result = $this->RoomsRolesForm->selectDefaultRoomRoles('Model.field', array(
+			'empty' => __d('rooms', 'Change the user role of the room'),
+		));
+
+		//チェック
+		$pattern = '<option value="">' . __d('rooms', 'Change the user role of the room') . '</option>';
+		$this->assertTextContains($pattern, $result);
+
+		$this->__assertSelectDefaultRoomRoles($result);
+	}
+
+/**
+ * selectDefaultRoomRoles()のテスト
+ * [deleteオプション追加]
+ *
+ * @return void
+ */
+	public function testWithDeleteOption() {
+		//テスト実施
+		$result = $this->RoomsRolesForm->selectDefaultRoomRoles('Model.field', array(
+			'options' => array('delete' => __d('users', 'Non members')),
+		));
+
+		//チェック
+		$this->__assertSelectDefaultRoomRoles($result);
+
+		$pattern = '<option value="delete">' . __d('users', 'Non members') . '</option>';
+		$this->assertTextContains($pattern, $result);
+	}
+
+/**
  * selectDefaultRoomRoles()のチェック
  *
  * @return void
