@@ -32,7 +32,7 @@ NetCommonsApp.controller('RoomsRolesUsers',
         var token = {};
         var elements = $('input[name="data[_Token][unlocked]"]');
         if (! angular.isUndefined(elements[0])) {
-          token = angular.extend(token, {_Token: {unlocked: elements[0].value}});
+          token = {_Token: {unlocked: elements[0].value}};
         }
 
         $scope.data = angular.extend({
@@ -82,7 +82,8 @@ NetCommonsApp.controller('RoomsRolesUsers',
        * 保存処理
        */
       $scope.save = function(userId, roleKey) {
-        $scope.data['RolesRoom'][userId]['role_key'] = $('#' + roleKey)[0].value;
+        var elements = $('#' + roleKey)[0];
+        $scope.data['RolesRoom'][userId]['role_key'] = elements.value;
 
         if (! $('#' + roleKey)[0].value) {
           $scope.data['Role']['key'] = 'delete';
