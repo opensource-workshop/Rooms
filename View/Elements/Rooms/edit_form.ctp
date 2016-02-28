@@ -73,6 +73,7 @@
 				'0' => __d('rooms', 'Under maintenance'),
 				'1' => __d('rooms', 'Open'),
 			),
+			'value' => (int)Hash::get($this->data, 'Room.active'),
 			'between' => ' ',
 			'disabled' => ! (bool)$this->data['Room']['parent_id']
 		)); ?>

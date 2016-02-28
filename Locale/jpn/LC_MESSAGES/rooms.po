@@ -50,7 +50,7 @@ msgstr "ルーム"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:52
 msgid "Open for all members"
-msgstr "すべてのの会員をデフォルトで参加させる"
+msgstr "すべての会員をデフォルトで参加させる"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:64
 msgid "Default room role"
