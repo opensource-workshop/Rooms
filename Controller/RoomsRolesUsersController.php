@@ -80,7 +80,7 @@ class RoomsRolesUsersController extends RoomsAppController {
 		$room = $this->viewVars['room'];
 
 		//登録処理
-		if ($this->request->isPut()) {
+		if ($this->request->is('put')) {
 			foreach ($this->request->data['User']['id'] as $userId => $checked) {
 				if (! $checked) {
 					unset($this->request->data['RolesRoomsUser'][$userId]);
