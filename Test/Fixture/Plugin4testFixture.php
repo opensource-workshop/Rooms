@@ -46,6 +46,7 @@ class Plugin4testFixture extends PluginFixture {
 			'weight' => '1',
 			'type' => '2',
 			'default_action' => 'user_manager/index',
+			'default_setting_action' => '',
 		),
 		array(
 			'language_id' => '2',
@@ -54,6 +55,25 @@ class Plugin4testFixture extends PluginFixture {
 			'weight' => '1',
 			'type' => '2',
 			'default_action' => 'rooms/index/2',
+			'default_setting_action' => '',
+		),
+		array(
+			'language_id' => '2',
+			'key' => 'tests',
+			'name' => 'Test plugin',
+			'weight' => '1',
+			'type' => '1',
+			'default_action' => 'tests/index',
+			'default_setting_action' => 'tests/edit',
+		),
+		array(
+			'language_id' => '2',
+			'key' => 'test2s',
+			'name' => 'Test plugin 2',
+			'weight' => '2',
+			'type' => '1',
+			'default_action' => 'test2s/index',
+			'default_setting_action' => 'test2s/edit',
 		),
 	);
 

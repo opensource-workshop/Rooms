@@ -55,6 +55,14 @@ class PluginsRole4testFixture extends PluginsRoleFixture {
 			'role_key' => 'system_administrator',
 			'plugin_key' => 'user_manager',
 		),
+		array(
+			'role_key' => 'room_administrator',
+			'plugin_key' => 'tests',
+		),
+		array(
+			'role_key' => 'room_administrator',
+			'plugin_key' => 'test2s',
+		),
 	);
 
 }

@@ -206,9 +206,7 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
 		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.general_user.id');
 		$this->__assetRequestData($data, 'RoomRolePermission.html_not_limited.general_user.value');
 
-		$pattern = '/<form action=".*?' . preg_quote('/rooms/rooms/edit/' . $spaceId . '/' . $roomId, '/') . '"/';
-		$this->assertRegExp($pattern, $this->view);
-
+		$this->assertInput('form', null, '/rooms/rooms/edit/' . $spaceId . '/' . $roomId, $this->view);
 		$this->assertInput('input', '_method', 'PUT', $this->view);
 		$this->assertInput('input', 'data[Room][id]', $roomId, $this->view);
 		$this->assertInput('input', 'data[Room][space_id]', $spaceId, $this->view);

@@ -63,7 +63,7 @@ class PluginsRoomsController extends RoomsAppController {
 				$activeSpaceId = $this->viewVars['activeSpaceId'];
 				$this->redirect('/rooms/' . $this->viewVars['spaces'][$activeSpaceId]['Space']['default_setting_action']);
 			} else {
-				$this->throwBadRequest();
+				return $this->throwBadRequest();
 			}
 
 		} else {
