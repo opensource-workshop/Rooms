@@ -66,7 +66,7 @@ class RoomsController extends RoomsAppController {
 		$this->$model = ClassRegistry::init($model . '.' . $model);
 		$this->set('participationFixed', $this->$model->participationFixed);
 
-		if ($this->request->isPost()) {
+		if ($this->request->is('post')) {
 			//不要パラメータ除去
 			unset($this->request->data['save'], $this->request->data['active_lang_id']);
 
@@ -126,7 +126,7 @@ class RoomsController extends RoomsAppController {
 		$this->$model = ClassRegistry::init($model . '.' . $model);
 		$this->set('participationFixed', $this->$model->participationFixed);
 
-		if ($this->request->isPut()) {
+		if ($this->request->is('put')) {
 			//不要パラメータ除去
 			unset($this->request->data['save'], $this->request->data['active_lang_id']);
 
@@ -159,7 +159,7 @@ class RoomsController extends RoomsAppController {
  * @return void
  */
 	public function delete() {
-		if (! $this->request->isDelete()) {
+		if (! $this->request->is('delete')) {
 			return $this->throwBadRequest();
 		}
 
@@ -178,7 +178,7 @@ class RoomsController extends RoomsAppController {
  * @return void
  */
 	public function active() {
-		if (! $this->request->isPut()) {
+		if (! $this->request->is('put')) {
 			return $this->throwBadRequest();
 		}
 

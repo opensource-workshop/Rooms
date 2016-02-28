@@ -53,7 +53,7 @@ class PluginsRoomsController extends RoomsAppController {
  * @return void
  */
 	public function edit() {
-		if ($this->request->isPut()) {
+		if ($this->request->is('put')) {
 			//登録処理
 			if ($this->PluginsRoom->savePluginsRoomsByRoomId(
 					$this->request->data['Room']['id'],

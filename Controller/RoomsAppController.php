@@ -71,9 +71,9 @@ class RoomsAppController extends AppController {
 
 		//ルームデータチェック＆セット
 		if ($this->params['action'] !== 'index') {
-			if ($this->request->isPost()) {
+			if ($this->request->is('post')) {
 				$roomId = Hash::get($this->data, 'Room.parent_id');
-			} elseif ($this->request->isPut() || $this->request->isDelete()) {
+			} elseif ($this->request->is('put') || $this->request->is('delete')) {
 				$roomId = Hash::get($this->data, 'Room.id');
 			} else {
 				$roomId = Hash::get($this->params['pass'], '1');
