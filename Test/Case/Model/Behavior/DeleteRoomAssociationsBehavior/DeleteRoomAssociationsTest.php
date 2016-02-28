@@ -77,7 +77,7 @@ class DeleteRoomAssociationsBehaviorDeleteRoomAssociationsTest extends NetCommon
 	public function testDeleteRoomAssociations($roomId) {
 		//事前チェック
 		$this->__assertTable('RoomRolePermission', 15, array('id', 'roles_room_id'));
-		$this->__assertTable('PluginsRoom', 3, array('id', 'room_id'));
+		$this->__assertTable('PluginsRoom', 4, array('id', 'room_id'));
 
 		//テスト実施
 		$result = $this->TestModel->deleteRoomAssociations($roomId);

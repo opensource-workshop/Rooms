@@ -70,7 +70,6 @@ class RolesRoomsUserSaveRolesRoomsUsersTest extends NetCommonsSaveTest {
 		$data['RolesRoomsUser'][1] = (new RolesRoomsUserFixture())->records[2];
 		$data = Hash::insert($data, 'RolesRoomsUser.{n}.room_id', '99');
 
-		//TODO:テストパタンを書く
 		$results = array();
 		// * 編集の登録処理
 		$results[0] = array($data);

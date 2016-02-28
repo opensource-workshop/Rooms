@@ -173,6 +173,8 @@ class RoomsRolesFormHelperSelectDefaultRoomRolesTest extends NetCommonsHelperTes
 /**
  * selectDefaultRoomRoles()のチェック
  *
+ * @param string $result 結果
+ * @param string $format 文言のフォーマット(sprintf)
  * @return void
  */
 	private function __assertSelectDefaultRoomRoles($result, $format = '%s') {

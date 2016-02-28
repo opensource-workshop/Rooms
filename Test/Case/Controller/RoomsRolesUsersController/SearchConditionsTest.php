@@ -58,7 +58,7 @@ class RoomsRolesUsersControllerSearchConditionsTest extends NetCommonsController
  *
  * @return void
  */
-	public function testSearch_conditions() {
+	public function testSearchConditions() {
 		//ログイン
 		TestAuthGeneral::login($this);
 

@@ -106,7 +106,6 @@ class RolesRoomsUserDeleteRolesRoomsUsersTest extends NetCommonsDeleteTest {
 			'conditions' => array('id' => $ids),
 		));
 		$this->assertEquals(0, $count);
-
 	}
 
 /**

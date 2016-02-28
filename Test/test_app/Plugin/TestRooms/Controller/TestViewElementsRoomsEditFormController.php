@@ -44,6 +44,7 @@ class TestViewElementsRoomsEditFormController extends AppController {
 /**
  * edit_form
  *
+ * @param int $roomId ルームID
  * @return void
  */
 	public function edit_form($roomId) {

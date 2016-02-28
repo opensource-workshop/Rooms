@@ -194,6 +194,12 @@ class RoomFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
  * settingTabs()のチェック
  *
  * @param string $result 結果
+ * @param int $spaceId スペースID
+ * @param int $roomId ルームID
+ * @param string $action アクション
+ * @param string $roomsAct ルーム設定タブのアクティブかどうか
+ * @param string $roomsRolesUsersAct ユーザ選択タブのアクティブかどうか
+ * @param string $pluginsRoomsAct プラグイン選択タブのアクティブかどうか
  * @return void
  */
 	private function __assertHelper($result, $spaceId, $roomId, $action, $roomsAct, $roomsRolesUsersAct, $pluginsRoomsAct) {

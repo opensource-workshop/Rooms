@@ -126,6 +126,7 @@ class RoomsRolesFormHelperCheckboxRoomRolesTest extends NetCommonsHelperTestCase
 /**
  * checkboxRoomRoles()のチェック
  *
+ * @param string $result 結果
  * @return void
  */
 	private function __assertCheckboxRoomRoles($result) {
