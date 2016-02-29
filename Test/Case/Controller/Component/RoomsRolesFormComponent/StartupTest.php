@@ -70,9 +70,8 @@ class RoomsRolesFormComponentStartupTest extends NetCommonsControllerTestCase {
  */
 	public function testStartup() {
 		//テスト実行
-		$this->_testNcAction('/test_rooms/test_rooms_roles_form_component/index', array(
-			'method' => 'get'
-		));
+		$this->_testGetAction('/test_rooms/test_rooms_roles_form_component/index',
+				array('method' => 'assertNotEmpty'), null, 'view');
 
 		//チェック
 		$pattern = '/' . preg_quote('Controller/Component/TestRoomsRolesFormComponent/index', '/') . '/';
@@ -89,9 +88,8 @@ class RoomsRolesFormComponentStartupTest extends NetCommonsControllerTestCase {
  */
 	public function testRequestAction() {
 		//テスト実行
-		$this->_testNcAction('/test_rooms/test_rooms_roles_form_component/index_request_action', array(
-			'method' => 'get'
-		));
+		$this->_testGetAction('/test_rooms/test_rooms_roles_form_component/index_request_action',
+				array('method' => 'assertNotEmpty'), null, 'view');
 
 		//チェック
 		$pattern = '/' . preg_quote('Controller/Component/TestRoomsRolesFormComponent/index', '/') . '/';
