@@ -104,9 +104,8 @@ class RoomsAppControllerPermissionTest extends NetCommonsControllerTestCase {
 		}
 
 		//テスト実行
-		$this->_testNcAction('/test_rooms/test_rooms_app_controller_permission/index/2', array(
-			'method' => 'get'
-		));
+		$this->_testGetAction('/test_rooms/test_rooms_app_controller_permission/index/2',
+				array('method' => 'assertNotEmpty'), null, 'view');
 
 		if (! $exception) {
 			$this->assertNotEmpty($this->view);

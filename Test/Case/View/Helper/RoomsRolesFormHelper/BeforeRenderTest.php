@@ -55,9 +55,8 @@ class RoomsRolesFormHelperBeforeRenderTest extends NetCommonsControllerTestCase 
 		$this->generateNc('TestRooms.TestRoomsRolesFormHelperBeforeRender');
 
 		//テスト実行
-		$this->_testNcAction('/test_rooms/test_rooms_roles_form_helper_before_render/index', array(
-			'method' => 'get'
-		));
+		$this->_testGetAction('/test_rooms/test_rooms_roles_form_helper_before_render/index',
+				array('method' => 'assertNotEmpty'), null, 'view');
 
 		//チェック
 		$pattern = '/' . preg_quote('View/Helper/TestRoomsRolesFormHelperBeforeRender', '/') . '/';

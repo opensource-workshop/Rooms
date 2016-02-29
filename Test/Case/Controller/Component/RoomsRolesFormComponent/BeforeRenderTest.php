@@ -72,9 +72,8 @@ class RoomsRolesFormComponentBeforeRenderTest extends NetCommonsControllerTestCa
 		TestAuthGeneral::login($this);
 
 		//テスト実行
-		$this->_testNcAction('/test_rooms/test_rooms_roles_form_component/index_before_render', array(
-			'method' => 'get'
-		));
+		$this->_testGetAction('/test_rooms/test_rooms_roles_form_component/index_before_render',
+				array('method' => 'assertNotEmpty'), null, 'view');
 
 		//チェック
 		$pattern = '/' . preg_quote('Controller/Component/TestRoomsRolesFormComponent', '/') . '/';
@@ -90,9 +89,8 @@ class RoomsRolesFormComponentBeforeRenderTest extends NetCommonsControllerTestCa
  */
 	public function testRequestAction() {
 		//テスト実行
-		$this->_testNcAction('/test_rooms/test_rooms_roles_form_component/index_request_action', array(
-			'method' => 'get'
-		));
+		$this->_testGetAction('/test_rooms/test_rooms_roles_form_component/index_request_action',
+				array('method' => 'assertNotEmpty'), null, 'view');
 
 		//チェック
 		$pattern = '/' . preg_quote('Controller/Component/TestRoomsRolesFormComponent', '/') . '/';
