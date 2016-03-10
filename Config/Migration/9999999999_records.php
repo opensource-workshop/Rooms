@@ -117,6 +117,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '1', 'permission' => 'page_editable', 'value' => '1'),
 			array('roles_room_id' => '1', 'permission' => 'html_not_limited', 'value' => '1'),
 			array('roles_room_id' => '1', 'permission' => 'mail_content_receivable', 'value' => '1'),
+			array('roles_room_id' => '1', 'permission' => 'mail_editable', 'value' => '1'),
 			//--編集長
 			array('roles_room_id' => '2', 'permission' => 'block_editable', 'value' => '1'),
 			array('roles_room_id' => '2', 'permission' => 'content_comment_creatable', 'value' => '1'),
@@ -129,6 +130,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '2', 'permission' => 'page_editable', 'value' => '1'),
 			array('roles_room_id' => '2', 'permission' => 'html_not_limited', 'value' => '0'),
 			array('roles_room_id' => '2', 'permission' => 'mail_content_receivable', 'value' => '1'),
+			array('roles_room_id' => '2', 'permission' => 'mail_editable', 'value' => '1'),
 			//--編集者
 			array('roles_room_id' => '3', 'permission' => 'block_editable', 'value' => '0'),
 			array('roles_room_id' => '3', 'permission' => 'content_comment_creatable', 'value' => '1'),
@@ -141,6 +143,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '3', 'permission' => 'page_editable', 'value' => '0'),
 			array('roles_room_id' => '3', 'permission' => 'html_not_limited', 'value' => '0'),
 			array('roles_room_id' => '3', 'permission' => 'mail_content_receivable', 'value' => '1'),
+			array('roles_room_id' => '3', 'permission' => 'mail_editable', 'value' => '0'),
 			//--一般
 			array('roles_room_id' => '4', 'permission' => 'block_editable', 'value' => '0'),
 			array('roles_room_id' => '4', 'permission' => 'content_comment_creatable', 'value' => '1'),
@@ -153,6 +156,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '4', 'permission' => 'page_editable', 'value' => '0'),
 			array('roles_room_id' => '4', 'permission' => 'html_not_limited', 'value' => '0'),
 			array('roles_room_id' => '4', 'permission' => 'mail_content_receivable', 'value' => '1'),
+			array('roles_room_id' => '4', 'permission' => 'mail_editable', 'value' => '0'),
 			//--ゲスト
 			array('roles_room_id' => '5', 'permission' => 'block_editable', 'value' => '0'),
 			array('roles_room_id' => '5', 'permission' => 'content_comment_creatable', 'value' => '0'),
@@ -165,6 +169,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '5', 'permission' => 'page_editable', 'value' => '0'),
 			array('roles_room_id' => '5', 'permission' => 'html_not_limited', 'value' => '0'),
 			array('roles_room_id' => '5', 'permission' => 'mail_content_receivable', 'value' => '0'),
+			array('roles_room_id' => '5', 'permission' => 'mail_editable', 'value' => '0'),
 			//プライベートスペース
 			//--ルーム管理者
 			array('roles_room_id' => '6', 'permission' => 'block_editable', 'value' => '1'),
@@ -178,6 +183,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '6', 'permission' => 'page_editable', 'value' => '1'),
 			array('roles_room_id' => '6', 'permission' => 'html_not_limited', 'value' => '1'),
 			array('roles_room_id' => '6', 'permission' => 'mail_content_receivable', 'value' => '1'),
+			array('roles_room_id' => '6', 'permission' => 'mail_editable', 'value' => '1'),
 			//グループスペース
 			//--ルーム管理者
 			array('roles_room_id' => '7', 'permission' => 'block_editable', 'value' => '1'),
@@ -191,6 +197,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '7', 'permission' => 'page_editable', 'value' => '1'),
 			array('roles_room_id' => '7', 'permission' => 'html_not_limited', 'value' => '0'),
 			array('roles_room_id' => '7', 'permission' => 'mail_content_receivable', 'value' => '1'),
+			array('roles_room_id' => '7', 'permission' => 'mail_editable', 'value' => '1'),
 			//--編集長
 			array('roles_room_id' => '8', 'permission' => 'block_editable', 'value' => '1'),
 			array('roles_room_id' => '8', 'permission' => 'content_comment_creatable', 'value' => '1'),
@@ -203,6 +210,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '8', 'permission' => 'page_editable', 'value' => '1'),
 			array('roles_room_id' => '8', 'permission' => 'html_not_limited', 'value' => '0'),
 			array('roles_room_id' => '8', 'permission' => 'mail_content_receivable', 'value' => '1'),
+			array('roles_room_id' => '8', 'permission' => 'mail_editable', 'value' => '1'),
 			//--編集者
 			array('roles_room_id' => '9', 'permission' => 'block_editable', 'value' => '0'),
 			array('roles_room_id' => '9', 'permission' => 'content_comment_creatable', 'value' => '1'),
@@ -215,6 +223,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '9', 'permission' => 'page_editable', 'value' => '0'),
 			array('roles_room_id' => '9', 'permission' => 'html_not_limited', 'value' => '0'),
 			array('roles_room_id' => '9', 'permission' => 'mail_content_receivable', 'value' => '1'),
+			array('roles_room_id' => '9', 'permission' => 'mail_editable', 'value' => '0'),
 			//--一般
 			array('roles_room_id' => '10', 'permission' => 'block_editable', 'value' => '0'),
 			array('roles_room_id' => '10', 'permission' => 'content_comment_creatable', 'value' => '1'),
@@ -227,6 +236,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '10', 'permission' => 'page_editable', 'value' => '0'),
 			array('roles_room_id' => '10', 'permission' => 'html_not_limited', 'value' => '0'),
 			array('roles_room_id' => '10', 'permission' => 'mail_content_receivable', 'value' => '1'),
+			array('roles_room_id' => '10', 'permission' => 'mail_editable', 'value' => '0'),
 			//--ゲスト
 			array('roles_room_id' => '11', 'permission' => 'block_editable', 'value' => '0'),
 			array('roles_room_id' => '11', 'permission' => 'content_comment_creatable', 'value' => '0'),
@@ -239,6 +249,7 @@ class Records extends NetCommonsMigration {
 			array('roles_room_id' => '11', 'permission' => 'page_editable', 'value' => '0'),
 			array('roles_room_id' => '11', 'permission' => 'html_not_limited', 'value' => '0'),
 			array('roles_room_id' => '11', 'permission' => 'mail_content_receivable', 'value' => '0'),
+			array('roles_room_id' => '11', 'permission' => 'mail_editable', 'value' => '0'),
 		),
 		'RoomRole' => array(
 			array('id' => '1', 'role_key' => 'room_administrator', 'level' => '2147483647', 'weight' => '1'),
