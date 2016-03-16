@@ -272,7 +272,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 				'slug' => $slug,
 				'permalink' => $slug,
 				'room_id' => $data['Room']['id'],
-				'parent_id' => null
+				'root_id' => $model->getParentPageId($data),
+				'parent_id' => $model->getParentPageId($data)
 			),
 			'LanguagesPage' => array(
 				'language_id' => Current::read('Language.id'),
@@ -294,6 +295,37 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		}
 
 		return true;
+	}
+
+/**
+ * 親ページIDを取得する
+ *
+ * @param Model $model ビヘイビアの呼び出し前のモデル
+ * @param array $page ページデータ
+ * @return string
+ */
+	public function getParentPageId(Model $model, $page) {
+		if (Hash::get($page, 'Room.parent_id') &&
+				! in_array((string)Hash::get($page, 'Room.parent_id'), Room::$spaceRooms, true)) {
+			$model->loadModels(['Room' => 'Rooms.Room']);
+			$parentRoom = $model->Room->find('first', array(
+				'recursive' => -1,
+				'conditions' => array('id' => Hash::get($page, 'Room.parent_id'))
+			));
+
+			return Hash::get($parentRoom, 'Room.page_id_top');
+		}
+
+		$spaceId = Hash::get($page, 'Room.space_id');
+		if ($spaceId === Space::PUBLIC_SPACE_ID) {
+			return Page::PUBLIC_ROOT_PAGE_ID;
+		} elseif ($spaceId === Space::PRIVATE_SPACE_ID) {
+			return Page::PRIVATE_ROOT_PAGE_ID;
+		} elseif ($spaceId === Space::ROOM_SPACE_ID) {
+			return Page::ROOM_ROOT_PAGE_ID;
+		}
+
+		return false;
 	}
 
 /**
