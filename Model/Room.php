@@ -264,6 +264,22 @@ class Room extends RoomsAppModel {
 	}
 
 /**
+ * Called before each save operation, after validation. Return a non-true result
+ * to halt the save.
+ *
+ * @param array $options Options passed from Model::save().
+ * @return bool True if the operation should continue, false if it should abort
+ * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforesave
+ * @see Model::save()
+ */
+	public function beforeSave($options = array()) {
+		if (Hash::get($this->data, 'Room.id') && Hash::check($this->data, 'Room.need_approval')) {
+			$this->changeNeedApproval($this->data);
+		}
+		return true;
+	}
+
+/**
  * Called after each successful save operation.
  *
  * @param bool $created True if this save created a new record

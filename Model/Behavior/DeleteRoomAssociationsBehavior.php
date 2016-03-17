@@ -67,6 +67,13 @@ class DeleteRoomAssociationsBehavior extends ModelBehavior {
 			),
 		));
 		$pageIds = array_keys($pageIds);
+
+		//Tree構成の関係で、ページの削除はdeleteAllでやる
+		CakeLog::info('[room deleting] Page->deleteAll ' . implode(', ', $pageIds));
+		if (!$model->Page->deleteAll(array($model->Page->alias . '.id' => $pageIds), false)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		}
+
 		$this->queryDeleteAll($model, 'page_id', $pageIds);
 
 		return true;

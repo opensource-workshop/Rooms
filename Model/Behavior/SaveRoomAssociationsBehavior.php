@@ -22,7 +22,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * RolesRoomのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
@@ -66,7 +66,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * RolesRoomsUserのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @param bool $isRoomCreate ルーム作成時かどうか。trueの場合、ルーム作成時に呼ばれ、falseの場合、ユーザ作成時に呼ばれる
  * @return bool True on success
@@ -155,7 +155,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * RolesPluginsRoomのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
@@ -200,7 +200,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * RoomRolePermissionのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
@@ -255,7 +255,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * Pageのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
@@ -300,7 +300,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * 親ページIDを取得する
  *
- * @param Model $model ビヘイビアの呼び出し前のモデル
+ * @param Model $model 呼び出し前のモデル
  * @param array $page ページデータ
  * @return string
  */
@@ -326,6 +326,54 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		}
 
 		return false;
+	}
+
+/**
+ * 承認有無を切り替えた際の登録処理
+ * 特に承認なし⇒承認ありに変更した場合、
+ * BlockRolePermissionのcontent_publishableとcontent_comment_publishableを削除する
+ *
+ * @param Model $model 呼び出し元のモデル
+ * @param array $data Room data
+ * @return bool True on success
+ * @throws InternalErrorException
+ */
+	public function changeNeedApproval(Model $model, $data) {
+		$model->loadModels([
+			'Block' => 'Blocks.Block',
+			'BlockRolePermission' => 'Blocks.BlockRolePermission',
+			'Room' => 'Rooms.Room',
+		]);
+
+		if (! Hash::get($data, 'Room.need_approval') ||
+				! Hash::get($data, 'Room.id')) {
+			return true;
+		}
+
+		$result = $model->Room->find('first', array(
+			'recursive' => -1,
+			'fields' => array('need_approval'),
+			'conditions' => array('id' => Hash::get($data, 'Room.id')),
+		));
+		if (Hash::get($result, 'Room.need_approval') === Hash::get($data, 'Room.need_approval')) {
+			return true;
+		}
+		$blocks = $model->Block->find('list', array(
+			'recursive' => -1,
+			'fields' => array('id', 'key'),
+			'conditions' => array('room_id' => Hash::get($data, 'Room.id')),
+		));
+
+		$blockKeys = array_unique(array_values($blocks));
+		$conditions = array(
+			$model->BlockRolePermission->alias . '.block_key' => $blockKeys,
+			$model->BlockRolePermission->alias . '.permission' => array('content_publishable', 'content_comment_publishable'),
+		);
+		if (! $model->BlockRolePermission->deleteAll($conditions, false)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		}
+
+		return true;
 	}
 
 /**
