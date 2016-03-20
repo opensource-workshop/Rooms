@@ -35,6 +35,10 @@ class TestViewElementsRoomsEditFormController extends AppController {
  */
 	public $components = array(
 		'M17n.SwitchLanguage',
+		'NetCommons.Permission' => array(
+			'type' => PermissionComponent::CHECK_TYEP_SYSTEM_PLUGIN,
+			'allow' => array()
+		),
 		'Rooms.Rooms',
 		'Rooms.RoomsRolesForm' => array(
 			'permissions' => array('content_publishable', 'html_not_limited')

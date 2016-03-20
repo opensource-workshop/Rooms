@@ -52,6 +52,7 @@ class DeleteRoomAssociationsBehavior extends ModelBehavior {
  * @param Model $model ビヘイビア呼び出し元モデル
  * @param int $roomId ルームID
  * @return bool True on success
+ * @throws InternalErrorException
  */
 	public function deletePagesByRoom(Model $model, $roomId) {
 		$model->loadModels([

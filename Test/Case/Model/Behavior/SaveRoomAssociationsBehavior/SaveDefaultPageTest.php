@@ -127,9 +127,9 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 		$expected = array('Page' => array(
 			'id' => $pageId,
 			'room_id' => $roomId,
-			'parent_id' => null,
-			'lft' => '9',
-			'rght' => '10',
+			'parent_id' => '1',
+			'lft' => '4',
+			'rght' => '5',
 			'permalink' => OriginalKeyBehavior::generateKey('Page', $this->TestModel->useDbConfig),
 			'slug' => OriginalKeyBehavior::generateKey('Page', $this->TestModel->useDbConfig),
 		));
