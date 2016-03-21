@@ -263,7 +263,7 @@ class Records extends NetCommonsMigration {
 			array(
 				'id' => '1',
 				'space_id' => '2',
-				'page_id_top' => '1',
+				'page_id_top' => '4',
 				'parent_id' => null,
 				'lft' => '1',
 				'rght' => '2',

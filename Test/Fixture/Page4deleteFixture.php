@@ -48,9 +48,6 @@ class Page4deleteFixture extends PageFixture {
 			'rght' => '2',
 			'permalink' => '',
 			'slug' => null,
-			'is_published' => true,
-			'from' => null,
-			'to' => null,
 			'is_container_fluid' => true,
 		),
 		//削除対象のデータ
@@ -62,9 +59,6 @@ class Page4deleteFixture extends PageFixture {
 			'rght' => '4',
 			'permalink' => 'delete_page_1',
 			'slug' => 'delete_page_1',
-			'is_published' => true,
-			'from' => null,
-			'to' => null,
 			'is_container_fluid' => true,
 		),
 		array(
@@ -75,9 +69,6 @@ class Page4deleteFixture extends PageFixture {
 			'rght' => '6',
 			'permalink' => 'delete_page_2',
 			'slug' => 'delete_page_2',
-			'is_published' => true,
-			'from' => null,
-			'to' => null,
 			'is_container_fluid' => true,
 		),
 	);

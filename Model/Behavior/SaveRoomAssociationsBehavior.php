@@ -22,7 +22,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * RolesRoomのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
@@ -66,7 +66,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * RolesRoomsUserのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @param bool $isRoomCreate ルーム作成時かどうか。trueの場合、ルーム作成時に呼ばれ、falseの場合、ユーザ作成時に呼ばれる
  * @return bool True on success
@@ -155,7 +155,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * RolesPluginsRoomのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
@@ -200,7 +200,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * RoomRolePermissionのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
@@ -255,7 +255,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 /**
  * Pageのデフォルトデータ登録処理
  *
- * @param Model $model Model using this behavior
+ * @param Model $model 呼び出し元のモデル
  * @param array $data Room data
  * @return bool True on success
  * @throws InternalErrorException
@@ -272,7 +272,8 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 				'slug' => $slug,
 				'permalink' => $slug,
 				'room_id' => $data['Room']['id'],
-				'parent_id' => null
+				'root_id' => $model->getParentPageId($data),
+				'parent_id' => $model->getParentPageId($data)
 			),
 			'LanguagesPage' => array(
 				'language_id' => Current::read('Language.id'),
@@ -290,6 +291,85 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			array($model->Room->alias . '.page_id_top' => $page['Page']['id']),
 			array($model->Room->alias . '.id' => $data['Room']['id'])
 		)) {
+			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+		}
+
+		return true;
+	}
+
+/**
+ * 親ページIDを取得する
+ *
+ * @param Model $model 呼び出し前のモデル
+ * @param array $page ページデータ
+ * @return string
+ */
+	public function getParentPageId(Model $model, $page) {
+		if (Hash::get($page, 'Room.parent_id') &&
+				! in_array((string)Hash::get($page, 'Room.parent_id'), Room::$spaceRooms, true)) {
+			$model->loadModels(['Room' => 'Rooms.Room']);
+			$parentRoom = $model->Room->find('first', array(
+				'recursive' => -1,
+				'conditions' => array('id' => Hash::get($page, 'Room.parent_id'))
+			));
+
+			return Hash::get($parentRoom, 'Room.page_id_top');
+		}
+
+		$spaceId = Hash::get($page, 'Room.space_id');
+		if ($spaceId === Space::PUBLIC_SPACE_ID) {
+			return Page::PUBLIC_ROOT_PAGE_ID;
+		} elseif ($spaceId === Space::PRIVATE_SPACE_ID) {
+			return Page::PRIVATE_ROOT_PAGE_ID;
+		} elseif ($spaceId === Space::ROOM_SPACE_ID) {
+			return Page::ROOM_ROOT_PAGE_ID;
+		}
+
+		return false;
+	}
+
+/**
+ * 承認有無を切り替えた際の登録処理
+ * 特に承認なし⇒承認ありに変更した場合、
+ * BlockRolePermissionのcontent_publishableとcontent_comment_publishableを削除する
+ *
+ * @param Model $model 呼び出し元のモデル
+ * @param array $data Room data
+ * @return bool True on success
+ * @throws InternalErrorException
+ */
+	public function changeNeedApproval(Model $model, $data) {
+		$model->loadModels([
+			'Block' => 'Blocks.Block',
+			'BlockRolePermission' => 'Blocks.BlockRolePermission',
+			'Room' => 'Rooms.Room',
+		]);
+
+		if (! Hash::get($data, 'Room.need_approval') ||
+				! Hash::get($data, 'Room.id')) {
+			return true;
+		}
+
+		$result = $model->Room->find('first', array(
+			'recursive' => -1,
+			'fields' => array('need_approval'),
+			'conditions' => array('id' => Hash::get($data, 'Room.id')),
+		));
+		if (Hash::get($result, 'Room.need_approval') === Hash::get($data, 'Room.need_approval')) {
+			return true;
+		}
+		$blocks = $model->Block->find('list', array(
+			'recursive' => -1,
+			'fields' => array('id', 'key'),
+			'conditions' => array('room_id' => Hash::get($data, 'Room.id')),
+		));
+
+		$blockKeys = array_unique(array_values($blocks));
+		$conditions = array(
+			$model->BlockRolePermission->alias . '.block_key' => $blockKeys,
+			$model->BlockRolePermission->alias . '.permission' => array('content_publishable', 'content_comment_publishable'),
+		);
+		if (! $model->BlockRolePermission->deleteAll($conditions, false)) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 

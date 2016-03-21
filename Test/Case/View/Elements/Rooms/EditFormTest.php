@@ -59,6 +59,8 @@ class RoomsViewElementsRoomsEditFormTest extends NetCommonsControllerTestCase {
 		NetCommonsCakeTestCase::loadTestPlugin($this, 'Rooms', 'TestRooms');
 		//テストコントローラ生成
 		$this->generateNc('TestRooms.TestViewElementsRoomsEditForm');
+		//ログイン
+		TestAuthGeneral::login($this);
 	}
 
 /**
