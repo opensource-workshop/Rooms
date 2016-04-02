@@ -87,6 +87,24 @@ class DeleteRoomAssociationsBehaviorDeletePagesByRoomTest extends NetCommonsMode
 	}
 
 /**
+ * deletePagesByRoom()のExceptionErrorテスト
+ *
+ * @param int $roomId ルームID
+ * @dataProvider dataProvider
+ * @return void
+ */
+	public function testDeletePagesByRoomOnExceptionError($roomId) {
+		$this->_mockForReturnFalse('TestModel', 'Pages.Page', 'deleteAll');
+
+		//事前チェック
+		$this->__assertTable('DeleteTestPageId', 3, array('id', 'page_id'));
+
+		//テスト実施
+		$this->setExpectedException('InternalErrorException');
+		$this->TestModel->deletePagesByRoom($roomId);
+	}
+
+/**
  * テーブルのチェック
  *
  * @param string $model Model名
