@@ -98,8 +98,9 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
 			array('RoomRolePermission' => array('id' => '82', 'permission' => 'content_comment_editable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '83', 'permission' => 'content_comment_publishable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '84', 'permission' => 'block_permission_editable', 'value' => true)),
-			array('RoomRolePermission' => array('id' => '125', 'permission' => 'html_not_limited', 'value' => false)),
-			array('RoomRolePermission' => array('id' => '130', 'permission' => 'mail_content_receivable', 'value' => true)),
+			array('RoomRolePermission' => array('id' => '125', 'permission' => 'mail_editable', 'value' => true)),
+			array('RoomRolePermission' => array('id' => '130', 'permission' => 'html_not_limited', 'value' => false)),
+			array('RoomRolePermission' => array('id' => '135', 'permission' => 'mail_content_receivable', 'value' => true)),
 		));
 		$this->__acualRoomRolePermission('16', array(
 			array('RoomRolePermission' => array('id' => '85', 'permission' => 'page_editable', 'value' => true)),
@@ -112,8 +113,9 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
 			array('RoomRolePermission' => array('id' => '92', 'permission' => 'content_comment_editable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '93', 'permission' => 'content_comment_publishable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '94', 'permission' => 'block_permission_editable', 'value' => false)),
-			array('RoomRolePermission' => array('id' => '126', 'permission' => 'html_not_limited', 'value' => false)),
-			array('RoomRolePermission' => array('id' => '131', 'permission' => 'mail_content_receivable', 'value' => true)),
+			array('RoomRolePermission' => array('id' => '126', 'permission' => 'mail_editable', 'value' => true)),
+			array('RoomRolePermission' => array('id' => '131', 'permission' => 'html_not_limited', 'value' => false)),
+			array('RoomRolePermission' => array('id' => '136', 'permission' => 'mail_content_receivable', 'value' => true)),
 		));
 		$this->__acualRoomRolePermission('17', array(
 			array('RoomRolePermission' => array('id' => '95', 'permission' => 'page_editable', 'value' => false)),
@@ -126,8 +128,9 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
 			array('RoomRolePermission' => array('id' => '102', 'permission' => 'content_comment_editable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '103', 'permission' => 'content_comment_publishable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '104', 'permission' => 'block_permission_editable', 'value' => false)),
-			array('RoomRolePermission' => array('id' => '127', 'permission' => 'html_not_limited', 'value' => false)),
-			array('RoomRolePermission' => array('id' => '132', 'permission' => 'mail_content_receivable', 'value' => true)),
+			array('RoomRolePermission' => array('id' => '127', 'permission' => 'mail_editable', 'value' => false)),
+			array('RoomRolePermission' => array('id' => '132', 'permission' => 'html_not_limited', 'value' => false)),
+			array('RoomRolePermission' => array('id' => '137', 'permission' => 'mail_content_receivable', 'value' => true)),
 		));
 		$this->__acualRoomRolePermission('18', array(
 			array('RoomRolePermission' => array('id' => '105', 'permission' => 'page_editable', 'value' => false)),
@@ -140,8 +143,9 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
 			array('RoomRolePermission' => array('id' => '112', 'permission' => 'content_comment_editable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '113', 'permission' => 'content_comment_publishable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '114', 'permission' => 'block_permission_editable', 'value' => false)),
-			array('RoomRolePermission' => array('id' => '128', 'permission' => 'html_not_limited', 'value' => false)),
-			array('RoomRolePermission' => array('id' => '133', 'permission' => 'mail_content_receivable', 'value' => true)),
+			array('RoomRolePermission' => array('id' => '128', 'permission' => 'mail_editable', 'value' => false)),
+			array('RoomRolePermission' => array('id' => '133', 'permission' => 'html_not_limited', 'value' => false)),
+			array('RoomRolePermission' => array('id' => '138', 'permission' => 'mail_content_receivable', 'value' => true)),
 		));
 		$this->__acualRoomRolePermission('19', array(
 			array('RoomRolePermission' => array('id' => '115', 'permission' => 'page_editable', 'value' => false)),
@@ -154,8 +158,9 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
 			array('RoomRolePermission' => array('id' => '122', 'permission' => 'content_comment_editable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '123', 'permission' => 'content_comment_publishable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '124', 'permission' => 'block_permission_editable', 'value' => false)),
-			array('RoomRolePermission' => array('id' => '129', 'permission' => 'html_not_limited', 'value' => false)),
-			array('RoomRolePermission' => array('id' => '134', 'permission' => 'mail_content_receivable', 'value' => false)),
+			array('RoomRolePermission' => array('id' => '129', 'permission' => 'mail_editable', 'value' => false)),
+			array('RoomRolePermission' => array('id' => '134', 'permission' => 'html_not_limited', 'value' => false)),
+			array('RoomRolePermission' => array('id' => '139', 'permission' => 'mail_content_receivable', 'value' => false)),
 		));
 	}
 
