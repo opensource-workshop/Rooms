@@ -88,7 +88,6 @@ class RoomFormHelper extends AppHelper {
 			$output .= '</li>';
 		}
 		$output .= '</ul>';
-		$output .= '<br>';
 
 		return $output;
 	}
