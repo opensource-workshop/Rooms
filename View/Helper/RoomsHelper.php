@@ -115,7 +115,6 @@ class RoomsHelper extends AppHelper {
 			}
 		}
 		$output .= '</ul>';
-		$output .= '<br>';
 
 		return $output;
 	}
