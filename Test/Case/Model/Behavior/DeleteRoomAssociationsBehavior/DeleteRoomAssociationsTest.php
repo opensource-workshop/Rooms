@@ -76,7 +76,7 @@ class DeleteRoomAssociationsBehaviorDeleteRoomAssociationsTest extends NetCommon
  */
 	public function testDeleteRoomAssociations($roomId) {
 		//事前チェック
-		$this->__assertTable('RoomRolePermission', 15, array('id', 'roles_room_id'));
+		$this->__assertTable('RoomRolePermission', 21, array('id', 'roles_room_id'));
 		$this->__assertTable('PluginsRoom', 4, array('id', 'room_id'));
 
 		//テスト実施
@@ -84,11 +84,16 @@ class DeleteRoomAssociationsBehaviorDeleteRoomAssociationsTest extends NetCommon
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__assertTable('RoomRolePermission', 5, array('id', 'roles_room_id'), array(
+		$this->__assertTable('RoomRolePermission', 10, array('id', 'roles_room_id'), array(
+			array('RoomRolePermission' => array('id' => '2', 'roles_room_id' => '1')),
 			array('RoomRolePermission' => array('id' => '7', 'roles_room_id' => '1')),
+			array('RoomRolePermission' => array('id' => '13', 'roles_room_id' => '2')),
 			array('RoomRolePermission' => array('id' => '18', 'roles_room_id' => '2')),
+			array('RoomRolePermission' => array('id' => '24', 'roles_room_id' => '3')),
 			array('RoomRolePermission' => array('id' => '29', 'roles_room_id' => '3')),
+			array('RoomRolePermission' => array('id' => '35', 'roles_room_id' => '4')),
 			array('RoomRolePermission' => array('id' => '40', 'roles_room_id' => '4')),
+			array('RoomRolePermission' => array('id' => '46', 'roles_room_id' => '5')),
 			array('RoomRolePermission' => array('id' => '51', 'roles_room_id' => '5')),
 		));
 
