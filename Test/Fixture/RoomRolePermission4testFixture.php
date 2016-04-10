@@ -42,7 +42,7 @@ class RoomRolePermission4testFixture extends RoomRolePermissionFixture {
 		////パブリックスペース
 		////--ルーム管理者
 		//array('id' => '1', 'roles_room_id' => '1', 'permission' => 'block_editable', 'value' => '1'),
-		//array('id' => '2', 'roles_room_id' => '1', 'permission' => 'content_comment_creatable', 'value' => '1'),
+		array('id' => '2', 'roles_room_id' => '1', 'permission' => 'content_comment_creatable', 'value' => '1'),
 		//array('id' => '3', 'roles_room_id' => '1', 'permission' => 'content_comment_editable', 'value' => '1'),
 		//array('id' => '4', 'roles_room_id' => '1', 'permission' => 'content_comment_publishable', 'value' => '1'),
 		//array('id' => '5', 'roles_room_id' => '1', 'permission' => 'content_creatable', 'value' => '1'),
@@ -54,7 +54,7 @@ class RoomRolePermission4testFixture extends RoomRolePermissionFixture {
 		//array('id' => '11', 'roles_room_id' => '1', 'permission' => 'mail_content_receivable', 'value' => '1'),
 		////--編集長
 		//array('id' => '12', 'roles_room_id' => '2', 'permission' => 'block_editable', 'value' => '1'),
-		//array('id' => '13', 'roles_room_id' => '2', 'permission' => 'content_comment_creatable', 'value' => '1'),
+		array('id' => '13', 'roles_room_id' => '2', 'permission' => 'content_comment_creatable', 'value' => '1'),
 		//array('id' => '14', 'roles_room_id' => '2', 'permission' => 'content_comment_editable', 'value' => '1'),
 		//array('id' => '15', 'roles_room_id' => '2', 'permission' => 'content_comment_publishable', 'value' => '1'),
 		//array('id' => '16', 'roles_room_id' => '2', 'permission' => 'content_creatable', 'value' => '1'),
@@ -66,7 +66,7 @@ class RoomRolePermission4testFixture extends RoomRolePermissionFixture {
 		//array('id' => '22', 'roles_room_id' => '2', 'permission' => 'mail_content_receivable', 'value' => '1'),
 		////--編集者
 		//array('id' => '23', 'roles_room_id' => '3', 'permission' => 'block_editable', 'value' => '0'),
-		//array('id' => '24', 'roles_room_id' => '3', 'permission' => 'content_comment_creatable', 'value' => '1'),
+		array('id' => '24', 'roles_room_id' => '3', 'permission' => 'content_comment_creatable', 'value' => '1'),
 		//array('id' => '25', 'roles_room_id' => '3', 'permission' => 'content_comment_editable', 'value' => '1'),
 		//array('id' => '26', 'roles_room_id' => '3', 'permission' => 'content_comment_publishable', 'value' => '0'),
 		//array('id' => '27', 'roles_room_id' => '3', 'permission' => 'content_creatable', 'value' => '1'),
@@ -78,7 +78,7 @@ class RoomRolePermission4testFixture extends RoomRolePermissionFixture {
 		//array('id' => '33', 'roles_room_id' => '3', 'permission' => 'mail_content_receivable', 'value' => '1'),
 		////--一般
 		//array('id' => '34', 'roles_room_id' => '4', 'permission' => 'block_editable', 'value' => '0'),
-		//array('id' => '35', 'roles_room_id' => '4', 'permission' => 'content_comment_creatable', 'value' => '1'),
+		array('id' => '35', 'roles_room_id' => '4', 'permission' => 'content_comment_creatable', 'value' => '1'),
 		//array('id' => '36', 'roles_room_id' => '4', 'permission' => 'content_comment_editable', 'value' => '0'),
 		//array('id' => '37', 'roles_room_id' => '4', 'permission' => 'content_comment_publishable', 'value' => '0'),
 		//array('id' => '38', 'roles_room_id' => '4', 'permission' => 'content_creatable', 'value' => '1'),
@@ -90,7 +90,7 @@ class RoomRolePermission4testFixture extends RoomRolePermissionFixture {
 		//array('id' => '44', 'roles_room_id' => '4', 'permission' => 'mail_content_receivable', 'value' => '1'),
 		////--ゲスト
 		//array('id' => '45', 'roles_room_id' => '5', 'permission' => 'block_editable', 'value' => '0'),
-		//array('id' => '46', 'roles_room_id' => '5', 'permission' => 'content_comment_creatable', 'value' => '0'),
+		array('id' => '46', 'roles_room_id' => '5', 'permission' => 'content_comment_creatable', 'value' => '0'),
 		//array('id' => '47', 'roles_room_id' => '5', 'permission' => 'content_comment_editable', 'value' => '0'),
 		//array('id' => '48', 'roles_room_id' => '5', 'permission' => 'content_comment_publishable', 'value' => '0'),
 		//array('id' => '49', 'roles_room_id' => '5', 'permission' => 'content_creatable', 'value' => '0'),
@@ -103,7 +103,7 @@ class RoomRolePermission4testFixture extends RoomRolePermissionFixture {
 		//パブリックスペース、別ルーム(room_id=4)
 		//--ルーム管理者
 		//array('id' => '56', 'roles_room_id' => '6', 'permission' => 'block_editable', 'value' => '1'),
-		//array('id' => '57', 'roles_room_id' => '6', 'permission' => 'content_comment_creatable', 'value' => '1'),
+		array('id' => '57', 'roles_room_id' => '6', 'permission' => 'content_comment_creatable', 'value' => '1'),
 		//array('id' => '58', 'roles_room_id' => '6', 'permission' => 'content_comment_editable', 'value' => '1'),
 		//array('id' => '59', 'roles_room_id' => '6', 'permission' => 'content_comment_publishable', 'value' => '1'),
 		//array('id' => '60', 'roles_room_id' => '6', 'permission' => 'content_creatable', 'value' => '1'),
