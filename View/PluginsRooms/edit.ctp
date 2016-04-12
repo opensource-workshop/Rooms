@@ -14,7 +14,7 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-<?php echo $this->RoomForm->settingTabs(); ?>
+<?php echo $this->Wizard->navibar(RoomsAppController::WIZARD_PLUGINS_ROOMS); ?>
 
 <div class="panel panel-default">
 	<?php echo $this->NetCommonsForm->create('Room'); ?>
@@ -30,11 +30,7 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 	</div>
 
 	<div class="panel-footer text-center">
-		<?php echo $this->Button->cancelAndSave(
-				__d('net_commons', 'Cancel'),
-				__d('net_commons', 'OK'),
-				$this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'])
-			); ?>
+		<?php echo $this->Wizard->buttons(RoomsAppController::WIZARD_PLUGINS_ROOMS); ?>
 	</div>
 
 	<?php echo $this->NetCommonsForm->end(); ?>

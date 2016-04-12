@@ -43,6 +43,10 @@ class RoomsComponent extends Component {
 		$controller->RolesRoomsUser = ClassRegistry::init('Rooms.RolesRoomsUser');
 
 		$this->controller = $controller;
+
+		//スペースデータ取得＆viewVarsにセット
+		$spaces = $controller->Room->getSpaces();
+		$controller->set('spaces', $spaces);
 	}
 
 /**
@@ -53,9 +57,6 @@ class RoomsComponent extends Component {
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::startup
  */
 	public function startup(Controller $controller) {
-		//スペースデータ取得＆viewVarsにセット
-		$spaces = $controller->Room->getSpaces();
-		$controller->set('spaces', $spaces);
 		$controller->helpers[] = 'Rooms.Rooms';
 
 		$defaultRoles = $controller->Role->find('list', array(
@@ -81,7 +82,7 @@ class RoomsComponent extends Component {
 		$controller = $this->controller;
 
 		//ルームデータ取得
-		$spaces = $controller->Room->getSpaces();
+		$spaces = $controller->viewVars['spaces'];
 		$controller->Paginator->settings = $controller->Room->getRoomsCondtions($spaceId);
 		$rooms = $controller->Paginator->paginate('Room');
 		$rooms = Hash::combine($rooms, '{n}.Room.id', '{n}');
