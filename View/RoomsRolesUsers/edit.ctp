@@ -31,17 +31,16 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 	)); ?>
 	<?php echo $this->NetCommonsForm->hidden('Room.id'); ?>
 
-	<div class="user-search-index-head-margin">
-		<?php echo $this->UserSearchForm->displaySearchButton(array($activeSpaceId, $this->data['Room']['id'])); ?>
-
-		<div class="form-group form-inline">
-			<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
-				'empty' => __d('rooms', 'Change the user role of the room'),
-				'options' => array('delete' => __d('users', 'Non members')),
-				'optionFormat' => __d('rooms', 'Changed to the %s role'),
-				'onchange' => 'submit();'
-			)); ?>
-		</div>
+	<?php echo $this->UserSearchForm->displaySearchButton(array($activeSpaceId, $this->data['Room']['id'])); ?>
+	<div class="form-group form-inline rooms-roles-form">
+		<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
+			'empty' => __d('rooms', 'Change the user role of the room'),
+			'options' => array(
+				'----------------------------------' => array('delete' => __d('users', 'Non members'))
+			),
+			'optionFormat' => __d('rooms', 'Changed to the %s role'),
+			'onchange' => 'submit();'
+		)); ?>
 	</div>
 
 	<table class="table table-condensed">
@@ -100,24 +99,19 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 
 					<?php echo $this->UserSearch->tableRow($user, false); ?>
 
-					<td>
-						<div class="pull-left">
+					<td class="rooms-roles-form" ng-init="<?php echo $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';'; ?>">
+						<div class="pull-left" ng-class="{'bg-success': <?php echo $domUserRoleKey; ?>}">
 							<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
-								'empty' => '',
 								'value' => Hash::get($user, 'RolesRoom.role_key', ''),
 								'class' => 'form-control input-sm',
-								'ng-init' => $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';',
 								'ng-model' => $domUserRoleKey,
-								'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')'
+								'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
+								'options' => array(
+									'-----------------------' => array(
+										'' => __d('users', 'Non members')
+									)
+								)
 							)); ?>
-						</div>
-						<div class="pull-left">&nbsp;</div>
-						<div>
-							<?php echo $this->Button->cancel(__d('users', 'Non members'), null, array(
-									'class' => 'btn btn-default btn-sm',
-									'ng-click' => 'delete(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\');',
-									'ng-disabled' => '!' . $domUserRoleKey
-								)); ?>
 						</div>
 					</td>
 				</tr>
