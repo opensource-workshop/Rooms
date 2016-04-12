@@ -117,22 +117,27 @@ class RolesRoomsUser extends RoomsAppModel {
  * Return roles_rooms_users
  *
  * @param array $conditions Conditions by Model::find
+ * @param array $query Condition以外のクエリ
  * @return array
  */
-	public function getRolesRoomsUsers($conditions = array()) {
-		$this->Room = ClassRegistry::init('Rooms.Room');
+	public function getRolesRoomsUsers($conditions = array(), $query = array()) {
+		$this->loadModels([
+			'Room' => 'Rooms.Room',
+			'RoomRole' => 'Rooms.RoomRole',
+		]);
 
 		$conditions = Hash::merge(array(
 				'Room.page_id_top NOT' => null,
 			), $conditions);
 
-		$rolesRoomsUsers = $this->find('all', array(
+		$query['fields'] = Hash::get($query, 'fields', array(
+			$this->alias . '.*',
+			$this->RolesRoom->alias . '.*',
+			$this->Room->alias . '.*',
+		));
+
+		$rolesRoomsUsers = $this->find('all', Hash::merge(array(
 			'recursive' => -1,
-			'fields' => array(
-				$this->alias . '.*',
-				$this->RolesRoom->alias . '.*',
-				$this->Room->alias . '.*',
-			),
 			'joins' => array(
 				array(
 					'table' => $this->RolesRoom->table,
@@ -140,6 +145,14 @@ class RolesRoomsUser extends RoomsAppModel {
 					'type' => 'INNER',
 					'conditions' => array(
 						$this->alias . '.roles_room_id' . ' = ' . $this->RolesRoom->alias . ' .id',
+					),
+				),
+				array(
+					'table' => $this->RoomRole->table,
+					'alias' => $this->RoomRole->alias,
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->RoomRole->alias . '.role_key' . ' = ' . $this->RolesRoom->alias . ' .role_key',
 					),
 				),
 				array(
@@ -160,7 +173,7 @@ class RolesRoomsUser extends RoomsAppModel {
 				),
 			),
 			'conditions' => $conditions,
-		));
+		), $query));
 
 		return $rolesRoomsUsers;
 	}

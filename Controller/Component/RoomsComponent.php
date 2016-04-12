@@ -20,6 +20,13 @@ App::uses('Component', 'Controller');
 class RoomsComponent extends Component {
 
 /**
+ * 一覧表示の参加者リスト件数
+ *
+ * @var const
+ */
+	const LIST_LIMIT_ROOMS_USERS = 5;
+
+/**
  * Called before the Controller::beforeFilter().
  *
  * @param Controller $controller Controller with components to initialize
@@ -33,6 +40,7 @@ class RoomsComponent extends Component {
 		//Modelの呼び出し
 		$controller->Room = ClassRegistry::init('Rooms.Room');
 		$controller->Role = ClassRegistry::init('Roles.Role');
+		$controller->RolesRoomsUser = ClassRegistry::init('Rooms.RolesRoomsUser');
 
 		$this->controller = $controller;
 	}
@@ -79,10 +87,31 @@ class RoomsComponent extends Component {
 		$rooms = Hash::combine($rooms, '{n}.Room.id', '{n}');
 		$controller->set('rooms', $rooms);
 
+		$roomIds = array_keys($rooms);
+
 		//Treeリスト取得
 		$roomTreeList = $controller->Room->generateTreeList(
-				array('Room.id' => array_merge(array($spaces[$spaceId]['Room']['id']), array_keys($rooms))), null, null, Room::$treeParser);
+				array('Room.id' => array_merge(array($spaces[$spaceId]['Room']['id']), $roomIds)), null, null, Room::$treeParser);
 		$controller->set('roomTreeList', $roomTreeList);
+
+		//参加者リスト取得
+		$rolesRoomsUsers = array();
+		foreach ($roomIds as $roomId) {
+			$result = $controller->RolesRoomsUser->getRolesRoomsUsers(
+				array('Room.id' => $roomId),
+				array(
+					'fields' => array(
+						'User.id', 'User.handlename'
+					),
+					'order' => array(
+						'RoomRole.weight' => 'asc'
+					),
+					'limit' => self::LIST_LIMIT_ROOMS_USERS + 1
+				)
+			);
+			$rolesRoomsUsers[$roomId] = $result;
+		}
+		$controller->set('rolesRoomsUsers', $rolesRoomsUsers);
 	}
 
 }

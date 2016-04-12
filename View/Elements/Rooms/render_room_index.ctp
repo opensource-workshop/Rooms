@@ -18,14 +18,19 @@
 				array($room['Space']['id'], $room['Room']['id']),
 				array('iconSize' => 'btn-xs')
 			); ?>
-	</td>
 
-	<td>
 		<?php
 			if ($nest !== 0) {
 				echo $this->RoomForm->changeStatus($room);
 			}
 		?>
+	</td>
+
+	<td>
+		<?php echo $this->DisplayUser->handleLink($room, array('avatar' => true)); ?>
+	</td>
+	<td>
+		<?php echo $this->Rooms->roomMembers(Hash::get($rolesRoomsUsers, $room['Room']['id'])); ?>
 	</td>
 
 	<td class="text-right">

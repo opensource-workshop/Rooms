@@ -57,14 +57,20 @@ msgstr "ルーム名"
 
 #: Rooms/View/Elements/subtitle.ctp:24
 msgid "Add new room"
-msgstr "ルームの追加"
+msgstr "ルーム"
 
 #: Rooms/View/Elements/subtitle.ctp:24
 msgid "Add new subroom"
-msgstr "サブルームの追加"
+msgstr "サブルーム"
 
 msgid "You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms."
 msgstr "ルームの追加、編集、削除、参加者の選択ができます。"
+
+msgid "Created user"
+msgstr "作成者"
+
+msgid "Members"
+msgstr "参加者"
 
 
 #

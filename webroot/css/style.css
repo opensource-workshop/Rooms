@@ -19,3 +19,7 @@ input[type="checkbox"].rooms-roles-users-checkbox {
 .rooms-roles-users-separator {
 	border-left: 1px solid #ddd;
 }
+
+.rooms-change-status {
+	margin-left: 20px;
+}
