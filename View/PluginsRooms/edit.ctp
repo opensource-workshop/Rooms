@@ -15,6 +15,7 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
 <?php echo $this->Wizard->navibar(RoomsAppController::WIZARD_PLUGINS_ROOMS); ?>
+<?php echo $this->MessageFlash->description(__d('rooms', 'You can set the plugins to be used in the specified room. Press [OK] button to proceed.')); ?>
 
 <div class="panel panel-default">
 	<?php echo $this->NetCommonsForm->create('Room'); ?>

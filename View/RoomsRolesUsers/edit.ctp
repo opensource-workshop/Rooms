@@ -17,6 +17,10 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
 <?php echo $this->Wizard->navibar(RoomsAppController::WIZARD_ROOMS_ROLES_USERS); ?>
+<?php echo $this->MessageFlash->description(__d('rooms',
+		'Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>' .
+		'When selecting the plug-ins to be used, please press the [Next]. If you want to exit this screen, please press the [Cancel].'
+	)); ?>
 
 <?php echo $this->NetCommonsForm->create('Room', array(
 		'ng-controller' => 'RoomsRolesUsers',
@@ -46,11 +50,12 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 				<th>
 					<input class="form-control rooms-roles-users-checkbox" type="checkbox" ng-click="allCheck($event)">
 				</th>
+
+				<?php echo $this->UserSearch->tableHeaders(); ?>
+
 				<th>
 					<?php echo $this->Paginator->sort('RoomRole.level', __d('rooms', 'Room role')); ?>
 				</th>
-				<th class="rooms-roles-users-separator"> </th>
-				<?php echo $this->UserSearch->tableHeaders(); ?>
 			</tr>
 		</thead>
 
@@ -92,6 +97,9 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 							'ng-click' => 'check($event)',
 						)); ?>
 					</td>
+
+					<?php echo $this->UserSearch->tableRow($user, false); ?>
+
 					<td>
 						<div class="pull-left">
 							<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
@@ -112,8 +120,6 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 								)); ?>
 						</div>
 					</td>
-					<td class="rooms-roles-users-separator"> </td>
-					<?php echo $this->UserSearch->tableRow($user, false); ?>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

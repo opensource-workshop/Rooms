@@ -77,6 +77,9 @@ msgstr "参加者"
 # ルーム作成・編集画面
 #
 
+msgid "Input the room name."
+msgstr "ルーム名称を入力して下さい。"
+
 #: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
 msgid "Room"
 msgstr "ルーム"
@@ -120,6 +123,25 @@ msgstr "状態"
 #: Rooms/View/Elements/Rooms/edit_form.ctp:97
 msgid "Under maintenance"
 msgstr "準備中"
+
+
+#
+# 参加者の管理
+#
+
+msgid "Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>"
+"When selecting the plug-ins to be used, please press the [Next]. If you want to exit this screen, please press the [Cancel]."
+msgstr "このルームでの会員の役割を設定してください。会員の役割を変更したら、すぐに登録されます。<br>"
+"利用するプラグインを選択する際は、[次へ]を押してください。この画面を終了する場合は、[キャンセル]を押してください。"
+
+
+#
+# プラグイン選択
+#
+msgid "You can set the plugins to be used in the specified room. Press [OK] button to proceed."
+msgstr "このルームでの利用を許可するプラグインを選択して、[決定]を押してください。"
+
+
 
 
 

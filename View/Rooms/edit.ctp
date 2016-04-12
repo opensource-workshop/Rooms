@@ -17,6 +17,7 @@
 		echo $this->Wizard->navibar(RoomsAppController::WIZARD_ROOMS);
 	}
 ?>
+<?php echo $this->MessageFlash->description(__d('rooms', 'Input the room name.')); ?>
 
 <div class="panel panel-default">
 	<?php echo $this->NetCommonsForm->create('Room'); ?>
