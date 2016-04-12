@@ -46,23 +46,26 @@
 		)); ?>
 </div>
 
-<div class="form-group">
-	<?php
-		$options = array('1' => __d('rooms', 'Authority to publish approved content'));
-		echo $this->NetCommonsHtml->div(array(), $this->NetCommonsForm->radio('Room.need_approval', $options));
+<?php
+	echo $this->NetCommonsForm->input('Room.need_approval', array(
+		'type' => 'radio',
+		'options' => array(
+			'1' => __d('rooms', 'Authority to publish approved content'),
+			'0' => __d('rooms', 'Do not use the approval')
+		),
+		'class' => array('class' => 'form-inline'),
+		'label' => __d('rooms', 'Approved content?'),
+		'help' => __d('rooms', 'Even if you no need, you can have the approval functions in each block.')
+	));
+?>
 
-		echo $this->RoomsRolesForm->checkboxRoomRoles(
-			'RoomRolePermission.content_publishable',
-			array('outerDiv' => false)
-		);
-
-		$options = array('0' => __d('rooms', 'Do not use the approval'));
-		echo $this->NetCommonsHtml->div(array(), $this->NetCommonsForm->radio('Room.need_approval', $options));
-	?>
-</div>
+<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.content_publishable', array(
+		'label' => __d('rooms', 'Allow publish approved content'),
+	)); ?>
 
 <?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.html_not_limited', array(
-		'label' => __d('rooms', 'Allow all html tags?  e.g.) Javascript or iframe')
+		'label' => __d('rooms', 'Allow all html tags?  e.g.) Javascript or iframe'),
+		'help' => __d('rooms', 'If you allow Javascript, etc., there is a possibility that cause of vulnerability')
 	)); ?>
 
 <div class="form-inline form-group">
