@@ -63,6 +63,9 @@ msgstr "ルームの追加"
 msgid "Add new subroom"
 msgstr "サブルームの追加"
 
+msgid "You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms."
+msgstr "ルームの追加、編集、削除、参加者の選択ができます。"
+
 
 #
 # ルーム作成・編集画面
