@@ -31,14 +31,23 @@
 			<?php echo $this->NetCommonsForm->hidden('Room.space_id'); ?>
 			<?php echo $this->NetCommonsForm->hidden('Room.root_id'); ?>
 			<?php echo $this->NetCommonsForm->hidden('Room.parent_id'); ?>
-			<?php echo $this->NetCommonsForm->hidden('Page.parent_id'); ?>
 
 			<?php echo $this->element('Rooms/edit_form'); ?>
 		</div>
 	</div>
 
 	<div class="panel-footer text-center">
-		<?php echo $this->Wizard->buttons(RoomsAppController::WIZARD_ROOMS); ?>
+		<?php
+			if (Hash::get($this->request->data, 'Room.id') !== Room::ROOM_PARENT_ID) {
+				echo $this->Wizard->buttons(RoomsAppController::WIZARD_ROOMS);
+			} else {
+				echo $this->Button->cancelAndSave(
+					__d('net_commons', 'Cancel'),
+					__d('net_commons', 'OK'),
+					$this->NetCommonsHtml->url($this->Wizard->naviUrl('cancelUrl'))
+				);
+			}
+		?>
 	</div>
 
 	<?php echo $this->NetCommonsForm->end(); ?>

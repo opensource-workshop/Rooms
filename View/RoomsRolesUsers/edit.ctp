@@ -39,7 +39,10 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 				'----------------------------------' => array('delete' => __d('users', 'Non members'))
 			),
 			'optionFormat' => __d('rooms', 'Changed to the %s role'),
-			'onchange' => 'submit();'
+			'onchange' => 'submit();',
+			'ng-disabled' => 'sending',
+			'ng-model' => 'RoomEditForm',
+			'ng-change' => 'sending=true;'
 		)); ?>
 	</div>
 
@@ -94,6 +97,7 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 							'checked' => false,
 							'class' => 'form-control rooms-roles-users-checkbox',
 							'ng-click' => 'check($event)',
+							'ng-disabled' => 'sending'
 						)); ?>
 					</td>
 
@@ -110,7 +114,8 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 									'-----------------------' => array(
 										'' => __d('users', 'Non members')
 									)
-								)
+								),
+								'ng-disabled' => 'sending'
 							)); ?>
 						</div>
 					</td>

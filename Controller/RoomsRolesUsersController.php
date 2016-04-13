@@ -88,7 +88,10 @@ class RoomsRolesUsersController extends RoomsAppController {
 				}
 			}
 
-			if ($this->request->data['Role']['key'] !== 'delete') {
+			if (! $this->request->data['RolesRoomsUser']) {
+				//未選択の場合、
+				$result = null;
+			} elseif ($this->request->data['Role']['key'] !== 'delete') {
 				$rolesRooms = $this->Room->getRolesRooms(array(
 					'Room.id' => $room['Room']['id'],
 					'RolesRoom.role_key' => $this->request->data['Role']['key']
@@ -101,12 +104,12 @@ class RoomsRolesUsersController extends RoomsAppController {
 			}
 
 			//登録処理
-			if ($result) {
+			if ($result === true) {
 				//正常の場合
 				$this->NetCommons->setFlashNotification(__d('net_commons', 'Successfully saved.'), array(
 					'class' => 'success',
 				));
-			} else {
+			} elseif ($result === false) {
 				$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
 			}
 		}

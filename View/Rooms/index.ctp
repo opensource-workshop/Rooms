@@ -12,7 +12,6 @@
 
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-
 <?php echo $this->MessageFlash->description(__d('rooms', 'You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms.')); ?>
 
 <article class="rooms-manager">
