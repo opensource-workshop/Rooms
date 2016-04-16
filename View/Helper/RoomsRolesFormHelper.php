@@ -66,18 +66,16 @@ class RoomsRolesFormHelper extends AppHelper {
 		unset($attributes['label']);
 
 		$initialize = NetCommonsAppController::camelizeKeyRecursive(array('roles' => $this->_View->viewVars['roles']));
-		$html .= '<div class="form-inline" ' .
-						'ng-controller="RoomRolePermissions" ' .
+		$html .= '<div ng-controller="RoomRolePermissions" ' .
 						'ng-init="RolePermission.initialize(' . h(json_encode($initialize, JSON_FORCE_OBJECT)) . ')">';
 
 		//権限のチェックボックス
-		$html .= '<div class="form-input-outer">';
+		$html .= '<div class="form-input-outer form-inline">';
 		foreach ($this->_View->request->data[$model][$permission] as $roleKey => $role) {
 			if (! $role['value'] && $role['fixed']) {
 				continue;
 			}
 
-			$html .= '<div class="form-group">';
 			$html .= $this->NetCommonsForm->hidden($fieldName . '.' . $roleKey . '.id');
 
 			$options = Hash::merge(array(
@@ -91,9 +89,6 @@ class RoomsRolesFormHelper extends AppHelper {
 
 			$options['label'] = $this->_View->request->data['Role'][$roleKey]['name'];
 			$html .= $this->NetCommonsForm->checkbox($fieldName . '.' . $roleKey . '.value', $options);
-
-			$html .= '</div>';
-			$html .= '<span class="checkbox-separator"></span>';
 		}
 
 		$html .= '</div>';
