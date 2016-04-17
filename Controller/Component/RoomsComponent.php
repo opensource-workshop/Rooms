@@ -92,7 +92,11 @@ class RoomsComponent extends Component {
 
 		//Treeリスト取得
 		$roomTreeList = $controller->Room->generateTreeList(
-				array('Room.id' => array_merge(array($spaces[$spaceId]['Room']['id']), $roomIds)), null, null, Room::$treeParser);
+			array('Room.id' => array_merge(array($spaces[$spaceId]['Room']['id']), $roomIds)),
+			null,
+			null,
+			Room::$treeParser
+		);
 		$controller->set('roomTreeList', $roomTreeList);
 
 		//参加者リスト取得

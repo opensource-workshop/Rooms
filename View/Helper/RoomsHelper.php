@@ -82,7 +82,8 @@ class RoomsHelper extends AppHelper {
 		}
 		$output .= $this->NetCommonsHtml->div(array(
 			'text-muted', 'small',
-			'visible-xs-inline-block', 'visible-sm-inline-block', 'visible-md-inline-block', 'visible-lg-inline-block'
+			'visible-xs-inline-block', 'visible-sm-inline-block',
+			'visible-md-inline-block', 'visible-lg-inline-block'
 		), $element);
 
 		return '(' . $output . ')';
@@ -132,7 +133,8 @@ class RoomsHelper extends AppHelper {
  * @return string HTML
  * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
-	public function roomsRender($activeSpaceId, $dataElementPath, $headElementPath = null, $roomTreeList = null, $paginator = true) {
+	public function roomsRender($activeSpaceId, $dataElementPath,
+								$headElementPath = null, $roomTreeList = null, $paginator = true) {
 		$output = '';
 
 		if (! isset($roomTreeList)) {
@@ -240,7 +242,6 @@ class RoomsHelper extends AppHelper {
  * ルームの参加者リストを表示する(一覧表示)
  *
  * @param array $roomUsers ルームのユーザリスト配列
- * @param string $field フィールド
  * @return string HTML
  */
 	public function roomMembers($roomUsers) {
@@ -255,7 +256,9 @@ class RoomsHelper extends AppHelper {
 				break;
 			}
 			$handlename = Hash::get($user, 'User.handlename');
-			$output .= $this->DisplayUser->avatarLink($user, array('alt' => $handlename, 'title' => $handlename), array(), 'User.id');
+			$output .= $this->DisplayUser->avatarLink(
+				$user, array('alt' => $handlename, 'title' => $handlename), array(), 'User.id'
+			);
 		}
 		if (count($roomUsers) > RoomsComponent::LIST_LIMIT_ROOMS_USERS) {
 			$output .= __d('net_commons', '...');

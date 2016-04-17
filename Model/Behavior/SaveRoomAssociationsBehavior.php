@@ -36,7 +36,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 
 		//多数のデータを一括で登録するためINSERT INTO ... SELECTを使う。
 		//--クエリの生成
-		$tableName = $model->RolesRoom->tablePrefix . $model->RolesRoom->table;
+		$tableName = $model->tablePrefix . $model->RolesRoom->table;
 		$values = array(
 			'room_id' => $db->value($data['Room']['id'], 'string'),
 			'role_key' => $model->RolesRoom->escapeField('role_key'),
@@ -46,14 +46,17 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
-			$model->RolesRoom->tablePrefix . $model->RolesRoom->table . ' AS ' . $model->RolesRoom->alias => null,
+			$model->tablePrefix . $model->RolesRoom->table . ' AS ' . $model->RolesRoom->alias => null,
 		);
 		$wheres = array(
-			$model->RolesRoom->escapeField('room_id') . ' = ' . $db->value($data['Room']['parent_id'], 'string'),
+			$model->RolesRoom->escapeField('room_id') . ' = ' .
+					$db->value($data['Room']['parent_id'], 'string'),
 		);
 
 		//--クエリの実行
-		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
+		$sql = $this->__insertSql(
+			$tableName, array_keys($values), array_values($values), $joins, $wheres
+		);
 		$model->RolesRoom->query($sql);
 		$result = $model->RolesRoom->getAffectedRows() > 0;
 		if (! $result) {
@@ -124,7 +127,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			)
 		));
 		//--クエリの生成
-		$tableName = $model->RolesRoomsUser->tablePrefix . $model->RolesRoomsUser->table;
+		$tableName = $model->tablePrefix . $model->RolesRoomsUser->table;
 		$values = array(
 			'roles_room_id' => $db->value($rolesRoom['RolesRoom']['id'], 'string'),
 			'user_id' => $model->User->escapeField('id'),
@@ -135,14 +138,16 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
-			$model->User->tablePrefix . $model->User->table . ' AS ' . $model->User->alias => null,
+			$model->tablePrefix . $model->User->table . ' AS ' . $model->User->alias => null,
 		);
 		$wheres = array(
 			$model->User->escapeField('id') . ' != ' . $db->value($userId, 'string'),
 		);
 
 		//--クエリの実行
-		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
+		$sql = $this->__insertSql(
+			$tableName, array_keys($values), array_values($values), $joins, $wheres
+		);
 		$model->RolesRoomsUser->query($sql);
 		$result = $model->RolesRoomsUser->getAffectedRows() > 0;
 		if (! $result) {
@@ -170,7 +175,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 
 		//多数のデータを一括で登録するためINSERT INTO ... SELECTを使う。
 		//--クエリの生成
-		$tableName = $model->PluginsRoom->tablePrefix . $model->PluginsRoom->table;
+		$tableName = $model->tablePrefix . $model->PluginsRoom->table;
 		$values = array(
 			'room_id' => $db->value($data['Room']['id'], 'string'),
 			'plugin_key' => $model->PluginsRoom->escapeField('plugin_key'),
@@ -180,14 +185,17 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
 		$joins = array(
-			$model->PluginsRoom->tablePrefix . $model->PluginsRoom->table . ' AS ' . $model->PluginsRoom->alias => null,
+			$model->tablePrefix . $model->PluginsRoom->table . ' AS ' . $model->PluginsRoom->alias => null,
 		);
 		$wheres = array(
-			$model->PluginsRoom->escapeField('room_id') . ' = ' . $db->value($data['Room']['parent_id'], 'string'),
+			$model->PluginsRoom->escapeField('room_id') . ' = ' .
+						$db->value($data['Room']['parent_id'], 'string'),
 		);
 
 		//--クエリの実行
-		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
+		$sql = $this->__insertSql(
+			$tableName, array_keys($values), array_values($values), $joins, $wheres
+		);
 		$model->PluginsRoom->query($sql);
 		$result = $model->PluginsRoom->getAffectedRows() > 0;
 		if (! $result) {
@@ -216,7 +224,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 
 		//多数のデータを一括で登録するためINSERT INTO ... SELECTを使う。
 		//--クエリの生成
-		$tableName = $model->RoomRolePermission->tablePrefix . $model->RoomRolePermission->table;
+		$tableName = $model->tablePrefix . $model->RoomRolePermission->table;
 		$values = array(
 			'roles_room_id' => $model->RolesRoom->escapeField('id'),
 			'permission' => $model->DefaultRolePermission->escapeField('permission'),
@@ -226,24 +234,33 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
 			'modified_user' => $db->value(Current::read('User.id'), 'string'),
 		);
-		$joins = array(
-			$model->Role->tablePrefix . $model->Role->table . ' AS ' . $model->Role->alias => null,
-			$model->RolesRoom->tablePrefix . $model->RolesRoom->table . ' AS ' . $model->RolesRoom->alias => array(
-				$model->Role->escapeField('key') . ' = ' . $model->RolesRoom->escapeField('role_key')
-			),
-			$model->DefaultRolePermission->tablePrefix . $model->DefaultRolePermission->table . ' AS ' . $model->DefaultRolePermission->alias => array(
-				$model->Role->escapeField('key') . ' = ' . $model->DefaultRolePermission->escapeField('role_key')
-			),
+
+		$joins = array();
+		$joins[$model->tablePrefix . $model->Role->table . ' AS ' . $model->Role->alias] = null;
+		$key = $model->tablePrefix . $model->RolesRoom->table . ' AS ' . $model->RolesRoom->alias;
+		$joins[$key] = array(
+			$model->Role->escapeField('key') . ' = ' . $model->RolesRoom->escapeField('role_key')
 		);
-		$wheres = array(
-			$model->Role->escapeField('type') . ' = ' . $db->value(Role::ROLE_TYPE_ROOM, 'string'),
-			$model->Role->escapeField('language_id') . ' = ' . $db->value(Current::read('Language.id'), 'string'),
-			$model->RolesRoom->escapeField('room_id') . ' = ' . $db->value($data['Room']['id'], 'string'),
-			$model->DefaultRolePermission->escapeField('type') . ' = ' . $db->value(DefaultRolePermission::TYPE_ROOM_ROLE, 'string'),
+		$key = $model->tablePrefix . $model->DefaultRolePermission->table . ' AS ' .
+					$model->DefaultRolePermission->alias;
+		$joins[$key] = array(
+			$model->Role->escapeField('key') . ' = ' . $model->DefaultRolePermission->escapeField('role_key')
 		);
 
+		$wheres = array();
+		$wheres[] = $model->Role->escapeField('type') . ' = ' .
+					$db->value(Role::ROLE_TYPE_ROOM, 'string');
+		$wheres[] = $model->Role->escapeField('language_id') . ' = ' .
+					$db->value(Current::read('Language.id'), 'string');
+		$wheres[] = $model->RolesRoom->escapeField('room_id') . ' = ' .
+					$db->value($data['Room']['id'], 'string');
+		$wheres[] = $model->DefaultRolePermission->escapeField('type') . ' = ' .
+					$db->value(DefaultRolePermission::TYPE_ROOM_ROLE, 'string');
+
 		//--クエリの実行
-		$sql = $this->__insertSql($tableName, array_keys($values), array_values($values), $joins, $wheres);
+		$sql = $this->__insertSql(
+			$tableName, array_keys($values), array_values($values), $joins, $wheres
+		);
 		$model->RoomRolePermission->query($sql);
 		$result = $model->RoomRolePermission->getAffectedRows() > 0;
 		if (! $result) {
@@ -367,7 +384,9 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$blockKeys = array_unique(array_values($blocks));
 		$conditions = array(
 			$model->BlockRolePermission->alias . '.block_key' => $blockKeys,
-			$model->BlockRolePermission->alias . '.permission' => array('content_publishable', 'content_comment_publishable'),
+			$model->BlockRolePermission->alias . '.permission' => array(
+				'content_publishable', 'content_comment_publishable'
+			),
 		);
 		if (! $model->BlockRolePermission->deleteAll($conditions, false)) {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));

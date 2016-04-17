@@ -65,9 +65,14 @@ class RoomsRolesFormHelper extends AppHelper {
 		}
 		unset($attributes['label']);
 
-		$initialize = NetCommonsAppController::camelizeKeyRecursive(array('roles' => $this->_View->viewVars['roles']));
+		$initialize = NetCommonsAppController::camelizeKeyRecursive(
+			array('roles' => $this->_View->viewVars['roles'])
+		);
 		$html .= '<div ng-controller="RoomRolePermissions" ' .
-						'ng-init="RolePermission.initialize(' . h(json_encode($initialize, JSON_FORCE_OBJECT)) . ')">';
+					'ng-init="RolePermission.initialize(' .
+						h(json_encode($initialize, JSON_FORCE_OBJECT)) .
+					')' .
+				'">';
 
 		//権限のチェックボックス
 		$html .= '<div class="form-input-outer form-inline">';

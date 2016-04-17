@@ -76,7 +76,9 @@ class RoomsController extends RoomsAppController {
 				$this->NetCommons->setFlashNotification(
 					__d('net_commons', 'Successfully saved.'), array('class' => 'success')
 				);
-				return $this->redirect('/rooms/rooms_roles_users/edit/' . $activeSpaceId . '/' . $room['Room']['id'] . '/');
+				return $this->redirect(
+					'/rooms/rooms_roles_users/edit/' . $activeSpaceId . '/' . $room['Room']['id'] . '/'
+				);
 			}
 			$this->NetCommons->handleValidationError($this->Room->validationErrors);
 
@@ -139,7 +141,9 @@ class RoomsController extends RoomsAppController {
 				if ($room['Room']['id'] === Room::ROOM_PARENT_ID) {
 					return $this->redirect('/rooms/rooms/index/' . $activeSpaceId);
 				} else {
-					return $this->redirect('/rooms/rooms_roles_users/edit/' . $activeSpaceId . '/' . $room['Room']['id'] . '/');
+					return $this->redirect(
+						'/rooms/rooms_roles_users/edit/' . $activeSpaceId . '/' . $room['Room']['id'] . '/'
+					);
 				}
 			}
 			$this->NetCommons->handleValidationError($this->Room->validationErrors);
@@ -175,7 +179,9 @@ class RoomsController extends RoomsAppController {
 		}
 
 		$activeSpaceId = $this->viewVars['activeSpaceId'];
-		$this->redirect('/rooms/' . $this->viewVars['spaces'][$activeSpaceId]['Space']['default_setting_action']);
+		$this->redirect(
+			'/rooms/' . $this->viewVars['spaces'][$activeSpaceId]['Space']['default_setting_action']
+		);
 	}
 
 /**

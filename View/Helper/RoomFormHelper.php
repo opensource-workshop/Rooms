@@ -51,9 +51,12 @@ class RoomFormHelper extends AppHelper {
 			$urlPluginsRooms = '#';
 		} else {
 			$disabled = '';
-			$urlRooms = '/rooms/rooms/' . $this->_View->params['action'] . '/' . h($activeSpaceId) . '/' . h($activeRoomId) . '/';
-			$urlRolesRoomsUsers = '/rooms/rooms_roles_users/edit/' . h($activeSpaceId) . '/' . h($activeRoomId) . '/';
-			$urlPluginsRooms = '/rooms/plugins_rooms/edit/' . h($activeSpaceId) . '/' . h($activeRoomId) . '/';
+			$urlRooms = '/rooms/rooms/' . $this->_View->params['action'] . '/' .
+					h($activeSpaceId) . '/' . h($activeRoomId) . '/';
+			$urlRolesRoomsUsers = '/rooms/rooms_roles_users/edit/' .
+					h($activeSpaceId) . '/' . h($activeRoomId) . '/';
+			$urlPluginsRooms = '/rooms/plugins_rooms/edit/' .
+					h($activeSpaceId) . '/' . h($activeRoomId) . '/';
 		}
 
 		$output .= '<ul class="nav nav-pills" role="tablist">';
@@ -73,7 +76,9 @@ class RoomFormHelper extends AppHelper {
 				$class = $disabled;
 			}
 			$output .= '<li class="' . $class . '">';
-			$output .= $this->NetCommonsHtml->link(__d('rooms', 'Edit the members to join'), $urlRolesRoomsUsers);
+			$output .= $this->NetCommonsHtml->link(
+				__d('rooms', 'Edit the members to join'), $urlRolesRoomsUsers
+			);
 			$output .= '</li>';
 		}
 
@@ -84,7 +89,9 @@ class RoomFormHelper extends AppHelper {
 				$class = $disabled;
 			}
 			$output .= '<li class="' . $class . '">';
-			$output .= $this->NetCommonsHtml->link(__d('rooms', 'Select the plugins to join'), $urlPluginsRooms);
+			$output .= $this->NetCommonsHtml->link(
+				__d('rooms', 'Select the plugins to join'), $urlPluginsRooms
+			);
 			$output .= '</li>';
 		}
 		$output .= '</ul>';

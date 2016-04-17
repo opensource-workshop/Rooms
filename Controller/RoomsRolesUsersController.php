@@ -97,7 +97,11 @@ class RoomsRolesUsersController extends RoomsAppController {
 					'RolesRoom.role_key' => $this->request->data['Role']['key']
 				));
 				$rolesRoomId = Hash::get($rolesRooms, '0.RolesRoom.id');
-				$this->request->data['RolesRoomsUser'] = Hash::insert($this->request->data['RolesRoomsUser'], '{n}.roles_room_id', $rolesRoomId);
+				$this->request->data['RolesRoomsUser'] = Hash::insert(
+					$this->request->data['RolesRoomsUser'],
+					'{n}.roles_room_id',
+					$rolesRoomId
+				);
 				$result = $this->RolesRoomsUser->saveRolesRoomsUsers($this->request->data);
 			} else {
 				$result = $this->RolesRoomsUser->deleteRolesRoomsUsers($this->request->data);
@@ -136,7 +140,9 @@ class RoomsRolesUsersController extends RoomsAppController {
 		$this->set('displayFields', $this->User->cleanSearchFields($fields));
 
 		$this->request->data = $room;
-		$this->request->data['RolesRoomsUser'] = Hash::combine($this->viewVars['users'], '{n}.User.id', '{n}.RolesRoomsUser');
+		$this->request->data['RolesRoomsUser'] = Hash::combine(
+			$this->viewVars['users'], '{n}.User.id', '{n}.RolesRoomsUser'
+		);
 	}
 
 /**

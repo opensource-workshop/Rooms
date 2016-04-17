@@ -63,8 +63,10 @@ class PluginsRoomsController extends RoomsAppController {
 				$this->NetCommons->setFlashNotification(
 					__d('net_commons', 'Successfully saved.'), array('class' => 'success')
 				);
-				$activeSpaceId = $this->viewVars['activeSpaceId'];
-				return $this->redirect('/rooms/' . $this->viewVars['spaces'][$activeSpaceId]['Space']['default_setting_action']);
+				$spaceId = $this->viewVars['activeSpaceId'];
+				return $this->redirect(
+					'/rooms/' . $this->viewVars['spaces'][$spaceId]['Space']['default_setting_action']
+				);
 			} else {
 				return $this->throwBadRequest();
 			}

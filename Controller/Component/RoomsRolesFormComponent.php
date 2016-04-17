@@ -64,9 +64,13 @@ class RoomsRolesFormComponent extends Component {
 			$roomId = Hash::get($this->settings, 'room_id');
 			$type = Hash::get($this->settings, 'type');
 
-			$results = $this->Workflow->getRoomRolePermissions($this->settings['permissions'], $type, $roomId);
+			$results = $this->Workflow->getRoomRolePermissions(
+				$this->settings['permissions'], $type, $roomId
+			);
 			$defaultPermissions = Hash::remove($results['DefaultRolePermission'], '{s}.{s}.id');
-			$results['RoomRolePermission'] = Hash::merge($defaultPermissions, $results['RoomRolePermission']);
+			$results['RoomRolePermission'] = Hash::merge(
+				$defaultPermissions, $results['RoomRolePermission']
+			);
 
 			$controller->request->data = Hash::merge($controller->request->data, $results);
 			$controller->set('roles', $results['RoomRole']);

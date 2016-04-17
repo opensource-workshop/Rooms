@@ -143,12 +143,13 @@ class RoomsAppController extends AppController {
 			$navibar = Hash::insert($navibar, '{s}.url.key', $this->params['pass'][0]);
 			$navibar = Hash::insert($navibar, '{s}.url.key2', $this->params['pass'][1]);
 			$this->helpers['NetCommons.Wizard']['navibar'] = $navibar;
-			$this->helpers['NetCommons.Wizard']['navibar'][self::WIZARD_ROOMS]['url']['action'] = $this->params['action'];
+			$this->helpers['NetCommons.Wizard']['navibar'][self::WIZARD_ROOMS]['url']['action'] = 'edit';
 		}
 		if ($this->params['action'] !== 'index') {
 			$spaces = $this->viewVars['spaces'];
 			$activeSpaceId = $this->viewVars['activeSpaceId'];
-			$this->helpers['NetCommons.Wizard']['cancelUrl'] = '/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'];
+			$this->helpers['NetCommons.Wizard']['cancelUrl'] =
+					'/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'];
 		}
 	}
 
