@@ -60,10 +60,10 @@ class RoomsRolesFormHelper extends AppHelper {
 		$html .= '<div class="form-group">';
 
 		//ラベル
-		if ($attributes['label']) {
+		if (isset($attributes['label'])) {
 			$html .= $this->NetCommonsForm->label($fieldName, $attributes['label']);
 		}
-		unset($attributes['label']);
+		$attributes = Hash::remove($attributes, 'label');
 
 		$initialize = NetCommonsAppController::camelizeKeyRecursive(
 			array('roles' => $this->_View->viewVars['roles'])

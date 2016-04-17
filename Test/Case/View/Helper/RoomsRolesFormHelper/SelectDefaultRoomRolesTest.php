@@ -104,7 +104,7 @@ class RoomsRolesFormHelperSelectDefaultRoomRolesTest extends NetCommonsHelperTes
 		));
 
 		//チェック
-		$pattern = '<label for="ModelField">Model label</label>';
+		$pattern = '<label for="ModelField" class="control-label">Model label</label>';
 		$this->assertTextContains($pattern, $result);
 
 		$this->__assertSelectDefaultRoomRoles($result);

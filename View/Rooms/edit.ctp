@@ -31,6 +31,7 @@
 			<?php echo $this->NetCommonsForm->hidden('Room.space_id'); ?>
 			<?php echo $this->NetCommonsForm->hidden('Room.root_id'); ?>
 			<?php echo $this->NetCommonsForm->hidden('Room.parent_id'); ?>
+			<?php echo $this->NetCommonsForm->hidden('Page.parent_id'); ?>
 
 			<?php echo $this->element('Rooms/edit_form'); ?>
 		</div>

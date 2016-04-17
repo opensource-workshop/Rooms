@@ -155,13 +155,6 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		$this->assertTextContains('name="' . $name . '" id="' . $domId . '_" value="0"', $this->view);
 		$pattern = '<input type="checkbox" name="' . preg_quote($name, '/') . '".+?value="1" id="' . $domId . '"';
 		$this->assertRegExp('/' . $pattern . '/', $this->view);
-
-		$domId = 'RolesRoom' . $userId . 'RoleKey';
-		$pattern = '<button type="button" class="btn btn-default btn-sm" ng-disabled="!' . $domId . '" ' .
-							'name="cancel" ng-click="delete(' . $userId . ', \'' . $domId . '\');">' .
-						'<span class="glyphicon glyphicon-remove"></span> ' . __d('users', 'Non members') .
-					'</button>';
-		$this->assertTextContains($pattern, $this->view);
 	}
 
 /**
