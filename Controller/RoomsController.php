@@ -73,8 +73,10 @@ class RoomsController extends RoomsAppController {
 			//登録処理
 			if ($room = $this->Room->saveRoom($this->request->data)) {
 				//正常の場合
-				$this->redirect('/rooms/rooms_roles_users/edit/' . $activeSpaceId . '/' . $room['Room']['id'] . '/');
-				return;
+				$this->NetCommons->setFlashNotification(
+					__d('net_commons', 'Successfully saved.'), array('class' => 'success')
+				);
+				return $this->redirect('/rooms/rooms_roles_users/edit/' . $activeSpaceId . '/' . $room['Room']['id'] . '/');
 			}
 			$this->NetCommons->handleValidationError($this->Room->validationErrors);
 
