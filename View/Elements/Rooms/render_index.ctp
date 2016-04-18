@@ -10,30 +10,32 @@
  */
 ?>
 
-<table class="table table-hover">
-	<?php if (isset($headElementPath)) : ?>
-		<thead>
-			<?php echo $this->element($headElementPath); ?>
-		</thead>
-	<?php endif; ?>
-	<tbody>
-		<?php echo $this->element($dataElementPath, array('room' => $space, 'nest' => 0)); ?>
+<div class="table-responsive">
+	<table class="table table-hover">
+		<?php if (isset($headElementPath)) : ?>
+			<thead>
+				<?php echo $this->element($headElementPath); ?>
+			</thead>
+		<?php endif; ?>
+		<tbody>
+			<?php echo $this->element($dataElementPath, array('room' => $space, 'nest' => 0)); ?>
 
-		<?php
-			if ($roomTreeList) {
-				foreach ($roomTreeList as $roomId => $tree) {
-					if (Hash::get($rooms, $roomId) && ! in_array((string)$roomId, Room::$spaceRooms, true)) {
-						$nest = substr_count($tree, Room::$treeParser);
-						echo $this->element($dataElementPath, array(
-							'room' => $rooms[$roomId],
-							'nest' => $nest
-						));
+			<?php
+				if ($roomTreeList) {
+					foreach ($roomTreeList as $roomId => $tree) {
+						if (Hash::get($rooms, $roomId) && ! in_array((string)$roomId, Room::$spaceRooms, true)) {
+							$nest = substr_count($tree, Room::$treeParser);
+							echo $this->element($dataElementPath, array(
+								'room' => $rooms[$roomId],
+								'nest' => $nest
+							));
+						}
 					}
 				}
-			}
-		?>
-	</tbody>
-</table>
+			?>
+		</tbody>
+	</table>
+</div>
 
 <?php
 if ($paginator) {
