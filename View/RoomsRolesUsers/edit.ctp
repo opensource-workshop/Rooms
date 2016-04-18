@@ -16,7 +16,11 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-<?php echo $this->RoomForm->settingTabs(); ?>
+<?php echo $this->Wizard->navibar(RoomsAppController::WIZARD_ROOMS_ROLES_USERS); ?>
+<?php echo $this->MessageFlash->description(__d('rooms',
+		'Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>' .
+		'When selecting the plug-ins to be used, please press the [Next]. If you want to exit this screen, please press the [Cancel].'
+	)); ?>
 
 <?php echo $this->NetCommonsForm->create('Room', array(
 		'ng-controller' => 'RoomsRolesUsers',
@@ -27,17 +31,19 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 	)); ?>
 	<?php echo $this->NetCommonsForm->hidden('Room.id'); ?>
 
-	<div class="user-search-index-head-margin">
-		<?php echo $this->UserSearchForm->displaySearchButton(array($activeSpaceId, $this->data['Room']['id'])); ?>
-
-		<div class="form-group form-inline">
-			<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
-				'empty' => __d('rooms', 'Change the user role of the room'),
-				'options' => array('delete' => __d('users', 'Non members')),
-				'optionFormat' => __d('rooms', 'Changed to the %s role'),
-				'onchange' => 'submit();'
-			)); ?>
-		</div>
+	<?php echo $this->UserSearchForm->displaySearchButton(array($activeSpaceId, $this->data['Room']['id'])); ?>
+	<div class="form-group form-inline rooms-roles-form">
+		<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
+			'empty' => __d('rooms', 'Change the user role of the room'),
+			'options' => array(
+				'----------------------------------' => array('delete' => __d('users', 'Non members'))
+			),
+			'optionFormat' => __d('rooms', 'Changed to the %s role'),
+			'onchange' => 'submit();',
+			'ng-disabled' => 'sending',
+			'ng-model' => 'RoomEditForm',
+			'ng-change' => 'sending=true;'
+		)); ?>
 	</div>
 
 	<table class="table table-condensed">
@@ -46,11 +52,12 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 				<th>
 					<input class="form-control rooms-roles-users-checkbox" type="checkbox" ng-click="allCheck($event)">
 				</th>
+
+				<?php echo $this->UserSearch->tableHeaders(); ?>
+
 				<th>
 					<?php echo $this->Paginator->sort('RoomRole.level', __d('rooms', 'Room role')); ?>
 				</th>
-				<th class="rooms-roles-users-separator"> </th>
-				<?php echo $this->UserSearch->tableHeaders(); ?>
 			</tr>
 		</thead>
 
@@ -90,30 +97,28 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 							'checked' => false,
 							'class' => 'form-control rooms-roles-users-checkbox',
 							'ng-click' => 'check($event)',
+							'ng-disabled' => 'sending'
 						)); ?>
 					</td>
-					<td>
-						<div class="pull-left">
+
+					<?php echo $this->UserSearch->tableRow($user, false); ?>
+
+					<td class="rooms-roles-form" ng-init="<?php echo $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';'; ?>">
+						<div class="pull-left" ng-class="{'bg-success': <?php echo $domUserRoleKey; ?>}">
 							<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
-								'empty' => '',
 								'value' => Hash::get($user, 'RolesRoom.role_key', ''),
 								'class' => 'form-control input-sm',
-								'ng-init' => $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';',
 								'ng-model' => $domUserRoleKey,
-								'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')'
+								'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
+								'options' => array(
+									'-----------------------' => array(
+										'' => __d('users', 'Non members')
+									)
+								),
+								'ng-disabled' => 'sending'
 							)); ?>
 						</div>
-						<div class="pull-left">&nbsp;</div>
-						<div>
-							<?php echo $this->Button->cancel(__d('users', 'Non members'), null, array(
-									'class' => 'btn btn-default btn-sm',
-									'ng-click' => 'delete(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\');',
-									'ng-disabled' => '!' . $domUserRoleKey
-								)); ?>
-						</div>
 					</td>
-					<td class="rooms-roles-users-separator"> </td>
-					<?php echo $this->UserSearch->tableRow($user, false); ?>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
@@ -122,8 +127,12 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 	<?php echo $this->element('NetCommons.paginator'); ?>
 
 	<div class="text-center">
-		<?php echo $this->Button->cancel(__d('net_commons', 'Close'),
-				$this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'])); ?>
+		<?php echo $this->Wizard->buttons(
+				RoomsAppController::WIZARD_ROOMS_ROLES_USERS,
+				array(),
+				array(),
+				array('url' => $this->Wizard->naviUrl(RoomsAppController::WIZARD_PLUGINS_ROOMS))
+			); ?>
 	</div>
 
 <?php echo $this->Form->end();

@@ -15,7 +15,10 @@
 		<?php echo __d('rooms', 'Room name'); ?>
 	</th>
 	<th>
-		<?php echo __d('rooms', 'Status'); ?>
+		<?php echo __d('rooms', 'Created user'); ?>
+	</th>
+	<th>
+		<?php echo __d('rooms', 'Members'); ?>
 	</th>
 	<th></th>
 </tr>

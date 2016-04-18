@@ -19,3 +19,19 @@ input[type="checkbox"].rooms-roles-users-checkbox {
 .rooms-roles-users-separator {
 	border-left: 1px solid #ddd;
 }
+
+.rooms-change-status {
+	margin-left: 20px;
+}
+
+.rooms-roles-form select.form-control > optgroup > option {
+	padding-left: 15px;
+}
+
+.rooms-roles-form select.form-control.input-sm > optgroup > option {
+	padding-left: 5px;
+}
+
+.rooms-roles-form select.form-control.input-sm {
+	background-color: transparent;
+}

@@ -10,6 +10,7 @@
  */
 
 App::uses('AppHelper', 'View/Helper');
+App::uses('RoomsComponent', 'Rooms.Controller/Component');
 
 /**
  * ルーム表示ヘルパー
@@ -35,6 +36,7 @@ class RoomsHelper extends AppHelper {
 		'NetCommons.Date',
 		'NetCommons.NetCommonsForm',
 		'NetCommons.NetCommonsHtml',
+		'Users.DisplayUser',
 	);
 
 /**
@@ -80,7 +82,8 @@ class RoomsHelper extends AppHelper {
 		}
 		$output .= $this->NetCommonsHtml->div(array(
 			'text-muted', 'small',
-			'visible-xs-inline-block', 'visible-sm-inline-block', 'visible-md-inline-block', 'visible-lg-inline-block'
+			'visible-xs-inline-block', 'visible-sm-inline-block',
+			'visible-md-inline-block', 'visible-lg-inline-block'
 		), $element);
 
 		return '(' . $output . ')';
@@ -130,7 +133,8 @@ class RoomsHelper extends AppHelper {
  * @return string HTML
  * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
-	public function roomsRender($activeSpaceId, $dataElementPath, $headElementPath = null, $roomTreeList = null, $paginator = true) {
+	public function roomsRender($activeSpaceId, $dataElementPath,
+								$headElementPath = null, $roomTreeList = null, $paginator = true) {
 		$output = '';
 
 		if (! isset($roomTreeList)) {
@@ -229,6 +233,35 @@ class RoomsHelper extends AppHelper {
 
 		if (Hash::get($room, 'RolesRoomsUser.' . $field)) {
 			$output .= $this->Date->dateFormat(Hash::get($room, 'RolesRoomsUser.' . $field));
+		}
+
+		return $output;
+	}
+
+/**
+ * ルームの参加者リストを表示する(一覧表示)
+ *
+ * @param array $roomUsers ルームのユーザリスト配列
+ * @return string HTML
+ */
+	public function roomMembers($roomUsers) {
+		$output = '';
+
+		if (! $roomUsers) {
+			return $output;
+		}
+
+		foreach ($roomUsers as $i => $user) {
+			if ($i >= RoomsComponent::LIST_LIMIT_ROOMS_USERS) {
+				break;
+			}
+			$handlename = Hash::get($user, 'User.handlename');
+			$output .= $this->DisplayUser->avatarLink(
+				$user, array('alt' => $handlename, 'title' => $handlename), array(), 'User.id'
+			);
+		}
+		if (count($roomUsers) > RoomsComponent::LIST_LIMIT_ROOMS_USERS) {
+			$output .= __d('net_commons', '...');
 		}
 
 		return $output;

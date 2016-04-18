@@ -216,7 +216,7 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
 
 		$this->assertInput('input', 'data[RoomsLanguage][0][name]', null, $this->view);
 
-		$pattern = '/<button type="button".*?".*?onclick=".*?' . preg_quote('/rooms/rooms/index/' . $spaceId, '/') . '\'" name="cancel">/';
+		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/index/' . $spaceId, '/') . '".*? name="cancel">/';
 		$this->assertRegExp($pattern, $this->view);
 
 		$pattern = '/<button name="save"/';

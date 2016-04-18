@@ -117,7 +117,7 @@ class RoomsRolesFormHelperCheckboxRoomRolesTest extends NetCommonsHelperTestCase
 		));
 
 		//チェック
-		$pattern = '<label for="RoomRolePermissionContentPublishable">Content publishable label</label>';
+		$pattern = '<label for="RoomRolePermissionContentPublishable" class="control-label">Content publishable label</label>';
 		$this->assertTextContains($pattern, $result);
 
 		$this->__assertCheckboxRoomRoles($result);

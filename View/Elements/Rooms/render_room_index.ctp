@@ -18,9 +18,7 @@
 				array($room['Space']['id'], $room['Room']['id']),
 				array('iconSize' => 'btn-xs')
 			); ?>
-	</td>
 
-	<td>
 		<?php
 			if ($nest !== 0) {
 				echo $this->RoomForm->changeStatus($room);
@@ -28,17 +26,26 @@
 		?>
 	</td>
 
+	<td>
+		<?php echo $this->DisplayUser->handleLink($room, array('avatar' => true)); ?>
+	</td>
+	<td>
+		<?php echo $this->Rooms->roomMembers(Hash::get($rolesRoomsUsers, $room['Room']['id'])); ?>
+	</td>
+
 	<td class="text-right">
 		<?php
 			if ($nest === 0) {
-				$title = __d('rooms', 'Add new room');
-			} else {
-				$title = __d('rooms', 'Add new subroom');
+				echo $this->Button->addLink(__d('rooms', 'Add new room'),
+						array('action' => 'add', $room['Space']['id'], $room['Room']['id']),
+						array('iconSize' => 'btn-xs')
+					);
+			} elseif ($nest === 1) {
+				echo $this->Button->addLink(__d('rooms', 'Add new subroom'),
+						array('action' => 'add', $room['Space']['id'], $room['Room']['id']),
+						array('iconSize' => 'btn-xs')
+					);
 			}
-			echo $this->Button->addLink($title,
-					array('action' => 'add', $room['Space']['id'], $room['Room']['id']),
-					array('iconSize' => 'btn-xs')
-				);
 		?>
 	</td>
 </tr>

@@ -55,49 +55,32 @@ class RoomsRolesFormHelper extends AppHelper {
 	public function checkboxRoomRoles($fieldName, $attributes = array()) {
 		list($model, $permission) = explode('.', $fieldName);
 
-		$attributes = Hash::merge(array(
-			'outerDiv' => true,
-			'label' => false,
-			'indent' => true
-		), $attributes);
-
 		$html = '';
 
-		//外枠のdiv
-		$outerDiv = $attributes['outerDiv'];
-		if ($outerDiv === true) {
-			$html .= '<div class="form-group">';
-			$attributes['indent'] = true;
-		}
-		unset($attributes['outerDiv']);
+		$html .= '<div class="form-group">';
 
 		//ラベル
-		if ($attributes['label']) {
-			$outerDiv = true;
-			$attributes['indent'] = true;
+		if (isset($attributes['label'])) {
 			$html .= $this->NetCommonsForm->label($fieldName, $attributes['label']);
 		}
-		unset($attributes['label']);
+		$attributes = Hash::remove($attributes, 'label');
 
-		$initialize = NetCommonsAppController::camelizeKeyRecursive(array('roles' => $this->_View->viewVars['roles']));
-		$html .= '<div class="form-inline" ' .
-						'ng-controller="RoomRolePermissions" ' .
-						'ng-init="RolePermission.initialize(' . h(json_encode($initialize, JSON_FORCE_OBJECT)) . ')">';
-
-		//外枠のdivがある場合、インデントする
-		$indent = $attributes['indent'];
-		unset($attributes['indent']);
-		if ($indent) {
-			$html .= '<div class="form-group checkbox-separator"></div>';
-		}
+		$initialize = NetCommonsAppController::camelizeKeyRecursive(
+			array('roles' => $this->_View->viewVars['roles'])
+		);
+		$html .= '<div ng-controller="RoomRolePermissions" ' .
+					'ng-init="RolePermission.initialize(' .
+						h(json_encode($initialize, JSON_FORCE_OBJECT)) .
+					')' .
+				'">';
 
 		//権限のチェックボックス
+		$html .= '<div class="form-input-outer form-inline">';
 		foreach ($this->_View->request->data[$model][$permission] as $roleKey => $role) {
 			if (! $role['value'] && $role['fixed']) {
 				continue;
 			}
 
-			$html .= '<div class="form-group">';
 			$html .= $this->NetCommonsForm->hidden($fieldName . '.' . $roleKey . '.id');
 
 			$options = Hash::merge(array(
@@ -109,20 +92,18 @@ class RoomsRolesFormHelper extends AppHelper {
 						$model . '\', \'' . $permission . '\', \'' . Inflector::variable($roleKey) . '\')';
 			}
 
+			$options['label'] = $this->_View->request->data['Role'][$roleKey]['name'];
 			$html .= $this->NetCommonsForm->checkbox($fieldName . '.' . $roleKey . '.value', $options);
-			$html .= $this->NetCommonsForm->label($fieldName . '.' . $roleKey . '.value',
-						h($this->_View->request->data['Role'][$roleKey]['name']));
-
-			$html .= '</div>';
-			$html .= '<span class="checkbox-separator"></span>';
 		}
 
 		$html .= '</div>';
 
-		//外枠のdiv
-		if ($outerDiv === true) {
-			$html .= '</div>';
+		if (Hash::get($attributes, 'help')) {
+			$html .= $this->NetCommonsForm->help(Hash::get($attributes, 'help'));
 		}
+		$html .= '</div>';
+
+		$html .= '</div>';
 
 		return $html;
 	}
@@ -136,11 +117,9 @@ class RoomsRolesFormHelper extends AppHelper {
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/form.html#options-for-select-checkbox-and-radio-inputs
  */
 	public function selectDefaultRoomRoles($fieldName, $attributes = array()) {
-		$defaultRoles = $this->_View->viewVars['defaultRoles'];
-
 		//Option
 		$defaultRoles = Hash::merge(
-			$this->_View->viewVars['defaultRoles'],
+			array(' ' => $this->_View->viewVars['defaultRoles']),
 			Hash::get($attributes, 'options', array())
 		);
 		$attributes = Hash::remove($attributes, 'options');
@@ -150,9 +129,11 @@ class RoomsRolesFormHelper extends AppHelper {
 		$attributes = Hash::remove($attributes, 'optionFormat');
 
 		//OptionのFormat変換
-		foreach ($defaultRoles as $key => $value) {
-			$defaultRoles[$key] = sprintf($optionFormat, $value);
+		$flatten = Hash::flatten($defaultRoles);
+		foreach ($flatten as $key => $value) {
+			$flatten[$key] = sprintf($optionFormat, $value);
 		}
+		$defaultRoles = Hash::expand($flatten);
 
 		$html = '';
 

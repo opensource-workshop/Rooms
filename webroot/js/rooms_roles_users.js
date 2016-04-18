@@ -84,6 +84,7 @@ NetCommonsApp.controller('RoomsRolesUsers',
       $scope.save = function(userId, roleKey) {
         var elements = $('#' + roleKey)[0];
         $scope.data['RolesRoom'][userId]['role_key'] = elements.value;
+        $scope.$parent.sending = true;
 
         if (! $('#' + roleKey)[0].value) {
           $scope.data['Role']['key'] = 'delete';

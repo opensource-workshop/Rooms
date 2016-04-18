@@ -168,9 +168,8 @@ class Room extends RoomsAppModel {
 		$this->validate = Hash::merge($this->validate, array(
 			'space_id' => array(
 				'numeric' => array(
-					'rule' => array('numeric'),
+					'rule' => array('numeric'), 'required' => true,
 					'message' => __d('net_commons', 'Invalid request.'),
-					'required' => true,
 				),
 			),
 			'page_id_top' => array(
@@ -215,26 +214,23 @@ class Room extends RoomsAppModel {
 			//TreeBehaviorで使用
 			'parent_id' => array(
 				'numeric' => array(
-					'rule' => array('numeric'),
+					'rule' => array('numeric'), 'required' => false,
 					'message' => __d('net_commons', 'Invalid request.'),
 					'allowEmpty' => true,
-					'required' => false,
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'lft' => array(
 				'numeric' => array(
-					'rule' => array('numeric'),
+					'rule' => array('numeric'), 'required' => false,
 					'message' => __d('net_commons', 'Invalid request.'),
-					'required' => false,
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
 			'rght' => array(
 				'numeric' => array(
-					'rule' => array('numeric'),
+					'rule' => array('numeric'), 'required' => false,
 					'message' => __d('net_commons', 'Invalid request.'),
-					'required' => false,
 					'on' => 'update', // Limit validation to 'create' or 'update' operations
 				),
 			),
@@ -255,7 +251,9 @@ class Room extends RoomsAppModel {
 			foreach ($this->data[$this->RoomRolePermission->alias] as $permission => $data) {
 				$data = Hash::insert($data, '{s}.permission', $permission);
 				if (! $this->RoomRolePermission->validateMany($data)) {
-					$this->validationErrors = Hash::merge($this->validationErrors, $this->RoomRolePermission->validationErrors);
+					$this->validationErrors = Hash::merge(
+						$this->validationErrors, $this->RoomRolePermission->validationErrors
+					);
 					return false;
 				}
 			}
@@ -292,7 +290,9 @@ class Room extends RoomsAppModel {
 	public function afterSave($created, $options = array()) {
 		//RoomsLanguage登録
 		if (isset($this->data['RoomsLanguage'])) {
-			$roomsLanguages = Hash::insert($this->data['RoomsLanguage'], '{n}.room_id', $this->data['Room']['id']);
+			$roomsLanguages = Hash::insert(
+				$this->data['RoomsLanguage'], '{n}.room_id', $this->data['Room']['id']
+			);
 			foreach ($roomsLanguages as $index => $roomsLanguage) {
 				if (! $result = $this->RoomsLanguage->save($roomsLanguage, false, false)) {
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
@@ -326,7 +326,9 @@ class Room extends RoomsAppModel {
 					'{n}.RoomRolePermission.permission'
 				);
 				$room['RoomRolePermission'] = Hash::remove($room['RoomRolePermission'], '{s}.{s}.id');
-				$room['RoomRolePermission'] = Hash::merge($roomRolePermissions, $room['RoomRolePermission']);
+				$room['RoomRolePermission'] = Hash::merge(
+					$roomRolePermissions, $room['RoomRolePermission']
+				);
 			}
 			foreach ($room['RoomRolePermission'] as $permission) {
 				if (! $this->RoomRolePermission->saveMany($permission, ['validate' => false])) {
@@ -442,7 +444,7 @@ class Room extends RoomsAppModel {
 		try {
 			//登録処理
 			$this->id = $data['Room']['id'];
-			if (! $this->saveField('active', (bool)$data['Room']['active'], array('callbacks' => false))) {
+			if (! $this->saveField('active', (bool)$data['Room']['active'], ['callbacks' => false])) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 

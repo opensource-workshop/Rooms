@@ -13,14 +13,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Rooms/Model/RoomsLanguage.php:90
-#: Rooms/View/Elements/Rooms/edit_form.ctp:29
-msgid "Room name"
-msgstr "ルーム名"
+#
+# ルーム作成時のページ名
+#
 
-#: Rooms/Model/Behavior/SaveRoomAssociationsBehavior.php:260
+#: Rooms/Model/Behavior/SaveRoomAssociationsBehavior.php:280
 msgid "Top"
 msgstr ""
+
+
+#
+# ウィザードナビ
+#
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:28
 #: Rooms/View/Elements/space_room_setting_tabs.ctp:17
@@ -29,12 +33,27 @@ msgstr "一般設定"
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:32
 msgid "Edit the members to join"
-msgstr "参加会員の修正"
+msgstr "参加者の管理"
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:37
 #: Rooms/View/Elements/space_room_setting_tabs.ctp:23
 msgid "Select the plugins to join"
 msgstr "プラグイン選択"
+
+
+#
+# ルーム一覧画面、ルーム作成・編集画面
+#
+
+#: Rooms/Model/RoomsLanguage.php:90
+#: Rooms/View/Elements/Rooms/edit_form.ctp:29
+msgid "Room name"
+msgstr "ルーム名"
+
+
+#
+# ルーム一覧画面
+#
 
 #: Rooms/View/Elements/subtitle.ctp:24
 msgid "Add new room"
@@ -43,6 +62,23 @@ msgstr "ルーム"
 #: Rooms/View/Elements/subtitle.ctp:24
 msgid "Add new subroom"
 msgstr "サブルーム"
+
+msgid "You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms."
+msgstr "ルームの追加、編集、削除、参加者の選択ができます。"
+
+msgid "Created user"
+msgstr "作成者"
+
+msgid "Members"
+msgstr "参加者"
+
+
+#
+# ルーム作成・編集画面
+#
+
+msgid "Input the room name."
+msgstr "ルーム名称を入力して下さい。"
 
 #: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
 msgid "Room"
@@ -56,21 +92,29 @@ msgstr "すべての会員をデフォルトで参加させる"
 msgid "Default room role"
 msgstr "「ルーム内の役割」のデフォルト値"
 
+msgid "Approved content?"
+msgstr "コンテンツの承認機能"
+
 #: Rooms/View/Elements/Rooms/edit_form.ctp:71
 msgid "Authority to publish approved content"
-msgstr "コンテンツの承認機能を使う"
+msgstr "コンテンツに承認が必要"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:80
 msgid "Do not use the approval"
-msgstr "コンテンツの承認機能を使わない"
+msgstr "不要"
+
+msgid "Even if you no need, you can have the approval functions in each block."
+msgstr "不要にした場合でも、各ブロックで承認機能を有することができます。"
+
+msgid "Allow publish approved content"
+msgstr "コンテンツを承認できる権限"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:85
 msgid "Allow all html tags?  e.g.) Javascript or iframe"
-msgstr "全てのHTMLタグの書き込み許可<br>(Javascript等の書き込みを許可するため、脆弱性の原因になる可能性があります)"
+msgstr "Javascript等のHTMLタグを許可する権限"
 
-#: Rooms/View/Elements/Rooms/edit_form.ctp:85
-msgid "Calendar plan entry authority setting"
-msgstr "カレンダーに予定を追加できる権限"
+msgid "If you allow Javascript, etc., there is a possibility that cause of vulnerability"
+msgstr "Javascript等を許可すると、脆弱性の原因になる可能性があります。"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:93
 msgid "Status"
@@ -79,6 +123,27 @@ msgstr "状態"
 #: Rooms/View/Elements/Rooms/edit_form.ctp:97
 msgid "Under maintenance"
 msgstr "準備中"
+
+
+#
+# 参加者の管理
+#
+
+msgid "Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>"
+"When selecting the plug-ins to be used, please press the [Next]. If you want to exit this screen, please press the [Cancel]."
+msgstr "このルームでの会員の役割を設定してください。会員の役割を変更したら、すぐに登録されます。<br>"
+"利用するプラグインを選択する際は、[次へ]を押してください。この画面を終了する場合は、[キャンセル]を押してください。"
+
+
+#
+# プラグイン選択
+#
+msgid "You can set the plugins to be used in the specified room. Press [OK] button to proceed."
+msgstr "このルームでの利用を許可するプラグインを選択して、[決定]を押してください。"
+
+
+
+
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:97
 msgid "(Under maintenance)"
