@@ -53,7 +53,6 @@
 			'1' => __d('rooms', 'Authority to publish approved content'),
 			'0' => __d('rooms', 'Do not use the approval')
 		),
-		'class' => array('class' => 'form-inline'),
 		'label' => __d('rooms', 'Approved content?'),
 		'help' => __d('rooms', 'Even if you no need, you can have the approval functions in each block.')
 	));

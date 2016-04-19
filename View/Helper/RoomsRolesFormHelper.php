@@ -75,7 +75,7 @@ class RoomsRolesFormHelper extends AppHelper {
 				'">';
 
 		//権限のチェックボックス
-		$html .= '<div class="form-input-outer form-inline">';
+		$html .= '<div class="form-inline">';
 		foreach ($this->_View->request->data[$model][$permission] as $roleKey => $role) {
 			if (! $role['value'] && $role['fixed']) {
 				continue;
@@ -84,7 +84,7 @@ class RoomsRolesFormHelper extends AppHelper {
 			$html .= $this->NetCommonsForm->hidden($fieldName . '.' . $roleKey . '.id');
 
 			$options = Hash::merge(array(
-				'div' => false,
+				'div' => array('class' => 'checkbox checkbox-inline'),
 				'disabled' => (bool)$role['fixed'],
 			), $attributes);
 			if (! $options['disabled']) {
