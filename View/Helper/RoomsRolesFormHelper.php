@@ -81,10 +81,11 @@ class RoomsRolesFormHelper extends AppHelper {
 				continue;
 			}
 
+			$html .= '<div class="checkbox checkbox-inline">';
 			$html .= $this->NetCommonsForm->hidden($fieldName . '.' . $roleKey . '.id');
 
 			$options = Hash::merge(array(
-				'div' => array('class' => 'checkbox checkbox-inline'),
+				'div' => false,
 				'disabled' => (bool)$role['fixed'],
 			), $attributes);
 			if (! $options['disabled']) {
@@ -94,6 +95,8 @@ class RoomsRolesFormHelper extends AppHelper {
 
 			$options['label'] = $this->_View->request->data['Role'][$roleKey]['name'];
 			$html .= $this->NetCommonsForm->checkbox($fieldName . '.' . $roleKey . '.value', $options);
+
+			$html .= '</div>';
 		}
 
 		$html .= '</div>';
