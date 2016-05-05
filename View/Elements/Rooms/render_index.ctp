@@ -26,14 +26,14 @@
 						<?php echo $this->Rooms->roomName($space, 0); ?>
 
 						<?php echo $this->Button->editLink('',
-								array($space['Space']['id'], $space['Room']['id']),
+								array('action' => 'edit', 'key' => $space['Space']['id'], 'key2' => $space['Room']['id']),
 								array('iconSize' => 'btn-xs')
 							); ?>
 					</div>
 				</td>
 				<td class="text-right">
 					<?php echo $this->Button->addLink(__d('rooms', 'Add new room'),
-							array('action' => 'add', $space['Space']['id'], $space['Room']['id']),
+							array('action' => 'add', 'key' => $space['Space']['id'], 'key2' => $space['Room']['id']),
 							array('iconSize' => 'btn-xs')
 						); ?>
 				</td>

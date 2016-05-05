@@ -15,14 +15,12 @@
 		<?php echo $this->Rooms->roomName($room, $nest); ?>
 
 		<?php echo $this->Button->editLink('',
-				array($room['Space']['id'], $room['Room']['id']),
+				array('action' => 'edit', $room['Space']['id'], $room['Room']['id']),
 				array('iconSize' => 'btn-xs')
 			); ?>
 
 		<?php
-			if ($nest !== 0) {
-				echo $this->RoomForm->changeStatus($room);
-			}
+			echo $this->RoomForm->changeStatus($room);
 		?>
 	</td>
 
