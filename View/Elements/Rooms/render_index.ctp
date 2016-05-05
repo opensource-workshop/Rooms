@@ -11,30 +11,35 @@
 ?>
 
 <div class="table-responsive">
-	<table class="table space-edit-table">
-		<tbody>
-			<td>
-				<label>
-					<?php echo __d('rooms', 'Space name'); ?>
-				</label>
+	<?php if ($this->params['plugin'] === 'rooms' &&
+				$this->params['controller'] === 'rooms' &&
+				$this->params['action'] === 'index') : ?>
 
-				<div class="form-control space-name-edit">
-					<?php echo $this->Rooms->roomName($space, 0); ?>
+		<table class="table space-edit-table">
+			<tbody>
+				<td>
+					<label>
+						<?php echo __d('rooms', 'Space name'); ?>
+					</label>
 
-					<?php echo $this->Button->editLink('',
-							array($space['Space']['id'], $space['Room']['id']),
+					<div class="form-control space-name-edit">
+						<?php echo $this->Rooms->roomName($space, 0); ?>
+
+						<?php echo $this->Button->editLink('',
+								array($space['Space']['id'], $space['Room']['id']),
+								array('iconSize' => 'btn-xs')
+							); ?>
+					</div>
+				</td>
+				<td class="text-right">
+					<?php echo $this->Button->addLink(__d('rooms', 'Add new room'),
+							array('action' => 'add', $space['Space']['id'], $space['Room']['id']),
 							array('iconSize' => 'btn-xs')
 						); ?>
-				</div>
-			</td>
-			<td class="text-right">
-				<?php echo $this->Button->addLink(__d('rooms', 'Add new room'),
-						array('action' => 'add', $space['Space']['id'], $space['Room']['id']),
-						array('iconSize' => 'btn-xs')
-					); ?>
-			</td>
-		</tbody>
-	</table>
+				</td>
+			</tbody>
+		</table>
+	<?php endif; ?>
 
 	<table class="table table-hover">
 		<?php if (isset($headElementPath)) : ?>
