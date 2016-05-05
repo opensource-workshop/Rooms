@@ -11,6 +11,31 @@
 ?>
 
 <div class="table-responsive">
+	<table class="table space-edit-table">
+		<tbody>
+			<td>
+				<label>
+					<?php echo __d('rooms', 'Space name'); ?>
+				</label>
+
+				<div class="form-control space-name-edit">
+					<?php echo $this->Rooms->roomName($space, 0); ?>
+
+					<?php echo $this->Button->editLink('',
+							array($space['Space']['id'], $space['Room']['id']),
+							array('iconSize' => 'btn-xs')
+						); ?>
+				</div>
+			</td>
+			<td class="text-right">
+				<?php echo $this->Button->addLink(__d('rooms', 'Add new room'),
+						array('action' => 'add', $space['Space']['id'], $space['Room']['id']),
+						array('iconSize' => 'btn-xs')
+					); ?>
+			</td>
+		</tbody>
+	</table>
+
 	<table class="table table-hover">
 		<?php if (isset($headElementPath)) : ?>
 			<thead>
@@ -18,8 +43,6 @@
 			</thead>
 		<?php endif; ?>
 		<tbody>
-			<?php echo $this->element($dataElementPath, array('room' => $space, 'nest' => 0)); ?>
-
 			<?php
 				if ($roomTreeList) {
 					foreach ($roomTreeList as $roomId => $tree) {
@@ -27,7 +50,7 @@
 							$nest = substr_count($tree, Room::$treeParser);
 							echo $this->element($dataElementPath, array(
 								'room' => $rooms[$roomId],
-								'nest' => $nest
+								'nest' => $nest - 1
 							));
 						}
 					}
