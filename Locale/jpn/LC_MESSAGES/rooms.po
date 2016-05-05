@@ -51,7 +51,7 @@ msgid "Room name"
 msgstr "ルーム名"
 
 msgid "Space name"
-msgstr "スペース名"
+msgstr "スペース"
 
 
 #
