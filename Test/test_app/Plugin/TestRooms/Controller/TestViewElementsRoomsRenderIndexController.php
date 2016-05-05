@@ -35,6 +35,8 @@ class TestViewElementsRoomsRenderIndexController extends RoomsController {
  */
 	public function beforeFilter() {
 		$action = $this->params['action'];
+		$this->params['plugin'] = 'rooms';
+		$this->params['controller'] = 'rooms';
 		$this->params['action'] = 'index';
 
 		parent::beforeFilter();
@@ -49,7 +51,11 @@ class TestViewElementsRoomsRenderIndexController extends RoomsController {
  */
 	public function render_index() {
 		parent::index();
+		Current::remove('Block.id');
+
 		$this->autoRender = true;
+		$this->view = 'render_index';
+		$this->params['action'] = 'index';
 
 		$this->set('options', array(
 			'headElementPath' => 'TestRooms.TestViewElementsRoomsRenderIndex/render_header',
