@@ -52,6 +52,7 @@ class TestViewElementsRoomsRenderRoomIndexController extends RoomsController {
 	public function render_room_index() {
 		parent::index();
 		$this->autoRender = true;
+		Current::remove('Block.id');
 
 		$this->set('options', array(
 			'room' => $this->viewVars['rooms']['4'],
@@ -68,6 +69,7 @@ class TestViewElementsRoomsRenderRoomIndexController extends RoomsController {
 		parent::index();
 		$this->autoRender = true;
 		$this->view = 'render_room_index';
+		Current::remove('Block.id');
 
 		$this->set('options', array(
 			'room' => $this->viewVars['spaces']['2'],

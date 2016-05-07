@@ -63,19 +63,11 @@ class RoomsViewElementsRoomsRenderRoomIndexTest extends NetCommonsControllerTest
 		$pattern = '/' . preg_quote('View/Elements/Rooms/render_room_index', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
-		$pattern = '/' . preg_quote('<span class="rooms-tree"> </span>', '/') . '.+/';
-		$this->assertRegExp($pattern, $this->view);
-
-		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/edit/2/2/4', '/') . '.*?">' .
+		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/edit/2/4', '/') . '.*?">' .
 				preg_quote('<span class="glyphicon glyphicon-edit"></span>', '/') . '.+?' . preg_quote('</a>', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
-		$this->assertTextContains('/rooms/rooms/active/2/2/4', $this->view);
-
-		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/add/2/4', '/') . '.*?">' .
-				preg_quote('<span class="glyphicon glyphicon-plus"></span>', '/') .
-				' ' . __d('rooms', 'Add new subroom') . preg_quote('</a>', '/') . '/';
-		$this->assertRegExp($pattern, $this->view);
+		$this->assertTextContains('/rooms/rooms/active/2/4', $this->view);
 	}
 
 /**
@@ -92,17 +84,15 @@ class RoomsViewElementsRoomsRenderRoomIndexTest extends NetCommonsControllerTest
 		$pattern = '/' . preg_quote('View/Elements/Rooms/render_room_index', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
-		$this->assertTextNotContains('<span class="rooms-tree"> </span>', $this->view);
-
-		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/edit/2/2/1', '/') . '.*?">' .
+		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/edit/2/1', '/') . '.*?">' .
 				preg_quote('<span class="glyphicon glyphicon-edit"></span>', '/') . '.+?' . preg_quote('</a>', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
-		$this->assertTextNotContains('/rooms/rooms/active', $this->view);
+		$this->assertTextContains('/rooms/rooms/active', $this->view);
 
 		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/add/2/1', '/') . '.*?">' .
 				preg_quote('<span class="glyphicon glyphicon-plus"></span>', '/') .
-				' ' . __d('rooms', 'Add new room') . preg_quote('</a>', '/') . '/';
+				' ' . __d('rooms', 'Add new subroom') . preg_quote('</a>', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 	}
 

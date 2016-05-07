@@ -83,7 +83,9 @@ class RoomsHelperRoomsRenderTest extends NetCommonsHelperTestCase {
 		$requestData = array();
 
 		//Helperロード
-		$this->loadHelper('Rooms.Rooms', $viewVars, $requestData);
+		$this->loadHelper('Rooms.Rooms', $viewVars, $requestData,
+			array('plugin' => 'rooms', 'controller' => 'rooms', 'action' => 'index')
+		);
 
 		//データ生成
 		$activeSpaceId = '2';
@@ -96,11 +98,12 @@ class RoomsHelperRoomsRenderTest extends NetCommonsHelperTestCase {
 
 		//チェック
 		$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_header', $result);
-		$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/1/0', $result);
+		$this->assertTextContains('/rooms/rooms/add/2/1', $result);
+		$this->assertTextContains('/rooms/rooms/edit/2/1', $result);
 		if ($roomTreeList) {
-			$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/5/2', $result);
+			$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/5/1', $result);
 		} else {
-			$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/4/1', $result);
+			$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/4/0', $result);
 		}
 	}
 
