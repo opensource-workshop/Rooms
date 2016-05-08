@@ -24,8 +24,16 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 	<div class="panel-body">
 		<div class="form-inline">
 			<div class="clearfix">
-				<?php echo $this->PluginsForm->checkboxPluginsRoom(
-						array('div' => array('class' => 'plugin-checkbox-outer'))); ?>
+				<?php
+					$default = Hash::extract($pluginsRoom, '{n}.PluginsRoom[room_id=' . Current::read('Room.id') . ']');
+					echo $this->PluginsForm->checkboxPluginsRoom(
+						'PluginsRoom.plugin_key',
+						array(
+							'div' => array('class' => 'plugin-checkbox-outer'),
+							'default' => array_values(Hash::combine($default, '{n}.plugin_key', '{n}.plugin_key'))
+						)
+					);
+				?>
 			</div>
 		</div>
 	</div>
