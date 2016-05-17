@@ -76,7 +76,9 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 
 		//テスト実施
 		$result = $this->TestModel->saveDefaultPage($data);
-		$this->assertTrue($result);
+		$this->assertEquals(['Room', 'Page', 'LanguagesPage', 'Container', 'Box'], array_keys($result));
+		$this->assertEquals('4', Hash::get($result, 'Room.id'));
+		$this->assertEquals('9', Hash::get($result, 'Box.id'));
 
 		//チェック
 		$pageId = $this->TestModel->Page->getLastInsertID();

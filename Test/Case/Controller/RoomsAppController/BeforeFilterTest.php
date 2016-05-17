@@ -27,6 +27,7 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
  */
 	public $fixtures = array(
 		'plugin.rooms.rooms_language4test',
+		'plugin.rooms.plugins_role4test',
 	);
 
 /**
