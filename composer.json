@@ -23,6 +23,9 @@
         "netcommons/users":             "dev-master",
         "netcommons/workflow":          "dev-master"
 	},
+    "require-dev": {
+        "netcommons/groups":            "dev-master"
+    },
 	"license": "NetCommons License",
 	"authors": [
 		{
