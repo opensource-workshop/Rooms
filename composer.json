@@ -1,13 +1,13 @@
 {
-	"name": "netcommons/rooms",
-	"description": "Rooms Plugin for NetCommons3",
-	"homepage": "http://www.netcommons.org/",
-	"extra": {
-		"installer-paths": {
-			"app/Plugin/{$name}": ["type:cakephp-plugin"]
-		}
-	},
-	"require": {
+    "name": "netcommons/rooms",
+    "description": "Rooms Plugin for NetCommons3",
+    "homepage": "http://www.netcommons.org/",
+    "extra": {
+        "installer-paths": {
+            "app/Plugin/{$name}": ["type:cakephp-plugin"]
+        }
+    },
+    "require": {
         "cakedc/migrations":            "~2.2",
         "netcommons/blocks":            "dev-master",
         "netcommons/control-panel":     "dev-master",
@@ -22,20 +22,20 @@
         "netcommons/user-roles":        "dev-master",
         "netcommons/users":             "dev-master",
         "netcommons/workflow":          "dev-master"
-	},
+    },
     "require-dev": {
         "netcommons/groups":            "dev-master"
     },
-	"license": "NetCommons License",
-	"authors": [
-		{
-			"name": "NetCommons Community",
-			"homepage": "https://github.com/NetCommons3/Rooms/graphs/contributors"
-		}
-	],
-	"type":        "cakephp-plugin",
-	"keywords":    ["rooms","netcommons","cakephp2"],
-	"config": {
-		"vendor-dir": "vendors"
-	}
+    "license": "NetCommons License",
+    "authors": [
+        {
+            "name": "NetCommons Community",
+            "homepage": "https://github.com/NetCommons3/Rooms/graphs/contributors"
+        }
+    ],
+    "type":        "cakephp-plugin",
+    "keywords":    ["rooms","netcommons","cakephp2"],
+    "config": {
+        "vendor-dir": "vendors"
+    }
 }
