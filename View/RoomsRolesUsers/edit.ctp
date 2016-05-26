@@ -46,83 +46,90 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 		)); ?>
 	</div>
 
-	<table class="table table-condensed">
-		<thead>
-			<tr>
-				<th>
-					<input class="form-control rooms-roles-users-checkbox" type="checkbox" ng-click="allCheck($event)">
-				</th>
+	<div class="table-responsive">
+		<table class="table table-condensed rooms-roles-users-table">
+			<thead>
+				<tr>
+					<th>
+						<input class="rooms-roles-users-checkbox" type="checkbox" ng-click="allCheck($event)">
+					</th>
 
-				<?php echo $this->UserSearch->tableHeaders(); ?>
+					<?php echo $this->UserSearch->tableHeaders(); ?>
 
-				<th>
-					<?php echo $this->Paginator->sort('RoomRole.level', __d('rooms', 'Room role')); ?>
-				</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			<?php foreach ($users as $index => $user) : ?>
-				<?php
-					$appendData = array(
-						'User' => array(
-							'id' => array($user['User']['id'] => '0')
-						),
-						'RolesRoom' => array(
-							$user['User']['id'] => array(
-								'role_key' => Hash::get($user, 'RolesRoom.role_key', '')
-							)
-						),
-						'RolesRoomsUser' => array(
-							$user['User']['id'] => array(
-								'id' => Hash::get($this->request->data, 'RolesRoomsUser.' . $user['User']['id'] . '.id', ''),
-								'user_id' => $user['User']['id'],
-								'room_id' => Hash::get($this->request->data, 'Room.id', ''),
-							),
-						),
-					);
-					$domUserId = $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id');
-					$domUserRoleKey = $this->NetCommonsForm->domId('RolesRoom.' . $user['User']['id'] . '.role_key');
-				?>
-				<tr ng-init="appendUser(<?php echo h(json_encode($appendData, JSON_FORCE_OBJECT)); ?>);"
-					ng-class="{active: <?php echo $domUserId; ?>}">
-					<td>
-						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id'); ?>
-						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.user_id', array('value' => $user['User']['id'])); ?>
-						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id', array('value' => $this->data['Room']['id'])); ?>
-						<?php echo $this->NetCommonsForm->input('User.id.' . $user['User']['id'], array(
-							'label' => false,
-							'div' => false,
-							'type' => 'checkbox',
-							'checked' => false,
-							'class' => 'form-control rooms-roles-users-checkbox',
-							'ng-click' => 'check($event)',
-							'ng-disabled' => 'sending'
-						)); ?>
-					</td>
-
-					<?php echo $this->UserSearch->tableRow($user, false); ?>
-
-					<td class="rooms-roles-form" ng-init="<?php echo $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';'; ?>">
-						<div class="pull-left" ng-class="{'bg-success': <?php echo $domUserRoleKey; ?>}">
-							<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
-								'value' => Hash::get($user, 'RolesRoom.role_key', ''),
-								'class' => 'form-control input-sm',
-								'ng-model' => $domUserRoleKey,
-								'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
-								'options' => array(
-									'-----------------------' => array(
-										'' => __d('users', 'Non members')
-									)
-								),
-								'ng-disabled' => 'sending'
-							)); ?>
-						</div>
-					</td>
+					<th>
+						<?php echo $this->Paginator->sort('RoomRole.level', __d('rooms', 'Room role')); ?>
+					</th>
 				</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
+			</thead>
+
+			<tbody>
+				<?php foreach ($users as $index => $user) : ?>
+					<?php
+						$appendData = array(
+							'User' => array(
+								'id' => array($user['User']['id'] => '0')
+							),
+							'RolesRoom' => array(
+								$user['User']['id'] => array(
+									'role_key' => Hash::get($user, 'RolesRoom.role_key', '')
+								)
+							),
+							'RolesRoomsUser' => array(
+								$user['User']['id'] => array(
+									'id' => Hash::get($this->request->data, 'RolesRoomsUser.' . $user['User']['id'] . '.id', ''),
+									'user_id' => $user['User']['id'],
+									'room_id' => Hash::get($this->request->data, 'Room.id', ''),
+								),
+							),
+						);
+						$domUserId = $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id');
+						$domUserRoleKey = $this->NetCommonsForm->domId('RolesRoom.' . $user['User']['id'] . '.role_key');
+					?>
+					<tr ng-init="appendUser(<?php echo h(json_encode($appendData, JSON_FORCE_OBJECT)); ?>);"
+						ng-class="{active: <?php echo $domUserId; ?>}">
+						<td>
+							<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id'); ?>
+							<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.user_id',
+										array('value' => $user['User']['id'])
+								); ?>
+							<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id',
+										array('value' => $this->data['Room']['id'])
+								); ?>
+							<?php echo $this->NetCommonsForm->checkbox('User.id.' . $user['User']['id'], array(
+								'label' => false,
+								'div' => false,
+								'type' => 'checkbox',
+								'checked' => false,
+								'class' => 'rooms-roles-users-checkbox',
+								'ng-click' => 'check($event)',
+								'ng-disabled' => 'sending',
+								'inline' => true,
+							)); ?>
+						</td>
+
+						<?php echo $this->UserSearch->tableRow($user, false); ?>
+
+						<td class="rooms-roles-form" ng-init="<?php echo $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';'; ?>">
+							<div class="pull-left" ng-class="{'bg-success': <?php echo $domUserRoleKey; ?>}">
+								<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
+									'value' => Hash::get($user, 'RolesRoom.role_key', ''),
+									'class' => 'form-control input-sm',
+									'ng-model' => $domUserRoleKey,
+									'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
+									'options' => array(
+										'-----------------------' => array(
+											'' => __d('users', 'Non members')
+										)
+									),
+									'ng-disabled' => 'sending'
+								)); ?>
+							</div>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
 
 	<?php echo $this->element('NetCommons.paginator'); ?>
 

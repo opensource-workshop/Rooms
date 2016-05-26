@@ -46,3 +46,10 @@ input[type="checkbox"].rooms-roles-users-checkbox {
 table.space-edit-table > tbody > tr > td {
 	border-top: 0px;
 }
+
+.rooms-roles-users-table .checkbox-inline {
+	padding-left: 0px;
+}
+.rooms-roles-users-table label.control-label {
+	padding-left: 0px;
+}
