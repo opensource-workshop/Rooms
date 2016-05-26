@@ -35,7 +35,11 @@ class RoomsController extends RoomsAppController {
  * @var array
  */
 	public $components = array(
-		'M17n.SwitchLanguage',
+		'M17n.SwitchLanguage' => array(
+			'fields' => array(
+				'RoomsLanguage.name'
+			)
+		),
 		'Paginator',
 		'Rooms.RoomsRolesForm' => array(
 			'permissions' => array('content_publishable', 'html_not_limited')
