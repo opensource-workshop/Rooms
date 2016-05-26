@@ -12,8 +12,13 @@
 
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-<?php echo $this->MessageFlash->description(__d('rooms', 'You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms.')); ?>
+<?php echo $this->MessageFlash->description(
+		__d('rooms', 'You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms.')
+	); ?>
 
 <article class="rooms-manager">
-	<?php echo $this->Rooms->roomsRender($activeSpaceId, 'Rooms.Rooms/render_room_index', 'Rooms.Rooms/render_header'); ?>
+	<?php echo $this->Rooms->roomsRender($activeSpaceId, [
+			'dataElemen' => 'Rooms.Rooms/render_room_index',
+			'headElement' => 'Rooms.Rooms/render_header']
+		); ?>
 </article>
