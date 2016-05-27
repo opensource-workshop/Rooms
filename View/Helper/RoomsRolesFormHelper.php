@@ -119,11 +119,7 @@ class RoomsRolesFormHelper extends AppHelper {
  */
 	public function selectDefaultRoomRoles($fieldName, $attributes = array()) {
 		//Option
-//		$defaultRoles = Hash::get($attributes, 'options', array());
-		$defaultRoles = Hash::merge(
-			array(),
-			Hash::get($attributes, 'options', array())
-		);
+		$defaultRoles = Hash::get($attributes, 'options', array());
 		$attributes = Hash::remove($attributes, 'options');
 
 		//OptionのFormat
@@ -131,13 +127,11 @@ class RoomsRolesFormHelper extends AppHelper {
 		$attributes = Hash::remove($attributes, 'optionFormat');
 
 		//OptionのFormat変換
-		//$flatten = Hash::flatten($defaultRoles);
 		foreach ($defaultRoles as $optkey => $optgroup) {
 			foreach ($optgroup as $key => $text) {
 				$defaultRoles[$optkey][$key] = sprintf($optionFormat, $text);
 			}
 		}
-//debug($defaultRoles);
 
 		$html = '';
 
