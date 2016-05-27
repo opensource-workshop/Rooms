@@ -36,6 +36,7 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 		<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
 			'empty' => __d('rooms', 'Change the user role of the room'),
 			'options' => array(
+				__d('rooms', 'Room role') => $defaultRoles,
 				'----------------------------------' => array('delete' => __d('users', 'Non members'))
 			),
 			'optionFormat' => __d('rooms', 'Changed to the %s role'),
@@ -117,6 +118,7 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 									'ng-model' => $domUserRoleKey,
 									'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
 									'options' => array(
+										__d('rooms', 'Room role') => $defaultRoles,
 										'-----------------------' => array(
 											'' => __d('users', 'Non members')
 										)

@@ -37,6 +37,7 @@ class RoomsRolesFormHelper extends AppHelper {
  * @return void
  */
 	public function beforeRender($viewFile) {
+		$this->NetCommonsHtml->css('/rooms/css/style.css');
 		$this->NetCommonsHtml->script(array(
 			'/rooms/js/role_permissions.js',
 			'/rooms/js/room_role_permissions.js'
@@ -118,8 +119,9 @@ class RoomsRolesFormHelper extends AppHelper {
  */
 	public function selectDefaultRoomRoles($fieldName, $attributes = array()) {
 		//Option
+//		$defaultRoles = Hash::get($attributes, 'options', array());
 		$defaultRoles = Hash::merge(
-			array(' ' => $this->_View->viewVars['defaultRoles']),
+			array(),
 			Hash::get($attributes, 'options', array())
 		);
 		$attributes = Hash::remove($attributes, 'options');
@@ -129,11 +131,13 @@ class RoomsRolesFormHelper extends AppHelper {
 		$attributes = Hash::remove($attributes, 'optionFormat');
 
 		//OptionのFormat変換
-		$flatten = Hash::flatten($defaultRoles);
-		foreach ($flatten as $key => $value) {
-			$flatten[$key] = sprintf($optionFormat, $value);
+		//$flatten = Hash::flatten($defaultRoles);
+		foreach ($defaultRoles as $optkey => $optgroup) {
+			foreach ($optgroup as $key => $text) {
+				$defaultRoles[$optkey][$key] = sprintf($optionFormat, $text);
+			}
 		}
-		$defaultRoles = Hash::expand($flatten);
+//debug($defaultRoles);
 
 		$html = '';
 
