@@ -228,7 +228,6 @@ class RoomsHelper extends AppHelper {
 		if (is_array($roomRoleKey)) {
 			$roomRoleKey = Hash::get($roomRoleKey, 'RolesRoom.role_key', '');
 		}
-		var_dump($roomRoleKey);
 		return h(Hash::get($this->_View->viewVars, 'defaultRoles.' . $roomRoleKey, ''));
 	}
 
