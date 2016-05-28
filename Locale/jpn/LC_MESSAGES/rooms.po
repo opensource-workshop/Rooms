@@ -81,7 +81,7 @@ msgstr "参加者"
 #
 
 msgid "Input the room name."
-msgstr "ルーム名称を入力して下さい。"
+msgstr "ルーム名称を入力してください。"
 
 #: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
 msgid "Room"
