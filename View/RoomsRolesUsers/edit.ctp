@@ -110,7 +110,9 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 
 						<?php echo $this->UserSearch->tableRow($user, false); ?>
 
-						<td class="rooms-roles-form" ng-init="<?php echo $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';'; ?>">
+						<td class="rooms-roles-form"
+								ng-init="<?php echo $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';'; ?>">
+
 							<div class="pull-left" ng-class="{'bg-success': <?php echo $domUserRoleKey; ?>}">
 								<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
 									'value' => Hash::get($user, 'RolesRoom.role_key', ''),

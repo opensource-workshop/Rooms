@@ -128,8 +128,12 @@ class RoomsRolesFormHelper extends AppHelper {
 
 		//OptionのFormat変換
 		foreach ($defaultRoles as $optkey => $optgroup) {
-			foreach ($optgroup as $key => $text) {
-				$defaultRoles[$optkey][$key] = sprintf($optionFormat, $text);
+			if (is_array($optgroup)) {
+				foreach ($optgroup as $key => $text) {
+					$defaultRoles[$optkey][$key] = sprintf($optionFormat, $text);
+				}
+			} else {
+				$defaultRoles[$optkey] = sprintf($optionFormat, $optgroup);
 			}
 		}
 

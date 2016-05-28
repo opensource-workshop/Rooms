@@ -42,7 +42,8 @@
 
 <div class="form-group">
 	<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
-			'label' => array('label' => __d('rooms', 'Default room role'))
+			'label' => array('label' => __d('rooms', 'Default room role')),
+			'options' => $defaultRoles
 		)); ?>
 </div>
 

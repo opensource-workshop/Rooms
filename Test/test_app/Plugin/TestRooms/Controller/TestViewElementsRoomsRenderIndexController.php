@@ -62,7 +62,8 @@ class TestViewElementsRoomsRenderIndexController extends RoomsController {
 			'dataElementPath' => 'TestRooms.TestViewElementsRoomsRenderIndex/render_room_index',
 			'roomTreeList' => $this->viewVars['roomTreeList'],
 			'space' => $this->viewVars['spaces']['2'],
-			'paginator' => true
+			'paginator' => true,
+			'displaySpace' => true,
 		));
 	}
 
