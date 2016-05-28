@@ -11,6 +11,21 @@
 	margin-right: 10px;
 }
 
+.space-name-edit {
+	border: 0px;
+	display: inline;
+}
+.space-edit-table {
+	margin-bottom: 0px;
+}
+table.space-edit-table > tbody > tr > td {
+	border-top: 0px;
+}
+
+/**
+ * 参加者修正
+ */
+
 input[type="checkbox"].rooms-roles-users-checkbox {
 	height: 21px;
 	margin: 2px;
@@ -24,25 +39,13 @@ input[type="checkbox"].rooms-roles-users-checkbox {
 	margin-left: 20px;
 }
 
-.rooms-roles-form select.form-control > optgroup > option {
-	padding-left: 15px;
-}
-
-.rooms-roles-form select.form-control.input-sm > optgroup > option {
-	padding-left: 5px;
-}
-
 .rooms-roles-form select.form-control.input-sm {
 	background-color: transparent;
 }
 
-.space-name-edit {
-	border: 0px;
-	display: inline;
+.rooms-roles-users-table .checkbox-inline {
+	padding-left: 0px;
 }
-.space-edit-table {
-	margin-bottom: 0px;
-}
-table.space-edit-table > tbody > tr > td {
-	border-top: 0px;
+.rooms-roles-users-table label.control-label {
+	padding-left: 0px;
 }

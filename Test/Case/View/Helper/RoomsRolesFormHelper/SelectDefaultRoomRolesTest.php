@@ -69,7 +69,14 @@ class RoomsRolesFormHelperSelectDefaultRoomRolesTest extends NetCommonsHelperTes
  */
 	public function testSelectDefaultRoomRoles() {
 		//テスト実施
-		$result = $this->RoomsRolesForm->selectDefaultRoomRoles('Model.field', array());
+		$result = $this->RoomsRolesForm->selectDefaultRoomRoles('Model.field', array(
+			'options' => array(
+				__d('rooms', 'Room role') => $this->RoomsRolesForm->_View->viewVars['defaultRoles'],
+				'-----------------------' => array(
+					'' => __d('users', 'Non members')
+				)
+			),
+		));
 
 		//チェック
 		$this->__assertSelectDefaultRoomRoles($result);
@@ -85,6 +92,12 @@ class RoomsRolesFormHelperSelectDefaultRoomRolesTest extends NetCommonsHelperTes
 		//テスト実施
 		$result = $this->RoomsRolesForm->selectDefaultRoomRoles('Model.field', array(
 			'optionFormat' => 'Format %s',
+			'options' => array(
+				__d('rooms', 'Room role') => $this->RoomsRolesForm->_View->viewVars['defaultRoles'],
+				'-----------------------' => array(
+					'' => __d('users', 'Non members')
+				)
+			),
 		));
 
 		//チェック
@@ -101,6 +114,12 @@ class RoomsRolesFormHelperSelectDefaultRoomRolesTest extends NetCommonsHelperTes
 		//テスト実施
 		$result = $this->RoomsRolesForm->selectDefaultRoomRoles('Model.field', array(
 			'label' => 'Model label',
+			'options' => array(
+				__d('rooms', 'Room role') => $this->RoomsRolesForm->_View->viewVars['defaultRoles'],
+				'-----------------------' => array(
+					'' => __d('users', 'Non members')
+				)
+			),
 		));
 
 		//チェック
@@ -123,6 +142,12 @@ class RoomsRolesFormHelperSelectDefaultRoomRolesTest extends NetCommonsHelperTes
 				'label' => 'Model label',
 				'class' => 'model-css'
 			),
+			'options' => array(
+				__d('rooms', 'Room role') => $this->RoomsRolesForm->_View->viewVars['defaultRoles'],
+				'-----------------------' => array(
+					'' => __d('users', 'Non members')
+				)
+			),
 		));
 
 		//チェック
@@ -142,6 +167,12 @@ class RoomsRolesFormHelperSelectDefaultRoomRolesTest extends NetCommonsHelperTes
 		//テスト実施
 		$result = $this->RoomsRolesForm->selectDefaultRoomRoles('Model.field', array(
 			'empty' => __d('rooms', 'Change the user role of the room'),
+			'options' => array(
+				__d('rooms', 'Room role') => $this->RoomsRolesForm->_View->viewVars['defaultRoles'],
+				'-----------------------' => array(
+					'' => __d('users', 'Non members')
+				)
+			),
 		));
 
 		//チェック
@@ -160,7 +191,10 @@ class RoomsRolesFormHelperSelectDefaultRoomRolesTest extends NetCommonsHelperTes
 	public function testWithDeleteOption() {
 		//テスト実施
 		$result = $this->RoomsRolesForm->selectDefaultRoomRoles('Model.field', array(
-			'options' => array('delete' => __d('users', 'Non members')),
+			'options' => array(
+				__d('rooms', 'Room role') => $this->RoomsRolesForm->_View->viewVars['defaultRoles'],
+				'----------------------------------' => array('delete' => __d('users', 'Non members'))
+			),
 		));
 
 		//チェック
