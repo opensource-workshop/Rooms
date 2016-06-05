@@ -64,7 +64,7 @@ class RoomsViewElementsRoomsRenderRoomIndexTest extends NetCommonsControllerTest
 		$this->assertRegExp($pattern, $this->view);
 
 		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/edit/2/4', '/') . '.*?">' .
-				preg_quote('<span class="glyphicon glyphicon-edit"></span>', '/') . '.+?' . preg_quote('</a>', '/') . '/';
+				preg_quote('<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>', '/') . '.+?' . preg_quote('</a>', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
 		$this->assertTextContains('/rooms/rooms/active/2/4', $this->view);
@@ -85,14 +85,14 @@ class RoomsViewElementsRoomsRenderRoomIndexTest extends NetCommonsControllerTest
 		$this->assertRegExp($pattern, $this->view);
 
 		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/edit/2/1', '/') . '.*?">' .
-				preg_quote('<span class="glyphicon glyphicon-edit"></span>', '/') . '.+?' . preg_quote('</a>', '/') . '/';
+				preg_quote('<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>', '/') . '.+?' . preg_quote('</a>', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
 		$this->assertTextContains('/rooms/rooms/active', $this->view);
 
 		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/add/2/1', '/') . '.*?">' .
-				preg_quote('<span class="glyphicon glyphicon-plus"></span>', '/') .
-				' ' . __d('rooms', 'Add new subroom') . preg_quote('</a>', '/') . '/';
+				preg_quote('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>', '/') .
+				' <span class="hidden-xs">' . __d('rooms', 'Add new subroom') . preg_quote('</span></a>', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 	}
 

@@ -56,7 +56,7 @@
 					$defaultNest = 1;
 				}
 
-				if ($roomTreeList) {
+				if ($roomTreeList && $rooms) {
 					foreach ($roomTreeList as $roomId => $tree) {
 						if (Hash::get($rooms, $roomId) && ! in_array((string)$roomId, Room::$spaceRooms, true)) {
 							$nest = substr_count($tree, Room::$treeParser);
