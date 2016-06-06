@@ -214,13 +214,13 @@ class RolesRoomsUser extends RoomsAppModel {
 	}
 
 /**
- * RolesRoomsUserの一括登録
+ * RolesRoomsUserの一括登録(ルーム管理用)
  *
  * @param array $data リクエストデータ
  * @return bool True on success, false on validation errors
  * @throws InternalErrorException
  */
-	public function saveRolesRoomsUsers($data) {
+	public function saveRolesRoomsUsersForRooms($data) {
 		//トランザクションBegin
 		$this->begin();
 
@@ -315,13 +315,13 @@ class RolesRoomsUser extends RoomsAppModel {
 	}
 
 /**
- * RolesRoomsUserの一括削除処理
+ * RolesRoomsUserの一括削除処理(ルーム管理用)
  *
  * @param array $data リクエストデータ
  * @return mixed On success Model::$data if its not empty or true, false on failure
  * @throws InternalErrorException
  */
-	public function deleteRolesRoomsUsers($data) {
+	public function deleteRolesRoomsUsersForRooms($data) {
 		//トランザクションBegin
 		$this->begin();
 

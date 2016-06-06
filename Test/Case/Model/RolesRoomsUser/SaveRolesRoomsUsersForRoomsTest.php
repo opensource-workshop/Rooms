@@ -1,6 +1,6 @@
 <?php
 /**
- * RolesRoomsUser::saveRolesRoomsUsers()のテスト
+ * RolesRoomsUser::saveRolesRoomsUsersForRooms()のテスト
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -13,12 +13,12 @@ App::uses('NetCommonsSaveTest', 'NetCommons.TestSuite');
 App::uses('RolesRoomsUserFixture', 'Rooms.Test/Fixture');
 
 /**
- * RolesRoomsUser::saveRolesRoomsUsers()のテスト
+ * RolesRoomsUser::saveRolesRoomsUsersForRooms()のテスト
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Model\RolesRoomsUser
  */
-class RolesRoomsUserSaveRolesRoomsUsersTest extends NetCommonsSaveTest {
+class RolesRoomsUserSaveRolesRoomsUsersForRoomsTest extends NetCommonsSaveTest {
 
 /**
  * Fixtures
@@ -54,7 +54,7 @@ class RolesRoomsUserSaveRolesRoomsUsersTest extends NetCommonsSaveTest {
  *
  * @var string
  */
-	protected $_methodName = 'saveRolesRoomsUsers';
+	protected $_methodName = 'saveRolesRoomsUsersForRooms';
 
 /**
  * Save用DataProvider

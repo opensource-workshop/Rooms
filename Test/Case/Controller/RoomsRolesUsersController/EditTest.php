@@ -209,7 +209,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		//テストデータ
 		$spaceId = '2';
 		$roomId = '4';
-		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'saveRolesRoomsUsers');
+		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'saveRolesRoomsUsersForRooms');
 
 		//テスト実行
 		$data = $this->__dataSave();
@@ -269,7 +269,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		//テストデータ
 		$spaceId = '2';
 		$roomId = '4';
-		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'deleteRolesRoomsUsers');
+		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'deleteRolesRoomsUsersForRooms');
 
 		//テスト実行
 		$data = $this->__dataDelete();

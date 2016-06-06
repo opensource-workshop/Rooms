@@ -1,6 +1,6 @@
 <?php
 /**
- * RolesRoomsUser::deleteRolesRoomsUsers()のテスト
+ * RolesRoomsUser::deleteRolesRoomsUsersForRooms()のテスト
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -13,12 +13,12 @@ App::uses('NetCommonsDeleteTest', 'NetCommons.TestSuite');
 App::uses('RolesRoomsUserFixture', 'Rooms.Test/Fixture');
 
 /**
- * RolesRoomsUser::deleteRolesRoomsUsers()のテスト
+ * RolesRoomsUser::deleteRolesRoomsUsersForRooms()のテスト
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Model\RolesRoomsUser
  */
-class RolesRoomsUserDeleteRolesRoomsUsersTest extends NetCommonsDeleteTest {
+class RolesRoomsUserDeleteRolesRoomsUsersForRoomsTest extends NetCommonsDeleteTest {
 
 /**
  * Fixtures
@@ -54,7 +54,7 @@ class RolesRoomsUserDeleteRolesRoomsUsersTest extends NetCommonsDeleteTest {
  *
  * @var string
  */
-	protected $_methodName = 'deleteRolesRoomsUsers';
+	protected $_methodName = 'deleteRolesRoomsUsersForRooms';
 
 /**
  * Delete用DataProvider
