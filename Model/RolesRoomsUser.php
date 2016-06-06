@@ -179,26 +179,68 @@ class RolesRoomsUser extends RoomsAppModel {
 	}
 
 /**
- * RolesRoomsUserの登録処理
+ * RolesRoomsUserの登録処理(ユーザー管理用)
+ *
+ * ### $dataサンプル
+ * ```
+ * 	array (
+ * 		'User' => array (
+ * 			'id' => '14',
+ * 		),
+ * 		'RolesRoomsUser' => array (
+ * 			1 => array (
+ * 				'id' => '57',
+ * 				'room_id' => '1',
+ * 				'user_id' => '14',
+ * 				'roles_room_id' => '5',
+ * 			),
+ * 			9 => array (
+ * 				'id' => '58',
+ * 				'room_id' => '9',
+ * 				'user_id' => '14',
+ * 				'roles_room_id' => '0',
+ * 			),
+ * 			10 => array (
+ * 				'id' => '',
+ * 				'room_id' => '10',
+ * 				'user_id' => '14',
+ * 				'roles_room_id' => '0',
+ * 			),
+ * 			11 => array (
+ * 				'id' => '',
+ * 				'room_id' => '11',
+ * 				'user_id' => '14',
+ * 				'roles_room_id' => '35',
+ * 			),
+ * 		),
+ * 	)
+ * ```
  *
  * @param array $data リクエストデータ
  * @return bool True on success, false on validation errors
  * @throws InternalErrorException
  */
-	public function saveRolesRoomsUser($data) {
+	public function saveRolesRoomsUsersForUsers($data) {
 		//トランザクションBegin
 		$this->begin();
 
+		$deleteIds = Hash::extract($data, 'RolesRoomsUser.{n}[roles_room_id=0][id>0].id');
+		$data['RolesRoomsUser'] = Hash::remove($data['RolesRoomsUser'], '{n}[roles_room_id=0]');
+
 		//バリデーション
-		$this->set($data['RolesRoomsUser']);
-		if (! $this->validates()) {
+		if (! $this->validateMany($data['RolesRoomsUser'])) {
 			return false;
 		}
 
 		try {
-			//Roomデータの登録
-			$rolesRoomsUser = $this->save($data['RolesRoomsUser'], false, false);
-			if (! $rolesRoomsUser) {
+			if ($deleteIds) {
+				if (! $this->deleteAll(array($this->alias . '.id' => $deleteIds), false)) {
+					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				}
+			}
+
+			//RolesRoomsUserデータの登録
+			if (! $this->saveMany($data['RolesRoomsUser'], ['validate' => false])) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
@@ -210,7 +252,7 @@ class RolesRoomsUser extends RoomsAppModel {
 			$this->rollback($ex);
 		}
 
-		return $rolesRoomsUser;
+		return true;
 	}
 
 /**
@@ -378,34 +420,6 @@ class RolesRoomsUser extends RoomsAppModel {
 		}
 
 		$this->setSlaveDataSource();
-
-		return true;
-	}
-
-/**
- * RolesRoomsUserの削除処理
- *
- * @param array $data リクエストデータ
- * @return mixed On success Model::$data if its not empty or true, false on failure
- * @throws InternalErrorException
- */
-	public function deleteRolesRoomsUser($data) {
-		//トランザクションBegin
-		$this->begin();
-
-		try {
-			//RolesRoomsUserデータの削除
-			if (! $this->delete($data['RolesRoomsUser']['id'], false)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
-
-			//トランザクションCommit
-			$this->commit();
-
-		} catch (Exception $ex) {
-			//トランザクションRollback
-			$this->rollback($ex);
-		}
 
 		return true;
 	}
