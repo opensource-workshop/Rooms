@@ -97,8 +97,7 @@ class RoomsHelperRoomsRenderTest extends NetCommonsHelperTestCase {
 		$result = $this->Rooms->roomsRender(
 			$activeSpaceId,
 			array('dataElemen' => $dataElementPath, 'headElement' => $headElementPath),
-			$roomTreeList,
-			array('paginator' => $paginator)
+			array('paginator' => $paginator, 'roomTreeList' => $roomTreeList)
 		);
 
 		//チェック

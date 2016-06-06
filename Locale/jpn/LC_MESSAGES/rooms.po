@@ -137,6 +137,9 @@ msgid "Please set the role of the members in this room. After changing the role 
 msgstr "このルームでの会員の役割を設定してください。会員の役割を変更したら、すぐに登録されます。<br>"
 "利用するプラグインを選択する際は、[次へ]を押してください。この画面を終了する場合は、[キャンセル]を押してください。"
 
+msgid "Search for the members"
+msgstr "対象者の検索"
+
 
 #
 # プラグイン選択

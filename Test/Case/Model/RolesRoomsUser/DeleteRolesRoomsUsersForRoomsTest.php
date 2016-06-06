@@ -1,6 +1,6 @@
 <?php
 /**
- * RolesRoomsUser::deleteRolesRoomsUser()のテスト
+ * RolesRoomsUser::deleteRolesRoomsUsersForRooms()のテスト
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -13,12 +13,12 @@ App::uses('NetCommonsDeleteTest', 'NetCommons.TestSuite');
 App::uses('RolesRoomsUserFixture', 'Rooms.Test/Fixture');
 
 /**
- * RolesRoomsUser::deleteRolesRoomsUser()のテスト
+ * RolesRoomsUser::deleteRolesRoomsUsersForRooms()のテスト
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Model\RolesRoomsUser
  */
-class RolesRoomsUserDeleteRolesRoomsUserTest extends NetCommonsDeleteTest {
+class RolesRoomsUserDeleteRolesRoomsUsersForRoomsTest extends NetCommonsDeleteTest {
 
 /**
  * Fixtures
@@ -54,7 +54,7 @@ class RolesRoomsUserDeleteRolesRoomsUserTest extends NetCommonsDeleteTest {
  *
  * @var string
  */
-	protected $_methodName = 'deleteRolesRoomsUser';
+	protected $_methodName = 'deleteRolesRoomsUsersForRooms';
 
 /**
  * Delete用DataProvider
@@ -66,13 +66,46 @@ class RolesRoomsUserDeleteRolesRoomsUserTest extends NetCommonsDeleteTest {
  * @return array テストデータ
  */
 	public function dataProviderDelete() {
-		$data['RolesRoomsUser'] = (new RolesRoomsUserFixture())->records[0];
+		$data = array();
+		$data['RolesRoomsUser'][0] = (new RolesRoomsUserFixture())->records[1];
+		$data['RolesRoomsUser'][1] = (new RolesRoomsUserFixture())->records[2];
 		$association = array();
 
 		$results = array();
 		$results[0] = array($data, $association);
 
 		return $results;
+	}
+
+/**
+ * Deleteのテスト
+ *
+ * @param array|string $data 削除データ
+ * @param array $associationModels 削除確認の関連モデル array(model => conditions)
+ * @dataProvider dataProviderDelete
+ * @return void
+ */
+	public function testDelete($data, $associationModels = null) {
+		$model = $this->_modelName;
+		$method = $this->_methodName;
+
+		$ids = Hash::extract($data['RolesRoomsUser'], '{n}.id');
+		$count = $this->$model->find('count', array(
+			'recursive' => -1,
+			'conditions' => array('id' => $ids),
+		));
+		$this->assertNotEquals(0, $count);
+
+		//テスト実行
+		$result = $this->$model->$method($data);
+		$this->assertTrue($result);
+
+		//チェック
+		$count = $this->$model->find('count', array(
+			'recursive' => -1,
+			'conditions' => array('id' => $ids),
+		));
+		$this->assertEquals(0, $count);
 	}
 
 /**
@@ -86,10 +119,12 @@ class RolesRoomsUserDeleteRolesRoomsUserTest extends NetCommonsDeleteTest {
  * @return array テストデータ
  */
 	public function dataProviderDeleteOnExceptionError() {
-		$data['RolesRoomsUser'] = (new RolesRoomsUserFixture())->records[0];
+		$data = array();
+		$data['RolesRoomsUser'][0] = (new RolesRoomsUserFixture())->records[1];
+		$data['RolesRoomsUser'][1] = (new RolesRoomsUserFixture())->records[2];
 
 		return array(
-			array($data, 'Rooms.RolesRoomsUser', 'delete'),
+			array($data, 'Rooms.RolesRoomsUser', 'deleteAll'),
 		);
 	}
 

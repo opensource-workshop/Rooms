@@ -31,7 +31,10 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 	)); ?>
 	<?php echo $this->NetCommonsForm->hidden('Room.id'); ?>
 
-	<?php echo $this->UserSearchForm->displaySearchButton(array($activeSpaceId, $this->data['Room']['id'])); ?>
+	<?php echo $this->UserSearchForm->displaySearchButton(
+			__d('rooms', 'Search for the members'), array($activeSpaceId, $this->data['Room']['id'])
+		); ?>
+
 	<div class="form-group form-inline rooms-roles-form">
 		<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
 			'empty' => __d('rooms', 'Change the user role of the room'),
