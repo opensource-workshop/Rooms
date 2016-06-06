@@ -154,7 +154,7 @@ class RoomsHelper extends AppHelper {
 
 		$rooms = Hash::get($options, 'rooms');
 		if (! isset($rooms)) {
-			$roomTreeList = Hash::get($this->_View->viewVars, 'rooms');
+			$rooms = Hash::get($this->_View->viewVars, 'rooms');
 		}
 
 		$output .= $this->_View->element('Rooms.Rooms/render_index', array(
