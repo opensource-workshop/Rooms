@@ -468,7 +468,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 				'room_id' => $roomId,
 			]);
 		}
-		$rolesRoomsUsers['RolesRoomsUser'] = Hash::combine(
+		$rolesRoomsUsers = Hash::combine(
 			$rolesRoomsUsers, '{n}.RolesRoomsUser.room_id', '{n}.RolesRoomsUser'
 		);
 
