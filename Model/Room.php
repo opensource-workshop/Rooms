@@ -271,9 +271,25 @@ class Room extends RoomsAppModel {
  * @see Model::save()
  */
 	public function beforeSave($options = array()) {
-		if (Hash::get($this->data, 'Room.id') && Hash::check($this->data, 'Room.need_approval')) {
+		$room = Hash::get($this->data, 'Room');
+
+		if (Hash::get($room, 'id') && Hash::check($room, 'need_approval')) {
 			$this->changeNeedApproval($this->data);
 		}
+
+		if (Hash::get($room, 'id') && Hash::get($room, 'in_draft') &&
+				Hash::get($room, 'default_participation') !== Hash::get($options, 'preUpdate.in_draft')) {
+
+			$this->loadModels([
+				'RolesRoomsUser' => 'Rooms.RolesRoomsUser',
+			]);
+
+			$conditions = array($this->RolesRoomsUser->alias . '.room_id' => Hash::get($room, 'id'));
+			if (! $this->RolesRoomsUser->deleteAll($conditions, false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+		}
+
 		return true;
 	}
 
@@ -305,12 +321,20 @@ class Room extends RoomsAppModel {
 		$room = $this->data;
 		if ($created) {
 			$this->saveDefaultRolesRoom($room);
+		}
+
+		if ($created || Hash::get($room, 'Room.in_draft')) {
 			$this->saveDefaultRolesRoomsUser($room, true);
 			$this->saveDefaultRolesPluginsRoom($room);
+		}
+
+		if (! Hash::get($room, 'Room.in_draft') &&
+				($created || Hash::get($options, 'preUpdate.is_draft'))) {
 			$this->saveDefaultRoomRolePermission($room);
 			$page = $this->saveDefaultPage($room);
 			$this->data = Hash::merge($room, $page);
 		}
+
 
 		if (isset($room['RoomRolePermission'])) {
 			if ($created) {
@@ -413,9 +437,18 @@ class Room extends RoomsAppModel {
 			return false;
 		}
 
+		if (Hash::get($data, 'Room.id')) {
+			$preUpdate = $this->find('first', array(
+				'recursive' => -1,
+				'conditions' => array('id' => Hash::get($data, 'Room.id'))
+			));
+		} else {
+			$preUpdate = null;
+		}
+
 		try {
 			//登録処理
-			$room = $this->save(null, false);
+			$room = $this->save(null, ['validate' => false, 'preUpdate' => $preUpdate]);
 			if (! $room) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}

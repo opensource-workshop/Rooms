@@ -10,14 +10,11 @@
  */
 ?>
 
-<?php echo $this->element('Rooms.subtitle'); ?>
-<?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
 <?php
-	if (Hash::get($this->request->data, 'Room.id') !== Room::ROOM_PARENT_ID) {
-		echo $this->Wizard->navibar(RoomAddController::WIZARD_ROOMS);
-	}
+	echo $this->Rooms->spaceTabs($activeSpaceId, 'tabs', false);
+	echo $this->Wizard->navibar(RoomAddController::WIZARD_ROOMS);
+	echo $this->MessageFlash->description(__d('rooms', 'Input the room name.'));
 ?>
-<?php echo $this->MessageFlash->description(__d('rooms', 'Input the room name.')); ?>
 
 <div class="panel panel-default">
 	<?php echo $this->NetCommonsForm->create('Room'); ?>
@@ -53,7 +50,3 @@
 
 	<?php echo $this->NetCommonsForm->end(); ?>
 </div>
-
-<?php if (isset($this->data['Room']['parent_id']) && $this->request->params['action'] === 'edit') : ?>
-	<?php echo $this->element('Rooms/delete_form'); ?>
-<?php endif;

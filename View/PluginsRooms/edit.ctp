@@ -14,7 +14,7 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-<?php echo $this->Wizard->navibar(RoomsAppController::WIZARD_PLUGINS_ROOMS); ?>
+<?php echo $this->Wizard->navibar(RoomAddController::WIZARD_PLUGINS_ROOMS); ?>
 <?php echo $this->MessageFlash->description(__d('rooms', 'You can set the plugins to be used in the specified room. Press [OK] button to proceed.')); ?>
 
 <div class="panel panel-default">
@@ -39,7 +39,7 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 	</div>
 
 	<div class="panel-footer text-center">
-		<?php echo $this->Wizard->buttons(RoomsAppController::WIZARD_PLUGINS_ROOMS); ?>
+		<?php echo $this->Wizard->buttons(RoomAddController::WIZARD_PLUGINS_ROOMS); ?>
 	</div>
 
 	<?php echo $this->NetCommonsForm->end(); ?>

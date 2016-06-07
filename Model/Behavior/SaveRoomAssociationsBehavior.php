@@ -421,7 +421,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 	}
 
 /**
- * RolesRoomsUserのデフォルトデータ登録処理
+ * 1ユーザに対するRolesRoomsUserのデフォルトデータ取得処理
  *
  * @param Model $model 呼び出し元のモデル
  * @return array
@@ -471,6 +471,209 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$rolesRoomsUsers = Hash::combine(
 			$rolesRoomsUsers, '{n}.RolesRoomsUser.room_id', '{n}.RolesRoomsUser'
 		);
+
+		return $rolesRoomsUsers;
+	}
+
+/**
+ * 1ルームに対するRolesRoomsUserのデフォルトデータ取得処理
+ *
+ * @param Model $model 呼び出し元のモデル
+ * @param array|null $data データ
+ * @param array|null $dispFields フィールドリスト
+ * @return array
+ */
+	public function getDefaultRolesUsersRoom(Model $model, $data = null, $dispFields = null) {
+		$model->loadModels([
+			'Role' => 'Roles.Role',
+			'Room' => 'Rooms.Room',
+			'RoomRole' => 'Rooms.RoomRole',
+			'RolesRoom' => 'Rooms.RolesRoom',
+			'RolesRoomsUser' => 'Rooms.RolesRoomsUser',
+			'User' => 'Users.User',
+		]);
+
+		if (! $dispFields) {
+			$fields = $model->User->getSearchFields();
+		} else {
+			$fields = array('User.id');
+			foreach ($dispFields as $field) {
+				$fields[] = $model->User->getOriginalUserField($field);
+			}
+		}
+
+		$roomRoles = $model->RoomRole->find('list', array(
+			'recursive' => -1,
+			'fields' => array('role_key', 'level'),
+		));
+
+		if (! $data) {
+			$data = $model->data;
+		}
+
+		$userId = Current::read('User.id');
+
+		//ルーム作成者をRolesRoomsUsersのルーム管理者で登録する
+		$query = array(
+			'recursive' => -1,
+			'fields' => $fields,
+			'conditions' => $model->User->getSearchConditions([$model->User->alias . '.id' => $userId]),
+			'group' => 'User.id',
+			'joins' => $model->User->getSearchJoinTables(),
+		);
+		$results = $model->User->find('first', $query);
+
+		$rolesRoomsUsers[0] = $results;
+		$rolesRoomsUsers[0] = Hash::insert($rolesRoomsUsers[0], 'RolesRoom', array(
+			'id' => null,
+			'room_id' => null,
+			'role_key' => Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR
+		));
+		$rolesRoomsUsers[0] = Hash::insert($rolesRoomsUsers[0], 'RoomRole', array(
+			'level' => Hash::get($roomRoles, Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR, 0),
+			'role_key' => Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR
+		));
+
+		if (! $data['Room']['default_participation']) {
+			return $rolesRoomsUsers;
+		}
+
+		//デフォルト参加ルームの場合、ユーザを追加(会員検索、後で見直し)
+		$query = array(
+			'recursive' => -1,
+			'fields' => $fields,
+			'conditions' => Hash::merge(
+				$model->User->getSearchConditions(),
+				[$model->User->alias . '.id !=' => $userId]
+			),
+			'joins' => $model->User->getSearchJoinTables(),
+			'group' => 'User.id',
+			'order' => array($model->Role->alias . '.id' => 'asc', $model->User->alias . '.id' => 'asc'),
+		);
+		$results = $model->User->find('all', $query);
+		$results = Hash::insert($results, '{n}.RolesRoom', array(
+			'id' => null,
+			'room_id' => null,
+			'role_key' => $data['Room']['default_role_key']
+		));
+		$results = Hash::insert($results, '{n}.RoomRole', array(
+			'level' => Hash::get($roomRoles, $data['Room']['default_role_key'], 0),
+			'role_key' => $data['Room']['default_role_key']
+		));
+
+		$rolesRoomsUsers = array_merge($rolesRoomsUsers, $results);
+//debug($rolesRoomsUsers);
+
+//		if (Hash::check($data, 'RolesRoomsUser.user_id')) {
+//			$userId = Hash::get($data, 'RolesRoomsUser.user_id');
+//		} else {
+//			$userId = Current::read('User.id');
+//		}
+//		if ($isRoomCreate) {
+//			//ルーム作成者をRolesRoomsUsersのルーム管理者で登録する
+//			$roleKey = Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR;
+//		} else {
+//			$roleKey = $data['Room']['default_role_key'];
+//		}
+//		$rolesRoom = $model->RolesRoom->find('first', array(
+//			'recursive' => -1,
+//			'conditions' => array(
+//				'room_id' => $data['Room']['id'],
+//				'role_key' => $roleKey,
+//			)
+//		));
+//		$rolesRoomsUser = array(
+//			'id' => null,
+//			'roles_room_id' => $rolesRoom['RolesRoom']['id'],
+//			'room_id' => $data['Room']['id'],
+//			'user_id' => $userId
+//		);
+//		$model->RolesRoomsUser->create(null);
+//		if (! $model->RolesRoomsUser->save($rolesRoomsUser)) {
+//			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+//		}
+//		if (! $data['Room']['default_participation'] || ! $isRoomCreate) {
+//			return true;
+//		}
+//
+//		//多数のデータを一括で登録するためINSERT INTO ... SELECTを使う。
+//		//--デフォルトのロールを取得
+//		$rolesRoom = $model->RolesRoom->find('first', array(
+//			'recursive' => -1,
+//			'conditions' => array(
+//				'room_id' => $data['Room']['id'],
+//				'role_key' => $data['Room']['default_role_key'],
+//			)
+//		));
+//		//--クエリの生成
+//		$tableName = $model->tablePrefix . $model->RolesRoomsUser->table;
+//		$values = array(
+//			'roles_room_id' => $db->value($rolesRoom['RolesRoom']['id'], 'string'),
+//			'user_id' => $model->User->escapeField('id'),
+//			'room_id' => $db->value($data['Room']['id'], 'string'),
+//			'created' => $db->value(date('Y-m-d H:i:s'), 'string'),
+//			'created_user' => $db->value(Current::read('User.id'), 'string'),
+//			'modified' => $db->value(date('Y-m-d H:i:s'), 'string'),
+//			'modified_user' => $db->value(Current::read('User.id'), 'string'),
+//		);
+//		$joins = array(
+//			$model->tablePrefix . $model->User->table . ' AS ' . $model->User->alias => null,
+//		);
+//		$wheres = array(
+//			$model->User->escapeField('id') . ' != ' . $db->value($userId, 'string'),
+//		);
+//
+//		//--クエリの実行
+//		$sql = $this->__insertSql(
+//			$tableName, array_keys($values), array_values($values), $joins, $wheres
+//		);
+//		$model->RolesRoomsUser->query($sql);
+//		$result = $model->RolesRoomsUser->getAffectedRows() > 0;
+//		if (! $result) {
+//			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+//		}
+
+
+
+
+//		$rooms = $model->Room->find('all', array(
+//			'recursive' => -1,
+//			'conditions' => array(
+//				'OR' => array(
+//					'default_participation' => true,
+//					'root_id' => null
+//				)
+//			),
+//		));
+//		if (! Configure::read('NetCommons.installed')) {
+//			$rooms = Hash::insert(
+//				$rooms, '{n}.Room.default_role_key', Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR
+//			);
+//		}
+//
+//		$roomIds = Hash::extract($rooms, '{n}.Room.id');
+//
+//		$rolesRooms = $model->RolesRoom->find('list', array(
+//			'recursive' => -1,
+//			'fields' => array('role_key', 'id', 'room_id'),
+//			'conditions' => array(
+//				'room_id' => $roomIds,
+//			)
+//		));
+//
+//		$rolesRoomsUsers = array();
+//		foreach ($rooms as $room) {
+//			$roomId = $room['Room']['id'];
+//			$rolesRoomsUsers[$roomId] = $model->RolesRoomsUser->create([
+//				'id' => null,
+//				'roles_room_id' => Hash::get($rolesRooms, $roomId . '.' . $room['Room']['default_role_key']),
+//				'user_id' => null,
+//				'room_id' => $roomId,
+//			]);
+//		}
+//		$rolesRoomsUsers = Hash::combine(
+//			$rolesRoomsUsers, '{n}.RolesRoomsUser.room_id', '{n}.RolesRoomsUser'
+//		);
 
 		return $rolesRoomsUsers;
 	}

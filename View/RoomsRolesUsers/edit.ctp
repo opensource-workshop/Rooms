@@ -16,7 +16,7 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 
 <?php echo $this->element('Rooms.subtitle'); ?>
 <?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-<?php echo $this->Wizard->navibar(RoomsAppController::WIZARD_ROOMS_ROLES_USERS); ?>
+<?php echo $this->Wizard->navibar(RoomAddController::WIZARD_ROOMS_ROLES_USERS); ?>
 <?php echo $this->MessageFlash->description(__d('rooms',
 		'Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>' .
 		'When selecting the plug-ins to be used, please press the [Next]. If you want to exit this screen, please press the [Cancel].'
@@ -142,10 +142,10 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
 
 	<div class="text-center">
 		<?php echo $this->Wizard->buttons(
-				RoomsAppController::WIZARD_ROOMS_ROLES_USERS,
+				RoomAddController::WIZARD_ROOMS_ROLES_USERS,
 				array(),
 				array(),
-				array('url' => $this->Wizard->naviUrl(RoomsAppController::WIZARD_PLUGINS_ROOMS))
+				array('url' => $this->Wizard->naviUrl(RoomAddController::WIZARD_PLUGINS_ROOMS))
 			); ?>
 	</div>
 
