@@ -100,13 +100,14 @@ class RoomsRolesFormComponent extends Component {
  * RoomsRolesUserの登録のアクション
  *
  * @param Controller $controller コントローラ
- * @return void
+ * @return null|bool
  */
-	public function actionRoomsRolesUser(Controller $controller, $outputMessage) {
+	public function actionRoomsRolesUser(Controller $controller) {
 		//ルームデータチェック
 		$room = $controller->viewVars['room'];
 
 		//登録処理
+		$result = null;
 		if ($controller->request->is('put')) {
 			foreach ($controller->request->data['User']['id'] as $userId => $checked) {
 				if (! $checked) {
@@ -129,20 +130,21 @@ class RoomsRolesFormComponent extends Component {
 					'{n}.roles_room_id',
 					$rolesRoomId
 				);
+
 				$result = $controller->RolesRoomsUser->saveRolesRoomsUsersForRooms($controller->request->data);
 			} else {
 				$result = $controller->RolesRoomsUser->deleteRolesRoomsUsersForRooms($controller->request->data);
 			}
 
 			//登録処理
-			if ($result === true && $outputMessage) {
-				//正常の場合
-				$controller->NetCommons->setFlashNotification(__d('net_commons', 'Successfully saved.'), array(
-					'class' => 'success',
-				));
-			} elseif ($result === false) {
-				$controller->NetCommons->handleValidationError($controller->RolesRoomsUser->validationErrors);
-			}
+			//if ($result === true && $outputMessage) {
+			//	//正常の場合
+			//	$controller->NetCommons->setFlashNotification(__d('net_commons', 'Successfully saved.'), array(
+			//		'class' => 'success',
+			//	));
+			//} elseif ($result === false) {
+			//	$controller->NetCommons->handleValidationError($controller->RolesRoomsUser->validationErrors);
+			//}
 		}
 
 		if (! $controller->request->query) {
@@ -170,6 +172,8 @@ class RoomsRolesFormComponent extends Component {
 		$controller->request->data['RolesRoomsUser'] = Hash::combine(
 			$controller->viewVars['users'], '{n}.User.id', '{n}.RolesRoomsUser'
 		);
+
+		return $result;
 	}
 
 }

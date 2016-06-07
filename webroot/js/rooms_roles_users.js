@@ -39,7 +39,8 @@ NetCommonsApp.controller('RoomsRolesUsers',
           _Token: {key: ''},
           RolesRoom: {},
           RolesRoomsUser: {},
-          User: {id: {}}
+          User: {id: {}},
+          _NetCommonsTime:{}
         }, token, data);
 
         $scope.actionUrl = $('#' + formTagDomId)[0].action;

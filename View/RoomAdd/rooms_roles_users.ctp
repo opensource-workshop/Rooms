@@ -54,4 +54,6 @@
 		); ?>
 </div>
 
-<?php echo $this->NetCommonsForm->end();
+<?php
+	//タイムゾーン関係を含めたくないため、FormHelperを使う
+	echo $this->Form->end();

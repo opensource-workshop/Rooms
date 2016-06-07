@@ -173,8 +173,9 @@ class RoomAddController extends RoomsAppController {
 				$rootId = $roomId;
 			}
 
-			$referer = '/rooms/room_add/rooms_roles_users/' . $spaceId . '/' . $roomId;
-			if ($this->referer() === Configure::read('App.fullBaseUrl') . $referer) {
+			$referer = '/rooms/rooms/index/' . $spaceId;
+			if ($this->Session->read('RoomAdd.Room.id') &&
+					! preg_match('/' . preg_quote($referer, '/') . '/', $this->referer())) {
 				$roomId = $this->Session->read('RoomAdd.Room.id');
 				$this->request->data = $this->Room->findById($roomId);
 				$this->RoomsRolesForm->settings['room_id'] = $roomId;
@@ -210,7 +211,10 @@ class RoomAddController extends RoomsAppController {
 		$room = $this->Room->findById($roomId);
 		$this->set('room', $room);
 
-		return $this->RoomsRolesForm->actionRoomsRolesUser($this, false);
+		$result = $this->RoomsRolesForm->actionRoomsRolesUser($this, false);
+		if ($result === false) {
+			$controller->NetCommons->handleValidationError($controller->RolesRoomsUser->validationErrors);
+		}
 	}
 
 /**

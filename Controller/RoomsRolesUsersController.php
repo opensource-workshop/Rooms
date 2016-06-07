@@ -57,7 +57,15 @@ class RoomsRolesUsersController extends RoomsAppController {
  * @return void
  */
 	public function edit() {
-		return $this->RoomsRolesForm->actionRoomsRolesUser($this, true);
+		$result = $this->RoomsRolesForm->actionRoomsRolesUser($this, true);
+		if ($result === true) {
+			//正常の場合
+			$this->NetCommons->setFlashNotification(__d('net_commons', 'Successfully saved.'), array(
+				'class' => 'success',
+			));
+		} elseif ($result === false) {
+			$this->NetCommons->handleValidationError($controller->RolesRoomsUser->validationErrors);
+		}
 	}
 
 /**

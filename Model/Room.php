@@ -321,6 +321,7 @@ class Room extends RoomsAppModel {
 		$room = $this->data;
 		if ($created) {
 			$this->saveDefaultRolesRoom($room);
+			$this->saveDefaultRoomRolePermission($room);
 		}
 
 		if ($created || Hash::get($room, 'Room.in_draft')) {
@@ -330,11 +331,9 @@ class Room extends RoomsAppModel {
 
 		if (! Hash::get($room, 'Room.in_draft') &&
 				($created || Hash::get($options, 'preUpdate.is_draft'))) {
-			$this->saveDefaultRoomRolePermission($room);
 			$page = $this->saveDefaultPage($room);
 			$this->data = Hash::merge($room, $page);
 		}
-
 
 		if (isset($room['RoomRolePermission'])) {
 			if ($created) {
