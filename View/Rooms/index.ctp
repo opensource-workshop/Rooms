@@ -10,15 +10,29 @@
  */
 ?>
 
-<?php echo $this->element('Rooms.subtitle'); ?>
-<?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-<?php echo $this->MessageFlash->description(
+<?php
+	//ルーム管理全体の説明
+	echo $this->MessageFlash->description(
 		__d('rooms', 'You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms.')
-	); ?>
+	);
+	//スペースタブ
+	echo $this->Rooms->spaceTabs($activeSpaceId);
+
+	//スペース編集の説明
+	echo $this->RoomForm->editSpaceDescription($activeSpaceId);
+
+	//ルーム作成の説明
+	echo $this->RoomForm->addRoomDescription($activeSpaceId);
+
+	//各ルームの説明
+	echo $this->RoomForm->indexRoomDescription($activeSpaceId);
+?>
 
 <article class="rooms-manager">
-	<?php echo $this->Rooms->roomsRender($activeSpaceId, [
-			'dataElemen' => 'Rooms.Rooms/render_room_index',
-			'headElement' => 'Rooms.Rooms/render_header']
+	<?php echo $this->Rooms->roomsRender($activeSpaceId,
+			array(
+				'dataElemen' => 'Rooms.Rooms/render_room_index',
+				'headElement' => 'Rooms.Rooms/render_header'
+			)
 		); ?>
 </article>

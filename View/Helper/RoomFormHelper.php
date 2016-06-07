@@ -26,8 +26,11 @@ class RoomFormHelper extends AppHelper {
  * @var array
  */
 	public $helpers = array(
+		'NetCommons.LinkButton',
+		'NetCommons.MessageFlash',
 		'NetCommons.NetCommonsForm',
 		'NetCommons.NetCommonsHtml',
+		'Rooms.Rooms',
 	);
 
 /**
@@ -136,6 +139,99 @@ class RoomFormHelper extends AppHelper {
 		$output .= $this->NetCommonsForm->end();
 
 		return $output;
+	}
+
+/**
+ * スペース編集の説明＋ボタン
+ *
+ * @param int $spaceId スペースID
+ * @return string HTML
+ */
+	public function editSpaceDescription($spaceId) {
+		$space = $this->_View->viewVars['spaces'][$spaceId];
+
+		$output = '';
+		$output .= '<div class="clearfix">';
+
+		if ($spaceId === Space::PUBLIC_SPACE_ID) {
+			$output .= sprintf(
+				__d('rooms', 'The setting of %s space also to non-members is published.'),
+				$this->Rooms->roomName($space)
+			);
+		} else {
+			$output .= sprintf(
+				__d('rooms', 'The setting of %s space.'),
+				$this->Rooms->roomName($space)
+			);
+		}
+
+		$output .= $this->NetCommonsHtml->div(null,
+			$this->LinkButton->edit(
+				'',
+				array('action' => 'edit', 'key' => $space['Space']['id'], 'key2' => $space['Room']['id']),
+				array('iconSize' => 'btn-xs')
+			),
+			array(
+				'class' => 'pull-right'
+			)
+		);
+
+		$output .= '</div>';
+
+		return $this->MessageFlash->description($output);
+	}
+
+/**
+ * ルーム追加の説明＋ボタン
+ *
+ * @param int $spaceId スペースID
+ * @return string HTML
+ */
+	public function addRoomDescription($spaceId) {
+		$space = $this->_View->viewVars['spaces'][$spaceId];
+
+		$output = '';
+		$output .= '<div class="clearfix">';
+
+		$output .= sprintf(
+			__d('rooms', 'In %s space, to add a new room.'),
+			$this->Rooms->roomName($space)
+		);
+
+		$output .= $this->NetCommonsHtml->div(null,
+			$this->LinkButton->add(
+				__d('rooms', 'Add new room'),
+				array('action' => 'add', 'key' => $space['Space']['id'], 'key2' => $space['Room']['id']),
+				array('iconSize' => 'btn-xs')
+			),
+			array(
+				'class' => 'pull-right'
+			)
+		);
+
+		$output .= '</div>';
+
+		return $this->MessageFlash->description($output);
+	}
+
+/**
+ * ルームの説明
+ *
+ * @param int $spaceId スペースID
+ * @return string HTML
+ */
+	public function indexRoomDescription($spaceId) {
+		$space = $this->_View->viewVars['spaces'][$spaceId];
+
+		$output = '';
+
+		$output .= sprintf(
+			__d('rooms', 'The setting of each room was created in a %s space.'),
+			$this->Rooms->roomName($space)
+		);
+
+
+		return $this->MessageFlash->description($output);
 	}
 
 }

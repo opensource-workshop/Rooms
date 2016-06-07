@@ -59,6 +59,9 @@ msgstr "スペース"
 #
 
 #: Rooms/View/Elements/subtitle.ctp:24
+msgid "Not found."
+msgstr "ルームがありません。"
+
 msgid "Add new room"
 msgstr "ルーム"
 
@@ -75,6 +78,17 @@ msgstr "作成者"
 msgid "Members"
 msgstr "参加者"
 
+msgid "The setting of %s space also to non-members is published."
+msgstr "非会員にも公開される%sスペースの設定を行う。"
+
+msgid "The setting of %s space."
+msgstr "%sスペースの設定を行う。"
+
+msgid "In %s space, to add a new room."
+msgstr "%sスペースに新たにルームを設置する。"
+
+msgid "The setting of each room was created in a %s space."
+msgstr "%sスペースに設置した各ルームの設定を行う。"
 
 #
 # ルーム作成・編集画面
