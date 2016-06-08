@@ -10,14 +10,11 @@
  */
 ?>
 
-<?php echo $this->element('Rooms.subtitle'); ?>
-<?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
 <?php
-	if (Hash::get($this->request->data, 'Room.id') !== Room::ROOM_PARENT_ID) {
-		echo $this->Wizard->navibar(RoomAddController::WIZARD_ROOMS);
-	}
+	echo $this->Rooms->spaceTabs($activeSpaceId);
+	echo $this->RoomForm->settingTabs();
+	echo $this->MessageFlash->description(__d('rooms', 'Input the room name.'));
 ?>
-<?php echo $this->MessageFlash->description(__d('rooms', 'Input the room name.')); ?>
 
 <div class="panel panel-default">
 	<?php echo $this->NetCommonsForm->create('Room'); ?>
@@ -39,15 +36,11 @@
 
 	<div class="panel-footer text-center">
 		<?php
-			if (Hash::get($this->request->data, 'Room.id') !== Room::ROOM_PARENT_ID) {
-				echo $this->Wizard->buttons(RoomAddController::WIZARD_ROOMS);
-			} else {
-				echo $this->Button->cancelAndSave(
-					__d('net_commons', 'Cancel'),
-					__d('net_commons', 'OK'),
-					$this->NetCommonsHtml->url($this->Wizard->naviUrl('cancelUrl'))
-				);
-			}
+			echo $this->Button->cancelAndSave(
+				__d('net_commons', 'Cancel'),
+				__d('net_commons', 'OK'),
+				$this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'])
+			);
 		?>
 	</div>
 

@@ -12,10 +12,11 @@
 echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 ?>
 
-<?php echo $this->element('Rooms.subtitle'); ?>
-<?php echo $this->Rooms->spaceTabs($activeSpaceId); ?>
-<?php echo $this->Wizard->navibar(RoomAddController::WIZARD_PLUGINS_ROOMS); ?>
-<?php echo $this->MessageFlash->description(__d('rooms', 'You can set the plugins to be used in the specified room. Press [OK] button to proceed.')); ?>
+<?php
+	echo $this->Rooms->spaceTabs($activeSpaceId);
+	echo $this->RoomForm->settingTabs();
+	echo $this->MessageFlash->description(__d('rooms', 'You can set the plugins to be used in the specified room. Press [OK] button to proceed.'));
+?>
 
 <div class="panel panel-default">
 	<?php echo $this->NetCommonsForm->create('Room'); ?>
@@ -39,7 +40,13 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 	</div>
 
 	<div class="panel-footer text-center">
-		<?php echo $this->Wizard->buttons(RoomAddController::WIZARD_PLUGINS_ROOMS); ?>
+		<?php
+			echo $this->Button->cancelAndSave(
+				__d('net_commons', 'Cancel'),
+				__d('net_commons', 'OK'),
+				$this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'])
+			);
+		?>
 	</div>
 
 	<?php echo $this->NetCommonsForm->end(); ?>

@@ -147,9 +147,9 @@ msgstr "準備中"
 #
 
 msgid "Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>"
-"When selecting the plug-ins to be used, please press the [Next]."
+"For you add new participants to the room, please search for the subject from the [Search for the members], and add."
 msgstr "このルームでの会員の役割を設定してください。会員の役割を変更したら、すぐに登録されます。<br>"
-"利用するプラグインを選択する際は、[次へ]を押してください。"
+"新たに参加者を追加する際は、[対象者の検索]から対象者を検索して追加してください。"
 
 msgid "Search for the members"
 msgstr "対象者の検索"
@@ -164,9 +164,6 @@ msgstr "このルームでの会員の役割を設定してください。利用
 #
 msgid "You can set the plugins to be used in the specified room. Press [OK] button to proceed."
 msgstr "このルームでの利用を許可するプラグインを選択して、[決定]を押してください。"
-
-
-
 
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:97
