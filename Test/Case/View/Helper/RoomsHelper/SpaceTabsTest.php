@@ -107,7 +107,7 @@ class RoomsHelperSpaceTabsTest extends NetCommonsHelperTestCase {
 		$pattern = '/' . preg_quote('<li class="active"><a href="' . $expected['2'] . '">', '/') . '.+?' . preg_quote('</a></li>', '/') . '/';
 		$this->assertRegExp($pattern, $result);
 
-		$pattern = '/' . preg_quote('<li class=""><a href="' . $expected['4'] . '">', '/') . '.+?' . preg_quote('</a></li>', '/') . '/';
+		$pattern = '/' . preg_quote('<li><a href="' . $expected['4'] . '">', '/') . '.+?' . preg_quote('</a></li>', '/') . '/';
 		$this->assertRegExp($pattern, $result);
 	}
 

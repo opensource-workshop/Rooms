@@ -123,14 +123,14 @@ class RoomFormHelper extends AppHelper {
 		$output .= $this->NetCommonsForm->hidden('Room.id');
 		if ($room['Room']['active']) {
 			$output .= $this->NetCommonsForm->hidden('Room.active', array('value' => '0'));
-			$output .= $this->NetCommonsForm->button(__d('rooms', 'It will be in maintenance'), array(
+			$output .= $this->NetCommonsForm->button(__d('rooms', 'Open'), array(
 				'name' => 'save',
 				'class' => 'btn btn-default btn-xs',
 				'ng-disabled' => 'sending'
 			));
 		} else {
 			$output .= $this->NetCommonsForm->hidden('Room.active', array('value' => '1'));
-			$output .= $this->NetCommonsForm->button(__d('rooms', 'Open the room'), array(
+			$output .= $this->NetCommonsForm->button(__d('rooms', 'Under maintenance'), array(
 				'name' => 'save',
 				'class' => 'btn btn-default btn-xs',
 				'ng-disabled' => 'sending'

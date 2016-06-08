@@ -13,9 +13,15 @@
 <tr class="<?php echo $this->Rooms->statusCss($room); ?>">
 	<td>
 		<?php echo $this->Rooms->roomName($room, $nest); ?>
+	</td>
 
+	<td>
 		<?php echo $this->Button->editLink('',
-				array('action' => 'edit', $room['Space']['id'], $room['Room']['id']),
+				array(
+					'action' => 'edit',
+					'key' => $room['Space']['id'],
+					'key2' => $room['Room']['id']
+				),
 				array('iconSize' => 'btn-xs')
 			); ?>
 
@@ -29,6 +35,17 @@
 	</td>
 	<td>
 		<?php echo $this->Rooms->roomMembers(Hash::get($rolesRoomsUsers, $room['Room']['id'])); ?>
+	</td>
+	<td>
+		<?php echo $this->Button->editLink(__d('rooms', 'Edit the members'),
+				array(
+					'controller' => 'rooms_roles_users',
+					'action' => 'edit',
+					'key' => $room['Space']['id'],
+					'key2' => $room['Room']['id']
+				),
+				array('iconSize' => 'btn-xs')
+			); ?>
 	</td>
 
 	<td class="text-right">

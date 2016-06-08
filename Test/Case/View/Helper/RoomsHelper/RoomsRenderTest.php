@@ -102,8 +102,8 @@ class RoomsHelperRoomsRenderTest extends NetCommonsHelperTestCase {
 
 		//チェック
 		$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_header', $result);
-		$this->assertTextContains('/rooms/rooms/add/2/1', $result);
-		$this->assertTextContains('/rooms/rooms/edit/2/1', $result);
+		//$this->assertTextContains('/rooms/rooms/add/2/1', $result);
+		//$this->assertTextContains('/rooms/rooms/edit/2/1', $result);
 		if ($roomTreeList) {
 			$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/5/1', $result);
 		} else {

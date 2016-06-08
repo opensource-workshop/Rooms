@@ -53,6 +53,18 @@ msgstr "ルーム名"
 msgid "Space name"
 msgstr "スペース"
 
+#: Rooms/View/Elements/Rooms/edit_form.ctp:97
+msgid "Under maintenance"
+msgstr "準備中"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:98
+msgid "Open"
+msgstr "公開中"
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:32
+msgid "Edit the members"
+msgstr "参加者"
+
 
 #
 # ルーム一覧画面
@@ -137,10 +149,6 @@ msgstr "Javascript等を許可すると、脆弱性の原因になる可能性�
 msgid "Status"
 msgstr "状態"
 
-#: Rooms/View/Elements/Rooms/edit_form.ctp:97
-msgid "Under maintenance"
-msgstr "準備中"
-
 
 #
 # 参加者の管理
@@ -173,10 +181,6 @@ msgstr "【準備中】"
 #: Rooms/View/Elements/Rooms/edit_form.ctp:97
 msgid "It will be in maintenance"
 msgstr "準備中にする"
-
-#: Rooms/View/Elements/Rooms/edit_form.ctp:98
-msgid "Open"
-msgstr "公開中"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:98
 msgid "Open the room"
