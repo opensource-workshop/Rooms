@@ -52,6 +52,7 @@ class RoomAddController extends RoomsAppController {
 				'RoomsLanguage.name'
 			)
 		),
+		'PluginManager.PluginsForm',
 		'Rooms.RoomsRolesForm' => array(
 			'permissions' => array('content_publishable', 'html_not_limited')
 		),
@@ -101,7 +102,10 @@ class RoomAddController extends RoomsAppController {
 					'label' => array('rooms', 'Select the plugins to join'),
 				),
 			),
-			'cancelUrl' => null
+			'cancelUrl' => array(
+				'controller' => 'room_add',
+				'action' => 'cancel',
+			)
 		),
 		'UserAttributes.UserAttributeLayout',
 		'Users.UserSearchForm',
@@ -122,14 +126,33 @@ class RoomAddController extends RoomsAppController {
 		$navibar = Hash::insert($navibar, '{s}.url.key2', $this->params['pass'][1]);
 		$this->helpers['NetCommons.Wizard']['navibar'] = $navibar;
 
-		$spaces = $this->viewVars['spaces'];
-		$activeSpaceId = $this->viewVars['activeSpaceId'];
-		$this->helpers['NetCommons.Wizard']['cancelUrl'] =
-				'/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'];
+		$cancelUrl = $this->helpers['NetCommons.Wizard']['cancelUrl'];
+		$cancelUrl = Hash::insert($cancelUrl, 'key', $this->params['pass'][0]);
+		$cancelUrl = Hash::insert($cancelUrl, 'key2', $this->params['pass'][1]);
+		$this->helpers['NetCommons.Wizard']['cancelUrl'] = $cancelUrl;
+
+		$this->PluginsForm->roomId = $this->Session->read('RoomAdd.Room.id');
 	}
 
 /**
- * 追加アクション
+ * ウィザードキャンセルアクション
+ *
+ * @return void
+ */
+	public function cancel() {
+		if ($this->Session->read('RoomAdd.Room.id')) {
+			//削除処理
+			$this->Room->deleteRoom($this->Session->read('RoomAdd'));
+			$this->Session->delete('RoomAdd');
+		}
+
+		$spaces = $this->viewVars['spaces'];
+		$activeSpaceId = $this->viewVars['activeSpaceId'];
+		return $this->redirect('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action']);
+	}
+
+/**
+ * 一般設定アクション
  *
  * @return void
  */
@@ -177,7 +200,7 @@ class RoomAddController extends RoomsAppController {
 			if ($this->Session->read('RoomAdd.Room.id') &&
 					! preg_match('/' . preg_quote($referer, '/') . '/', $this->referer())) {
 				$roomId = $this->Session->read('RoomAdd.Room.id');
-				$this->request->data = $this->Room->findById($roomId);
+				$this->request->data = $this->Session->read('RoomAdd');
 				$this->RoomsRolesForm->settings['room_id'] = $roomId;
 			} else {
 				$this->request->data = Hash::merge($this->request->data,
@@ -202,18 +225,15 @@ class RoomAddController extends RoomsAppController {
 	}
 
 /**
- * 参加者の管理
+ * 参加者の選択アクション
  *
  * @return void
  */
 	public function rooms_roles_users() {
-		$roomId = $this->Session->read('RoomAdd.Room.id');
-		$room = $this->Room->findById($roomId);
-		$this->set('room', $room);
-
+		$this->set('room', $this->Session->read('RoomAdd'));
 		$result = $this->RoomsRolesForm->actionRoomsRolesUser($this, false);
 		if ($result === false) {
-			$controller->NetCommons->handleValidationError($controller->RolesRoomsUser->validationErrors);
+			$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
 		}
 	}
 
@@ -225,6 +245,35 @@ class RoomAddController extends RoomsAppController {
 	public function search_conditions() {
 		//検索フォーム表示
 		$this->UserSearch->conditions();
+	}
+
+/**
+ * プラグイン選択アクション
+ *
+ * @return void
+ */
+	public function plugins_rooms() {
+		$this->set('room', $this->Session->read('RoomAdd'));
+
+		if ($this->request->is('put')) {
+			//登録処理
+			$room = $this->Session->read('RoomAdd');
+			$room['Room']['in_draft'] = false;
+			$room['PluginsRoom'] = $this->request->data['PluginsRoom'];
+
+			if ($this->Room->saveRoom($room)) {
+				//正常の場合
+				$this->Session->delete('RoomAdd');
+
+				$spaces = $this->viewVars['spaces'];
+				$activeSpaceId = $this->viewVars['activeSpaceId'];
+				return $this->redirect('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action']);
+			} else {
+				$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
+			}
+		}
+
+		$this->request->data = $this->viewVars['room'];
 	}
 
 }

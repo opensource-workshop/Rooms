@@ -147,16 +147,17 @@ msgstr "準備中"
 #
 
 msgid "Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>"
-"When selecting the plug-ins to be used, please press the [Next]. If you want to exit this screen, please press the [Cancel]."
+"When selecting the plug-ins to be used, please press the [Next]."
 msgstr "このルームでの会員の役割を設定してください。会員の役割を変更したら、すぐに登録されます。<br>"
-"利用するプラグインを選択する際は、[次へ]を押してください。この画面を終了する場合は、[キャンセル]を押してください。"
+"利用するプラグインを選択する際は、[次へ]を押してください。"
 
 msgid "Search for the members"
 msgstr "対象者の検索"
 
-msgid "Please set the role of the members in this room. When selecting the plug-ins to be used, please press the [Next]."
-msgstr "このルームでの会員の役割を設定してください。利用するプラグインを選択する際は、[次へ]を押してください。"
-
+msgid "Please set the role of the members in this room. When selecting the plug-ins to be used, please press the [Next].<br>"
+"For you add new participants to the room, please search for the subject from the [Search for the members], and add."
+msgstr "このルームでの会員の役割を設定してください。利用するプラグインを選択する際は、[次へ]を押してください。<br>"
+"新たに参加者を追加する際は、[対象者の検索]から対象者を検索して追加してください。"
 
 #
 # プラグイン選択

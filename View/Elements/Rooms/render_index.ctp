@@ -20,32 +20,32 @@ $notFound = true;
 			</thead>
 		<?php endif; ?>
 
-		<?php if ($roomTreeList || $displaySpace) : ?>
-			<tbody>
-				<?php
-					if ($displaySpace) {
-						echo $this->element($dataElementPath, array('room' => $space, 'nest' => 0));
-						$defaultNest = 0;
-					} else {
-						$defaultNest = 1;
-					}
+		<?php
+			if ($roomTreeList || $displaySpace) {
+				echo '<tbody>';
+				if ($displaySpace) {
+					echo $this->element($dataElementPath, array('room' => $space, 'nest' => 0));
+					$defaultNest = 0;
+				} else {
+					$defaultNest = 1;
+				}
 
-					if ($roomTreeList) {
-						foreach ($roomTreeList as $roomId => $tree) {
-							if (Hash::get($rooms, $roomId) && ! in_array((string)$roomId, Room::$spaceRooms, true)) {
-								$nest = substr_count($tree, Room::$treeParser);
-								echo $this->element($dataElementPath, array(
-									'room' => $rooms[$roomId],
-									'nest' => $nest - $defaultNest
-								));
+				if ($roomTreeList) {
+					foreach ($roomTreeList as $roomId => $tree) {
+						if (Hash::get($rooms, $roomId) && ! in_array((string)$roomId, Room::$spaceRooms, true)) {
+							$nest = substr_count($tree, Room::$treeParser);
+							echo $this->element($dataElementPath, array(
+								'room' => $rooms[$roomId],
+								'nest' => $nest - $defaultNest
+							));
 
-								$notFound = false;
-							}
+							$notFound = false;
 						}
 					}
-				?>
-			</tbody>
-		<?php endif; ?>
+				}
+				echo '</tbody>';
+			}
+		?>
 	</table>
 
 	<?php if ($notFound) : ?>
@@ -54,6 +54,6 @@ $notFound = true;
 </div>
 
 <?php
-if ($paginator) {
-	echo $this->element('NetCommons.paginator');
-}
+	if ($paginator) {
+		echo $this->element('NetCommons.paginator');
+	}

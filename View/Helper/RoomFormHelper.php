@@ -235,7 +235,6 @@ class RoomFormHelper extends AppHelper {
 			$this->Rooms->roomName($space)
 		);
 
-
 		return $this->MessageFlash->description($output);
 	}
 

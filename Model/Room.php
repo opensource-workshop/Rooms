@@ -269,6 +269,7 @@ class Room extends RoomsAppModel {
  * @return bool True if the operation should continue, false if it should abort
  * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforesave
  * @see Model::save()
+ * @throws InternalErrorException
  */
 	public function beforeSave($options = array()) {
 		$room = Hash::get($this->data, 'Room');
@@ -278,7 +279,7 @@ class Room extends RoomsAppModel {
 		}
 
 		if (Hash::get($room, 'id') && Hash::get($room, 'in_draft') &&
-				Hash::get($room, 'default_participation') !== Hash::get($options, 'preUpdate.in_draft')) {
+			Hash::get($room, 'default_participation') !== Hash::get($options, 'preUpdate.Room.in_draft')) {
 
 			$this->loadModels([
 				'RolesRoomsUser' => 'Rooms.RolesRoomsUser',
@@ -296,11 +297,11 @@ class Room extends RoomsAppModel {
 /**
  * Called after each successful save operation.
  *
- * @param bool $created True if this save created a new record
- * @param array $options Options passed from Model::save().
+ * @param bool $created 作成フラグ
+ * @param array $options Model::save()のoptions.
  * @return void
  * @throws InternalErrorException
- * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#aftersave
+ * @link http://book.cakephp.org/2.0/ja/models/callback-methods.html#aftersave
  * @see Model::save()
  */
 	public function afterSave($created, $options = array()) {
@@ -313,29 +314,20 @@ class Room extends RoomsAppModel {
 				if (! $result = $this->RoomsLanguage->save($roomsLanguage, false, false)) {
 					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 				}
-				$this->data['RoomsLanguage'][$index] = $result;
+				$this->data['RoomsLanguage'][$index] = $result['RoomsLanguage'];
 			}
 		}
 
 		//デフォルトデータ登録処理
+		$this->__saveDefaultAssociations($created, $options);
+
+		//パーミッションデータ登録処理
 		$room = $this->data;
-		if ($created) {
-			$this->saveDefaultRolesRoom($room);
-			$this->saveDefaultRoomRolePermission($room);
-		}
-
-		if ($created || Hash::get($room, 'Room.in_draft')) {
-			$this->saveDefaultRolesRoomsUser($room, true);
-			$this->saveDefaultRolesPluginsRoom($room);
-		}
-
-		if (! Hash::get($room, 'Room.in_draft') &&
-				($created || Hash::get($options, 'preUpdate.is_draft'))) {
-			$page = $this->saveDefaultPage($room);
-			$this->data = Hash::merge($room, $page);
-		}
-
 		if (isset($room['RoomRolePermission'])) {
+			$this->loadModels([
+				'RoomRolePermission' => 'Rooms.RoomRolePermission'
+			]);
+
 			if ($created) {
 				$roomRolePermissions = $this->RoomRolePermission->find('all', array(
 					'recursive' => 0,
@@ -361,7 +353,47 @@ class Room extends RoomsAppModel {
 			}
 		}
 
+		//使用できるプラグインデータの登録
+		if (isset($this->data['PluginsRoom'])) {
+			$this->loadModels([
+				'PluginsRoom' => 'PluginManager.PluginsRoom'
+			]);
+
+			//エラーの場合、throwになる
+			$this->PluginsRoom->savePluginsRoomsByRoomId(
+				$this->data['Room']['id'],
+				$this->data['PluginsRoom']['plugin_key']
+			);
+		}
+
 		parent::afterSave($created, $options);
+	}
+
+/**
+ * 関連テーブルの初期値の登録処理
+ *
+ * @param bool $created 作成フラグ
+ * @param array $options Model::save()のoptions.
+ * @return void
+ */
+	private function __saveDefaultAssociations($created, $options) {
+		//デフォルトデータ登録処理
+		$room = $this->data;
+		if ($created) {
+			$this->saveDefaultRolesRoom($room);
+			$this->saveDefaultRoomRolePermission($room);
+		}
+
+		if ($created || Hash::get($room, 'Room.in_draft')) {
+			$this->saveDefaultRolesRoomsUser($room, true);
+			$this->saveDefaultRolesPluginsRoom($room);
+		}
+
+		if (! Hash::get($room, 'Room.in_draft') &&
+				($created || Hash::get($options, 'preUpdate.Room.in_draft'))) {
+			$page = $this->saveDefaultPage($room);
+			$this->data = Hash::merge($room, $page);
+		}
 	}
 
 /**

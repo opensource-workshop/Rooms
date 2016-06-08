@@ -64,7 +64,7 @@ class RoomsRolesUsersController extends RoomsAppController {
 				'class' => 'success',
 			));
 		} elseif ($result === false) {
-			$this->NetCommons->handleValidationError($controller->RolesRoomsUser->validationErrors);
+			$this->NetCommons->handleValidationError($this->RolesRoomsUser->validationErrors);
 		}
 	}
 

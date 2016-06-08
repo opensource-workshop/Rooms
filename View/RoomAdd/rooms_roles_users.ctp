@@ -18,7 +18,8 @@
 	echo $this->Rooms->spaceTabs($activeSpaceId, 'tabs', false);
 	echo $this->Wizard->navibar(RoomAddController::WIZARD_ROOMS_ROLES_USERS);
 	echo $this->MessageFlash->description(__d('rooms',
-		'Please set the role of the members in this room. When selecting the plug-ins to be used, please press the [Next].'
+		'Please set the role of the members in this room. When selecting the plug-ins to be used, please press the [Next].<br>' .
+		'For you add new participants to the room, please search for the subject from the [Search for the members], and add.'
 	));
 ?>
 

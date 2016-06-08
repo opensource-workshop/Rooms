@@ -109,42 +109,33 @@ class RoomsRolesFormComponent extends Component {
 		//登録処理
 		$result = null;
 		if ($controller->request->is('put')) {
-			foreach ($controller->request->data['User']['id'] as $userId => $checked) {
+			$data = $controller->request->data;
+			foreach ($data['User']['id'] as $userId => $checked) {
 				if (! $checked) {
-					unset($controller->request->data['RolesRoomsUser'][$userId]);
+					unset($data['RolesRoomsUser'][$userId]);
 					continue;
 				}
 			}
 
-			if (! $controller->request->data['RolesRoomsUser']) {
+			if (! $data['RolesRoomsUser']) {
 				//未選択の場合、
 				$result = null;
-			} elseif ($controller->request->data['Role']['key'] !== 'delete') {
+			} elseif ($data['Role']['key'] !== 'delete') {
 				$rolesRooms = $controller->Room->getRolesRooms(array(
 					'Room.id' => $room['Room']['id'],
-					'RolesRoom.role_key' => $controller->request->data['Role']['key']
+					'RolesRoom.role_key' => $data['Role']['key']
 				));
 				$rolesRoomId = Hash::get($rolesRooms, '0.RolesRoom.id');
-				$controller->request->data['RolesRoomsUser'] = Hash::insert(
-					$controller->request->data['RolesRoomsUser'],
+				$data['RolesRoomsUser'] = Hash::insert(
+					$data['RolesRoomsUser'],
 					'{n}.roles_room_id',
 					$rolesRoomId
 				);
 
-				$result = $controller->RolesRoomsUser->saveRolesRoomsUsersForRooms($controller->request->data);
+				$result = $controller->RolesRoomsUser->saveRolesRoomsUsersForRooms($data);
 			} else {
-				$result = $controller->RolesRoomsUser->deleteRolesRoomsUsersForRooms($controller->request->data);
+				$result = $controller->RolesRoomsUser->deleteRolesRoomsUsersForRooms($data);
 			}
-
-			//登録処理
-			//if ($result === true && $outputMessage) {
-			//	//正常の場合
-			//	$controller->NetCommons->setFlashNotification(__d('net_commons', 'Successfully saved.'), array(
-			//		'class' => 'success',
-			//	));
-			//} elseif ($result === false) {
-			//	$controller->NetCommons->handleValidationError($controller->RolesRoomsUser->validationErrors);
-			//}
 		}
 
 		if (! $controller->request->query) {
