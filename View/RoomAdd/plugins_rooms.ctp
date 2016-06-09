@@ -13,9 +13,11 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 ?>
 
 <?php
-	echo $this->Rooms->spaceTabs($activeSpaceId);
-	echo $this->RoomForm->settingTabs();
-	echo $this->MessageFlash->description(__d('rooms', 'You can set the plugins to be used in the specified room. Press [OK] button to proceed.'));
+	echo $this->Rooms->spaceTabs($activeSpaceId, 'tabs', false);
+	echo $this->Wizard->navibar(RoomAddController::WIZARD_PLUGINS_ROOMS);
+	echo $this->MessageFlash->description(__d('rooms',
+		'You can set the plugins to be used in the specified room. Press [OK] button to proceed.'
+	));
 ?>
 
 <div class="panel panel-default">
@@ -40,13 +42,7 @@ echo $this->NetCommonsHtml->css('/plugin_manager/css/style.css');
 	</div>
 
 	<div class="panel-footer text-center">
-		<?php
-			echo $this->Button->cancelAndSave(
-				__d('net_commons', 'Cancel'),
-				__d('net_commons', 'OK'),
-				$this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'])
-			);
-		?>
+		<?php echo $this->Wizard->buttons(RoomAddController::WIZARD_PLUGINS_ROOMS); ?>
 	</div>
 
 	<?php echo $this->NetCommonsForm->end(); ?>

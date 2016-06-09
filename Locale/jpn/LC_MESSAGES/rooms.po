@@ -53,12 +53,27 @@ msgstr "ルーム名"
 msgid "Space name"
 msgstr "スペース"
 
+#: Rooms/View/Elements/Rooms/edit_form.ctp:97
+msgid "Under maintenance"
+msgstr "準備中"
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:98
+msgid "Open"
+msgstr "公開中"
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:32
+msgid "Edit the members"
+msgstr "参加者"
+
 
 #
 # ルーム一覧画面
 #
 
 #: Rooms/View/Elements/subtitle.ctp:24
+msgid "Not found."
+msgstr "ルームがありません。"
+
 msgid "Add new room"
 msgstr "ルーム"
 
@@ -75,6 +90,17 @@ msgstr "作成者"
 msgid "Members"
 msgstr "参加者"
 
+msgid "The setting of %s space also to non-members is published."
+msgstr "非会員にも公開される%sスペースの設定を行う。"
+
+msgid "The setting of %s space."
+msgstr "%sスペースの設定を行う。"
+
+msgid "In %s space, to add a new room."
+msgstr "%sスペースに新たにルームを設置する。"
+
+msgid "The setting of each room was created in a %s space."
+msgstr "%sスペースに設置した各ルームの設定を行う。"
 
 #
 # ルーム作成・編集画面
@@ -123,32 +149,29 @@ msgstr "Javascript等を許可すると、脆弱性の原因になる可能性�
 msgid "Status"
 msgstr "状態"
 
-#: Rooms/View/Elements/Rooms/edit_form.ctp:97
-msgid "Under maintenance"
-msgstr "準備中"
-
 
 #
 # 参加者の管理
 #
 
 msgid "Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>"
-"When selecting the plug-ins to be used, please press the [Next]. If you want to exit this screen, please press the [Cancel]."
+"For you add new participants to the room, please search for the subject from the [Search for the members], and add."
 msgstr "このルームでの会員の役割を設定してください。会員の役割を変更したら、すぐに登録されます。<br>"
-"利用するプラグインを選択する際は、[次へ]を押してください。この画面を終了する場合は、[キャンセル]を押してください。"
+"新たに参加者を追加する際は、[対象者の検索]から対象者を検索して追加してください。"
 
 msgid "Search for the members"
 msgstr "対象者の検索"
 
+msgid "Please set the role of the members in this room. When selecting the plug-ins to be used, please press the [Next].<br>"
+"For you add new participants to the room, please search for the subject from the [Search for the members], and add."
+msgstr "このルームでの会員の役割を設定してください。利用するプラグインを選択する際は、[次へ]を押してください。<br>"
+"新たに参加者を追加する際は、[対象者の検索]から対象者を検索して追加してください。"
 
 #
 # プラグイン選択
 #
 msgid "You can set the plugins to be used in the specified room. Press [OK] button to proceed."
 msgstr "このルームでの利用を許可するプラグインを選択して、[決定]を押してください。"
-
-
-
 
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:97
@@ -158,10 +181,6 @@ msgstr "【準備中】"
 #: Rooms/View/Elements/Rooms/edit_form.ctp:97
 msgid "It will be in maintenance"
 msgstr "準備中にする"
-
-#: Rooms/View/Elements/Rooms/edit_form.ctp:98
-msgid "Open"
-msgstr "公開中"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:98
 msgid "Open the room"

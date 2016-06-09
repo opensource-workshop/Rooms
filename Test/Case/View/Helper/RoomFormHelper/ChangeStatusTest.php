@@ -70,7 +70,7 @@ class RoomFormHelperChangeStatusTest extends NetCommonsHelperTestCase {
 		$this->assertInput('input', '_method', 'PUT', $result);
 		$this->assertInput('input', 'data[Room][id]', '4', $result);
 		$this->assertInput('input', 'data[Room][active]', '0', $result);
-		$this->assertTextContains(__d('rooms', 'It will be in maintenance'), $result);
+		$this->assertTextContains(__d('rooms', 'Open'), $result);
 	}
 
 /**
@@ -92,7 +92,7 @@ class RoomFormHelperChangeStatusTest extends NetCommonsHelperTestCase {
 		$this->assertInput('input', '_method', 'PUT', $result);
 		$this->assertInput('input', 'data[Room][id]', '4', $result);
 		$this->assertInput('input', 'data[Room][active]', '1', $result);
-		$this->assertTextContains(__d('rooms', 'Open the room'), $result);
+		$this->assertTextContains(__d('rooms', 'Under maintenance'), $result);
 	}
 
 }

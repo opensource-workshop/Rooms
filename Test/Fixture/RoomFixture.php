@@ -18,35 +18,6 @@
 class RoomFixture extends CakeTestFixture {
 
 /**
- * Fields
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'space_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'page_id_top' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'root_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'lft' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'rght' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'active' => array('type' => 'boolean', 'null' => true, 'default' => null),
-		'default_role_key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '「ルーム内の役割」のデフォルト値', 'charset' => 'utf8'),
-		'need_approval' => array('type' => 'boolean', 'null' => true, 'default' => null),
-		'default_participation' => array('type' => 'boolean', 'null' => true, 'default' => null),
-		'page_layout_permitted' => array('type' => 'boolean', 'null' => true, 'default' => null),
-		'theme' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
-	);
-
-/**
  * Records
  *
  * @var array
@@ -133,5 +104,16 @@ class RoomFixture extends CakeTestFixture {
 			'theme' => null,
 		),
 	);
+
+/**
+ * Initialize the fixture.
+ *
+ * @return void
+ */
+	public function init() {
+		require_once App::pluginPath('Rooms') . 'Config' . DS . 'Schema' . DS . 'schema.php';
+		$this->fields = (new RoomsSchema())->tables['rooms'];
+		parent::init();
+	}
 
 }

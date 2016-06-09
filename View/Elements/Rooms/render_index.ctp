@@ -8,47 +8,21 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
+$notFound = true;
 ?>
 
 <div class="table-responsive">
-	<?php if ($this->params['plugin'] === 'rooms' &&
-				$this->params['controller'] === 'rooms' &&
-				$this->params['action'] === 'index') : ?>
-
-		<table class="table space-edit-table">
-			<tbody>
-				<td>
-					<label>
-						<?php echo __d('rooms', 'Space name'); ?>
-					</label>
-
-					<div class="form-control space-name-edit">
-						<?php echo $this->Rooms->roomName($space, 0); ?>
-
-						<?php echo $this->Button->editLink('',
-								array('action' => 'edit', 'key' => $space['Space']['id'], 'key2' => $space['Room']['id']),
-								array('iconSize' => 'btn-xs')
-							); ?>
-					</div>
-				</td>
-				<td class="text-right">
-					<?php echo $this->Button->addLink(__d('rooms', 'Add new room'),
-							array('action' => 'add', 'key' => $space['Space']['id'], 'key2' => $space['Room']['id']),
-							array('iconSize' => 'btn-xs')
-						); ?>
-				</td>
-			</tbody>
-		</table>
-	<?php endif; ?>
-
 	<table class="table table-hover">
 		<?php if (isset($headElementPath)) : ?>
 			<thead>
 				<?php echo $this->element($headElementPath); ?>
 			</thead>
 		<?php endif; ?>
-		<tbody>
-			<?php
+
+		<?php
+			if ($roomTreeList || $displaySpace) {
+				echo '<tbody>';
 				if ($displaySpace) {
 					echo $this->element($dataElementPath, array('room' => $space, 'nest' => 0));
 					$defaultNest = 0;
@@ -64,15 +38,22 @@
 								'room' => $rooms[$roomId],
 								'nest' => $nest - $defaultNest
 							));
+
+							$notFound = false;
 						}
 					}
 				}
-			?>
-		</tbody>
+				echo '</tbody>';
+			}
+		?>
 	</table>
+
+	<?php if ($notFound) : ?>
+		<?php echo __d('rooms', 'Not found.'); ?>
+	<?php endif; ?>
 </div>
 
 <?php
-if ($paginator) {
-	echo $this->element('NetCommons.paginator');
-}
+	if ($paginator) {
+		echo $this->element('NetCommons.paginator');
+	}
