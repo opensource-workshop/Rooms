@@ -340,7 +340,7 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
 
 		//チェック
 		$header = $this->controller->response->header();
-		$pattern = '/' . preg_quote('/rooms/rooms_roles_users/edit/2/1', '/') . '/';
+		$pattern = '/' . preg_quote('/rooms/rooms/index/2', '/') . '/';
 		$this->assertRegExp($pattern, $header['Location']);
 	}
 
