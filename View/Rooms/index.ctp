@@ -8,6 +8,15 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
+echo $this->NetCommonsHtml->css(array(
+	'/m17n/css/style.css',
+	'/rooms/css/style.css',
+	'/plugin_manager/css/style.css',
+));
+
+echo $this->NetCommonsHtml->script('/rooms/js/rooms.js');
+
 ?>
 
 <?php
@@ -28,7 +37,7 @@
 	echo $this->RoomForm->indexRoomDescription($activeSpaceId);
 ?>
 
-<article class="rooms-manager">
+<article class="rooms-manager" ng-controller="RoomsController">
 	<?php echo $this->Rooms->roomsRender($activeSpaceId,
 			array(
 				'dataElemen' => 'Rooms.Rooms/render_room_index',

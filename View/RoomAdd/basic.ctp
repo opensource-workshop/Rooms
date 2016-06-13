@@ -12,7 +12,7 @@
 
 <?php
 	echo $this->Rooms->spaceTabs($activeSpaceId, 'tabs', false);
-	echo $this->Wizard->navibar(RoomAddController::WIZARD_ROOMS);
+	echo $this->Wizard->navibar(RoomsAppController::WIZARD_ROOMS);
 	echo $this->MessageFlash->description(__d('rooms', 'Input the room name.'));
 ?>
 
@@ -37,7 +37,7 @@
 	<div class="panel-footer text-center">
 		<?php
 			if (Hash::get($this->request->data, 'Room.id') !== Room::ROOM_PARENT_ID) {
-				echo $this->Wizard->buttons(RoomAddController::WIZARD_ROOMS);
+				echo $this->Wizard->buttons(RoomsAppController::WIZARD_ROOMS);
 			} else {
 				echo $this->Button->cancelAndSave(
 					__d('net_commons', 'Cancel'),

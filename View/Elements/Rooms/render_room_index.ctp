@@ -12,7 +12,9 @@
 
 <tr class="<?php echo $this->Rooms->statusCss($room); ?>">
 	<td>
-		<?php echo $this->Rooms->roomName($room, $nest); ?>
+		<a href="" ng-click="showRoom(<?php echo $room['Space']['id'] . ', ' . $room['Room']['id']; ?>)">
+			<?php echo $this->Rooms->roomName($room, $nest); ?>
+		</a>
 	</td>
 
 	<td>
@@ -24,7 +26,9 @@
 				),
 				array('iconSize' => 'btn-xs')
 			); ?>
+	</td>
 
+	<td>
 		<?php
 			echo $this->RoomForm->changeStatus($room);
 		?>
