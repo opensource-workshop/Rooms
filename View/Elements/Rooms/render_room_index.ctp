@@ -38,7 +38,7 @@
 		<?php echo $this->DisplayUser->handleLink($room, array('avatar' => true)); ?>
 	</td>
 	<td>
-		<?php echo $this->Rooms->roomMembers(Hash::get($rolesRoomsUsers, $room['Room']['id'])); ?>
+		<?php echo $this->Rooms->roomMembers(Hash::get($rolesRoomsUsers, $room['Room']['id']), $room['Room']['id']); ?>
 	</td>
 	<td>
 		<?php echo $this->Button->editLink(__d('rooms', 'Edit the members'),

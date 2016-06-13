@@ -17,7 +17,14 @@
 <?php $this->end(); ?>
 
 <ul class="nav nav-tabs" role="tablist">
-	<li class="active">
+	<?php
+		if ($activeTab === RoomsAppController::WIZARD_ROOMS) {
+			$activeClass = ' class="active"';
+		} else {
+			$activeClass = '';
+		}
+	?>
+	<li<?php echo $activeClass; ?>>
 		<?php
 			$key = RoomsAppController::WIZARD_ROOMS;
 			$label = __d('rooms', 'General setting');
@@ -27,7 +34,14 @@
 		?>
 	</li>
 
-	<li>
+	<?php
+		if ($activeTab === RoomsAppController::WIZARD_ROOMS_ROLES_USERS) {
+			$activeClass = ' class="active"';
+		} else {
+			$activeClass = '';
+		}
+	?>
+	<li<?php echo $activeClass; ?>>
 		<?php
 			$key = RoomsAppController::WIZARD_ROOMS_ROLES_USERS;
 			$label = __d('rooms', 'Edit the members to join');
@@ -49,7 +63,15 @@
 </ul>
 
 <div class="tab-content">
-	<div class="tab-pane active" id="<?php echo RoomsAppController::WIZARD_ROOMS; ?>">
+	<?php
+		if ($activeTab === RoomsAppController::WIZARD_ROOMS) {
+			$activeClass = ' active';
+		} else {
+			$activeClass = '';
+		}
+	?>
+	<div class="tab-pane<?php echo $activeClass; ?>"
+			id="<?php echo RoomsAppController::WIZARD_ROOMS; ?>">
 		<div class="text-right nc-edit-link">
 			<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
 					array('controller' => 'rooms', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
@@ -59,7 +81,15 @@
 		<?php echo $this->element('Rooms/view_room'); ?>
 	</div>
 
-	<div class="tab-pane" id="<?php echo RoomsAppController::WIZARD_ROOMS_ROLES_USERS; ?>">
+	<?php
+		if ($activeTab === RoomsAppController::WIZARD_ROOMS_ROLES_USERS) {
+			$activeClass = ' active';
+		} else {
+			$activeClass = '';
+		}
+	?>
+	<div class="tab-pane<?php echo $activeClass; ?>"
+			id="<?php echo RoomsAppController::WIZARD_ROOMS_ROLES_USERS; ?>">
 		<div class="text-right nc-edit-link">
 			<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
 					array('controller' => 'rooms_roles_users', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),

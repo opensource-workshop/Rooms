@@ -38,4 +38,14 @@
 	</table>
 </div>
 
-<?php echo $this->element('NetCommons.paginator');
+<?php if ((int)$this->Paginator->counter('{:pages}') > 1) : ?>
+	<div class="text-center form-group">
+		<?php
+			echo $this->NetCommonsHtml->link(
+				__d('net_commons', 'More'),
+				array('controller' => 'rooms_roles_users', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
+				array('class' => 'btn btn-info btn-block')
+			);
+		?>
+	</div>
+<?php endif;
