@@ -21,11 +21,12 @@ $notFound = true;
 		<?php endif; ?>
 
 		<?php
+			echo '<tbody>';
 			if ($roomTreeList || $displaySpace) {
-				echo '<tbody>';
 				if ($displaySpace) {
 					echo $this->element($dataElementPath, array('room' => $space, 'nest' => 0));
 					$defaultNest = 0;
+					$notFound = false;
 				} else {
 					$defaultNest = 1;
 				}
@@ -43,14 +44,15 @@ $notFound = true;
 						}
 					}
 				}
-				echo '</tbody>';
 			}
+			if ($notFound) {
+				echo '<td>';
+				echo __d('rooms', 'Not found.');
+				echo '</td>';
+			}
+			echo '</tbody>';
 		?>
 	</table>
-
-	<?php if ($notFound) : ?>
-		<?php echo __d('rooms', 'Not found.'); ?>
-	<?php endif; ?>
 </div>
 
 <?php
