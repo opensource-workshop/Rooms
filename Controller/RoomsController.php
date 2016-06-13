@@ -160,6 +160,8 @@ class RoomsController extends RoomsAppController {
 
 		$this->RoomsRolesForm->limit = 10;
 		$this->RoomsRolesForm->actionRoomsRolesUser($this, true);
+
+		$this->set('activeTab', Hash::get($this->request->query, 'tab', parent::WIZARD_ROOMS));
 	}
 
 /**

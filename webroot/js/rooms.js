@@ -15,11 +15,12 @@ NetCommonsApp.controller('RoomsController',
        *
        * @return {void}
        */
-      $scope.showRoom = function(spaceId, roomId) {
-        NetCommonsModal.show(
-            $scope, 'RoomsView',
-            $scope.baseUrl + '/rooms/rooms/view/' + spaceId + '/' + roomId
-        );
+      $scope.showRoom = function(spaceId, roomId, tab) {
+        var url = $scope.baseUrl + '/rooms/rooms/view/' + spaceId + '/' + roomId;
+        if (tab) {
+          url = url + '?tab=' + tab;
+        }
+        NetCommonsModal.show($scope, 'RoomsView', url);
       };
     }]);
 
