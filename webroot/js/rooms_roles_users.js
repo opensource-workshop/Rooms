@@ -110,6 +110,8 @@ NetCommonsApp.controller('RoomsRolesUsers',
                         {'Content-Type': 'application/x-www-form-urlencoded'}
                   }
               ).success(function(data) {
+                $scope.data['User']['id'][userId] = '0';
+
                 $scope.flashMessage(data.name, data.class, data.interval);
                 $scope.$parent.sending = false;
               }).error(function(data, status) {

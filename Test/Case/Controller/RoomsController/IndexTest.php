@@ -62,8 +62,8 @@ class RoomsControllerIndexTest extends NetCommonsControllerTestCase {
 
 		//チェック
 		$this->assertTextContains('<ul class="nav nav-tabs" role="tablist">', $this->view);
-		$this->assertTextContains('<article class="rooms-manager">', $this->view);
-		$this->assertTextContains('<table class="table table-hover">', $this->view);
+		$this->assertTextContains('<article class="rooms-manager" ng-controller="RoomsController">', $this->view);
+		$this->assertTextContains('<table class="table">', $this->view);
 
 		//ログアウト
 		TestAuthGeneral::logout($this);

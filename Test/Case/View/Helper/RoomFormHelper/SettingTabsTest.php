@@ -43,37 +43,6 @@ class RoomFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 	}
 
 /**
- * settingTabs()のテスト
- * [roomsコントローラ、editアクション、グループスペース]
- *
- * @return void
- */
-	public function testSettingTabsByActionAdd() {
-		//テストデータ生成
-		$spaceId = '4';
-		$roomId = null;
-		$parentId = '1';
-		$controller = 'rooms';
-
-		$viewVars = array(
-			'activeSpaceId' => $spaceId,
-			'activeRoomId' => $roomId,
-		);
-		$requestData = array(
-			'Room' => array('id' => $roomId, 'parent_id' => $parentId)
-		);
-
-		//Helperロード
-		$this->loadHelper('Rooms.RoomForm', $viewVars, $requestData, array('controller' => $controller, 'action' => 'add'));
-
-		//テスト実施
-		$result = $this->RoomForm->settingTabs();
-
-		//チェック
-		$this->__assertHelper($result, $spaceId, $roomId, 'add', 'active', 'disabled', 'disabled');
-	}
-
-/**
  * settingTabs用DataProvider
  *
  * ### 戻り値
@@ -156,7 +125,7 @@ class RoomFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 		$result = $this->RoomForm->settingTabs();
 
 		//チェック
-		$this->__assertHelper($result, $spaceId, $roomId, 'edit', 'active', '', null);
+		$this->__assertHelper($result, $spaceId, $roomId, 'edit', 'active', '', '');
 	}
 
 /**
@@ -207,53 +176,29 @@ class RoomFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 			$roomId = $roomId . '/';
 		}
 
-		if ($action === 'add') {
-			$pattern = '<li class="' . $roomsAct . '">' .
-							'<a href="#">' .
-								__d('rooms', 'General setting') .
-							'</a>' .
-						'</li>';
-		} else {
-			$pattern = '<li class="' . $roomsAct . '">' .
-							'<a href="/rooms/rooms/edit/' . $spaceId . '/' . $roomId . '">' .
-								__d('rooms', 'General setting') .
-							'</a>' .
-						'</li>';
-		}
+		$pattern = '<li class="' . $roomsAct . '">' .
+						'<a href="/rooms/rooms/edit/' . $spaceId . '/' . $roomId . '">' .
+							__d('rooms', 'General setting') .
+						'</a>' .
+					'</li>';
 		$this->assertTextContains($pattern, $result);
 
-		if ($action === 'add') {
-			$pattern = '<li class="' . $roomsRolesUsersAct . '">' .
-							'<a href="#">' .
-								__d('rooms', 'Edit the members to join') .
-							'</a>' .
-						'</li>';
-		} else {
-			$pattern = '<li class="' . $roomsRolesUsersAct . '">' .
-							'<a href="/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '">' .
-								__d('rooms', 'Edit the members to join') .
-							'</a>' .
-						'</li>';
-		}
+		$pattern = '<li class="' . $roomsRolesUsersAct . '">' .
+						'<a href="/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '">' .
+							__d('rooms', 'Edit the members to join') .
+						'</a>' .
+					'</li>';
 		if (isset($roomsRolesUsersAct)) {
 			$this->assertTextContains($pattern, $result);
 		} else {
 			$this->assertTextNotContains($pattern, $result);
 		}
 
-		if ($action === 'add') {
-			$pattern = '<li class="' . $pluginsRoomsAct . '">' .
-							'<a href="#">' .
-								__d('rooms', 'Select the plugins to join') .
-							'</a>' .
-						'</li>';
-		} else {
-			$pattern = '<li class="' . $pluginsRoomsAct . '">' .
-							'<a href="/rooms/plugins_rooms/edit/' . $spaceId . '/' . $roomId . '">' .
-								__d('rooms', 'Select the plugins to join') .
-							'</a>' .
-						'</li>';
-		}
+		$pattern = '<li class="' . $pluginsRoomsAct . '">' .
+						'<a href="/rooms/plugins_rooms/edit/' . $spaceId . '/' . $roomId . '">' .
+							__d('rooms', 'Select the plugins to join') .
+						'</a>' .
+					'</li>';
 		if (isset($pluginsRoomsAct)) {
 			$this->assertTextContains($pattern, $result);
 		} else {

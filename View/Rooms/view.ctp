@@ -1,0 +1,81 @@
+<?php
+/**
+ * 権限管理の会員権限の詳細表示テンプレート
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+?>
+
+<?php $this->start('title_for_modal'); ?>
+<?php echo Current::read('Plugin.name'); ?>
+ -
+<?php echo h($roomName); ?>
+<?php $this->end(); ?>
+
+<ul class="nav nav-tabs" role="tablist">
+	<li class="active">
+		<?php
+			$key = RoomsAppController::WIZARD_ROOMS;
+			$label = __d('rooms', 'General setting');
+			echo $this->NetCommonsHtml->link(
+				$label, '#' . $key, ['aria-controls' => $key, 'role' => 'tab', 'data-toggle' => 'tab']
+			);
+		?>
+	</li>
+
+	<li>
+		<?php
+			$key = RoomsAppController::WIZARD_ROOMS_ROLES_USERS;
+			$label = __d('rooms', 'Edit the members to join');
+			echo $this->NetCommonsHtml->link(
+				$label, '#' . $key, ['aria-controls' => $key, 'role' => 'tab', 'data-toggle' => 'tab']
+			);
+		?>
+	</li>
+
+	<li>
+		<?php
+			$key = RoomsAppController::WIZARD_PLUGINS_ROOMS;
+			$label = __d('rooms', 'Select the plugins to join');
+			echo $this->NetCommonsHtml->link(
+				$label, '#' . $key, ['aria-controls' => $key, 'role' => 'tab', 'data-toggle' => 'tab']
+			);
+		?>
+	</li>
+</ul>
+
+<div class="tab-content">
+	<div class="tab-pane active" id="<?php echo RoomsAppController::WIZARD_ROOMS; ?>">
+		<div class="text-right nc-edit-link">
+			<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
+					array('controller' => 'rooms', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
+					array('iconSize' => ' btn-sm')
+				); ?>
+		</div>
+		<?php echo $this->element('Rooms/view_room'); ?>
+	</div>
+
+	<div class="tab-pane" id="<?php echo RoomsAppController::WIZARD_ROOMS_ROLES_USERS; ?>">
+		<div class="text-right nc-edit-link">
+			<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
+					array('controller' => 'rooms_roles_users', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
+					array('iconSize' => ' btn-sm')
+				); ?>
+		</div>
+		<?php echo $this->element('Rooms/view_rooms_roles_users'); ?>
+	</div>
+
+	<div class="tab-pane" id="<?php echo RoomsAppController::WIZARD_PLUGINS_ROOMS; ?>">
+		<div class="text-right nc-edit-link">
+			<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
+					array('controller' => 'plugins_rooms', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
+					array('iconSize' => ' btn-sm')
+				); ?>
+		</div>
+		<?php echo $this->element('Rooms/view_plugins_rooms'); ?>
+	</div>
+</div>
