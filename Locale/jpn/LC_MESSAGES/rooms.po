@@ -57,7 +57,7 @@ msgstr "参加者の選択"
 #: Rooms/View/Elements/room_setting_tabs.ctp:37
 #: Rooms/View/Elements/space_room_setting_tabs.ctp:23
 msgid "Select the plugins to join"
-msgstr "プラグイン選択"
+msgstr "プラグインの選択"
 
 
 #
