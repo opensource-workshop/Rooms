@@ -13,6 +13,7 @@
 <?php
 	echo $this->Rooms->spaceTabs($activeSpaceId, 'tabs', false);
 	echo $this->Wizard->navibar(RoomsAppController::WIZARD_ROOMS);
+	echo $this->element('Rooms.subtitle');
 	echo $this->MessageFlash->description(__d('rooms', 'Input the room name.'));
 ?>
 

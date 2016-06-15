@@ -23,22 +23,41 @@ msgstr ""
 
 
 #
+# 詳細画面のタブ
+#
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:28
+#: Rooms/View/Elements/space_room_setting_tabs.ctp:17
+msgid "General information"
+msgstr "基本情報"
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:32
+msgid "The members to join"
+msgstr "参加者リスト"
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:37
+#: Rooms/View/Elements/space_room_setting_tabs.ctp:23
+msgid "The plugins to join"
+msgstr "利用可能なプラグイン"
+
+
+#
 # ウィザードナビ
 #
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:28
 #: Rooms/View/Elements/space_room_setting_tabs.ctp:17
 msgid "General setting"
-msgstr "一般設定"
+msgstr "基本設定"
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:32
 msgid "Edit the members to join"
-msgstr "参加者の管理"
+msgstr "参加者の選択"
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:37
 #: Rooms/View/Elements/space_room_setting_tabs.ctp:23
 msgid "Select the plugins to join"
-msgstr "プラグイン選択"
+msgstr "プラグインの選択"
 
 
 #
@@ -75,11 +94,11 @@ msgid "Not found."
 msgstr "ルームがありません。"
 
 msgid "Add new room"
-msgstr "ルーム"
+msgstr "ルーム作成"
 
 #: Rooms/View/Elements/subtitle.ctp:24
 msgid "Add new subroom"
-msgstr "サブルーム"
+msgstr "サブルーム作成"
 
 msgid "You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms."
 msgstr "ルームの追加、編集、削除、参加者の選択ができます。"
@@ -107,11 +126,15 @@ msgstr "%sスペースに設置した各ルームの設定を行う。"
 #
 
 msgid "Input the room name."
-msgstr "ルーム名称を入力してください。"
+msgstr "ルーム名を入力してください。"
 
 #: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
 msgid "Room"
 msgstr "ルーム"
+
+#: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
+msgid "Sub room"
+msgstr "サブルーム"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:52
 msgid "Open for all members"

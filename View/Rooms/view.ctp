@@ -27,7 +27,7 @@
 	<li<?php echo $activeClass; ?>>
 		<?php
 			$key = RoomsAppController::WIZARD_ROOMS;
-			$label = __d('rooms', 'General setting');
+			$label = __d('rooms', 'General information');
 			echo $this->NetCommonsHtml->link(
 				$label, '#' . $key, ['aria-controls' => $key, 'role' => 'tab', 'data-toggle' => 'tab']
 			);
@@ -44,7 +44,7 @@
 	<li<?php echo $activeClass; ?>>
 		<?php
 			$key = RoomsAppController::WIZARD_ROOMS_ROLES_USERS;
-			$label = __d('rooms', 'Edit the members to join');
+			$label = __d('rooms', 'The members to join');
 			echo $this->NetCommonsHtml->link(
 				$label, '#' . $key, ['aria-controls' => $key, 'role' => 'tab', 'data-toggle' => 'tab']
 			);
@@ -54,7 +54,7 @@
 	<li>
 		<?php
 			$key = RoomsAppController::WIZARD_PLUGINS_ROOMS;
-			$label = __d('rooms', 'Select the plugins to join');
+			$label = __d('rooms', 'The plugins to join');
 			echo $this->NetCommonsHtml->link(
 				$label, '#' . $key, ['aria-controls' => $key, 'role' => 'tab', 'data-toggle' => 'tab']
 			);

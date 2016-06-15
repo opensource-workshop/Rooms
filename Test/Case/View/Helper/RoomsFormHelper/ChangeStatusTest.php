@@ -1,6 +1,6 @@
 <?php
 /**
- * RoomFormHelper::changeStatus()のテスト
+ * RoomsFormHelper::changeStatus()のテスト
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -14,12 +14,12 @@ App::uses('RoomFixture', 'Rooms.Test/Fixture');
 App::uses('SpaceFixture', 'Rooms.Test/Fixture');
 
 /**
- * RoomFormHelper::changeStatus()のテスト
+ * RoomsFormHelper::changeStatus()のテスト
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package NetCommons\Rooms\Test\Case\View\Helper\RoomFormHelper
+ * @package NetCommons\Rooms\Test\Case\View\Helper\RoomsFormHelper
  */
-class RoomFormHelperChangeStatusTest extends NetCommonsHelperTestCase {
+class RoomsFormHelperChangeStatusTest extends NetCommonsHelperTestCase {
 
 /**
  * Fixtures
@@ -48,7 +48,7 @@ class RoomFormHelperChangeStatusTest extends NetCommonsHelperTestCase {
 		$requestData = array();
 
 		//Helperロード
-		$this->loadHelper('Rooms.RoomForm', $viewVars, $requestData);
+		$this->loadHelper('Rooms.RoomsForm', $viewVars, $requestData);
 	}
 
 /**
@@ -63,7 +63,7 @@ class RoomFormHelperChangeStatusTest extends NetCommonsHelperTestCase {
 		$room['Room']['active'] = '1';
 
 		//テスト実施
-		$result = $this->RoomForm->changeStatus($room);
+		$result = $this->RoomsForm->changeStatus($room);
 
 		//チェック
 		$this->assertInput('form', null, '/rooms/active/1/4', $result);
@@ -85,7 +85,7 @@ class RoomFormHelperChangeStatusTest extends NetCommonsHelperTestCase {
 		$room['Room']['active'] = '0';
 
 		//テスト実施
-		$result = $this->RoomForm->changeStatus($room);
+		$result = $this->RoomsForm->changeStatus($room);
 
 		//チェック
 		$this->assertInput('form', null, '/rooms/active/1/4', $result);

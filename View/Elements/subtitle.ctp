@@ -10,6 +10,4 @@
  */
 ?>
 
-<?php $this->start('subtitle'); ?>
-	<?php echo $this->Rooms->roomsNavi($activeSpaceId); ?>
-<?php $this->end();
+<h2><?php echo $this->Rooms->roomsNavi($activeSpaceId); ?></h2>

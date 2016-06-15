@@ -28,13 +28,13 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms.js');
 	echo $this->Rooms->spaceTabs($activeSpaceId);
 
 	//スペース編集の説明
-	echo $this->RoomForm->editSpaceDescription($activeSpaceId);
+	echo $this->RoomsForm->editSpaceDescription($activeSpaceId);
 
 	//ルーム作成の説明
-	echo $this->RoomForm->addRoomDescription($activeSpaceId);
+	echo $this->RoomsForm->addRoomDescription($activeSpaceId);
 
 	//各ルームの説明
-	echo $this->RoomForm->indexRoomDescription($activeSpaceId);
+	echo $this->RoomsForm->indexRoomDescription($activeSpaceId);
 ?>
 
 <article class="rooms-manager" ng-controller="RoomsController">

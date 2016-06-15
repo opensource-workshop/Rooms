@@ -26,11 +26,13 @@
 </div>
 
 <div class="table-responsive">
-	<table class="table table-condensed rooms-roles-users-table">
+	<table class="table rooms-roles-users-table">
 		<thead>
 			<tr>
-				<th>
-					<input class="rooms-roles-users-checkbox" type="checkbox" ng-click="allCheck($event)">
+				<th class="text-center rooms-roles-users-checkbox">
+					<label>
+						<input type="checkbox" ng-click="allCheck($event)">
+					</label>
 				</th>
 
 				<?php echo $this->UserSearch->tableHeaders(); ?>
@@ -63,30 +65,38 @@
 					);
 					$domUserId = $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id');
 					$domUserRoleKey = $this->NetCommonsForm->domId('RolesRoom.' . $user['User']['id'] . '.role_key');
+					$domUserIdLabel = $this->NetCommonsForm->domId('User.id.' . $user['User']['id']);
+
+					$ngInit = 'appendUser(' . h(json_encode($appendData, JSON_FORCE_OBJECT)) . '); ' . $domUserId . '=false;';
+					$ngClick = $domUserId . '=!' . $domUserId . '; check(\'' . $domUserId . '\', ' . $domUserId . ');'
 				?>
-				<tr ng-init="appendUser(<?php echo h(json_encode($appendData, JSON_FORCE_OBJECT)); ?>);"
+				<tr ng-init="<?php echo $ngInit; ?>"
 					ng-class="{active: <?php echo $domUserId; ?>}">
-					<td>
-						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id'); ?>
-						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.user_id',
-									array('value' => $user['User']['id'])
-							); ?>
-						<?php echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id',
-									array('value' => $this->data['Room']['id'])
-							); ?>
-						<?php echo $this->NetCommonsForm->checkbox('User.id.' . $user['User']['id'], array(
-							'label' => false,
-							'div' => false,
-							'type' => 'checkbox',
-							'checked' => false,
-							'class' => 'rooms-roles-users-checkbox',
-							'ng-click' => 'check($event)',
-							'ng-disabled' => 'sending',
-							'inline' => true,
-						)); ?>
+					<td class="text-center rooms-roles-users-checkbox">
+						<?php
+							echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.id');
+							echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.user_id',
+								array('value' => $user['User']['id'])
+							);
+							echo $this->NetCommonsForm->hidden('RolesRoomsUser.' . $user['User']['id'] . '.room_id',
+								array('value' => $this->data['Room']['id'])
+							);
+
+							echo '<label for="' . $domUserIdLabel . '">';
+							echo $this->NetCommonsForm->checkbox('User.id.' . $user['User']['id'], array(
+								'label' => false,
+								'div' => false,
+								'type' => 'checkbox',
+								'ng-checked' => $domUserId,
+								'ng-click' => $ngClick,
+								'ng-disabled' => 'sending',
+								//'inline' => true,
+							));
+							echo '</label>';
+						?>
 					</td>
 
-					<?php echo $this->UserSearch->tableRow($user, false); ?>
+					<?php echo $this->UserSearch->tableRow($user, false, [], ['ng-click' => $ngClick]); ?>
 
 					<td class="rooms-roles-form"
 							ng-init="<?php echo $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';'; ?>">

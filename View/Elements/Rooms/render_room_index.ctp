@@ -30,7 +30,7 @@
 
 	<td>
 		<?php
-			echo $this->RoomForm->changeStatus($room);
+			echo $this->RoomsForm->changeStatus($room);
 		?>
 	</td>
 
@@ -55,10 +55,14 @@
 	<td class="text-right">
 		<?php
 			if ($nest === 0) {
-				echo $this->Button->addLink(__d('rooms', 'Add new subroom'),
-						array('action' => 'add', $room['Space']['id'], $room['Room']['id']),
-						array('iconSize' => 'btn-xs')
-					);
+				echo $this->Button->addLink(
+					__d('rooms', 'Sub room'),
+					array(
+						'controller' => 'room_add', 'action' => 'basic',
+						'key' => $room['Space']['id'], 'key2' => $room['Room']['id']
+					),
+					array('iconSize' => 'btn-xs')
+				);
 			}
 		?>
 	</td>

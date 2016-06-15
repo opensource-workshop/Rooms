@@ -25,10 +25,17 @@ table.space-edit-table > tbody > tr > td {
 /**
  * 参加者修正
  */
-
-input[type="checkbox"].rooms-roles-users-checkbox {
-	height: 21px;
-	margin: 2px;
+.table > thead > tr > th.rooms-roles-users-checkbox,
+.table > tbody > tr > td.rooms-roles-users-checkbox {
+	padding: 0px;
+}
+.rooms-roles-users-checkbox input[type="checkbox"] {
+	margin: 0px;
+}
+.rooms-roles-users-checkbox label {
+	margin: 0px;
+	display: block;
+	padding: 8px;
 }
 
 .rooms-roles-users-separator {

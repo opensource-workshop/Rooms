@@ -12,7 +12,8 @@
 
 <?php
 	echo $this->Rooms->spaceTabs($activeSpaceId);
-	echo $this->RoomForm->settingTabs();
+	echo $this->element('Rooms.subtitle');
+	echo $this->RoomsForm->settingTabs();
 	echo $this->MessageFlash->description(__d('rooms', 'Input the room name.'));
 ?>
 

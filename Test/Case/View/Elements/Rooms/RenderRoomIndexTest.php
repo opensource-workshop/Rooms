@@ -90,9 +90,9 @@ class RoomsViewElementsRoomsRenderRoomIndexTest extends NetCommonsControllerTest
 
 		$this->assertTextContains('/rooms/rooms/active', $this->view);
 
-		$pattern = '/<a href=".*?' . preg_quote('/rooms/rooms/add/2/1', '/') . '.*?">' .
+		$pattern = '/<a href=".*?' . preg_quote('/rooms/room_add/basic/2/1', '/') . '.*?">' .
 				preg_quote('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>', '/') .
-				' <span class="hidden-xs">' . __d('rooms', 'Add new subroom') . preg_quote('</span></a>', '/') . '/';
+				' <span class="hidden-xs">' . __d('rooms', 'Sub room') . preg_quote('</span></a>', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 	}
 
