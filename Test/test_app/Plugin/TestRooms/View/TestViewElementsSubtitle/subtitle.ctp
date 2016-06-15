@@ -12,6 +12,4 @@
 
 View/Elements/subtitle
 
-<?php echo $this->element('Rooms.subtitle'); ?>
-
-<?php echo $this->fetch('subtitle');
+<?php echo $this->element('Rooms.subtitle');

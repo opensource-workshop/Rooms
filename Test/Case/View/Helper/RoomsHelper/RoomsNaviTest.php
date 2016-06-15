@@ -69,7 +69,7 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 		$result = $this->Rooms->roomsNavi($activeSpaceId);
 
 		//チェック
-		$pattern = '/' . preg_quote('(<div class="', '/') . '.*?">.+? \/ .+?' . preg_quote('</div>)', '/') . '/';
+		$pattern = '/.+? \/ .+?/';
 		$this->assertRegExp($pattern, $result);
 	}
 
@@ -95,7 +95,7 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 		$result = $this->Rooms->roomsNavi($activeSpaceId);
 
 		//チェック
-		$pattern = '/' . preg_quote('(<div class="', '/') . '.*?">.+?' . preg_quote('</div>)', '/') . '/';
+		$pattern = '/.+?/';
 		$this->assertRegExp($pattern, $result);
 	}
 
@@ -115,7 +115,7 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 
 		$requestData = array();
 
-		$params = array('action' => 'add');
+		$params = array('controller' => 'room_add');
 
 		//Helperロード
 		$this->loadHelper('Rooms.Rooms', $viewVars, $requestData, $params);
@@ -124,8 +124,7 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 		$result = $this->Rooms->roomsNavi($activeSpaceId);
 
 		//チェック
-		$pattern = '/' . preg_quote('(<div class="', '/') . '.*?">.+? \/ ' .
-				preg_quote('<span class="glyphicon glyphicon-plus"></span>' . __d('rooms', 'Add new room') . '</div>)', '/') . '/';
+		$pattern = '/' . '.+? \/ ' . __d('rooms', 'Add new room') . '/';
 		$this->assertRegExp($pattern, $result);
 	}
 
@@ -145,7 +144,7 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 
 		$requestData = array();
 
-		$params = array('action' => 'add');
+		$params = array('controller' => 'room_add');
 
 		//Helperロード
 		$this->loadHelper('Rooms.Rooms', $viewVars, $requestData, $params);
@@ -154,8 +153,7 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 		$result = $this->Rooms->roomsNavi($activeSpaceId);
 
 		//チェック
-		$pattern = '/' . preg_quote('(<div class="', '/') . '.*?">.+? \/ ' .
-				preg_quote('<span class="glyphicon glyphicon-plus"></span>' . __d('rooms', 'Add new subroom') . '</div>)', '/') . '/';
+		$pattern = '/' . '.+? \/ ' . __d('rooms', 'Add new subroom') . '/';
 		$this->assertRegExp($pattern, $result);
 	}
 
