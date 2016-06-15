@@ -72,12 +72,14 @@
 	?>
 	<div class="tab-pane<?php echo $activeClass; ?>"
 			id="<?php echo RoomsAppController::WIZARD_ROOMS; ?>">
-		<div class="text-right nc-edit-link">
-			<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
-					array('controller' => 'rooms', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
-					array('iconSize' => ' btn-sm')
-				); ?>
-		</div>
+		<?php if ($isEdit) : ?>
+			<div class="text-right nc-edit-link">
+				<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
+						array('controller' => 'rooms', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
+						array('iconSize' => ' btn-sm')
+					); ?>
+			</div>
+		<?php endif; ?>
 		<?php echo $this->element('Rooms/view_room'); ?>
 	</div>
 
@@ -90,22 +92,26 @@
 	?>
 	<div class="tab-pane<?php echo $activeClass; ?>"
 			id="<?php echo RoomsAppController::WIZARD_ROOMS_ROLES_USERS; ?>">
-		<div class="text-right nc-edit-link">
-			<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
-					array('controller' => 'rooms_roles_users', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
-					array('iconSize' => ' btn-sm')
-				); ?>
-		</div>
+		<?php if ($isEdit) : ?>
+			<div class="text-right nc-edit-link">
+				<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
+						array('controller' => 'rooms_roles_users', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
+						array('iconSize' => ' btn-sm')
+					); ?>
+			</div>
+		<?php endif; ?>
 		<?php echo $this->element('Rooms/view_rooms_roles_users'); ?>
 	</div>
 
 	<div class="tab-pane" id="<?php echo RoomsAppController::WIZARD_PLUGINS_ROOMS; ?>">
-		<div class="text-right nc-edit-link">
-			<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
-					array('controller' => 'plugins_rooms', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
-					array('iconSize' => ' btn-sm')
-				); ?>
-		</div>
+		<?php if ($isEdit) : ?>
+			<div class="text-right nc-edit-link">
+				<?php echo $this->Button->editLink(__d('net_commons', 'Edit'),
+						array('controller' => 'plugins_rooms', 'action' => 'edit', 'key' => $activeSpaceId, 'key2' => $activeRoomId),
+						array('iconSize' => ' btn-sm')
+					); ?>
+			</div>
+		<?php endif; ?>
 		<?php echo $this->element('Rooms/view_plugins_rooms'); ?>
 	</div>
 </div>
