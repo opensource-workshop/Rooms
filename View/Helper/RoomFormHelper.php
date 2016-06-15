@@ -200,7 +200,7 @@ class RoomFormHelper extends AppHelper {
 
 		$output .= $this->NetCommonsHtml->div(null,
 			$this->LinkButton->add(
-				__d('rooms', 'Add new room'),
+				__d('rooms', 'Room'),
 				array(
 					'controller' => 'room_add',
 					'action' => 'basic',

@@ -94,11 +94,11 @@ msgid "Not found."
 msgstr "ルームがありません。"
 
 msgid "Add new room"
-msgstr "ルーム"
+msgstr "ルーム作成"
 
 #: Rooms/View/Elements/subtitle.ctp:24
 msgid "Add new subroom"
-msgstr "サブルーム"
+msgstr "サブルーム作成"
 
 msgid "You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms."
 msgstr "ルームの追加、編集、削除、参加者の選択ができます。"
@@ -126,11 +126,15 @@ msgstr "%sスペースに設置した各ルームの設定を行う。"
 #
 
 msgid "Input the room name."
-msgstr "ルーム名称を入力してください。"
+msgstr "ルーム名を入力してください。"
 
 #: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
 msgid "Room"
 msgstr "ルーム"
+
+#: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
+msgid "Sub room"
+msgstr "サブルーム"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:52
 msgid "Open for all members"

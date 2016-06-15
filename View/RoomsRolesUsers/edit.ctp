@@ -16,6 +16,7 @@ echo $this->element('NetCommons.javascript_alert');
 
 <?php
 	echo $this->Rooms->spaceTabs($activeSpaceId);
+	echo $this->element('Rooms.subtitle');
 	echo $this->RoomForm->settingTabs();
 	echo $this->MessageFlash->description(__d('rooms',
 		'Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>' .
