@@ -19,7 +19,7 @@ NetCommonsApp.controller('RoomsController',
         var url = $scope.baseUrl + '/rooms/rooms/view/' + spaceId + '/' + roomId;
         var search = {};
         if (tab) {
-         search['tab'] = tab;
+          search['tab'] = tab;
         }
         search['isEdit'] = isEdit;
 
