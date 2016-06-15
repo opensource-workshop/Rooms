@@ -23,17 +23,36 @@ msgstr ""
 
 
 #
+# 詳細画面のタブ
+#
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:28
+#: Rooms/View/Elements/space_room_setting_tabs.ctp:17
+msgid "General information"
+msgstr "基本情報"
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:32
+msgid "The members to join"
+msgstr "参加者リスト"
+
+#: Rooms/View/Elements/room_setting_tabs.ctp:37
+#: Rooms/View/Elements/space_room_setting_tabs.ctp:23
+msgid "The plugins to join"
+msgstr "利用可能なプラグイン"
+
+
+#
 # ウィザードナビ
 #
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:28
 #: Rooms/View/Elements/space_room_setting_tabs.ctp:17
 msgid "General setting"
-msgstr "一般設定"
+msgstr "基本設定"
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:32
 msgid "Edit the members to join"
-msgstr "参加者の管理"
+msgstr "参加者の選択"
 
 #: Rooms/View/Elements/room_setting_tabs.ctp:37
 #: Rooms/View/Elements/space_room_setting_tabs.ctp:23
