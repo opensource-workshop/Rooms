@@ -10,6 +10,9 @@
  */
 
 $notFound = true;
+if (! isset($tableClass)) {
+	$tableClass = 'table';
+}
 ?>
 
 <div class="table-responsive">
