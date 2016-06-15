@@ -13,7 +13,7 @@
 <?php $this->start('title_for_modal'); ?>
 <?php echo Current::read('Plugin.name'); ?>
  -
-<?php echo h($roomName); ?>
+<?php echo $this->Rooms->roomsNavi($activeSpaceId); ?>
 <?php $this->end(); ?>
 
 <ul class="nav nav-tabs" role="tablist">
