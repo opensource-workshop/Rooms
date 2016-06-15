@@ -30,15 +30,7 @@
 	}
 ?>
 
-<?php
-	if ($participationFixed) {
-		echo $this->NetCommonsForm->hidden('Room.default_participation');
-	}
-	echo $this->NetCommonsForm->inlineCheckbox('Room.default_participation', array(
-		'label' => __d('rooms', 'Open for all members'),
-		'disabled' => $participationFixed,
-	));
-?>
+<?php echo $this->RoomsForm->inputDefaultParticipation(); ?>
 
 <div class="form-group">
 	<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(

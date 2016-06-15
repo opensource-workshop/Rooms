@@ -140,6 +140,9 @@ msgstr "サブルーム"
 msgid "Open for all members"
 msgstr "すべての会員をデフォルトで参加させる"
 
+msgid "Open for %s room's members"
+msgstr "「%s」ルームの会員をデフォルトで参加させる"
+
 #: Rooms/View/Elements/Rooms/edit_form.ctp:64
 msgid "Default room role"
 msgstr "「ルーム内の役割」のデフォルト値"
