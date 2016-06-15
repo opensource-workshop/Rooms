@@ -74,8 +74,8 @@ NetCommonsApp.controller('RoomsRolesUsers',
       /**
        * チェックボックスクリック
        */
-      $scope.check = function($event) {
-        $scope[$event.target.id] = $event.target.checked;
+      $scope.check = function(id, checked) {
+        $scope[id] = checked;
       };
 
       /**
