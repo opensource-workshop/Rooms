@@ -13,7 +13,7 @@ $notFound = true;
 ?>
 
 <div class="table-responsive">
-	<table class="table">
+	<table class="<?php echo $tableClass; ?>">
 		<?php if (isset($headElementPath)) : ?>
 			<thead>
 				<?php echo $this->element($headElementPath); ?>
