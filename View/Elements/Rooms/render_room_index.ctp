@@ -30,7 +30,7 @@
 
 	<td>
 		<?php
-			echo $this->RoomForm->changeStatus($room);
+			echo $this->RoomsForm->changeStatus($room);
 		?>
 	</td>
 

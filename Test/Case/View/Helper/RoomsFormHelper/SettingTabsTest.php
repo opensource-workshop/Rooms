@@ -1,6 +1,6 @@
 <?php
 /**
- * RoomFormHelper::settingTabs()のテスト
+ * RoomsFormHelper::settingTabs()のテスト
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,12 +12,12 @@
 App::uses('NetCommonsHelperTestCase', 'NetCommons.TestSuite');
 
 /**
- * RoomFormHelper::settingTabs()のテスト
+ * RoomsFormHelper::settingTabs()のテスト
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
- * @package NetCommons\Rooms\Test\Case\View\Helper\RoomFormHelper
+ * @package NetCommons\Rooms\Test\Case\View\Helper\RoomsFormHelper
  */
-class RoomFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
+class RoomsFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 
 /**
  * Fixtures
@@ -82,10 +82,10 @@ class RoomFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 		);
 
 		//Helperロード
-		$this->loadHelper('Rooms.RoomForm', $viewVars, $requestData, array('controller' => $controller, 'action' => 'edit'));
+		$this->loadHelper('Rooms.RoomsForm', $viewVars, $requestData, array('controller' => $controller, 'action' => 'edit'));
 
 		//テスト実施
-		$result = $this->RoomForm->settingTabs();
+		$result = $this->RoomsForm->settingTabs();
 
 		//チェック
 		if ($controller === 'rooms') {
@@ -119,10 +119,10 @@ class RoomFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 		);
 
 		//Helperロード
-		$this->loadHelper('Rooms.RoomForm', $viewVars, $requestData, array('controller' => $controller, 'action' => 'edit'));
+		$this->loadHelper('Rooms.RoomsForm', $viewVars, $requestData, array('controller' => $controller, 'action' => 'edit'));
 
 		//テスト実施
-		$result = $this->RoomForm->settingTabs();
+		$result = $this->RoomsForm->settingTabs();
 
 		//チェック
 		$this->__assertHelper($result, $spaceId, $roomId, 'edit', 'active', '', '');
@@ -150,10 +150,10 @@ class RoomFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 		);
 
 		//Helperロード
-		$this->loadHelper('Rooms.RoomForm', $viewVars, $requestData, array('controller' => $controller, 'action' => 'edit'));
+		$this->loadHelper('Rooms.RoomsForm', $viewVars, $requestData, array('controller' => $controller, 'action' => 'edit'));
 
 		//テスト実施
-		$result = $this->RoomForm->settingTabs();
+		$result = $this->RoomsForm->settingTabs();
 
 		//チェック
 		$this->__assertHelper($result, $spaceId, $roomId, 'edit', 'active', null, null);
