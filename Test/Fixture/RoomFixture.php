@@ -87,7 +87,7 @@ class RoomFixture extends CakeTestFixture {
 			'page_layout_permitted' => false,
 			'theme' => null,
 		),
-		//グループスペース
+		//コミュニティスペース
 		array(
 			'id' => '3',
 			'space_id' => '4',

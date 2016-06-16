@@ -49,9 +49,9 @@ class RoomsLanguage4testFixture extends RoomsLanguageFixture {
 		array('id' => '3', 'language_id' => '2', 'room_id' => '2', 'name' => 'プライベートスペース'),
 		//--英語
 		array('id' => '4', 'language_id' => '1', 'room_id' => '2', 'name' => 'Private space'),
-		//グループスペース
+		//コミュニティスペース
 		//--日本語
-		array('id' => '5', 'language_id' => '2', 'room_id' => '3', 'name' => 'グループスペース'),
+		array('id' => '5', 'language_id' => '2', 'room_id' => '3', 'name' => 'コミュニティスペース'),
 		//--英語
 		array('id' => '6', 'language_id' => '1', 'room_id' => '3', 'name' => 'Group space'),
 
@@ -65,7 +65,7 @@ class RoomsLanguage4testFixture extends RoomsLanguageFixture {
 		array('id' => '9', 'language_id' => '2', 'room_id' => '5', 'name' => 'サブルーム２'),
 		//--英語
 		array('id' => '10', 'language_id' => '1', 'room_id' => '5', 'name' => 'Sub room 2'),
-		//グループスペース、別ルーム(room_id=6, 準備中)
+		//コミュニティスペース、別ルーム(room_id=6, 準備中)
 		//--日本語
 		array('id' => '11', 'language_id' => '2', 'room_id' => '6', 'name' => 'ルーム１'),
 		//--英語

@@ -53,7 +53,7 @@ class RolesRoom4testFixture extends RolesRoomFixture {
 		array('id' => '14', 'room_id' => '4', 'role_key' => 'visitor'),
 		//パブリックスペース、別ルーム(room_id=5、ブロックなし)
 		array('id' => '7', 'room_id' => '5', 'role_key' => 'room_administrator'),
-		//グループスペース、別ルーム(room_id=6, 準備中)
+		//コミュニティスペース、別ルーム(room_id=6, 準備中)
 		array('id' => '8', 'room_id' => '6', 'role_key' => 'room_administrator'),
 		//プライベートスペース、別ルーム(room_id=7, プライベートルーム)
 		array('id' => '9', 'room_id' => '7', 'role_key' => 'room_administrator'),
