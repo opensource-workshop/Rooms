@@ -130,7 +130,7 @@ class RoomsFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 
 /**
  * settingTabs()のテスト
- * [roomsコントローラ、editアクション、グループスペース]
+ * [roomsコントローラ、editアクション、コミュニティスペース]
  *
  * @return void
  */

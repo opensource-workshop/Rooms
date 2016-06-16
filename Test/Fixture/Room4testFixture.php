@@ -135,7 +135,7 @@ class Room4testFixture extends RoomFixture {
 			'page_layout_permitted' => '0',
 			'theme' => null,
 		),
-		//グループスペース
+		//コミュニティスペース
 		array(
 			'id' => '3',
 			'space_id' => '4',
@@ -151,7 +151,7 @@ class Room4testFixture extends RoomFixture {
 			'page_layout_permitted' => true,
 			'theme' => null,
 		),
-		//グループスペース、別ルーム(room_id=6, 準備中)
+		//コミュニティスペース、別ルーム(room_id=6, 準備中)
 		array(
 			'id' => '6',
 			'space_id' => '4',
