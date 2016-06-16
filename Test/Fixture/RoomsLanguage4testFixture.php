@@ -72,9 +72,9 @@ class RoomsLanguage4testFixture extends RoomsLanguageFixture {
 		array('id' => '12', 'language_id' => '1', 'room_id' => '6', 'name' => 'Room 1'),
 		//パブリックスペース、別ルーム(room_id=7, プライベートルーム)
 		//--日本語
-		array('id' => '13', 'language_id' => '2', 'room_id' => '7', 'name' => 'マイルーム'),
+		array('id' => '13', 'language_id' => '2', 'room_id' => '7', 'name' => 'プライベート'),
 		//--英語
-		array('id' => '14', 'language_id' => '1', 'room_id' => '7', 'name' => 'My room'),
+		array('id' => '14', 'language_id' => '1', 'room_id' => '7', 'name' => 'Private room'),
 		//パブリックスペース、サブサブルーム(room_id=8)
 		//--日本語
 		array('id' => '15', 'language_id' => '2', 'room_id' => '8', 'name' => 'サブサブルーム１'),
