@@ -57,7 +57,10 @@
 
 <?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.html_not_limited', array(
 		'label' => __d('rooms', 'Allow all html tags?  e.g.) Javascript or iframe'),
-		'help' => __d('rooms', 'If you allow Javascript, etc., there is a possibility that cause of vulnerability')
+		'help' => '<span class="text-warning">' .
+				'<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> ' .
+				__d('rooms', 'If you allow Javascript, etc., there is a possibility that cause of vulnerability') .
+			'</span>',
 	)); ?>
 
 <div class="form-inline form-group">

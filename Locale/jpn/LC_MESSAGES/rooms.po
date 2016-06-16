@@ -169,7 +169,7 @@ msgid "Allow all html tags?  e.g.) Javascript or iframe"
 msgstr "Javascript等のHTMLタグを許可する権限"
 
 msgid "If you allow Javascript, etc., there is a possibility that cause of vulnerability"
-msgstr "Javascript等を許可すると、脆弱性の原因になる可能性があります。"
+msgstr "許可をするとクロスサイトスクリプティングが実行できるスクリプトを書くことができます。不特定多数が使用する権限には決してチェックはしないでください。"
 
 #: Rooms/View/Elements/Rooms/edit_form.ctp:93
 msgid "Status"
