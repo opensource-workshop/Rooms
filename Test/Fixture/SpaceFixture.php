@@ -79,7 +79,7 @@ class SpaceFixture extends CakeTestFixture {
 			'lft' => '6',
 			'rght' => '7',
 			'type' => '4',
-			'plugin_key' => 'room_space',
+			'plugin_key' => 'community_space',
 			'default_setting_action' => 'rooms/index/4'
 		),
 	);
