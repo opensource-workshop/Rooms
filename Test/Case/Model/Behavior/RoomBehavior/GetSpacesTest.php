@@ -101,7 +101,7 @@ class RoomBehaviorGetSpacesTest extends NetCommonsModelTestCase {
 		$this->assertCount(3, $result);
 		$this->__assertSpace($result, '2', '1', 'public_space', Space::PUBLIC_SPACE_ID);
 		$this->__assertSpace($result, '3', '2', 'private_space', Space::PRIVATE_SPACE_ID);
-		$this->__assertSpace($result, '4', '3', 'room_space', Space::ROOM_SPACE_ID);
+		$this->__assertSpace($result, '4', '3', 'community_space', Space::ROOM_SPACE_ID);
 	}
 
 /**
