@@ -64,7 +64,7 @@ class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
 		);
 
 		//テスト実施
-		$options = $this->TestModel->getRoomsCondtions($spaceId, $conditions);
+		$options = $this->TestModel->getRoomsCondtions($spaceId, ['conditions' => $conditions]);
 		$result = $this->Room->find('all', $options);
 
 		//チェック
@@ -74,17 +74,17 @@ class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
 	}
 
 /**
- * getRoomsCondtions()のテスト($conditionsが空)
+ * getRoomsCondtions()のテスト($optionsが空)
  *
  * @return void
  */
 	public function testGetRoomsNotCondtions() {
 		//テストデータ
 		$spaceId = '2';
-		$conditions = array();
+		$options = array();
 
 		//テスト実施
-		$options = $this->TestModel->getRoomsCondtions($spaceId, $conditions);
+		$options = $this->TestModel->getRoomsCondtions($spaceId, $options);
 		$result = $this->Room->find('all', $options);
 
 		//チェック
