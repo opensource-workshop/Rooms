@@ -25,6 +25,8 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
+		'plugin.data_types.data_type4test',
+		'plugin.data_types.data_type_choice4test',
 		'plugin.groups.group',
 		'plugin.groups.groups_user',
 		'plugin.rooms.roles_room4test',
@@ -34,10 +36,12 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		'plugin.rooms.room_role_permission',
 		'plugin.rooms.rooms_language4test',
 		'plugin.rooms.space',
-		'plugin.user_attributes.user_attribute4edit',
-		'plugin.user_attributes.user_attribute_choice4edit',
+		'plugin.user_attributes.user_attribute4test',
+		'plugin.user_attributes.user_attribute_choice4test',
 		'plugin.user_attributes.user_attribute_layout',
-		'plugin.user_attributes.user_attribute_setting4edit',
+		'plugin.user_attributes.user_attribute_setting4test',
+		'plugin.user_attributes.user_attributes_role4test',
+		'plugin.user_attributes.user_role_setting4test',
 		'plugin.users.users_language4test',
 	);
 
