@@ -66,7 +66,7 @@ class RoomBehaviorGetRolesRoomsTest extends NetCommonsModelTestCase {
 		);
 
 		//テスト実施
-		$result = $this->TestModel->getRolesRooms($conditions);
+		$result = $this->TestModel->getRolesRoomsInDraft($conditions);
 
 		//チェック
 		$this->assertEquals(array('RolesRoom', 'Room'), array_keys($result[0]));

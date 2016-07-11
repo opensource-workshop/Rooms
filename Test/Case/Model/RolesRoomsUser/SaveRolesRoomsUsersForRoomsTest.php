@@ -150,7 +150,7 @@ class RolesRoomsUserSaveRolesRoomsUsersForRoomsTest extends NetCommonsSaveTest {
 		$data['RolesRoomsUser'][1] = (new RolesRoomsUserFixture())->records[2];
 
 		return array(
-			array($data, 'Rooms.RolesRoomsUser', 'saveMany'),
+			array($data, 'Rooms.RolesRoomsUser', 'save'),
 		);
 	}
 
@@ -170,8 +170,27 @@ class RolesRoomsUserSaveRolesRoomsUsersForRoomsTest extends NetCommonsSaveTest {
 		$data['RolesRoomsUser'][1] = (new RolesRoomsUserFixture())->records[2];
 
 		return array(
-			array($data, 'Rooms.RolesRoomsUser', 'validateMany'),
+			array($data, 'Rooms.RolesRoomsUser', 'validates'),
 		);
+	}
+
+/**
+ * SaveのValidationErrorテスト
+ *
+ * @param array $data 登録データ
+ * @param string $mockModel Mockのモデル
+ * @param string $mockMethod Mockのメソッド
+ * @dataProvider dataProviderSaveOnValidationError
+ * @return void
+ */
+	public function testSaveOnValidationError($data, $mockModel, $mockMethod = 'validates') {
+		$model = $this->_modelName;
+		$method = $this->_methodName;
+
+		$this->_mockForReturnFalse($model, $mockModel, $mockMethod);
+
+		$this->setExpectedException('InternalErrorException');
+		$this->$model->$method($data);
 	}
 
 }

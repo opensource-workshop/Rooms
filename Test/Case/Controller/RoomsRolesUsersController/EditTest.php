@@ -137,7 +137,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 
 		$this->assertTextContains('<button name="search"', $this->view);
 		$this->assertInput('select', 'data[Role][key]', '', $this->view);
-		$this->assertTextContains('/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '/sort:RoomRole.level/direction:asc', $this->view);
+		$this->assertTextContains('/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '/sort:room_role_level/direction:asc', $this->view);
 	}
 
 /**
@@ -262,22 +262,5 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		$this->__assetEditGetUser($roomId, '1', null);
 		$this->__assetEditGetUser($roomId, '2', null);
 		$this->__assetEditGetUser($roomId, '3', null);
-	}
-
-/**
- * edit()アクションのExpectionErrorテスト(POST(delete)のテスト)
- *
- * @return void
- */
-	public function testEditDeleteOnExpectionError() {
-		//テストデータ
-		$spaceId = '2';
-		$roomId = '4';
-		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'deleteRolesRoomsUsersForRooms');
-
-		//テスト実行
-		$data = $this->__dataDelete();
-		$this->_testPostAction('put', $data,
-				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
 	}
 }
