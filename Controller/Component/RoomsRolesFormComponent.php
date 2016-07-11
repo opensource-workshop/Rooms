@@ -144,25 +144,23 @@ class RoomsRolesFormComponent extends Component {
 			}
 		}
 
-		if (! $controller->request->query) {
-			$type = 'INNER';
-		} else {
-			$type = 'LEFT';
-		}
-
 		$controller->UserSearchComp->search(array(
 			'fields' => self::$findFields,
 			'joins' => array(
 				'RolesRoomsUser' => array(
-					'type' => $type,
 					'conditions' => array(
 						'RolesRoomsUser.room_id' => $room['Room']['id'],
 					)
 				)
 			),
-			'order' => array('RoomRole.level' => 'desc'),
+			'defaultOrder' => array('room_role_level' => 'desc'),
 			'limit' => $this->limit,
-			'displayFields' => self::$displaFields
+			'displayFields' => self::$displaFields,
+			'extra' => array(
+				'selectedUsers' => $controller->Session->read('RoomsRolesUsers'),
+				'plugin' => $controller->params['plugin'],
+				'search' => (bool)$controller->request->query
+			)
 		));
 
 		$controller->request->data = $room;
@@ -196,13 +194,14 @@ class RoomsRolesFormComponent extends Component {
 			'id' => Hash::get($rolesRoomsUserId, 'RolesRoomsUser.id'),
 			'room_id' => $room['Room']['id'],
 			'user_id' => $userId,
+			'role_key' => $controller->request->data['RolesRoomsUser']['role_key'],
 		);
 
 		if ($controller->request->data['RolesRoomsUser']['role_key']) {
 			$rolesRooms = $controller->Room->getRolesRoomsInDraft(array(
 				'Room.id' => $room['Room']['id'],
 				'RolesRoom.role_key' => $controller->request->data['RolesRoomsUser']['role_key'],
-				'Room.in_draft' => true
+				//'Room.in_draft' => true
 			));
 
 			$rolesRoomsUser['roles_room_id'] = Hash::get($rolesRooms, '0.RolesRoom.id');

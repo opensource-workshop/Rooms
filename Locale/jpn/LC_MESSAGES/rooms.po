@@ -193,6 +193,12 @@ msgid "Please set the role of the members in this room. When selecting the plug-
 msgstr "このルームでの会員の役割を設定してください。利用するプラグインを選択する際は、[次へ]を押してください。<br>"
 "新たに参加者を追加する際は、[対象者の検索]から対象者を検索して追加してください。"
 
+msgid "Unregistered"
+msgstr "未登録"
+
+msgid "Change before: "
+msgstr "変更前: "
+
 #
 # プラグイン選択
 #

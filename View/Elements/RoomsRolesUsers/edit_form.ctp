@@ -8,6 +8,8 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
+$roomsRolesUsers = $this->Session->read('RoomsRolesUsers');
 ?>
 
 <div class="form-group form-inline rooms-roles-form">
@@ -41,7 +43,7 @@
 				<?php echo $this->UserSearch->tableHeaders(); ?>
 
 				<th>
-					<?php echo $this->Paginator->sort('RoomRole.level', __d('rooms', 'Room role')); ?>
+					<?php echo $this->Paginator->sort('room_role_level', __d('rooms', 'Room role')); ?>
 				</th>
 			</tr>
 		</thead>
@@ -89,23 +91,57 @@
 
 					<?php echo $this->UserSearch->tableRow($user, false, [], ['ng-click' => $ngClick]); ?>
 
+					<?php
+						$orgRoleKey = Hash::get($user, 'RolesRoom.role_key', '');
+						if (isset($roomsRolesUsers[$user['User']['id']])) {
+							$roleKey = $roomsRolesUsers[$user['User']['id']]['role_key'];
+						} else {
+							$roleKey = $orgRoleKey;
+						}
+					?>
 					<td class="rooms-roles-form"
-							ng-init="<?php echo $domUserRoleKey . ' = \'' . Hash::get($user, 'RolesRoom.role_key', '') . '\';'; ?>">
+							ng-init="<?php echo $domUserRoleKey . ' = \'' . $roleKey . '\';'; ?>">
 
-						<div class="pull-left" ng-class="{'bg-success': <?php echo $domUserRoleKey; ?>}">
-							<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
-								'value' => Hash::get($user, 'RolesRoom.role_key', ''),
-								'class' => 'form-control input-sm',
-								'ng-model' => $domUserRoleKey,
-								'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
-								'options' => array(
-									__d('rooms', 'Room role') => $defaultRoles,
-									'-----------------------' => array(
-										'' => __d('users', 'Non members')
-									)
-								),
-								'ng-class' => '{disabled: sending}'
-							)); ?>
+						<div class="pull-left" ng-class="{'bg-success': <?php echo $domUserRoleKey; ?>}" ng-cloak>
+							<?php
+								echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
+									'class' => 'form-control input-sm',
+									'ng-model' => $domUserRoleKey,
+									'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
+									'options' => array(
+										__d('rooms', 'Room role') => $defaultRoles,
+										'-----------------------' => array(
+											'' => __d('users', 'Non members')
+										)
+									),
+									'ng-class' => '{disabled: sending}'
+								));
+							?>
+						</div>
+
+						<div class="pull-left small text-muted" ng-show="<?php echo $domUserRoleKey . ' != \'' . $orgRoleKey . '\''; ?>" ng-cloak>
+							<?php echo __d('rooms', 'Unregistered'); ?>
+							(
+							<?php echo __d('rooms', 'Change before: '); ?>
+							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR . '\''; ?>">
+								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR); ?>
+							</span>
+							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_CHIEF_EDITOR . '\''; ?>">
+								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_CHIEF_EDITOR); ?>
+							</span>
+							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_EDITOR . '\''; ?>">
+								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_EDITOR); ?>
+							</span>
+							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_GENERAL_USER . '\''; ?>">
+								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_GENERAL_USER); ?>
+							</span>
+							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_VISITOR . '\''; ?>">
+								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_VISITOR); ?>
+							</span>
+							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'\''; ?>">
+								<?php echo __d('users', 'Non members'); ?>
+							</span>
+							)
 						</div>
 					</td>
 				</tr>

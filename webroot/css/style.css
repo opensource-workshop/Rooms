@@ -49,6 +49,11 @@ table.space-edit-table > tbody > tr > td {
 .rooms-roles-form select.form-control.input-sm {
 	background-color: transparent;
 }
+.rooms-roles-form .pull-left.small {
+	margin-left: 4px;
+	margin-top: 4px;
+}
+
 
 .rooms-roles-users-table .checkbox-inline {
 	padding-left: 0px;

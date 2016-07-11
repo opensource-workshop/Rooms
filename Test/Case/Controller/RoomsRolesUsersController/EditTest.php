@@ -137,7 +137,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 
 		$this->assertTextContains('<button name="search"', $this->view);
 		$this->assertInput('select', 'data[Role][key]', '', $this->view);
-		$this->assertTextContains('/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '/sort:RoomRole.level/direction:asc', $this->view);
+		$this->assertTextContains('/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '/sort:room_role_level/direction:asc', $this->view);
 	}
 
 /**
