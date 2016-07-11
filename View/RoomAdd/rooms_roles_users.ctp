@@ -9,9 +9,9 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-	echo $this->NetCommonsHtml->css('/users/css/style.css');
-	echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
-	echo $this->element('NetCommons.javascript_alert');
+echo $this->NetCommonsHtml->css('/users/css/style.css');
+echo $this->NetCommonsHtml->script('/rooms/js/rooms_roles_users.js');
+echo $this->element('NetCommons.javascript_alert');
 ?>
 
 <?php
@@ -25,17 +25,15 @@
 ?>
 
 <?php
-	$jsonEncode = json_encode(
-		array(
-			'Room' => array('id' => Hash::get($this->data, 'Room.id')),
-			'Role' => array('key' => '')
-		),
-		JSON_FORCE_OBJECT
-	);
+	$ajaxAction = $this->NetCommonsHtml->url(array(
+		'action' => 'role_room_user',
+		'key' => Hash::get($this->data, 'Room.space_id'),
+		'key2' => Hash::get($this->data, 'Room.parent_id')
+	));
 
 	echo $this->NetCommonsForm->create('Room', array(
 		'ng-controller' => 'RoomsRolesUsers',
-		'ng-init' => 'initialize(' . $jsonEncode . ',  \'RoomRoomsRolesUsersForm\');',
+		'ng-init' => 'initialize(\'' . $ajaxAction . '\');',
 	));
 
 	echo $this->NetCommonsForm->hidden('Room.id');
@@ -48,12 +46,19 @@
 <?php echo $this->element('Rooms.RoomsRolesUsers/edit_form'); ?>
 
 <div class="text-center">
-	<?php echo $this->Wizard->buttons(
+	<?php
+		echo $this->NetCommonsForm->hidden('_RoomsRolesUsers.redirect', array(
+			'ng-value' => 'RoomSubmit'
+		));
+		$this->NetCommonsForm->unlockField('_RoomsRolesUsers.redirect');
+
+		echo $this->Wizard->buttons(
 			RoomsAppController::WIZARD_ROOMS_ROLES_USERS,
 			array(),
 			array(),
-			array('url' => $this->Wizard->naviUrl(RoomsAppController::WIZARD_PLUGINS_ROOMS))
-		); ?>
+			array('ng-click' => 'RoomSubmit=1')
+		);
+	?>
 </div>
 
 <?php

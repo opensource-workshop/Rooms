@@ -11,18 +11,21 @@
 ?>
 
 <div class="form-group form-inline rooms-roles-form">
-	<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
-		'empty' => __d('rooms', 'Change the user role of the room'),
-		'options' => array(
-			__d('rooms', 'Room role') => $defaultRoles,
-			'----------------------------------' => array('delete' => __d('users', 'Non members'))
-		),
-		'optionFormat' => __d('rooms', 'Changed to the %s role'),
-		'onchange' => 'submit();',
-		'ng-disabled' => 'sending',
-		'ng-model' => 'RoomEditForm',
-		'ng-change' => 'sending=true;'
-	)); ?>
+
+	<?php
+		echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
+			'empty' => __d('rooms', 'Change the user role of the room'),
+			'options' => array(
+				__d('rooms', 'Room role') => $defaultRoles,
+				'----------------------------------' => array('delete' => __d('users', 'Non members'))
+			),
+			'optionFormat' => __d('rooms', 'Changed to the %s role'),
+			'onchange' => 'submit();',
+			'ng-class' => 'sending',
+			'ng-model' => 'RoomEditForm',
+			'ng-change' => 'sending=true;',
+		));
+	?>
 </div>
 
 <div class="table-responsive">
@@ -47,27 +50,15 @@
 			<?php foreach ($users as $index => $user) : ?>
 				<?php
 					$appendData = array(
-						'User' => array(
-							'id' => array($user['User']['id'] => '0')
-						),
-						'RolesRoom' => array(
-							$user['User']['id'] => array(
-								'role_key' => Hash::get($user, 'RolesRoom.role_key', '')
-							)
-						),
 						'RolesRoomsUser' => array(
-							$user['User']['id'] => array(
-								'id' => Hash::get($this->request->data, 'RolesRoomsUser.' . $user['User']['id'] . '.id', ''),
-								'user_id' => $user['User']['id'],
-								'room_id' => Hash::get($this->request->data, 'Room.id', ''),
-							),
+							'user_id' => $user['User']['id'],
+							'role_key' => Hash::get($user, 'RolesRoom.role_key', '')
 						),
 					);
 					$domUserId = $this->NetCommonsForm->domId('RolesRoomsUser.' . $user['User']['id'] . '.user_id');
 					$domUserRoleKey = $this->NetCommonsForm->domId('RolesRoom.' . $user['User']['id'] . '.role_key');
 					$domUserIdLabel = $this->NetCommonsForm->domId('User.id.' . $user['User']['id']);
-
-					$ngInit = 'appendUser(' . h(json_encode($appendData, JSON_FORCE_OBJECT)) . '); ' . $domUserId . '=false;';
+					$ngInit = '';
 					$ngClick = $domUserId . '=!' . $domUserId . '; check(\'' . $domUserId . '\', ' . $domUserId . ');'
 				?>
 				<tr ng-init="<?php echo $ngInit; ?>"
@@ -113,7 +104,7 @@
 										'' => __d('users', 'Non members')
 									)
 								),
-								'ng-disabled' => 'sending'
+								'ng-class' => '{disabled: sending}'
 							)); ?>
 						</div>
 					</td>

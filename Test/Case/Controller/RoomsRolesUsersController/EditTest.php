@@ -263,21 +263,4 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		$this->__assetEditGetUser($roomId, '2', null);
 		$this->__assetEditGetUser($roomId, '3', null);
 	}
-
-/**
- * edit()アクションのExpectionErrorテスト(POST(delete)のテスト)
- *
- * @return void
- */
-	public function testEditDeleteOnExpectionError() {
-		//テストデータ
-		$spaceId = '2';
-		$roomId = '4';
-		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'deleteRolesRoomsUsersForRooms');
-
-		//テスト実行
-		$data = $this->__dataDelete();
-		$this->_testPostAction('put', $data,
-				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
-	}
 }

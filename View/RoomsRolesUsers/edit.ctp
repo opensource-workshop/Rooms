@@ -25,17 +25,15 @@ echo $this->element('NetCommons.javascript_alert');
 ?>
 
 <?php
-	$jsonEncode = json_encode(
-		array(
-			'Room' => array('id' => Hash::get($this->data, 'Room.id')),
-			'Role' => array('key' => '')
-		),
-		JSON_FORCE_OBJECT
-	);
+	$ajaxAction = $this->NetCommonsHtml->url(array(
+		'action' => 'role_room_user',
+		'key' => Hash::get($this->data, 'Room.space_id'),
+		'key2' => Hash::get($this->data, 'Room.id')
+	));
 
 	echo $this->NetCommonsForm->create('Room', array(
 		'ng-controller' => 'RoomsRolesUsers',
-		'ng-init' => 'initialize(' . $jsonEncode . ',  \'RoomEditForm\');',
+		'ng-init' => 'initialize(\'' . $ajaxAction . '\');',
 	));
 
 	echo $this->NetCommonsForm->hidden('Room.id');
@@ -49,8 +47,9 @@ echo $this->element('NetCommons.javascript_alert');
 
 <div class="text-center">
 	<?php
-		echo $this->Button->cancel(
-			__d('net_commons', 'Close'),
+		echo $this->Button->cancelAndSave(
+			__d('net_commons', 'Cancel'),
+			__d('net_commons', 'OK'),
 			$this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'])
 		);
 	?>
