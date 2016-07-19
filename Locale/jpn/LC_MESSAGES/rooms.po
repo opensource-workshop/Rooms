@@ -182,7 +182,7 @@ msgstr "状態"
 
 msgid "Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>"
 "For you add new participants to the room, please search for the subject from the [Search for the members], and add."
-msgstr "このルームでの会員の役割を設定してください。会員の役割を変更したら、すぐに登録されます。<br>"
+msgstr "このルームでの会員の役割を設定してください。会員の役割を変更して、[決定]を押してください。<br>"
 "新たに参加者を追加する際は、[対象者の検索]から対象者を検索して追加してください。"
 
 msgid "Search for the members"
