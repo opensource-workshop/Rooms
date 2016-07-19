@@ -19,7 +19,7 @@ if (! isset($tableClass)) {
 	<table class="<?php echo $tableClass; ?>">
 		<?php if (isset($headElementPath)) : ?>
 			<thead>
-				<?php echo $this->element($headElementPath); ?>
+				<?php echo $this->element($headElementPath, ['space' => $space]); ?>
 			</thead>
 		<?php endif; ?>
 
