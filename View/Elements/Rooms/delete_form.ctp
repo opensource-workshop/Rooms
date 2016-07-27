@@ -16,7 +16,7 @@
 		)); ?>
 
 		<uib-accordion close-others="false">
-			<uib-accordion-group is-open="dangerZone" class="panel-danger">
+			<div uib-accordion-group is-open="dangerZone" class="panel-danger">
 				<uib-accordion-heading class="clearfix">
 					<span style="cursor: pointer">
 						<?php echo __d('net_commons', 'Danger Zone'); ?>
@@ -34,7 +34,7 @@
 						sprintf(__d('net_commons', 'Deleting the %s. Are you sure to proceed?'), __d('rooms', 'Room')),
 						array('addClass' => 'pull-right')
 					); ?>
-			</uib-accordion-group>
+			</div>
 		</uib-accordion>
 	<?php echo $this->NetCommonsForm->end(); ?>
 </div>
