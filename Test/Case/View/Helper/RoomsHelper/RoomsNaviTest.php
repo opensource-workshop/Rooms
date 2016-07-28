@@ -43,6 +43,8 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->Room = ClassRegistry::init('Rooms.Room');
+
+		RoomBehavior::$spaces = null;
 	}
 
 /**
