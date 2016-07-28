@@ -57,7 +57,7 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
 		//array('roles_room_id' => '1', 'permission' => 'content_publishable', 'value' => '1'),
 		//array('roles_room_id' => '1', 'permission' => 'content_readable', 'value' => '1'),
 		//array('roles_room_id' => '1', 'permission' => 'page_editable', 'value' => '1'),
-		////array('roles_room_id' => '1', 'permission' => 'html_not_limited', 'value' => '1'),
+		array('roles_room_id' => '1', 'permission' => 'html_not_limited', 'value' => '1'),
 		////array('roles_room_id' => '1', 'permission' => 'mail_content_receivable', 'value' => '1'),
 		////--編集長
 		//array('roles_room_id' => '2', 'permission' => 'block_editable', 'value' => '1'),
@@ -69,7 +69,8 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
 		//array('roles_room_id' => '2', 'permission' => 'content_publishable', 'value' => '1'),
 		//array('roles_room_id' => '2', 'permission' => 'content_readable', 'value' => '1'),
 		//array('roles_room_id' => '2', 'permission' => 'page_editable', 'value' => '1'),
-		////array('roles_room_id' => '2', 'permission' => 'html_not_limited', 'value' => '0'),
+		//※WYSIWYGでエラーになるため、0->1にする(後で、WYSWIYGが修正されれば、削除する)
+		array('roles_room_id' => '2', 'permission' => 'html_not_limited', 'value' => '1'),
 		////array('roles_room_id' => '2', 'permission' => 'mail_content_receivable', 'value' => '1'),
 		////--編集者
 		//array('roles_room_id' => '3', 'permission' => 'block_editable', 'value' => '0'),
@@ -81,7 +82,8 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
 		//array('roles_room_id' => '3', 'permission' => 'content_publishable', 'value' => '0'),
 		//array('roles_room_id' => '3', 'permission' => 'content_readable', 'value' => '1'),
 		//array('roles_room_id' => '3', 'permission' => 'page_editable', 'value' => '0'),
-		////array('roles_room_id' => '3', 'permission' => 'html_not_limited', 'value' => '0'),
+		//※WYSIWYGでエラーになるため、0->1にする(後で、WYSWIYGが修正されれば、削除する)
+		array('roles_room_id' => '3', 'permission' => 'html_not_limited', 'value' => '1'),
 		////array('roles_room_id' => '3', 'permission' => 'mail_content_receivable', 'value' => '1'),
 		////--一般
 		//array('roles_room_id' => '4', 'permission' => 'block_editable', 'value' => '0'),
@@ -93,7 +95,8 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
 		//array('roles_room_id' => '4', 'permission' => 'content_publishable', 'value' => '0'),
 		//array('roles_room_id' => '4', 'permission' => 'content_readable', 'value' => '1'),
 		//array('roles_room_id' => '4', 'permission' => 'page_editable', 'value' => '0'),
-		////array('roles_room_id' => '4', 'permission' => 'html_not_limited', 'value' => '0'),
+		//※WYSIWYGでエラーになるため、0->1にする(後で、WYSWIYGが修正されれば、削除する)
+		array('roles_room_id' => '4', 'permission' => 'html_not_limited', 'value' => '1'),
 		////array('roles_room_id' => '4', 'permission' => 'mail_content_receivable', 'value' => '1'),
 		////--ゲスト
 		//array('roles_room_id' => '5', 'permission' => 'block_editable', 'value' => '0'),
@@ -105,7 +108,8 @@ e.g.) createPage, editOtherContent, publishContent', 'charset' => 'utf8'),
 		//array('roles_room_id' => '5', 'permission' => 'content_publishable', 'value' => '0'),
 		//array('roles_room_id' => '5', 'permission' => 'content_readable', 'value' => '1'),
 		//array('roles_room_id' => '5', 'permission' => 'page_editable', 'value' => '0'),
-		////array('roles_room_id' => '5', 'permission' => 'html_not_limited', 'value' => '0'),
+		//※WYSIWYGでエラーになるため、0->1にする(後で、WYSWIYGが修正されれば、削除する)
+		array('roles_room_id' => '5', 'permission' => 'html_not_limited', 'value' => '1'),
 		////array('roles_room_id' => '5', 'permission' => 'mail_content_receivable', 'value' => '0'),
 	);
 
