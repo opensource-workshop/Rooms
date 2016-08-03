@@ -8,26 +8,27 @@
  * Rooms controller
  */
 NetCommonsApp.controller('RoomsController',
-    ['$scope', 'NetCommonsModal', '$location', function($scope, NetCommonsModal, $location) {
+    ['$scope', 'NetCommonsModal', '$location', 'NC3_URL',
+      function($scope, NetCommonsModal, $location, NC3_URL) {
 
-      /**
-       * ルーム詳細表示
-       *
-       * @return {void}
-       */
-      $scope.showRoom = function(spaceId, roomId, tab, isEdit) {
-        var url = $scope.baseUrl + '/rooms/rooms/view/' + spaceId + '/' + roomId;
-        var search = {};
-        if (tab) {
-          search['tab'] = tab;
-        }
-        search['isEdit'] = isEdit;
+        /**
+         * ルーム詳細表示
+         *
+         * @return {void}
+         */
+        $scope.showRoom = function(spaceId, roomId, tab, isEdit) {
+          var url = NC3_URL + '/rooms/rooms/view/' + spaceId + '/' + roomId;
+          var search = {};
+          if (tab) {
+            search['tab'] = tab;
+          }
+          search['isEdit'] = isEdit;
 
-        $location.search(search);
+          $location.search(search);
 
-        NetCommonsModal.show($scope, 'RoomsView', url + $location.url());
-      };
-    }]);
+          NetCommonsModal.show($scope, 'RoomsView', url + $location.url());
+        };
+      }]);
 
 
 /**

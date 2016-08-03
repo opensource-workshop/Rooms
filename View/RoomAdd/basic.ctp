@@ -43,7 +43,7 @@
 				echo $this->Button->cancelAndSave(
 					__d('net_commons', 'Cancel'),
 					__d('net_commons', 'OK'),
-					$this->NetCommonsHtml->url($this->Wizard->naviUrl('cancelUrl'))
+					NetCommonsUrl::actionUrlAsArray($this->Wizard->naviUrl('cancelUrl'))
 				);
 			}
 		?>

@@ -50,7 +50,7 @@ echo $this->element('NetCommons.javascript_alert');
 		echo $this->Button->cancelAndSave(
 			__d('net_commons', 'Cancel'),
 			__d('net_commons', 'OK'),
-			$this->NetCommonsHtml->url('/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action'])
+			'/rooms/' . $spaces[$activeSpaceId]['Space']['default_setting_action']
 		);
 	?>
 </div>
