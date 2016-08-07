@@ -32,6 +32,7 @@ class TestViewElementsRoomsDeleteFormController extends AppController {
 		$this->request->data['Room']['id'] = '6';
 
 		$this->request->params['plugin'] = 'rooms';
+		$this->request->params['controller'] = 'rooms';
 	}
 
 }
