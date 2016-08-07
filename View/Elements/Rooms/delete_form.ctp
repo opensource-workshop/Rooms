@@ -12,7 +12,7 @@
 
 <div class="nc-danger-zone" ng-init="dangerZone=false;">
 	<?php echo $this->NetCommonsForm->create('Room', array('type' => 'delete',
-			'url' => array('action' => 'delete', $activeSpaceId, $activeRoomId)
+			'url' => NetCommonsUrl::actionUrlAsArray(array('action' => 'delete', $activeSpaceId, $activeRoomId))
 		)); ?>
 
 		<uib-accordion close-others="false">
