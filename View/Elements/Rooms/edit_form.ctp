@@ -30,13 +30,27 @@
 	}
 ?>
 
-<?php echo $this->RoomsForm->inputDefaultParticipation(); ?>
+<?php
+	$defaultPart = $this->NetCommonsHtml->domId('Room.default_participation');
+	$ngInit = $defaultPart . ' = ' . h(Hash::get($this->request->data, 'Room.default_participation')) . '';
+?>
+<div ng-init="<?php echo $ngInit; ?>">
+	<?php echo $this->RoomsForm->inputDefaultParticipation('Room.default_participation', array(
+		'ng-click' => $defaultPart . ' = !' . $defaultPart
+	)); ?>
 
-<div class="form-group">
-	<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
-			'label' => array('label' => __d('rooms', 'Default room role')),
-			'options' => $defaultRoles
-		)); ?>
+	<div class="form-group row">
+		<div class="col-xs-offset-1 col-xs-11">
+			<?php
+				echo $this->NetCommonsForm->hidden('Room.default_role_key');
+				echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
+					'label' => array('label' => __d('rooms', 'Default room role')),
+					'options' => $defaultRoles,
+					'ng-disabled' => '!' . $defaultPart,
+				));
+			?>
+		</div>
+	</div>
 </div>
 
 <?php

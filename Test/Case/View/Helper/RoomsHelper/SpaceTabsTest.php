@@ -10,6 +10,7 @@
  */
 
 App::uses('NetCommonsHelperTestCase', 'NetCommons.TestSuite');
+App::uses('RoomBehavior', 'Rooms.Model/Behavior');
 
 /**
  * RoomsHelper::spaceTabs()のテスト
@@ -45,6 +46,7 @@ class RoomsHelperSpaceTabsTest extends NetCommonsHelperTestCase {
 		$this->Room = ClassRegistry::init('Rooms.Room');
 
 		//テストデータ生成
+		RoomBehavior::$spaces = null;
 		$viewVars['spaces'] = $this->Room->getSpaces();
 		$requestData = array();
 
