@@ -10,6 +10,7 @@
  */
 
 App::uses('RoomsAppController', 'Rooms.Controller');
+App::uses('UserAttributeChoice', 'UserAttributes.Model');
 
 /**
  * Rooms Controller
