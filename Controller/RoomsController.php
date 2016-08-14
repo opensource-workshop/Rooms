@@ -61,6 +61,16 @@ class RoomsController extends RoomsAppController {
 	);
 
 /**
+ * beforeFilter
+ *
+ * @return void
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Rooms->defaultRoleKeyList = Room::$defaultRoleKeyList;
+	}
+
+/**
  * 不要なデータ削除
  *
  * @return void
