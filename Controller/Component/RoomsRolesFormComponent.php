@@ -98,6 +98,16 @@ class RoomsRolesFormComponent extends Component {
 
 		//RoomRolePermissionデータセット
 		if (isset($this->settings['permissions'])) {
+			$roomRolePerms = Hash::get($controller->request->data, 'RoomRolePermission', array());
+			foreach ($roomRolePerms as $permission => $roles) {
+				foreach ($roles as $key => $role) {
+					if (isset($role['value'])) {
+						$role['value'] = (bool)$role['value'];
+						$controller->request->data['RoomRolePermission'][$permission][$key] = $role;
+					}
+				}
+			}
+
 			$roomId = Hash::get($this->settings, 'room_id');
 			$type = Hash::get($this->settings, 'type');
 
