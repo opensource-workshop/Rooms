@@ -109,7 +109,7 @@ class RoomsRolesFormComponent extends Component {
 				$defaultPermissions, $results['RoomRolePermission']
 			);
 
-			$controller->request->data = Hash::merge($controller->request->data, $results);
+			$controller->request->data = Hash::merge($results, $controller->request->data);
 			$controller->set('roles', $results['RoomRole']);
 		}
 	}
