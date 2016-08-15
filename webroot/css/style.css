@@ -65,3 +65,11 @@ table.space-edit-table > tbody > tr > td {
 .rooms-manager td {
 	white-space: nowrap;
 }
+
+.room-roles-desc .popover {
+	width: 400px;
+	max-width: 400px;
+}
+.room-roles-desc .popover .room-role-name-desc:not(:first-child) {
+	margin-top: 8px;
+}

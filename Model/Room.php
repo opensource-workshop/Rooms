@@ -295,6 +295,7 @@ class Room extends RoomsAppModel {
 				}
 			}
 		}
+
 		return parent::beforeValidate($options);
 	}
 
@@ -356,7 +357,7 @@ class Room extends RoomsAppModel {
 		}
 
 		//デフォルトデータ登録処理
-		$this->__saveDefaultAssociations($created, $options);
+		$this->saveDefaultAssociations($created, $options);
 
 		//パーミッションデータ登録処理
 		$room = $this->data;
@@ -406,33 +407,6 @@ class Room extends RoomsAppModel {
 		}
 
 		parent::afterSave($created, $options);
-	}
-
-/**
- * 関連テーブルの初期値の登録処理
- *
- * @param bool $created 作成フラグ
- * @param array $options Model::save()のoptions.
- * @return void
- */
-	private function __saveDefaultAssociations($created, $options) {
-		//デフォルトデータ登録処理
-		$room = $this->data;
-		if ($created) {
-			$this->saveDefaultRolesRoom($room);
-			$this->saveDefaultRoomRolePermission($room);
-		}
-
-		if ($created || Hash::get($room, 'Room.in_draft')) {
-			$this->saveDefaultRolesRoomsUser($room, true);
-			$this->saveDefaultRolesPluginsRoom($room);
-		}
-
-		if (! Hash::get($room, 'Room.in_draft') &&
-				($created || Hash::get($options, 'preUpdate.Room.in_draft'))) {
-			$page = $this->saveDefaultPage($room);
-			$this->data = Hash::merge($room, $page);
-		}
 	}
 
 /**
