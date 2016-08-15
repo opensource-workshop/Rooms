@@ -18,7 +18,7 @@ $roomsRolesUsers = $this->Session->read('RoomsRolesUsers');
 		echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
 			'empty' => __d('rooms', 'Change the user role of the room'),
 			'options' => array(
-				__d('rooms', 'Room role') => $defaultRoles,
+				__d('rooms', 'Room role') => $defaultRoleOptions,
 				'----------------------------------' => array('delete' => __d('users', 'Non members'))
 			),
 			'optionFormat' => __d('rooms', 'Changed to the %s role'),
@@ -42,8 +42,9 @@ $roomsRolesUsers = $this->Session->read('RoomsRolesUsers');
 
 				<?php echo $this->UserSearch->tableHeaders(); ?>
 
-				<th>
+				<th class="room-roles-desc">
 					<?php echo $this->Paginator->sort('room_role_level', __d('rooms', 'Room role')); ?>
+					<?php echo $this->RoomsRolesForm->roomRolesDescription(); ?>
 				</th>
 			</tr>
 		</thead>
@@ -109,7 +110,7 @@ $roomsRolesUsers = $this->Session->read('RoomsRolesUsers');
 									'ng-model' => $domUserRoleKey,
 									'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
 									'options' => array(
-										__d('rooms', 'Room role') => $defaultRoles,
+										__d('rooms', 'Room role') => $defaultRoleOptions,
 										'-----------------------' => array(
 											'' => __d('users', 'Non members')
 										)

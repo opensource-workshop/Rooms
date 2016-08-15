@@ -40,12 +40,14 @@
 	)); ?>
 
 	<div class="form-group row">
-		<div class="col-xs-offset-1 col-xs-11">
+		<div class="col-xs-offset-1 col-xs-11 room-roles-desc">
 			<?php
 				echo $this->NetCommonsForm->hidden('Room.default_role_key');
 				echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
-					'label' => array('label' => __d('rooms', 'Default room role')),
-					'options' => $defaultRoles,
+					'label' => array(
+						'label' => __d('rooms', 'Default room role') . $this->RoomsRolesForm->roomRolesDescription()
+					),
+					'options' => $defaultRoleOptions,
 					'ng-disabled' => '!' . $defaultPart,
 				));
 			?>

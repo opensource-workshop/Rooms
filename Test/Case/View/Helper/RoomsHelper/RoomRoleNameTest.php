@@ -44,7 +44,7 @@ class RoomsHelperRoomRoleNameTest extends NetCommonsHelperTestCase {
 		//テストデータ生成
 		$viewVars = array(
 			'defaultRoles' => array(
-				'room_administrator' => 'Room administrator'
+				'room_administrator' => ['name' => 'Room administrator']
 			)
 		);
 		$requestData = array();

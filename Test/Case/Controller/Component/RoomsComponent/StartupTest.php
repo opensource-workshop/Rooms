@@ -125,7 +125,7 @@ class RoomsComponentStartupTest extends NetCommonsControllerTestCase {
 		// * Roomsヘルパーのチェック
 		$this->assertTrue(in_array('Rooms.Rooms', $this->controller->helpers, true));
 
-		// * viewVars['defaultRoles']のチェック
+		// * viewVars['defaultRoleOptions']のチェック
 		$expected = array(
 			'room_administrator' => 'Room Manager',
 			'chief_editor' => 'Chief editor',
@@ -133,7 +133,7 @@ class RoomsComponentStartupTest extends NetCommonsControllerTestCase {
 			'general_user' => 'General user',
 			'visitor' => 'Visitor'
 		);
-		$this->assertEquals($expected, $this->vars['defaultRoles']);
+		$this->assertEquals($expected, $this->vars['defaultRoleOptions']);
 	}
 
 }
