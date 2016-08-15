@@ -16,6 +16,7 @@
 
 App::uses('RoomsAppModel', 'Rooms.Model');
 App::uses('Role', 'Roles.Model');
+App::uses('Space', 'Rooms.Model');
 
 /**
  * Room Model
@@ -218,13 +219,6 @@ class Room extends RoomsAppModel {
 					'message' => __d('net_commons', 'Invalid request.'),
 				),
 			),
-			'default_role_key' => array(
-				'inList' => array(
-					'rule' => array('inList', self::$defaultRoleKeyList),
-					'message' => __d('net_commons', 'Invalid request.'),
-					'required' => true
-				),
-			),
 			'page_layout_permitted' => array(
 				'boolean' => array(
 					'rule' => array('boolean'),
@@ -255,6 +249,29 @@ class Room extends RoomsAppModel {
 				),
 			),
 		));
+
+		if (Hash::get($this->data, 'Room.space_id') === Space::PRIVATE_SPACE_ID) {
+			$this->validate = Hash::merge($this->validate, array(
+				'default_role_key' => array(
+					'inList' => array(
+						'rule' => array('inList', [Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR]),
+						'message' => __d('net_commons', 'Invalid request.'),
+						'required' => true
+					),
+				),
+			));
+		} else {
+			$this->validate = Hash::merge($this->validate, array(
+				'default_role_key' => array(
+					'inList' => array(
+						'rule' => array('inList', self::$defaultRoleKeyList),
+						'message' => __d('net_commons', 'Invalid request.'),
+						'required' => true
+					),
+				),
+			));
+		}
+
 		// * RoomsLanguageのバリデーション
 		if (isset($this->data['RoomsLanguage'])) {
 			$roomsLanguages = $this->data['RoomsLanguage'];
