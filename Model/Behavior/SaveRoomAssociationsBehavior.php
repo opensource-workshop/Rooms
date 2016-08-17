@@ -320,10 +320,10 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 				'root_id' => $model->getParentPageId($data),
 				'parent_id' => $model->getParentPageId($data)
 			),
-			'LanguagesPage' => array(
-				'language_id' => Current::read('Language.id'),
-				'name' => __d('rooms', 'Top')
-			),
+			//'LanguagesPage' => array(
+			//	'language_id' => Current::read('Language.id'),
+			//	'name' => __d('rooms', 'Top')
+			//),
 		));
 
 		$model->Page->create(false);
@@ -339,6 +339,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 
+		$page[$model->Room->alias]['page_id_top'] = $page['Page']['id'];
 		return $page;
 	}
 

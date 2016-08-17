@@ -169,7 +169,7 @@ class RoomsRolesFormComponent extends Component {
 			'extra' => array(
 				'selectedUsers' => $controller->Session->read('RoomsRolesUsers'),
 				'plugin' => $controller->params['plugin'],
-				'search' => (bool)$controller->request->query
+				'search' => (bool)($controller->request->query || $room['Room']['default_participation'])
 			)
 		));
 

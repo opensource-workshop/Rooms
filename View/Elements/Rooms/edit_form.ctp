@@ -28,6 +28,10 @@
 			echo '</div>';
 		}
 	}
+
+	if (Hash::get($this->request->data, 'Room.page_id_top')) {
+		echo $this->NetCommonsForm->hidden('Room.page_id_top');
+	}
 ?>
 
 <?php

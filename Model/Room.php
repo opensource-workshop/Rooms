@@ -469,6 +469,7 @@ class Room extends RoomsAppModel {
  */
 	public function saveRoom($data) {
 		$this->loadModels([
+			'LanguagesPage' => 'Pages.LanguagesPage',
 			'RoomsLanguage' => 'Rooms.RoomsLanguage',
 		]);
 
@@ -495,6 +496,34 @@ class Room extends RoomsAppModel {
 			$room = $this->save(null, ['validate' => false, 'preUpdate' => $preUpdate]);
 			if (! $room) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			if (Hash::get($room, 'Room.page_id_top')) {
+				$roomLanguages = Hash::get($room, 'RoomsLanguage', array());
+				foreach ($roomLanguages as $roomLanguage) {
+					$pageLanguage = $this->LanguagesPage->find('first', array(
+						'recursive' => -1,
+						'fields' => array('id', 'page_id', 'language_id'),
+						'conditions' => array(
+							'page_id' => Hash::get($room, 'Room.page_id_top'),
+							'language_id' => $roomLanguage['language_id'],
+						)
+					));
+					if (! $pageLanguage) {
+						$pageLanguage['LanguagesPage'] = array(
+							'id' => null,
+							'page_id' => Hash::get($room, 'Room.page_id_top'),
+							'language_id' => $roomLanguage['language_id'],
+						);
+					}
+					$pageLanguage['LanguagesPage']['name'] = $roomLanguage['name'];
+
+					$this->create(false);
+					$pageLanguage = $this->LanguagesPage->save($pageLanguage);
+					if (! $pageLanguage) {
+						throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+					}
+				}
 			}
 
 			//トランザクションCommit
@@ -584,7 +613,7 @@ class Room extends RoomsAppModel {
 		try {
 			//Roomデータの削除
 			if (! $this->delete($data['Room']['id'], false)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error 2'));
 			}
 
 			//トランザクションCommit
