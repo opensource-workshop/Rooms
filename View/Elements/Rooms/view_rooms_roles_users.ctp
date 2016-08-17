@@ -29,7 +29,7 @@
 
 					<td class="rooms-roles-form">
 						<?php
-							echo Hash::get($defaultRoles, Hash::get($user, 'RolesRoom.role_key', ''));
+							echo $this->Rooms->roomRoleName(Hash::get($user, 'RolesRoom.role_key', ''));
 						?>
 					</td>
 				</tr>
