@@ -10,6 +10,7 @@
  */
 
 App::uses('Component', 'Controller');
+App::uses('Space', 'Rooms.Model');
 
 /**
  * RoomsRolesForm Component
@@ -197,6 +198,14 @@ class RoomsRolesFormComponent extends Component {
 		$room = $controller->viewVars['room'];
 		$userId = $controller->request->data['RolesRoomsUser']['user_id'];
 
+		//パブリックスペースの時不参加にできない
+		if ($room['Room']['space_id'] === Space::PUBLIC_SPACE_ID &&
+				! $controller->request->data['RolesRoomsUser']['role_key']) {
+
+			$controller->throwBadRequest();
+			return false;
+		}
+
 		$rolesRoomsUserId = $controller->RolesRoomsUser->find('first', array(
 			'recursive' => -1,
 			'fields' => array('id'),
@@ -245,6 +254,14 @@ class RoomsRolesFormComponent extends Component {
 	private function __getRequestData(Controller $controller) {
 		//ルームデータチェック
 		$room = $controller->viewVars['room'];
+
+		//パブリックスペースの時不参加にできない
+		if ($room['Room']['space_id'] === Space::PUBLIC_SPACE_ID &&
+				$controller->request->data['Role']['key'] === 'delete') {
+
+			$controller->throwBadRequest();
+			return false;
+		}
 
 		$data = $controller->request->data;
 		foreach ($data['User']['id'] as $userId => $checked) {
