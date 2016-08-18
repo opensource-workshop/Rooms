@@ -129,6 +129,7 @@ class RoomsController extends RoomsAppController {
 
 		//参加者リスト取得
 		$rolesRoomsUsers = array();
+		$rolesRoomsUsersCount = array();
 		foreach ($roomIds as $roomId) {
 			$result = $this->RolesRoomsUser->getRolesRoomsUsers(
 				array('RolesRoomsUser.room_id' => $roomId),
@@ -146,8 +147,19 @@ class RoomsController extends RoomsAppController {
 				)
 			);
 			$rolesRoomsUsers[$roomId] = $result;
+
+			$rolesRoomsUsersCount[$roomId] = $this->RolesRoomsUser->getRolesRoomsUsers(
+				array('RolesRoomsUser.room_id' => $roomId),
+				array(
+					'type' => 'count',
+					'conditions' => array(
+						'User.status' => UserAttributeChoice::STATUS_CODE_ACTIVE
+					),
+				)
+			);
 		}
 		$this->set('rolesRoomsUsers', $rolesRoomsUsers);
+		$this->set('rolesRoomsUsersCount', $rolesRoomsUsersCount);
 	}
 
 /**

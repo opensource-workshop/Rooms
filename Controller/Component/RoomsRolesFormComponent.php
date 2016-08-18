@@ -142,15 +142,23 @@ class RoomsRolesFormComponent extends Component {
 		//登録処理
 		$result = null;
 		if ($controller->request->is('put')) {
-			$data = $this->__getRequestData($controller);
-			if (! $data['RolesRoomsUser']) {
-				//未選択の場合、
-				$result = true;
+			if (array_key_exists('save', $controller->request->data)) {
+				$data = $controller->Session->read('RoomsRolesUsers');
+var_dump(get_class($controller->Session));
+				var_dump($data);
+
+				if (! $data) {
+					//未選択の場合、
+					$result = true;
+				} else {
+					$result = $controller->RolesRoomsUser->saveRolesRoomsUsersForRooms(array(
+						'RolesRoomsUser' => $data
+					));
+					$controller->Session->delete('RoomsRolesUsers');
+				}
 			} else {
-				$result = $controller->RolesRoomsUser->saveRolesRoomsUsersForRooms(array(
-					'RolesRoomsUser' => $data['RolesRoomsUser']
-				));
-				$controller->Session->delete('RoomsRolesUsers');
+				$data = $this->__getRequestData($controller);
+				$controller->Session->write('RoomsRolesUsers', $data['RolesRoomsUser']);
 			}
 		}
 
@@ -267,6 +275,9 @@ class RoomsRolesFormComponent extends Component {
 			));
 			$data['RolesRoomsUser'] = Hash::insert(
 				$data['RolesRoomsUser'], '{n}.roles_room_id', Hash::get($rolesRooms, '0.RolesRoom.id')
+			);
+			$data['RolesRoomsUser'] = Hash::insert(
+				$data['RolesRoomsUser'], '{n}.role_key', $data['Role']['key']
 			);
 			$data['RolesRoomsUser'] = Hash::remove(
 				$data['RolesRoomsUser'], '{n}.delete'

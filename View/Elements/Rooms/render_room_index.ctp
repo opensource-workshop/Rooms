@@ -15,6 +15,9 @@
 		<a href="" ng-click="showRoom(<?php echo $room['Space']['id'] . ', ' . $room['Room']['id']; ?>)">
 			<?php echo $this->Rooms->roomName($room, $nest); ?>
 		</a>
+		<span class="badge">
+			<?php echo Hash::get($rolesRoomsUsersCount, $room['Room']['id']); ?>
+		</span>
 	</td>
 
 	<td>

@@ -57,7 +57,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
  *
  * @var string
  */
-	protected $_controller = 'rooms_roles_users';
+//	protected $_controller = 'rooms_roles_users';
 
 /**
  * setUp method
@@ -80,86 +80,86 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		TestAuthGeneral::logout($this);
 		parent::tearDown();
 	}
-
-/**
- * edit()アクションのGETリクエストテスト
- *
- * @return void
- */
-	public function testEditGet() {
-		//テストデータ
-		$spaceId = '2';
-		$roomId = '4';
-
-		//テスト実行
-		$this->_testGetAction(array('action' => 'edit', $spaceId, $roomId), array('method' => 'assertNotEmpty'), null, 'view');
-
-		//チェック
-		$this->assertInput('form', null, '/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId, $this->view);
-		$this->__assetEditGet($spaceId, $roomId);
-		$this->__assetEditGetUser($roomId, '1', '6');
-	}
-
-/**
- * edit()アクションのGETリクエストテスト(クエリあり)
- *
- * @return void
- */
-	public function testEditGetWithQuery() {
-		//テストデータ
-		$spaceId = '2';
-		$roomId = '4';
-
-		//テスト実行
-		$this->_testGetAction(
-			array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')),
-			array('method' => 'assertNotEmpty'), null, 'view'
-		);
-
-		//チェック
-		$this->assertInput('form', null, '/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '?search=1', $this->view);
-		$this->__assetEditGet($spaceId, $roomId);
-		$this->__assetEditGetUser($roomId, '1', '6');
-		$this->__assetEditGetUser($roomId, '2', null);
-		$this->__assetEditGetUser($roomId, '3', null);
-	}
-
-/**
- * edit()アクションのチェック
- *
- * @param int $spaceId スペースID
- * @param int $roomId ルームID
- * @return void
- */
-	private function __assetEditGet($spaceId, $roomId) {
-		$this->assertInput('input', '_method', 'PUT', $this->view);
-		$this->assertInput('input', 'data[Room][id]', $roomId, $this->view);
-
-		$this->assertTextContains('<button name="search"', $this->view);
-		$this->assertInput('select', 'data[Role][key]', '', $this->view);
-		$this->assertTextContains('/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '/sort:room_role_level/direction:asc', $this->view);
-	}
-
-/**
- * edit()アクションのチェック(user)
- *
- * @param int $roomId ルームID
- * @param int $userId ユーザID
- * @param int $rolesRoomUserId ロールルームID
- * @return void
- */
-	private function __assetEditGetUser($roomId, $userId, $rolesRoomUserId) {
-		$this->assertInput('input', 'data[RolesRoomsUser][' . $userId . '][id]', $rolesRoomUserId, $this->view);
-		$this->assertInput('input', 'data[RolesRoomsUser][' . $userId . '][user_id]', $userId, $this->view);
-		$this->assertInput('input', 'data[RolesRoomsUser][' . $userId . '][room_id]', $roomId, $this->view);
-		$this->assertInput('select', 'data[RolesRoom][' . $userId . '][role_key]', '', $this->view);
-
-		$name = 'data[User][id][' . $userId . ']';
-		$domId = 'UserId' . $userId;
-		$this->assertTextContains('name="' . $name . '" id="' . $domId . '_" value="0"', $this->view);
-		$pattern = '<input type="checkbox" name="' . preg_quote($name, '/') . '".+?value="1" id="' . $domId . '"';
-		$this->assertRegExp('/' . $pattern . '/', $this->view);
-	}
+//
+///**
+// * edit()アクションのGETリクエストテスト
+// *
+// * @return void
+// */
+//	public function testEditGet() {
+//		//テストデータ
+//		$spaceId = '2';
+//		$roomId = '4';
+//
+//		//テスト実行
+//		$this->_testGetAction(array('action' => 'edit', $spaceId, $roomId), array('method' => 'assertNotEmpty'), null, 'view');
+//
+//		//チェック
+//		$this->assertInput('form', null, '/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId, $this->view);
+//		$this->__assetEditGet($spaceId, $roomId);
+//		$this->__assetEditGetUser($roomId, '1', '6');
+//	}
+//
+///**
+// * edit()アクションのGETリクエストテスト(クエリあり)
+// *
+// * @return void
+// */
+//	public function testEditGetWithQuery() {
+//		//テストデータ
+//		$spaceId = '2';
+//		$roomId = '4';
+//
+//		//テスト実行
+//		$this->_testGetAction(
+//			array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')),
+//			array('method' => 'assertNotEmpty'), null, 'view'
+//		);
+//
+//		//チェック
+//		$this->assertInput('form', null, '/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '?search=1', $this->view);
+//		$this->__assetEditGet($spaceId, $roomId);
+//		$this->__assetEditGetUser($roomId, '1', '6');
+//		$this->__assetEditGetUser($roomId, '2', null);
+//		$this->__assetEditGetUser($roomId, '3', null);
+//	}
+//
+///**
+// * edit()アクションのチェック
+// *
+// * @param int $spaceId スペースID
+// * @param int $roomId ルームID
+// * @return void
+// */
+//	private function __assetEditGet($spaceId, $roomId) {
+//		$this->assertInput('input', '_method', 'PUT', $this->view);
+//		$this->assertInput('input', 'data[Room][id]', $roomId, $this->view);
+//
+//		$this->assertTextContains('<button name="search"', $this->view);
+//		$this->assertInput('select', 'data[Role][key]', '', $this->view);
+//		$this->assertTextContains('/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '/sort:room_role_level/direction:asc', $this->view);
+//	}
+//
+///**
+// * edit()アクションのチェック(user)
+// *
+// * @param int $roomId ルームID
+// * @param int $userId ユーザID
+// * @param int $rolesRoomUserId ロールルームID
+// * @return void
+// */
+//	private function __assetEditGetUser($roomId, $userId, $rolesRoomUserId) {
+//		$this->assertInput('input', 'data[RolesRoomsUser][' . $userId . '][id]', $rolesRoomUserId, $this->view);
+//		$this->assertInput('input', 'data[RolesRoomsUser][' . $userId . '][user_id]', $userId, $this->view);
+//		$this->assertInput('input', 'data[RolesRoomsUser][' . $userId . '][room_id]', $roomId, $this->view);
+//		$this->assertInput('select', 'data[RolesRoom][' . $userId . '][role_key]', '', $this->view);
+//
+//		$name = 'data[User][id][' . $userId . ']';
+//		$domId = 'UserId' . $userId;
+//		$this->assertTextContains('name="' . $name . '" id="' . $domId . '_" value="0"', $this->view);
+//		$pattern = '<input type="checkbox" name="' . preg_quote($name, '/') . '".+?value="1" id="' . $domId . '"';
+//		$this->assertRegExp('/' . $pattern . '/', $this->view);
+//	}
 
 /**
  * リクエストデータ作成
@@ -167,42 +167,55 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
  * @return array リクエストデータ
  */
 	private function __dataSave() {
+//		$this->generateNc(Inflector::camelize('rooms_roles_users'), array(
+//			'components' => array(
+//				'Session' => array()
+//			)
+//		));
+
+		$default = array('components' => array(
+			'Auth' => array('user'),
+			'Security',
+		));
+
+		$this->generate('Rooms.' . Inflector::camelize('rooms_roles_users'), $default);
+//
+//		$this->controller->Components->Session
+//			->expects($this->any())
+//			->method('read')
+//			->will($this->returnValue(array(
+//				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+//				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+//				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+//				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+//			)));
+
 		$data = array(
 			'Room' => array('id' => '4'),
-			'Role' => array('key' => 'room_administrator'),
-			'User' => array('id' => array('1' => '0', '2' => '1', '3' => '1', '4' => '0')),
-			'RolesRoomsUser' => array(
-				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '4'),
-				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '4'),
-				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '4'),
-				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '4'),
-			),
+			'save' => null,
 		);
 		return $data;
 	}
-
-/**
- * edit()アクションのテスト(POSTのテスト)
- *
- * @return void
- */
-	public function testEditPost() {
-		//テストデータ
-		$spaceId = '2';
-		$roomId = '4';
-
-		//テスト実行
-		$data = $this->__dataSave();
-		$this->_testPostAction('put', $data,
-				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
-
-		//チェック
-		$this->assertInput('form', null, '/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '?search=1', $this->view);
-		$this->__assetEditGet($spaceId, $roomId);
-		$this->__assetEditGetUser($roomId, '1', '6');
-		$this->__assetEditGetUser($roomId, '2', null);
-		$this->__assetEditGetUser($roomId, '3', null);
-	}
+//
+///**
+// * edit()アクションのテスト(POSTのテスト)
+// *
+// * @return void
+// */
+//	public function testEditPost() {
+//		//テストデータ
+//		$spaceId = '2';
+//		$roomId = '4';
+//
+//		//テスト実行
+//		$data = $this->__dataSave();
+//		$this->_testPostAction('put', $data,
+//				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
+//
+//		$header = $this->controller->response->header();
+//		$pattern = '/' . preg_quote('/rooms/rooms/index/2', '/') . '/';
+//		$this->assertRegExp($pattern, $header['Location']);
+//	}
 
 /**
  * edit()アクションのExpectionErrorテスト(POSTのテスト)
@@ -213,54 +226,65 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		//テストデータ
 		$spaceId = '2';
 		$roomId = '4';
-		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'saveRolesRoomsUsersForRooms');
 
 		//テスト実行
 		$data = $this->__dataSave();
+
+		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'saveRolesRoomsUsersForRooms');
 		$this->_testPostAction('put', $data,
 				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
-	}
 
-/**
- * リクエストデータ作成
- *
- * @return array リクエストデータ
- */
-	private function __dataDelete() {
-		$data = array(
-			'Room' => array('id' => '4'),
-			'Role' => array('key' => 'delete'),
-			'User' => array('id' => array('1' => '1', '2' => '0', '3' => '0', '4' => '0')),
-			'RolesRoomsUser' => array(
-				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '4'),
-				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '4'),
-				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '4'),
-				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '4'),
-			),
-		);
-		return $data;
-	}
+var_dump($this->view);
 
-/**
- * edit()アクションのテスト(POST(delete)のテスト)
- *
- * @return void
- */
-	public function testEditDelete() {
-		//テストデータ
-		$spaceId = '2';
-		$roomId = '4';
-
-		//テスト実行
-		$data = $this->__dataDelete();
-		$this->_testPostAction('put', $data,
-				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
 
 		//チェック
 		$this->assertInput('form', null, '/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '?search=1', $this->view);
 		$this->__assetEditGet($spaceId, $roomId);
-		$this->__assetEditGetUser($roomId, '1', null);
+		$this->__assetEditGetUser($roomId, '1', '6');
 		$this->__assetEditGetUser($roomId, '2', null);
 		$this->__assetEditGetUser($roomId, '3', null);
 	}
+
+///**
+// * リクエストデータ作成
+// *
+// * @return array リクエストデータ
+// */
+//	private function __dataDelete() {
+//		$data = array(
+//			'Room' => array('id' => '4'),
+//			'Role' => array('key' => 'delete'),
+//			'User' => array('id' => array('1' => '1', '2' => '0', '3' => '0', '4' => '0')),
+//			'RolesRoomsUser' => array(
+//				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '4'),
+//				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '4'),
+//				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '4'),
+//				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '4'),
+//			),
+//		);
+//		return $data;
+//	}
+//
+///**
+// * edit()アクションのテスト(POST(delete)のテスト)
+// *
+// * @return void
+// */
+//	public function testEditDelete() {
+//		//テストデータ
+//		$spaceId = '2';
+//		$roomId = '4';
+//
+//		//テスト実行
+//		$data = $this->__dataDelete();
+//		$this->_testPostAction('put', $data,
+//				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
+//
+//		//チェック
+//		$this->assertInput('form', null, '/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '?search=1', $this->view);
+//		$this->__assetEditGet($spaceId, $roomId);
+//		$this->__assetEditGetUser($roomId, '1', null);
+//		$this->__assetEditGetUser($roomId, '2', null);
+//		$this->__assetEditGetUser($roomId, '3', null);
+//	}
 }
