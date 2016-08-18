@@ -144,9 +144,6 @@ class RoomsRolesFormComponent extends Component {
 		if ($controller->request->is('put')) {
 			if (array_key_exists('save', $controller->request->data)) {
 				$data = $controller->Session->read('RoomsRolesUsers');
-var_dump(get_class($controller->Session));
-				var_dump($data);
-
 				if (! $data) {
 					//未選択の場合、
 					$result = true;
