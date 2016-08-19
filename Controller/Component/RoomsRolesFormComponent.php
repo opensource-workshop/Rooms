@@ -10,6 +10,7 @@
  */
 
 App::uses('Component', 'Controller');
+App::uses('Space', 'Rooms.Model');
 
 /**
  * RoomsRolesForm Component
@@ -142,15 +143,21 @@ class RoomsRolesFormComponent extends Component {
 		//登録処理
 		$result = null;
 		if ($controller->request->is('put')) {
-			$data = $this->__getRequestData($controller);
-			if (! $data['RolesRoomsUser']) {
-				//未選択の場合、
-				$result = true;
+			if (array_key_exists('save', $controller->request->data)) {
+				$data = $controller->Session->read('RoomsRolesUsers');
+				if (! $data) {
+					//未選択の場合、
+					$result = true;
+				} else {
+					$result = $controller->RolesRoomsUser->saveRolesRoomsUsersForRooms(array(
+						'RolesRoomsUser' => $data
+					));
+					$controller->Session->delete('RoomsRolesUsers');
+					$controller->Session->delete('paginateConditionsByRooms');
+				}
 			} else {
-				$result = $controller->RolesRoomsUser->saveRolesRoomsUsersForRooms(array(
-					'RolesRoomsUser' => $data['RolesRoomsUser']
-				));
-				$controller->Session->delete('RoomsRolesUsers');
+				$data = $this->__getRequestData($controller);
+				$controller->Session->write('RoomsRolesUsers', $data['RolesRoomsUser']);
 			}
 		}
 
@@ -163,7 +170,6 @@ class RoomsRolesFormComponent extends Component {
 					)
 				)
 			),
-			'defaultOrder' => array('room_role_level' => 'desc'),
 			'limit' => $this->limit,
 			'displayFields' => self::$displaFields,
 			'extra' => array(
@@ -191,6 +197,14 @@ class RoomsRolesFormComponent extends Component {
 		//ルームデータチェック
 		$room = $controller->viewVars['room'];
 		$userId = $controller->request->data['RolesRoomsUser']['user_id'];
+
+		//パブリックスペースの時不参加にできない
+		if ($room['Room']['space_id'] === Space::PUBLIC_SPACE_ID &&
+				! $controller->request->data['RolesRoomsUser']['role_key']) {
+
+			$controller->throwBadRequest();
+			return false;
+		}
 
 		$rolesRoomsUserId = $controller->RolesRoomsUser->find('first', array(
 			'recursive' => -1,
@@ -241,6 +255,14 @@ class RoomsRolesFormComponent extends Component {
 		//ルームデータチェック
 		$room = $controller->viewVars['room'];
 
+		//パブリックスペースの時不参加にできない
+		if ($room['Room']['space_id'] === Space::PUBLIC_SPACE_ID &&
+				$controller->request->data['Role']['key'] === 'delete') {
+
+			$controller->throwBadRequest();
+			return false;
+		}
+
 		$data = $controller->request->data;
 		foreach ($data['User']['id'] as $userId => $checked) {
 			if (! $checked) {
@@ -267,6 +289,9 @@ class RoomsRolesFormComponent extends Component {
 			));
 			$data['RolesRoomsUser'] = Hash::insert(
 				$data['RolesRoomsUser'], '{n}.roles_room_id', Hash::get($rolesRooms, '0.RolesRoom.id')
+			);
+			$data['RolesRoomsUser'] = Hash::insert(
+				$data['RolesRoomsUser'], '{n}.role_key', $data['Role']['key']
 			);
 			$data['RolesRoomsUser'] = Hash::remove(
 				$data['RolesRoomsUser'], '{n}.delete'

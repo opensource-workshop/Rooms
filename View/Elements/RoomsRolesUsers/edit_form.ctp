@@ -15,12 +15,22 @@ $roomsRolesUsers = $this->Session->read('RoomsRolesUsers');
 <div class="form-group form-inline rooms-roles-form">
 
 	<?php
+		if ($room['Room']['space_id'] === Space::PUBLIC_SPACE_ID) {
+			$options = array(
+				__d('rooms', 'Room role') => $defaultRoleOptions,
+			);
+		} else {
+			$options = array(
+				__d('rooms', 'Room role') => $defaultRoleOptions,
+				'----------------------------------' => array(
+					'delete' => __d('users', 'Non members')
+				)
+			);
+		}
+
 		echo $this->RoomsRolesForm->selectDefaultRoomRoles('Role.key', array(
 			'empty' => __d('rooms', 'Change the user role of the room'),
-			'options' => array(
-				__d('rooms', 'Room role') => $defaultRoleOptions,
-				'----------------------------------' => array('delete' => __d('users', 'Non members'))
-			),
+			'options' => $options,
 			'optionFormat' => __d('rooms', 'Changed to the %s role'),
 			'onchange' => 'submit();',
 			'ng-class' => 'sending',
@@ -105,44 +115,26 @@ $roomsRolesUsers = $this->Session->read('RoomsRolesUsers');
 
 						<div class="pull-left" ng-class="{'bg-success': <?php echo $domUserRoleKey; ?>}" ng-cloak>
 							<?php
-								echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
-									'class' => 'form-control input-sm',
-									'ng-model' => $domUserRoleKey,
-									'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
-									'options' => array(
+								if ($room['Room']['space_id'] === Space::PUBLIC_SPACE_ID) {
+									$options = array(
+										__d('rooms', 'Room role') => $defaultRoleOptions,
+									);
+								} else {
+									$options = array(
 										__d('rooms', 'Room role') => $defaultRoleOptions,
 										'-----------------------' => array(
 											'' => __d('users', 'Non members')
 										)
-									),
+									);
+								}
+								echo $this->RoomsRolesForm->selectDefaultRoomRoles('RolesRoom.' . $user['User']['id'] . '.role_key', array(
+									'class' => 'form-control input-sm',
+									'ng-model' => $domUserRoleKey,
+									'ng-change' => 'save(' . $user['User']['id'] . ', \'' . $domUserRoleKey . '\')',
+									'options' => $options,
 									'ng-class' => '{disabled: sending}'
 								));
 							?>
-						</div>
-
-						<div class="pull-left small text-muted" ng-show="<?php echo $domUserRoleKey . ' != \'' . $orgRoleKey . '\''; ?>" ng-cloak>
-							<?php echo __d('rooms', 'Unregistered'); ?>
-							(
-							<?php echo __d('rooms', 'Change before: '); ?>
-							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR . '\''; ?>">
-								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_ROOM_ADMINISTRATOR); ?>
-							</span>
-							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_CHIEF_EDITOR . '\''; ?>">
-								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_CHIEF_EDITOR); ?>
-							</span>
-							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_EDITOR . '\''; ?>">
-								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_EDITOR); ?>
-							</span>
-							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_GENERAL_USER . '\''; ?>">
-								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_GENERAL_USER); ?>
-							</span>
-							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'' . Role::ROOM_ROLE_KEY_VISITOR . '\''; ?>">
-								<?php echo $this->Rooms->roomRoleName(Role::ROOM_ROLE_KEY_VISITOR); ?>
-							</span>
-							<span ng-show="<?php echo '\'' . $orgRoleKey . '\' === \'\''; ?>">
-								<?php echo __d('users', 'Non members'); ?>
-							</span>
-							)
 						</div>
 					</td>
 				</tr>

@@ -167,16 +167,24 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
  * @return array リクエストデータ
  */
 	private function __dataSave() {
+		$mock = array('components' => array(
+			'Auth' => array('user'),
+			'Security',
+		));
+		$this->generate('Rooms.' . Inflector::camelize($this->_controller), $mock);
+
+		$this->controller->Components->Session->write('RoomsRolesUsers',
+			array(
+				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+			)
+		);
+
 		$data = array(
 			'Room' => array('id' => '4'),
-			'Role' => array('key' => 'room_administrator'),
-			'User' => array('id' => array('1' => '0', '2' => '1', '3' => '1', '4' => '0')),
-			'RolesRoomsUser' => array(
-				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '4'),
-				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '4'),
-				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '4'),
-				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '4'),
-			),
+			'save' => null,
 		);
 		return $data;
 	}
@@ -196,12 +204,9 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		$this->_testPostAction('put', $data,
 				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
 
-		//チェック
-		$this->assertInput('form', null, '/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '?search=1', $this->view);
-		$this->__assetEditGet($spaceId, $roomId);
-		$this->__assetEditGetUser($roomId, '1', '6');
-		$this->__assetEditGetUser($roomId, '2', null);
-		$this->__assetEditGetUser($roomId, '3', null);
+		$header = $this->controller->response->header();
+		$pattern = '/' . preg_quote('/rooms/rooms/index/2', '/') . '/';
+		$this->assertRegExp($pattern, $header['Location']);
 	}
 
 /**
@@ -213,12 +218,20 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		//テストデータ
 		$spaceId = '2';
 		$roomId = '4';
-		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'saveRolesRoomsUsersForRooms');
 
 		//テスト実行
 		$data = $this->__dataSave();
+
+		$this->_mockForReturnFalse('Rooms.RolesRoomsUser', 'saveRolesRoomsUsersForRooms');
 		$this->_testPostAction('put', $data,
 				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
+
+		//チェック
+		$this->assertInput('form', null, '/rooms/rooms_roles_users/edit/' . $spaceId . '/' . $roomId . '?search=1', $this->view);
+		$this->__assetEditGet($spaceId, $roomId);
+		$this->__assetEditGetUser($roomId, '1', '6');
+		$this->__assetEditGetUser($roomId, '2', null);
+		$this->__assetEditGetUser($roomId, '3', null);
 	}
 
 /**
@@ -226,7 +239,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
  *
  * @return array リクエストデータ
  */
-	private function __dataDelete() {
+	private function __dataDeletePublic() {
 		$data = array(
 			'Room' => array('id' => '4'),
 			'Role' => array('key' => 'delete'),
@@ -246,13 +259,49 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
  *
  * @return void
  */
-	public function testEditDelete() {
+	public function testEditDeletePublic() {
 		//テストデータ
 		$spaceId = '2';
 		$roomId = '4';
 
 		//テスト実行
-		$data = $this->__dataDelete();
+		$data = $this->__dataDeletePublic();
+		$this->_testPostAction('put', $data,
+				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), 'BadRequestException', 'view');
+	}
+
+/**
+ * リクエストデータ作成
+ *
+ * @return array リクエストデータ
+ */
+	private function __dataDeleteCommunity() {
+		$data = array(
+			'Room' => array('id' => '6'),
+			'Role' => array('key' => 'delete'),
+			'User' => array('id' => array('1' => '1', '2' => '0', '3' => '0', '4' => '0')),
+			'RolesRoomsUser' => array(
+				'1' => array('id' => '8', 'user_id' => '1', 'room_id' => '6'),
+				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '6'),
+				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '6'),
+				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '6'),
+			),
+		);
+		return $data;
+	}
+
+/**
+ * edit()アクションのテスト(POST(delete)のテスト)
+ *
+ * @return void
+ */
+	public function testEditDeleteCommunity() {
+		//テストデータ
+		$spaceId = '3';
+		$roomId = '6';
+
+		//テスト実行
+		$data = $this->__dataDeleteCommunity();
 		$this->_testPostAction('put', $data,
 				array('action' => 'edit', $spaceId, $roomId, '?' => array('search' => '1')), null, 'view');
 
