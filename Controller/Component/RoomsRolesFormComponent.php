@@ -153,6 +153,7 @@ class RoomsRolesFormComponent extends Component {
 						'RolesRoomsUser' => $data
 					));
 					$controller->Session->delete('RoomsRolesUsers');
+					$controller->Session->delete('paginateConditionsByRooms');
 				}
 			} else {
 				$data = $this->__getRequestData($controller);
@@ -169,7 +170,6 @@ class RoomsRolesFormComponent extends Component {
 					)
 				)
 			),
-			'defaultOrder' => array('room_role_level' => 'desc'),
 			'limit' => $this->limit,
 			'displayFields' => self::$displaFields,
 			'extra' => array(
