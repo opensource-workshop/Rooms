@@ -23,6 +23,18 @@ table.space-edit-table > tbody > tr > td {
 }
 
 /**
+ * ルーム一覧
+ */
+.rooms-index-room-name {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 240px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/**
  * 参加者修正
  */
 .table > thead > tr > th.rooms-roles-users-checkbox,

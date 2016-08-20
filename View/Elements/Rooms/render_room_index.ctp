@@ -13,7 +13,9 @@
 <tr class="<?php echo $this->Rooms->statusCss($room); ?>">
 	<td>
 		<a href="" ng-click="showRoom(<?php echo $room['Space']['id'] . ', ' . $room['Room']['id']; ?>)">
-			<?php echo $this->Rooms->roomName($room, $nest); ?>
+			<span class="rooms-index-room-name">
+				<?php echo $this->Rooms->roomName($room, $nest); ?>
+			</span>
 		</a>
 		<span class="badge">
 			<?php echo Hash::get($rolesRoomsUsersCount, $room['Room']['id']); ?>
