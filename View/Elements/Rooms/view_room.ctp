@@ -40,12 +40,14 @@
 				));
 			?>
 
-			<div class="form-group">
-				<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
-						'label' => array('label' => __d('rooms', 'Default room role')),
-						'options' => $defaultRoleOptions,
-						'disabled' => true,
-					)); ?>
+			<div class="form-group row">
+				<div class="col-xs-offset-1 col-xs-11 room-roles-desc">
+					<?php echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
+							'label' => array('label' => __d('rooms', 'Default room role')),
+							'options' => $defaultRoleOptions,
+							'disabled' => true,
+						)); ?>
+				</div>
 			</div>
 
 			<?php
