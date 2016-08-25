@@ -361,37 +361,12 @@ class Room extends RoomsAppModel {
 		$this->saveDefaultAssociations($created, $options);
 
 		//パーミッションデータ登録処理
-		$room = $this->data;
-		if (isset($room['RoomRolePermission'])) {
+		if (isset($this->data['RoomRolePermission'])) {
 			$this->loadModels([
 				'RoomRolePermission' => 'Rooms.RoomRolePermission'
 			]);
-
-			if ($created) {
-				$roomRolePermissions = $this->RoomRolePermission->find('all', array(
-					'recursive' => 0,
-					'conditions' => array(
-						'RolesRoom.room_id' => $room['Room']['id'],
-						'RoomRolePermission.permission' => array_keys($room['RoomRolePermission'])
-					)
-				));
-				$roomRolePermissions = Hash::combine($roomRolePermissions,
-					'{n}.RolesRoom.role_key',
-					'{n}.RoomRolePermission',
-					'{n}.RoomRolePermission.permission'
-				);
-				$room['RoomRolePermission'] = Hash::remove($room['RoomRolePermission'], '{s}.{s}.id');
-				$room['RoomRolePermission'] = Hash::merge(
-					$roomRolePermissions, $room['RoomRolePermission']
-				);
-			}
-
-			foreach ($room['RoomRolePermission'] as $permission) {
-				if (! $this->RoomRolePermission->saveMany($permission, ['validate' => false])) {
-					throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-				}
-			}
-			$this->data['RoomRolePermission'] = $room['RoomRolePermission'];
+			$this->data['RoomRolePermission'] =
+				$this->RoomRolePermission->saveRoomRolePermission($created, $this->data);
 		}
 
 		//使用できるプラグインデータの登録
