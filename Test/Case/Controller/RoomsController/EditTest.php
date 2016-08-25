@@ -117,7 +117,7 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
 			)
 		);
 		$results[2] = array(
-			'spaceId' => '4', 'roomId' => '3', 'rootId' => null, 'parentId' => null, 'pageId' => null, 'participationFixed' => false,
+			'spaceId' => '4', 'roomId' => '3', 'rootId' => null, 'parentId' => null, 'pageId' => null, 'participationFixed' => true,
 			'expected' => array(
 				'Room' => array(
 					'default_role_key' => 'general_user',

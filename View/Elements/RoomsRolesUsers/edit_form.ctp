@@ -15,7 +15,7 @@ $roomsRolesUsers = $this->Session->read('RoomsRolesUsers');
 <div class="form-group form-inline rooms-roles-form">
 
 	<?php
-		if ($room['Room']['space_id'] === Space::PUBLIC_SPACE_ID) {
+		if ($participationFixed) {
 			$options = array(
 				__d('rooms', 'Room role') => $defaultRoleOptions,
 			);
@@ -115,7 +115,7 @@ $roomsRolesUsers = $this->Session->read('RoomsRolesUsers');
 
 						<div class="pull-left" ng-class="{'bg-success': <?php echo $domUserRoleKey; ?>}" ng-cloak>
 							<?php
-								if ($room['Room']['space_id'] === Space::PUBLIC_SPACE_ID) {
+								if ($participationFixed) {
 									$options = array(
 										__d('rooms', 'Room role') => $defaultRoleOptions,
 									);

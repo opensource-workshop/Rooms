@@ -36,7 +36,7 @@
 
 <?php
 	$defaultPart = $this->NetCommonsHtml->domId('Room.default_participation');
-	$ngInit = $defaultPart . ' = ' . h(Hash::get($this->request->data, 'Room.default_participation')) . '';
+	$ngInit = $defaultPart . ' = ' . h((int)Hash::get($this->request->data, 'Room.default_participation')) . '';
 ?>
 <div ng-init="<?php echo $ngInit; ?>">
 	<?php echo $this->RoomsForm->inputDefaultParticipation('Room.default_participation', array(
