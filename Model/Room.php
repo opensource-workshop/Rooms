@@ -17,6 +17,7 @@
 App::uses('RoomsAppModel', 'Rooms.Model');
 App::uses('Role', 'Roles.Model');
 App::uses('Space', 'Rooms.Model');
+App::uses('BlockSettingBehavior', 'Blocks.Model/Behavior');
 
 /**
  * Room Model
@@ -404,6 +405,25 @@ class Room extends RoomsAppModel {
 				$this->data['Room']['id'],
 				$this->data['PluginsRoom']['plugin_key']
 			);
+		}
+
+		//ルーム承認する場合、BlockSettingの use_workflow, use_comment_approval を 1 に更新
+		$needApproval = Hash::get($this->data, 'Room.need_approval');
+		if ($needApproval) {
+			$this->loadModels([
+				'BlockSetting' => 'Blocks.BlockSetting'
+			]);
+			$fields = array('BlockSetting.value' => '1');
+			$conditions = array(
+				'BlockSetting.field_name' => array(
+					BlockSettingBehavior::FIELD_USE_WORKFLOW,
+					BlockSettingBehavior::FIELD_USE_COMMENT_APPROVAL,
+				),
+				'BlockSetting.room_id' => $this->data['Room']['id'],
+			);
+			if (! $this->BlockSetting->updateAll($fields, $conditions)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
 		}
 
 		parent::afterSave($created, $options);
