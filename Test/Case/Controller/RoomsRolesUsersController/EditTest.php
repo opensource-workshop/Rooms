@@ -42,7 +42,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 		'plugin.user_attributes.user_attribute_setting4test',
 		'plugin.user_attributes.user_attributes_role4test',
 		'plugin.user_attributes.user_role_setting4test',
-		'plugin.users.users_language4test',
+		'plugin.users.users_language4user',
 	);
 
 /**
