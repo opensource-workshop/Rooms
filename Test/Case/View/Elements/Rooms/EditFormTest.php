@@ -144,8 +144,8 @@ class RoomsViewElementsRoomsEditFormTest extends NetCommonsControllerTestCase {
 		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][chief_editor][value]', null, $this->view);
 		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][editor][id]', null, $this->view);
 		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][editor][value]', null, $this->view);
-		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][general_user][id]', null, $this->view);
-		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][general_user][value]', null, $this->view);
+		//$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][general_user][id]', null, $this->view);
+		//$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][general_user][value]', null, $this->view);
 		$this->assertInput('select', 'data[Room][active]', null, $this->view);
 	}
 
