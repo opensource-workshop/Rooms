@@ -26,7 +26,7 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
  */
 	public $fixtures = array(
 		'plugin.pages.languages_page',
-		'plugin.rooms.default_role_permission4test',
+		'plugin.roles.default_role_permission4test',
 		'plugin.rooms.page4test',
 		'plugin.rooms.plugins_room4test',
 		'plugin.rooms.plugin4test',

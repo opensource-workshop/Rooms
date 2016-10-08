@@ -25,7 +25,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
  * @var array
  */
 	public $fixtures = array(
-		'plugin.rooms.default_role_permission4test',
+		'plugin.roles.default_role_permission4test',
 		'plugin.rooms.roles_room4test',
 		'plugin.rooms.room_role_permission4test',
 	);
