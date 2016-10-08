@@ -26,7 +26,7 @@ class RoomsViewElementsRoomsEditFormTest extends NetCommonsControllerTestCase {
  */
 	public $fixtures = array(
 		'plugin.pages.languages_page',
-		'plugin.rooms.default_role_permission4test',
+		'plugin.roles.default_role_permission4test',
 		'plugin.rooms.plugins_room4test',
 		'plugin.rooms.plugin4test',
 		'plugin.rooms.plugins_role4test',
@@ -144,8 +144,8 @@ class RoomsViewElementsRoomsEditFormTest extends NetCommonsControllerTestCase {
 		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][chief_editor][value]', null, $this->view);
 		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][editor][id]', null, $this->view);
 		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][editor][value]', null, $this->view);
-		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][general_user][id]', null, $this->view);
-		$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][general_user][value]', null, $this->view);
+		//$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][general_user][id]', null, $this->view);
+		//$this->assertInput('input', 'data[RoomRolePermission][html_not_limited][general_user][value]', null, $this->view);
 		$this->assertInput('select', 'data[Room][active]', null, $this->view);
 	}
 
