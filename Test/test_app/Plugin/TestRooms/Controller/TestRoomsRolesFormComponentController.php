@@ -58,7 +58,7 @@ class TestRoomsRolesFormComponentController extends AppController {
 		$this->view = 'index';
 		$this->RoomsRolesForm->settings['permissions'] = array('content_publishable');
 		$this->RoomsRolesForm->settings['type'] = 'room_role';
-		$this->RoomsRolesForm->settings['room_id'] = '1';
+		$this->RoomsRolesForm->settings['room_id'] = '2';
 	}
 
 }

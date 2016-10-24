@@ -44,39 +44,39 @@ class RolesRoomFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => '1',
-			'room_id' => '1',
+			'room_id' => '2',
 			'role_key' => 'room_administrator',
 		),
 		array(
 			'id' => '2',
-			'room_id' => '1',
+			'room_id' => '2',
 			'role_key' => 'chief_editor',
 		),
 		array(
 			'id' => '3',
-			'room_id' => '1',
+			'room_id' => '2',
 			'role_key' => 'editor',
 		),
 		array(
 			'id' => '4',
-			'room_id' => '1',
+			'room_id' => '2',
 			'role_key' => 'general_user',
 		),
 		array(
 			'id' => '5',
-			'room_id' => '1',
+			'room_id' => '2',
 			'role_key' => 'visitor',
 		),
 		//別ルーム(room_id=4)
 		array(
 			'id' => '6',
-			'room_id' => '4',
+			'room_id' => '5',
 			'role_key' => 'room_administrator',
 		),
 		//別ルーム(room_id=5、ブロックなし)
 		array(
 			'id' => '7',
-			'room_id' => '5',
+			'room_id' => '6',
 			'role_key' => 'room_administrator',
 		),
 	);

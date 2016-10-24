@@ -89,7 +89,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 				'id' => $roomId,
 				'space_id' => '2',
 				'root_id' => '1',
-				'parent_id' => '1',
+				'parent_id' => '2',
 				'default_participation' => '1',
 				'default_role_key' => 'visitor',
 				'need_approval' => '1',
@@ -133,9 +133,9 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 			'space_id' => '2',
 			'page_id_top' => $pageIdTop,
 			'root_id' => '1',
-			'parent_id' => '1',
-			'lft' => '8',
-			'rght' => '9',
+			'parent_id' => '2',
+			'lft' => '9',
+			'rght' => '10',
 			'default_participation' => true,
 			'default_role_key' => 'visitor',
 			'need_approval' => true,
@@ -220,10 +220,10 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		$this->assertNotEmpty($result);
 
 		//チェック
-		$roomId = '9';
+		$roomId = '10';
 		$this->__acualRoom($roomId, '5');
-		$this->__acualRoomsLanguage($roomId, '1', '17');
-		$this->__acualRoomsLanguage($roomId, '2', '18');
+		$this->__acualRoomsLanguage($roomId, '1', '19');
+		$this->__acualRoomsLanguage($roomId, '2', '20');
 
 		$rolesRooms = $this->$model->RolesRoom->find('list', array(
 			'recursive' => -1,
@@ -232,27 +232,27 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 			'order' => array('id' => 'asc'),
 		));
 		$this->assertEquals(array(
-			'15' => 'room_administrator',
-			'16' => 'chief_editor',
-			'17' => 'editor',
-			'18' => 'general_user',
-			'19' => 'visitor',
+			'20' => 'room_administrator',
+			'21' => 'chief_editor',
+			'22' => 'editor',
+			'23' => 'general_user',
+			'24' => 'visitor',
 		), $rolesRooms);
 
 		$this->__acualRoomRolePermission('content_publishable', array(
-			array('RoomRolePermission' => array('roles_room_id' => '15', 'value' => true)),
-			array('RoomRolePermission' => array('roles_room_id' => '16', 'value' => true)),
-			array('RoomRolePermission' => array('roles_room_id' => '17', 'value' => true)),
-			array('RoomRolePermission' => array('roles_room_id' => '18', 'value' => false)),
-			array('RoomRolePermission' => array('roles_room_id' => '19', 'value' => false)),
+			array('RoomRolePermission' => array('roles_room_id' => '20', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '21', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '22', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '23', 'value' => false)),
+			array('RoomRolePermission' => array('roles_room_id' => '24', 'value' => false)),
 		));
 
 		$this->__acualRoomRolePermission('html_not_limited', array(
-			array('RoomRolePermission' => array('roles_room_id' => '15', 'value' => true)),
-			array('RoomRolePermission' => array('roles_room_id' => '16', 'value' => true)),
-			array('RoomRolePermission' => array('roles_room_id' => '17', 'value' => true)),
-			array('RoomRolePermission' => array('roles_room_id' => '18', 'value' => true)),
-			array('RoomRolePermission' => array('roles_room_id' => '19', 'value' => false)),
+			array('RoomRolePermission' => array('roles_room_id' => '20', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '21', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '22', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '23', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '24', 'value' => false)),
 		));
 	}
 
@@ -275,7 +275,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 		$this->assertNotEmpty($result);
 
 		//チェック
-		$this->__acualRoom('9', null); //モックのため、page_id_topはnull
+		$this->__acualRoom('10', null); //モックのため、page_id_topはnull
 	}
 
 /**

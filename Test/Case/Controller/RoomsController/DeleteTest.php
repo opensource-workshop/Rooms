@@ -32,6 +32,7 @@ class RoomsControllerDeleteTest extends NetCommonsControllerTestCase {
 		'plugin.rooms.room_role_permission',
 		'plugin.rooms.rooms_language',
 		'plugin.rooms.space',
+		'plugin.user_attributes.user_attribute_layout',
 	);
 
 /**
@@ -79,7 +80,7 @@ class RoomsControllerDeleteTest extends NetCommonsControllerTestCase {
  */
 	public function testDeleteGet() {
 		//テスト実行
-		$this->_testGetAction(array('action' => 'delete', '2', '4'), null, 'BadRequestException', 'view');
+		$this->_testGetAction(array('action' => 'delete', '2', '5'), null, 'BadRequestException', 'view');
 	}
 
 /**
@@ -91,8 +92,8 @@ class RoomsControllerDeleteTest extends NetCommonsControllerTestCase {
 		$this->_mockForReturnTrue('Rooms.Room', 'deleteRoom');
 
 		//テスト実行
-		$data = array('Room' => array('id' => '4'));
-		$this->_testPostAction('delete', $data, array('action' => 'delete', '2', '4'), null, 'view');
+		$data = array('Room' => array('id' => '5'));
+		$this->_testPostAction('delete', $data, array('action' => 'delete', '2', '5'), null, 'view');
 
 		//チェック
 		$header = $this->controller->response->header();
@@ -109,8 +110,8 @@ class RoomsControllerDeleteTest extends NetCommonsControllerTestCase {
 		$this->_mockForReturnFalse('Rooms.Room', 'deleteRoom');
 
 		//テスト実行
-		$data = array('Room' => array('id' => '4'));
-		$this->_testPostAction('delete', $data, array('action' => 'delete', '2', '4'), 'BadRequestException', 'view');
+		$data = array('Room' => array('id' => '5'));
+		$this->_testPostAction('delete', $data, array('action' => 'delete', '2', '5'), 'BadRequestException', 'view');
 	}
 
 }

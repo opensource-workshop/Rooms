@@ -99,9 +99,9 @@ class RoomBehaviorGetSpacesTest extends NetCommonsModelTestCase {
 
 		//チェック
 		$this->assertCount(3, $result);
-		$this->__assertSpace($result, '2', '1', 'public_space', Space::PUBLIC_SPACE_ID);
-		$this->__assertSpace($result, '3', '2', 'private_space', Space::PRIVATE_SPACE_ID);
-		$this->__assertSpace($result, '4', '3', 'community_space', Space::ROOM_SPACE_ID);
+		$this->__assertSpace($result, '2', '2', 'public_space', Space::PUBLIC_SPACE_ID);
+		$this->__assertSpace($result, '3', '3', 'private_space', Space::PRIVATE_SPACE_ID);
+		$this->__assertSpace($result, '4', '4', 'community_space', Space::ROOM_SPACE_ID);
 	}
 
 /**
@@ -110,7 +110,7 @@ class RoomBehaviorGetSpacesTest extends NetCommonsModelTestCase {
  * @return void
  */
 	public function testAcquired() {
-		$data = array('Room' => '1');
+		$data = array('Room' => '2');
 		RoomBehavior::$spaces = $data;
 
 		//テスト実施

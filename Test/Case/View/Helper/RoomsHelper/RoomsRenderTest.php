@@ -60,7 +60,7 @@ class RoomsHelperRoomsRenderTest extends NetCommonsHelperTestCase {
 			// * roomTreeList指定なし
 			array('roomTreeList' => null),
 			// * roomTreeList指定あり
-			array('roomTreeList' => array('5' => chr(9) . chr(9) . '5')),
+			array('roomTreeList' => array('6' => chr(9) . chr(9) . '6')),
 		);
 	}
 
@@ -76,10 +76,10 @@ class RoomsHelperRoomsRenderTest extends NetCommonsHelperTestCase {
 		$viewVars = array();
 		$viewVars['spaces'] = $this->Room->getSpaces();
 		$viewVars['rooms'] = array(
-			'4' => array('Room' => array('id' => '4')),
 			'5' => array('Room' => array('id' => '5')),
+			'6' => array('Room' => array('id' => '6')),
 		);
-		$viewVars['roomTreeList'] = array('4' => chr(9) . '4');
+		$viewVars['roomTreeList'] = array('5' => chr(9) . '5');
 		$requestData = array();
 
 		//Helperロード
@@ -105,9 +105,9 @@ class RoomsHelperRoomsRenderTest extends NetCommonsHelperTestCase {
 		//$this->assertTextContains('/rooms/rooms/add/2/1', $result);
 		//$this->assertTextContains('/rooms/rooms/edit/2/1', $result);
 		if ($roomTreeList) {
-			$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/5/1', $result);
+			$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/6/1', $result);
 		} else {
-			$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/4/0', $result);
+			$this->assertTextContains('View/Helper/TestRoomsHelperRoomsRender/render_room_index/5/0', $result);
 		}
 	}
 

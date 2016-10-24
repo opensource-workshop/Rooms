@@ -65,7 +65,7 @@ class RoomDeleteRoomTest extends NetCommonsDeleteTest {
  * @return array テストデータ
  */
 	public function dataProviderDelete() {
-		$data['Room'] = array('id' => '1');
+		$data['Room'] = array('id' => '2');
 		$association = array();
 
 		$results = array();
@@ -107,7 +107,7 @@ class RoomDeleteRoomTest extends NetCommonsDeleteTest {
  * @return array テストデータ
  */
 	public function dataProviderDeleteOnExceptionError() {
-		$data['Room'] = array('id' => '1');
+		$data['Room'] = array('id' => '2');
 
 		return array(
 			array($data, 'Rooms.Room', 'delete'),
@@ -127,7 +127,7 @@ class RoomDeleteRoomTest extends NetCommonsDeleteTest {
 		$this->_mockForReturnFalse($model, 'Rooms.Room', 'deleteAll', 2);
 
 		$this->setExpectedException('InternalErrorException');
-		$data['Room'] = array('id' => '1');
+		$data['Room'] = array('id' => '2');
 		$this->$model->$method($data);
 	}
 

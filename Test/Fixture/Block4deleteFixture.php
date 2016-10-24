@@ -43,7 +43,7 @@ class Block4deleteFixture extends BlockFixture {
 		array(
 			'id' => '1',
 			'language_id' => '1',
-			'room_id' => '1',
+			'room_id' => '2',
 			'plugin_key' => 'test',
 			'key' => 'block_1',
 			'name' => 'Block name',
@@ -52,7 +52,7 @@ class Block4deleteFixture extends BlockFixture {
 		array(
 			'id' => '2',
 			'language_id' => '2',
-			'room_id' => '1',
+			'room_id' => '2',
 			'plugin_key' => 'test',
 			'key' => 'block_1',
 			'name' => 'Block name',
@@ -62,7 +62,7 @@ class Block4deleteFixture extends BlockFixture {
 		array(
 			'id' => '3',
 			'language_id' => '1',
-			'room_id' => '4',
+			'room_id' => '5',
 			'plugin_key' => 'test',
 			'key' => 'delete_block_1',
 			'name' => 'Block name 1',
@@ -71,7 +71,7 @@ class Block4deleteFixture extends BlockFixture {
 		array(
 			'id' => '4',
 			'language_id' => '2',
-			'room_id' => '4',
+			'room_id' => '5',
 			'plugin_key' => 'test',
 			'key' => 'delete_block_1',
 			'name' => 'Block name 1',
@@ -80,7 +80,7 @@ class Block4deleteFixture extends BlockFixture {
 		array(
 			'id' => '5',
 			'language_id' => '1',
-			'room_id' => '4',
+			'room_id' => '5',
 			'plugin_key' => 'test',
 			'key' => 'delete_block_2',
 			'name' => 'Block name 2',
@@ -89,7 +89,7 @@ class Block4deleteFixture extends BlockFixture {
 		array(
 			'id' => '6',
 			'language_id' => '2',
-			'room_id' => '4',
+			'room_id' => '5',
 			'plugin_key' => 'test',
 			'key' => 'delete_block_2',
 			'name' => 'Block name 2',

@@ -89,7 +89,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 	public function testEditGet() {
 		//テストデータ
 		$spaceId = '2';
-		$roomId = '4';
+		$roomId = '5';
 
 		//テスト実行
 		$this->_testGetAction(array('action' => 'edit', $spaceId, $roomId), array('method' => 'assertNotEmpty'), null, 'view');
@@ -108,7 +108,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 	public function testEditGetWithQuery() {
 		//テストデータ
 		$spaceId = '2';
-		$roomId = '4';
+		$roomId = '5';
 
 		//テスト実行
 		$this->_testGetAction(
@@ -175,15 +175,15 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 
 		$this->controller->Components->Session->write('RoomsRolesUsers',
 			array(
-				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
-				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
-				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
-				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '4', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '5', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '5', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '5', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
+				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '5', 'roles_room_id' => '4', 'role_key' => 'room_administrator'),
 			)
 		);
 
 		$data = array(
-			'Room' => array('id' => '4'),
+			'Room' => array('id' => '5'),
 			'save' => null,
 		);
 		return $data;
@@ -197,7 +197,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 	public function testEditPost() {
 		//テストデータ
 		$spaceId = '2';
-		$roomId = '4';
+		$roomId = '5';
 
 		//テスト実行
 		$data = $this->__dataSave();
@@ -217,7 +217,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 	public function testEditPostOnExpectionError() {
 		//テストデータ
 		$spaceId = '2';
-		$roomId = '4';
+		$roomId = '5';
 
 		//テスト実行
 		$data = $this->__dataSave();
@@ -241,14 +241,14 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
  */
 	private function __dataDeletePublic() {
 		$data = array(
-			'Room' => array('id' => '4'),
+			'Room' => array('id' => '5'),
 			'Role' => array('key' => 'delete'),
 			'User' => array('id' => array('1' => '1', '2' => '0', '3' => '0', '4' => '0')),
 			'RolesRoomsUser' => array(
-				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '4'),
-				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '4'),
-				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '4'),
-				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '4'),
+				'1' => array('id' => '6', 'user_id' => '1', 'room_id' => '5'),
+				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '5'),
+				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '5'),
+				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '5'),
 			),
 		);
 		return $data;
@@ -262,7 +262,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 	public function testEditDeletePublic() {
 		//テストデータ
 		$spaceId = '2';
-		$roomId = '4';
+		$roomId = '5';
 
 		//テスト実行
 		$data = $this->__dataDeletePublic();
@@ -277,14 +277,14 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
  */
 	private function __dataDeleteCommunity() {
 		$data = array(
-			'Room' => array('id' => '6'),
+			'Room' => array('id' => '7'),
 			'Role' => array('key' => 'delete'),
 			'User' => array('id' => array('1' => '1', '2' => '0', '3' => '0', '4' => '0')),
 			'RolesRoomsUser' => array(
-				'1' => array('id' => '8', 'user_id' => '1', 'room_id' => '6'),
-				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '6'),
-				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '6'),
-				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '6'),
+				'1' => array('id' => '8', 'user_id' => '1', 'room_id' => '7'),
+				'2' => array('id' => null, 'user_id' => '2', 'room_id' => '7'),
+				'3' => array('id' => null, 'user_id' => '3', 'room_id' => '7'),
+				'4' => array('id' => null, 'user_id' => '4', 'room_id' => '7'),
 			),
 		);
 		return $data;
@@ -298,7 +298,7 @@ class RoomsRolesUsersControllerEditTest extends NetCommonsControllerTestCase {
 	public function testEditDeleteCommunity() {
 		//テストデータ
 		$spaceId = '3';
-		$roomId = '6';
+		$roomId = '7';
 
 		//テスト実行
 		$data = $this->__dataDeleteCommunity();

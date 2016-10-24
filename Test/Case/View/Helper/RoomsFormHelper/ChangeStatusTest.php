@@ -66,16 +66,16 @@ class RoomsFormHelperChangeStatusTest extends NetCommonsHelperTestCase {
 	public function testChangeStatusActive() {
 		//データ生成
 		$room['Space'] = (new SpaceFixture())->records[0];
-		$room['Room'] = (new RoomFixture())->records[1];
+		$room['Room'] = (new RoomFixture())->records[2];
 		$room['Room']['active'] = '1';
 
 		//テスト実施
 		$result = $this->RoomsForm->changeStatus($room);
 
 		//チェック
-		$this->assertInput('form', null, '/rooms/active/1/4', $result);
+		$this->assertInput('form', null, '/rooms/active/1/5', $result);
 		$this->assertInput('input', '_method', 'PUT', $result);
-		$this->assertInput('input', 'data[Room][id]', '4', $result);
+		$this->assertInput('input', 'data[Room][id]', '5', $result);
 		$this->assertInput('input', 'data[Room][active]', '0', $result);
 		$this->assertTextContains(__d('rooms', 'Open'), $result);
 	}
@@ -88,16 +88,16 @@ class RoomsFormHelperChangeStatusTest extends NetCommonsHelperTestCase {
 	public function testChangeStatusInactive() {
 		//データ生成
 		$room['Space'] = (new SpaceFixture())->records[0];
-		$room['Room'] = (new RoomFixture())->records[1];
+		$room['Room'] = (new RoomFixture())->records[2];
 		$room['Room']['active'] = '0';
 
 		//テスト実施
 		$result = $this->RoomsForm->changeStatus($room);
 
 		//チェック
-		$this->assertInput('form', null, '/rooms/active/1/4', $result);
+		$this->assertInput('form', null, '/rooms/active/1/5', $result);
 		$this->assertInput('input', '_method', 'PUT', $result);
-		$this->assertInput('input', 'data[Room][id]', '4', $result);
+		$this->assertInput('input', 'data[Room][id]', '5', $result);
 		$this->assertInput('input', 'data[Room][active]', '1', $result);
 		$this->assertTextContains(__d('rooms', 'Under maintenance'), $result);
 	}

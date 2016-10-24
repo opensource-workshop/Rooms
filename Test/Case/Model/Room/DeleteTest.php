@@ -74,7 +74,7 @@ class RoomDeleteTest extends NetCommonsModelTestCase {
 		$this->_mockForReturnTrue($model, 'Rooms.Room', 'deleteRoomAssociations', 4);
 
 		//事前チェック
-		$roomIds = array('1', '4', '5', '8');
+		$roomIds = array('2', '5', '6', '9');
 		$count = $this->$model->find('count', array(
 			'recursive' => -1,
 			'conditions' => array('id' => $roomIds)
@@ -82,7 +82,7 @@ class RoomDeleteTest extends NetCommonsModelTestCase {
 		$this->assertEquals(4, $count);
 
 		//テスト実施
-		$result = $this->$model->$methodName('1', false);
+		$result = $this->$model->$methodName('2', false);
 		$this->assertTrue($result);
 
 		//テスト後のチェック

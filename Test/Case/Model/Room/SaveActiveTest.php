@@ -66,8 +66,8 @@ class RoomSaveActiveTest extends NetCommonsModelTestCase {
  */
 	public function dataProvider() {
 		return array(
-			array('roomId' => '6', 'active' => '1'),
-			array('roomId' => '4', 'active' => '0'),
+			array('roomId' => '7', 'active' => '1'),
+			array('roomId' => '5', 'active' => '0'),
 		);
 	}
 
@@ -125,7 +125,7 @@ class RoomSaveActiveTest extends NetCommonsModelTestCase {
 		$this->setExpectedException('InternalErrorException');
 
 		//データ生成
-		$roomId = '6';
+		$roomId = '7';
 		$data = array(
 			'Room' => array('id' => $roomId, 'active' => true)
 		);

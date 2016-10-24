@@ -43,7 +43,7 @@ class Frame4deleteFixture extends FrameFixture {
 		array(
 			'id' => '1',
 			'language_id' => '1',
-			'room_id' => '1',
+			'room_id' => '2',
 			'box_id' => '3',
 			'plugin_key' => 'test',
 			'block_id' => '1',
@@ -55,7 +55,7 @@ class Frame4deleteFixture extends FrameFixture {
 		array(
 			'id' => '2',
 			'language_id' => '2',
-			'room_id' => '1',
+			'room_id' => '2',
 			'box_id' => '3',
 			'plugin_key' => 'test',
 			'block_id' => '1',
@@ -68,7 +68,7 @@ class Frame4deleteFixture extends FrameFixture {
 		array(
 			'id' => '3',
 			'language_id' => '1',
-			'room_id' => '4',
+			'room_id' => '5',
 			'box_id' => '3',
 			'plugin_key' => 'test',
 			'block_id' => '3',
@@ -80,7 +80,7 @@ class Frame4deleteFixture extends FrameFixture {
 		array(
 			'id' => '4',
 			'language_id' => '2',
-			'room_id' => '4',
+			'room_id' => '5',
 			'box_id' => '3',
 			'plugin_key' => 'test',
 			'block_id' => '4',
@@ -92,7 +92,7 @@ class Frame4deleteFixture extends FrameFixture {
 		array(
 			'id' => '5',
 			'language_id' => '1',
-			'room_id' => '4',
+			'room_id' => '5',
 			'box_id' => '3',
 			'plugin_key' => 'test',
 			'block_id' => '5',
@@ -104,7 +104,7 @@ class Frame4deleteFixture extends FrameFixture {
 		array(
 			'id' => '6',
 			'language_id' => '2',
-			'room_id' => '4',
+			'room_id' => '5',
 			'box_id' => '3',
 			'plugin_key' => 'test',
 			'block_id' => '6',

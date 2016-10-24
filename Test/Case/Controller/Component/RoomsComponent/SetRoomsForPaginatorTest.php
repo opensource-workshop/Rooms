@@ -85,15 +85,15 @@ class RoomsComponentSetRoomsForPaginatorTest extends NetCommonsControllerTestCas
 
 		//チェック
 		$this->assertCount(3, $this->controller->viewVars['rooms']);
-		$this->__assertRoom($this->controller->viewVars['rooms'], $spaceId, '1', null, array('4', '5'));
-		$this->__assertRoom($this->controller->viewVars['rooms'], $spaceId, '4', '1', array());
-		$this->__assertRoom($this->controller->viewVars['rooms'], $spaceId, '5', '1', array());
+		$this->__assertRoom($this->controller->viewVars['rooms'], $spaceId, '2', '1', array('5', '6'));
+		$this->__assertRoom($this->controller->viewVars['rooms'], $spaceId, '5', '2', array());
+		$this->__assertRoom($this->controller->viewVars['rooms'], $spaceId, '6', '2', array());
 
 		$this->assertCount(3, $this->controller->viewVars['roomTreeList']);
 		$this->assertEquals($this->controller->viewVars['roomTreeList'], array(
-			'1' => '1',
-			'4' => chr(9) . '4',
+			'2' => '2',
 			'5' => chr(9) . '5',
+			'6' => chr(9) . '6',
 		));
 	}
 

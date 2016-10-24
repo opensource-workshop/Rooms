@@ -40,7 +40,6 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
 		'plugin.rooms.space',
 		'plugin.user_roles.user_role_setting',
 		'plugin.user_attributes.user_attribute_layout',
-
 	);
 
 /**
@@ -96,11 +95,11 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
 
 		//テストデータ
 		$results[0] = array(
-			'spaceId' => '2', 'roomId' => '1', 'rootId' => null, 'parentId' => null, 'pageId' => '1', 'participationFixed' => true,
+			'spaceId' => '2', 'roomId' => '2', 'rootId' => null, 'parentId' => '1', 'pageId' => '1', 'participationFixed' => true,
 			'expected' => array()
 		);
 		$results[1] = array(
-			'spaceId' => '4', 'roomId' => '6', 'rootId' => '3', 'parentId' => '3', 'pageId' => '5', 'participationFixed' => false,
+			'spaceId' => '4', 'roomId' => '7', 'rootId' => '4', 'parentId' => '4', 'pageId' => '5', 'participationFixed' => false,
 			'expected' => array(
 				'Room' => array(
 					'default_role_key' => 'general_user',
@@ -117,7 +116,7 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
 			)
 		);
 		$results[2] = array(
-			'spaceId' => '4', 'roomId' => '3', 'rootId' => null, 'parentId' => null, 'pageId' => null, 'participationFixed' => true,
+			'spaceId' => '4', 'roomId' => '4', 'rootId' => null, 'parentId' => '1', 'pageId' => null, 'participationFixed' => true,
 			'expected' => array(
 				'Room' => array(
 					'default_role_key' => 'general_user',
@@ -224,7 +223,7 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
 		$pattern = '/<button name="save"/';
 		$this->assertRegExp($pattern, $this->view);
 
-		if ($roomId === '6') {
+		if ($roomId === '7') {
 			$this->assertTextContains('dangerZone', $this->view);
 		} else {
 			$this->assertTextNotContains('dangerZone', $this->view);
@@ -337,8 +336,8 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
  */
 	public function testEditPost() {
 		//テスト実行
-		$data = $this->__data('2', '1', null, null, '1', 'Test room');
-		$this->_testPostAction('put', $data, array('action' => 'edit', '2', '1'), null, 'view');
+		$data = $this->__data('2', '2', null, '1', '1', 'Test room');
+		$this->_testPostAction('put', $data, array('action' => 'edit', '2', '2'), null, 'view');
 
 		//チェック
 		$header = $this->controller->response->header();
@@ -353,11 +352,11 @@ class RoomsControllerEditTest extends NetCommonsControllerTestCase {
  */
 	public function testEditPostValidationError() {
 		//テスト実行
-		$data = $this->__data('2', '1', null, null, '1', '');
-		$this->_testPostAction('put', $data, array('action' => 'edit', '2', '1'), null, 'view');
+		$data = $this->__data('2', '2', null, '1', '1', '');
+		$this->_testPostAction('put', $data, array('action' => 'edit', '2', '2'), null, 'view');
 
 		//チェック
-		$this->__assetEdit('2', '1', null, null, '1', true);
+		$this->__assetEdit('2', '2', null, '1', '1', true);
 		$this->assertEmpty(Hash::get($this->controller->request->data, 'RoomsLanguage.0.name'));
 		$this->assertEmpty(Hash::get($this->controller->request->data, 'RoomsLanguage.1.name'));
 

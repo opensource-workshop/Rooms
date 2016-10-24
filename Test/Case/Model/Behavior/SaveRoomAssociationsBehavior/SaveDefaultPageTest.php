@@ -58,7 +58,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
  */
 	public function dataProvider() {
 		return array(
-			array('data' => array('Room' => array('id' => '4', 'space_id' => '2')))
+			array('data' => array('Room' => array('id' => '5', 'space_id' => '2')))
 		);
 	}
 
@@ -77,7 +77,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 		//テスト実施
 		$result = $this->TestModel->saveDefaultPage($data);
 		$this->assertEquals(['Room', 'Page', 'Container', 'Box'], array_keys($result));
-		$this->assertEquals('4', Hash::get($result, 'Room.id'));
+		$this->assertEquals('5', Hash::get($result, 'Room.id'));
 		$this->assertEquals('9', Hash::get($result, 'Box.id'));
 
 		//チェック
