@@ -33,9 +33,10 @@ class Room extends RoomsAppModel {
  * @var const
  */
 	const
-		PUBLIC_PARENT_ID = '1',
-		PRIVATE_PARENT_ID = '2',
-		ROOM_PARENT_ID = '3';
+		WHOLE_SITE_PARENT_ID = '1',
+		PUBLIC_PARENT_ID = '2',
+		PRIVATE_PARENT_ID = '3',
+		ROOM_PARENT_ID = '4';
 
 /**
  * TreeParser

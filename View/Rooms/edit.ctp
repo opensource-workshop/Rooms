@@ -48,6 +48,7 @@
 	<?php echo $this->NetCommonsForm->end(); ?>
 </div>
 
-<?php if (isset($this->data['Room']['parent_id']) && $this->request->params['action'] === 'edit') : ?>
+<?php if ($this->data['Room']['parent_id'] !== Room::WHOLE_SITE_PARENT_ID &&
+		$this->request->params['action'] === 'edit') : ?>
 	<?php echo $this->element('Rooms/delete_form'); ?>
 <?php endif;
