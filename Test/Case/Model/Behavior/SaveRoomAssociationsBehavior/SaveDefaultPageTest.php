@@ -25,7 +25,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
  * @var array
  */
 	public $fixtures = array(
-		'plugin.pages.languages_page',
+		'plugin.pages.pages_language',
 	);
 
 /**
@@ -83,7 +83,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 		//チェック
 		$pageId = $this->TestModel->Page->getLastInsertID();
 		$this->__acualPage($roomId, $pageId);
-		//$this->__acualLanguagesPage($pageId);
+		//$this->__acualPagesLanguage($pageId);
 		$this->__acualRoom($roomId, $pageId);
 	}
 
@@ -145,13 +145,13 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 	}
 
 /**
- * LanguagesPageのチェック
+ * PagesLanguageのチェック
  *
  * @param int $pageId ページID
  * @return void
  */
-	//private function __acualLanguagesPage($pageId) {
-	//	$result = $this->TestModel->Page->LanguagesPage->find('all', array(
+	//private function __acualPagesLanguage($pageId) {
+	//	$result = $this->TestModel->Page->PagesLanguage->find('all', array(
 	//		'recursive' => -1,
 	//		'fields' => array('id', 'page_id', 'language_id', 'name'),
 	//		'conditions' => array('page_id' => $pageId),
@@ -163,7 +163,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 	//		'page_id' => $pageId,
 	//		'language_id' => '2',
 	//		'name' => 'Top',
-	//	), Hash::get($result, '0.LanguagesPage'));
+	//	), Hash::get($result, '0.PagesLanguage'));
 	//}
 
 /**

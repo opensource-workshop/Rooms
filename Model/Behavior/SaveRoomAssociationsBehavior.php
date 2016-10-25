@@ -330,7 +330,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 				'root_id' => $model->getParentPageId($data),
 				'parent_id' => $model->getParentPageId($data)
 			),
-			//'LanguagesPage' => array(
+			//'PagesLanguage' => array(
 			//	'language_id' => Current::read('Language.id'),
 			//	'name' => __d('rooms', 'Top')
 			//),
