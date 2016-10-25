@@ -33,7 +33,7 @@ class SwitchBoxes extends NetCommonsMigration {
 	public $migration = array(
 		'up' => array(
 			'create_table' => array(
-				'rooms_tmps' => array(
+				'rooms_bk1477036926s' => array(
 					'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 					'space_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 					'page_id_top' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
@@ -60,31 +60,8 @@ class SwitchBoxes extends NetCommonsMigration {
 			),
 		),
 		'down' => array(
-			'create_table' => array(
-				'rooms_tmps' => array(
-					'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-					'space_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-					'page_id_top' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-					'root_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-					'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-					'lft' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-					'rght' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-					'active' => array('type' => 'boolean', 'null' => true, 'default' => null),
-					'in_draft' => array('type' => 'boolean', 'null' => false, 'default' => false, 'comment' => '作成中かどうか。1: 作成中、0: 確定'),
-					'default_role_key' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8', 'comment' => '「ルーム内の役割」のデフォルト値'),
-					'need_approval' => array('type' => 'boolean', 'null' => true, 'default' => null),
-					'default_participation' => array('type' => 'boolean', 'null' => true, 'default' => null),
-					'page_layout_permitted' => array('type' => 'boolean', 'null' => true, 'default' => null),
-					'theme' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-					'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-					'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-					'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-					'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
-					'indexes' => array(
-						'PRIMARY' => array('column' => 'id', 'unique' => 1),
-					),
-					'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB'),
-				),
+			'drop_table' => array(
+				'rooms_bk1477036926s'
 			),
 		),
 	);
@@ -137,6 +114,13 @@ class SwitchBoxes extends NetCommonsMigration {
  * @return bool Should process continue
  */
 	public function before($direction) {
+		$Room = $this->generateModel('Room');
+		$this->Room = $Room;
+
+		if ($direction === 'down') {
+			//Roomテーブルの登録
+			$this->__saveRoom($direction);
+		}
 		return true;
 	}
 
@@ -174,9 +158,6 @@ class SwitchBoxes extends NetCommonsMigration {
 				//RoomsLanguageテーブルの登録
 				$this->__saveRoomsLanguage($direction);
 
-				//Roomテーブルの登録
-				$this->__saveRoom($direction);
-
 				//関連テーブルのroom_idをずらす
 				$this->__updateAssociation($direction, $models);
 
@@ -210,9 +191,6 @@ class SwitchBoxes extends NetCommonsMigration {
 			$db->rollback();
 			$return = false;
 		}
-
-		$sql = 'DROP TABLE IF EXISTS ' . $this->Room->tablePrefix . $this->Room->table . '_tmps';
-		$this->Room->query($sql);
 
 		return $return;
 	}
@@ -254,63 +232,59 @@ class SwitchBoxes extends NetCommonsMigration {
  * @throws InternalErrorException
  */
 	private function __saveRoom($direction) {
-		if ($direction === 'down') {
-			$sequence = -1;
-			if (! $this->Room->deleteAll(array('id' => '1'), false)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
-		} else {
-			$sequence = 1;
-		}
-
 		$tableName = $this->Room->tablePrefix . $this->Room->table;
 		$schema = $this->Room->schema();
 		unset($schema['id']);
 
 		$schemaString = implode(', ', array_keys($schema));
 
-		//Primary keyの更新ができないため、一度tmpテーブルに移して変更させる
-		$sql = 'INSERT INTO ' . $tableName . '_tmps' . '(id, ' . $schemaString . ') ' .
-				'SELECT id + (' . $sequence . '), ' . $schemaString . ' FROM ' . $tableName;
-		$this->Room->query($sql);
-		$result = $this->Room->getAffectedRows() > 0;
-		if (! $result) {
-			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-		}
-		if (! $this->Room->deleteAll(array('1' => '1'), false)) {
-			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-		}
-		$sql = 'INSERT INTO ' . $tableName . '(id, ' . $schemaString . ') ' .
-				'SELECT id, ' . $schemaString . ' FROM ' . $tableName . '_tmps';
-		$this->Room->query($sql);
-		$result = $this->Room->getAffectedRows() > 0;
-		if (! $result) {
-			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-		}
-
-		//roomsテーブルのid、parent_id、lft、rghtをずらす
-		$update = array(
-			'root_id' => 'root_id + (' . $sequence . ')',
-			'parent_id' => 'parent_id + (' . $sequence . ')',
-			'lft' => 'lft + (' . $sequence . ')',
-			'rght' => 'rght + (' . $sequence . ')',
-		);
-		if (! $this->Room->updateAll($update, array('1 = 1'))) {
-			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-		}
-
 		if ($direction === 'down') {
-			$update = array(
-				'parent_id' => null,
-			);
-			$conditions = array(
-				'id' => array('1', '2', '3')
-			);
-			if (! $this->Room->updateAll($update, $conditions)) {
+			$sequence = -1;
+			if (! $this->Room->deleteAll(array('1' => '1'), false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+			$sql = 'INSERT INTO ' . $tableName . '(id, ' . $schemaString . ') ' .
+					'SELECT id, ' . $schemaString . ' FROM ' . $tableName . '_bk1477036926s';
+			$this->Room->query($sql);
+			$result = $this->Room->getAffectedRows() > 0;
+			if (! $result) {
 				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 			}
 
 		} else {
+			$sequence = 1;
+
+			//Primary keyの更新ができないため、一度tmpテーブルに移して変更させる
+			$sql = 'INSERT INTO ' . $tableName . '_bk1477036926s' . '(id, ' . $schemaString . ') ' .
+					'SELECT id, ' . $schemaString . ' FROM ' . $tableName;
+			$this->Room->query($sql);
+			$result = $this->Room->getAffectedRows() > 0;
+			if (! $result) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+			if (! $this->Room->deleteAll(array('1' => '1'), false)) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			$sql = 'INSERT INTO ' . $tableName . '(id, ' . $schemaString . ') ' .
+					'SELECT id + (' . $sequence . '), ' . $schemaString . ' FROM ' . $tableName . '_bk1477036926s';
+			$this->Room->query($sql);
+			$result = $this->Room->getAffectedRows() > 0;
+			if (! $result) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
+			//roomsテーブルのid、parent_id、lft、rghtをずらす
+			$update = array(
+				'root_id' => 'root_id + (' . $sequence . ')',
+				'parent_id' => 'parent_id + (' . $sequence . ')',
+				'lft' => 'lft + (' . $sequence . ')',
+				'rght' => 'rght + (' . $sequence . ')',
+			);
+			if (! $this->Room->updateAll($update, array('1 = 1'))) {
+				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			}
+
 			$update = array(
 				'parent_id' => '1',
 			);
