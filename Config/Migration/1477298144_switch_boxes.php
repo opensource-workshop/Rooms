@@ -211,6 +211,10 @@ class SwitchBoxes extends NetCommonsMigration {
 		}
 
 		foreach ($models as $modelName) {
+			if (! Configure::read('NetCommons.installed') && $modelName === 'PluginsRoom') {
+				continue;
+			}
+
 			$model = $this->generateModel($modelName);
 			if (! $model->hasField('room_id')) {
 				continue;
