@@ -54,11 +54,11 @@ class RoomFixture extends CakeTestFixture {
 			'page_layout_permitted' => true,
 			'theme' => null,
 		),
-		//別ルーム(room_id=4)
+		//別ルーム(room_id=5)
 		array(
 			'id' => '5',
 			'space_id' => '2',
-			'page_id_top' => '3',
+			'page_id_top' => '4',
 			'root_id' => '2',
 			'parent_id' => '2',
 			'lft' => '3',
@@ -70,11 +70,11 @@ class RoomFixture extends CakeTestFixture {
 			'page_layout_permitted' => true,
 			'theme' => null,
 		),
-		//別ルーム(room_id=5、ブロックなし)
+		//別ルーム(room_id=6、ブロックなし)
 		array(
 			'id' => '6',
 			'space_id' => '2',
-			'page_id_top' => '4',
+			'page_id_top' => '5',
 			'root_id' => '2',
 			'parent_id' => '2',
 			'lft' => '5',
