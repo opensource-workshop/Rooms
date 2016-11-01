@@ -138,7 +138,7 @@ class SwitchBoxes extends NetCommonsMigration {
 			$sequence = 1;
 		}
 
-		$db = ConnectionManager::getDataSource('master');
+		$db = ConnectionManager::getDataSource($this->connection);
 		$tables = $db->listSources();
 
 		$Room = $this->generateModel('Room');
