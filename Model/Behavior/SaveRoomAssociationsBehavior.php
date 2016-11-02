@@ -336,6 +336,16 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			//),
 		));
 
+		//ルームのBoxを生成する
+		$model->Page->saveBox(array(
+			'Room' => $data['Room'],
+			'Page' => array(
+				'id' => null,
+				'room_id' => $data['Room']['id'],
+			),
+		));
+
+		//ページ生成
 		$model->Page->create(false);
 		$page = $model->Page->savePage($page, array('atomic' => false));
 		if (! $page) {
@@ -503,6 +513,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		$rolesRoomsUsers = array();
 		foreach ($rooms as $room) {
 			$roomId = $room['Room']['id'];
+			$model->RolesRoomsUser->create(false);
 			$rolesRoomsUsers[$roomId] = $model->RolesRoomsUser->create([
 				'id' => null,
 				'roles_room_id' => Hash::get($rolesRooms, $roomId . '.' . $room['Room']['default_role_key']),

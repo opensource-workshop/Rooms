@@ -74,12 +74,16 @@ class SwitchBoxes extends NetCommonsMigration {
 	public $records = array(
 		'RolesRoom' => array(
 			//サイト全体スペース
-			//このidはコピー元のID
 			array('copy_id' => '1', 'room_id' => '1', 'role_key' => 'room_administrator'),
 			array('copy_id' => '2', 'room_id' => '1', 'role_key' => 'chief_editor'),
 			array('copy_id' => '3', 'room_id' => '1', 'role_key' => 'editor'),
 			array('copy_id' => '4', 'room_id' => '1', 'role_key' => 'general_user'),
 			array('copy_id' => '5', 'room_id' => '1', 'role_key' => 'visitor'),
+			//パブリックスペース
+			array('copy_id' => '2', 'room_id' => '3', 'role_key' => 'chief_editor'),
+			array('copy_id' => '3', 'room_id' => '3', 'role_key' => 'editor'),
+			array('copy_id' => '4', 'room_id' => '3', 'role_key' => 'general_user'),
+			array('copy_id' => '5', 'room_id' => '3', 'role_key' => 'visitor'),
 		),
 		'Room' => array(
 			//サイト全体
@@ -388,6 +392,9 @@ class SwitchBoxes extends NetCommonsMigration {
  * @return void
  */
 	private function __saveRolesRoomAssociations($models, $rolesRoomId, $copyRolesRoomId) {
+		$RolesRoom = $this->generateModel('RolesRoom');
+		$rolesRoomTable = $RolesRoom->tablePrefix . $RolesRoom->table;
+
 		foreach ($models as $modelName) {
 			$model = $this->generateModel($modelName);
 			if (! $model->hasField('roles_room_id')) {
