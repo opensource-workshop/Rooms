@@ -25,7 +25,7 @@ class PluginsRoomsControllerEditTest extends NetCommonsControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.pages.languages_page',
+		'plugin.pages.pages_language',
 		'plugin.roles.default_role_permission4test',
 		'plugin.rooms.page4test',
 		'plugin.rooms.plugins_room4test',
@@ -85,7 +85,7 @@ class PluginsRoomsControllerEditTest extends NetCommonsControllerTestCase {
 	public function testEditGet() {
 		//テストデータ
 		$spaceId = '2';
-		$roomId = '4';
+		$roomId = '5';
 
 		//テスト実行
 		$this->_testGetAction(array('action' => 'edit', $spaceId, $roomId), array('method' => 'assertNotEmpty'), null, 'view');
@@ -114,7 +114,7 @@ class PluginsRoomsControllerEditTest extends NetCommonsControllerTestCase {
 	private function __data() {
 		$data = array(
 			'Room' => array(
-				'id' => '4',
+				'id' => '5',
 			),
 			'Plugin' => array(
 				0 => array('key' => 'tests'),
@@ -135,7 +135,7 @@ class PluginsRoomsControllerEditTest extends NetCommonsControllerTestCase {
 	public function testEditPost() {
 		//テスト実行
 		$data = $this->__data();
-		$this->_testPostAction('put', $data, array('action' => 'edit', '2', '4'), null, 'view');
+		$this->_testPostAction('put', $data, array('action' => 'edit', '2', '5'), null, 'view');
 
 		//チェック
 		$header = $this->controller->response->header();
@@ -153,7 +153,7 @@ class PluginsRoomsControllerEditTest extends NetCommonsControllerTestCase {
 
 		//テスト実行
 		$data = $this->__data();
-		$this->_testPostAction('put', $data, array('action' => 'edit', '2', '1'), 'BadRequestException', 'view');
+		$this->_testPostAction('put', $data, array('action' => 'edit', '2', '2'), 'BadRequestException', 'view');
 	}
 
 }

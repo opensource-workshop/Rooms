@@ -58,7 +58,7 @@ class RoomBehaviorGetRolesRoomsTest extends NetCommonsModelTestCase {
  */
 	public function testGetRolesRooms() {
 		//テストデータ
-		$roomId = '4';
+		$roomId = '5';
 		$roleKey = 'room_administrator';
 		$conditions = array(
 			'Room.id' => $roomId,

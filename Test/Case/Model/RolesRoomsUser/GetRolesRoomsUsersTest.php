@@ -77,9 +77,9 @@ class RolesRoomsUserGetRolesRoomsUsersTest extends NetCommonsGetTest {
 
 		//チェック
 		$this->assertCount(3, $result);
-		$this->__assertRoom($result[0], $spaceId, '1', $userId, '1', 'room_administrator');
-		$this->__assertRoom($result[1], $spaceId, '4', $userId, '6', 'room_administrator');
-		$this->__assertRoom($result[2], $spaceId, '5', $userId, '7', 'room_administrator');
+		$this->__assertRoom($result[0], $spaceId, '2', $userId, '1', 'room_administrator');
+		$this->__assertRoom($result[1], $spaceId, '5', $userId, '6', 'room_administrator');
+		$this->__assertRoom($result[2], $spaceId, '6', $userId, '7', 'room_administrator');
 	}
 
 /**

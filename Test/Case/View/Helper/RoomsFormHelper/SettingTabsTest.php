@@ -70,8 +70,8 @@ class RoomsFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 	public function testSettingTabsByActionEdit($controller) {
 		//テストデータ生成
 		$spaceId = '2';
-		$roomId = '4';
-		$parentId = '1';
+		$roomId = '5';
+		$parentId = '2';
 
 		$viewVars = array(
 			'activeSpaceId' => $spaceId,
@@ -106,7 +106,7 @@ class RoomsFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 	public function testSettingTabsByPublicSpace() {
 		//テストデータ生成
 		$spaceId = '4';
-		$roomId = '1';
+		$roomId = '2';
 		$parentId = null;
 		$controller = 'rooms';
 
@@ -137,7 +137,7 @@ class RoomsFormHelperSettingTabsTest extends NetCommonsHelperTestCase {
 	public function testSettingTabsByRoomSpace() {
 		//テストデータ生成
 		$spaceId = '4';
-		$roomId = '3';
+		$roomId = '4';
 		$parentId = null;
 		$controller = 'rooms';
 

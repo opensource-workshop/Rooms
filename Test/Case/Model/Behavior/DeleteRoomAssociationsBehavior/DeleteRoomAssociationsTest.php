@@ -62,7 +62,7 @@ class DeleteRoomAssociationsBehaviorDeleteRoomAssociationsTest extends NetCommon
  */
 	public function dataProvider() {
 		$result[0] = array();
-		$result[0]['roomId'] = '4';
+		$result[0]['roomId'] = '5';
 
 		return $result;
 	}
@@ -77,7 +77,7 @@ class DeleteRoomAssociationsBehaviorDeleteRoomAssociationsTest extends NetCommon
 	public function testDeleteRoomAssociations($roomId) {
 		//事前チェック
 		$this->__assertTable('RoomRolePermission', 21, array('id', 'roles_room_id'));
-		$this->__assertTable('PluginsRoom', 4, array('id', 'room_id'));
+		$this->__assertTable('PluginsRoom', 6, array('id', 'room_id'));
 
 		//テスト実施
 		$result = $this->TestModel->deleteRoomAssociations($roomId);
@@ -97,9 +97,11 @@ class DeleteRoomAssociationsBehaviorDeleteRoomAssociationsTest extends NetCommon
 			array('RoomRolePermission' => array('id' => '51', 'roles_room_id' => '5')),
 		));
 
-		$this->__assertTable('PluginsRoom', 2, array('id', 'room_id'), array(
+		$this->__assertTable('PluginsRoom', 4, array('id', 'room_id'), array(
 			array('PluginsRoom' => array('id' => '1', 'room_id' => '1')),
 			array('PluginsRoom' => array('id' => '2', 'room_id' => '1')),
+			array('PluginsRoom' => array('id' => '3', 'room_id' => '2')),
+			array('PluginsRoom' => array('id' => '4', 'room_id' => '2')),
 		));
 	}
 

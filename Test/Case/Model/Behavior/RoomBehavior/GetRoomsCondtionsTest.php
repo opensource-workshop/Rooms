@@ -60,7 +60,7 @@ class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
 		//テストデータ
 		$spaceId = '2';
 		$conditions = array(
-			'Room.id' => array('4', '5')
+			'Room.id' => array('5', '6')
 		);
 
 		//テスト実施
@@ -69,8 +69,8 @@ class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
 
 		//チェック
 		$this->assertCount(2, $result);
-		$this->__assertRoom($result[0], $spaceId, '4', '1', array());
-		$this->__assertRoom($result[1], $spaceId, '5', '1', array());
+		$this->__assertRoom($result[0], $spaceId, '5', '2', array());
+		$this->__assertRoom($result[1], $spaceId, '6', '2', array());
 	}
 
 /**
@@ -89,9 +89,9 @@ class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
 
 		//チェック
 		$this->assertCount(3, $result);
-		$this->__assertRoom($result[0], $spaceId, '1', null, array('4', '5'));
-		$this->__assertRoom($result[1], $spaceId, '4', '1', array());
-		$this->__assertRoom($result[2], $spaceId, '5', '1', array());
+		$this->__assertRoom($result[0], $spaceId, '2', '1', array('5', '6'));
+		$this->__assertRoom($result[1], $spaceId, '5', '2', array());
+		$this->__assertRoom($result[2], $spaceId, '6', '2', array());
 	}
 
 /**

@@ -58,7 +58,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomTest extends NetCommonsMod
  */
 	public function dataProvider() {
 		return array(
-			array('data' => array('Room' => array('id' => '99', 'space_id' => '2', 'parent_id' => '1')))
+			array('data' => array('Room' => array('id' => '99', 'space_id' => '2', 'parent_id' => '2')))
 		);
 	}
 
@@ -106,11 +106,11 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomTest extends NetCommonsMod
  */
 	private function __acualRolesRoom($roomId) {
 		$expected = array(
-			array('RolesRoom' => array('id' => '15', 'room_id' => $roomId, 'role_key' => 'room_administrator')),
-			array('RolesRoom' => array('id' => '16', 'room_id' => $roomId, 'role_key' => 'chief_editor')),
-			array('RolesRoom' => array('id' => '17', 'room_id' => $roomId, 'role_key' => 'editor')),
-			array('RolesRoom' => array('id' => '18', 'room_id' => $roomId, 'role_key' => 'general_user')),
-			array('RolesRoom' => array('id' => '19', 'room_id' => $roomId, 'role_key' => 'visitor')),
+			array('RolesRoom' => array('id' => '20', 'room_id' => $roomId, 'role_key' => 'room_administrator')),
+			array('RolesRoom' => array('id' => '21', 'room_id' => $roomId, 'role_key' => 'chief_editor')),
+			array('RolesRoom' => array('id' => '22', 'room_id' => $roomId, 'role_key' => 'editor')),
+			array('RolesRoom' => array('id' => '23', 'room_id' => $roomId, 'role_key' => 'general_user')),
+			array('RolesRoom' => array('id' => '24', 'room_id' => $roomId, 'role_key' => 'visitor')),
 		);
 
 		$result = $this->TestModel->RolesRoom->find('all', array(

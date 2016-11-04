@@ -51,12 +51,22 @@ class PluginsRoom4testFixture extends PluginsRoomFixture {
 		),
 		array(
 			'id' => '3',
-			'room_id' => '4',
-			'plugin_key' => 'test3'
+			'room_id' => '2',
+			'plugin_key' => 'test'
 		),
 		array(
 			'id' => '4',
-			'room_id' => '4',
+			'room_id' => '2',
+			'plugin_key' => 'test2'
+		),
+		array(
+			'id' => '5',
+			'room_id' => '5',
+			'plugin_key' => 'test3'
+		),
+		array(
+			'id' => '6',
+			'room_id' => '5',
 			'plugin_key' => 'tests'
 		),
 	);

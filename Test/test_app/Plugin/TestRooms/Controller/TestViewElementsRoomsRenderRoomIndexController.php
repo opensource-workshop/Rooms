@@ -29,6 +29,15 @@ class TestViewElementsRoomsRenderRoomIndexController extends RoomsController {
 	);
 
 /**
+ * use helper
+ *
+ * @var array
+ */
+	public $helpers = array(
+		'Rooms.RoomsForm',
+	);
+
+/**
  * beforeFilter
  *
  * @return void
@@ -55,7 +64,7 @@ class TestViewElementsRoomsRenderRoomIndexController extends RoomsController {
 		Current::remove('Block.id');
 
 		$this->set('options', array(
-			'room' => $this->viewVars['rooms']['4'],
+			'room' => $this->viewVars['rooms']['5'],
 			'nest' => 1
 		));
 	}

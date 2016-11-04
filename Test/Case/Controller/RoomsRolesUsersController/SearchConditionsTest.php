@@ -63,10 +63,10 @@ class RoomsRolesUsersControllerSearchConditionsTest extends NetCommonsController
 		TestAuthGeneral::login($this);
 
 		//テスト実行
-		$this->_testGetAction(array('action' => 'search_conditions', '2', '4'), array('method' => 'assertNotEmpty'), null, 'view');
+		$this->_testGetAction(array('action' => 'search_conditions', '2', '5'), array('method' => 'assertNotEmpty'), null, 'view');
 
 		//チェック
-		$this->assertInput('form', null, '/rooms/rooms_roles_users/search_conditions/2/4', $this->view);
+		$this->assertInput('form', null, '/rooms/rooms_roles_users/search_conditions/2/5', $this->view);
 
 		//ログアウト
 		TestAuthGeneral::logout($this);

@@ -42,7 +42,7 @@ class Page4deleteFixture extends PageFixture {
 		//削除されないデータ
 		array(
 			'id' => '1',
-			'room_id' => '1',
+			'room_id' => '2',
 			'parent_id' => null,
 			'lft' => '1',
 			'rght' => '2',
@@ -53,7 +53,7 @@ class Page4deleteFixture extends PageFixture {
 		//削除対象のデータ
 		array(
 			'id' => '2',
-			'room_id' => '4',
+			'room_id' => '5',
 			'parent_id' => null,
 			'lft' => '3',
 			'rght' => '4',
@@ -63,7 +63,7 @@ class Page4deleteFixture extends PageFixture {
 		),
 		array(
 			'id' => '3',
-			'room_id' => '4',
+			'room_id' => '5',
 			'parent_id' => null,
 			'lft' => '5',
 			'rght' => '6',

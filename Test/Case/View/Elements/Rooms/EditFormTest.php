@@ -25,7 +25,7 @@ class RoomsViewElementsRoomsEditFormTest extends NetCommonsControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.pages.languages_page',
+		'plugin.pages.pages_language',
 		'plugin.roles.default_role_permission4test',
 		'plugin.rooms.plugins_room4test',
 		'plugin.rooms.plugin4test',
@@ -70,7 +70,7 @@ class RoomsViewElementsRoomsEditFormTest extends NetCommonsControllerTestCase {
  */
 	public function testEditForm() {
 		//テスト実行
-		$roomId = '6';
+		$roomId = '7';
 		$this->_testGetAction('/test_rooms/test_view_elements_rooms_edit_form/edit_form/' . $roomId,
 				array('method' => 'assertNotEmpty'), null, 'view');
 
@@ -94,7 +94,7 @@ class RoomsViewElementsRoomsEditFormTest extends NetCommonsControllerTestCase {
  */
 	public function testEditFormWithActiveAndDefaultParticipation() {
 		//テスト実行
-		$roomId = '4';
+		$roomId = '5';
 		$this->_testGetAction('/test_rooms/test_view_elements_rooms_edit_form/edit_form/' . $roomId,
 				array('method' => 'assertNotEmpty'), null, 'view');
 

@@ -60,7 +60,7 @@ class DeleteRoomAssociationsBehaviorDeletePagesByRoomTest extends NetCommonsMode
  */
 	public function dataProvider() {
 		$result[0] = array();
-		$result[0]['roomId'] = '4';
+		$result[0]['roomId'] = '5';
 
 		return $result;
 	}

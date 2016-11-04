@@ -77,7 +77,7 @@ class RoomsControllerActiveTest extends NetCommonsControllerTestCase {
  */
 	public function testActiveGet() {
 		//テスト実行
-		$this->_testGetAction(array('action' => 'active', '2', '4'), null, 'BadRequestException', 'view');
+		$this->_testGetAction(array('action' => 'active', '2', '5'), null, 'BadRequestException', 'view');
 	}
 
 /**
@@ -89,8 +89,8 @@ class RoomsControllerActiveTest extends NetCommonsControllerTestCase {
 		$this->_mockForReturnTrue('Rooms.Room', 'saveActive');
 
 		//テスト実行
-		$data = array('Room' => array('id' => '4'));
-		$this->_testPostAction('put', $data, array('action' => 'active', '2', '4'), null, 'view');
+		$data = array('Room' => array('id' => '5'));
+		$this->_testPostAction('put', $data, array('action' => 'active', '2', '5'), null, 'view');
 
 		//チェック
 		$header = $this->controller->response->header();
@@ -107,8 +107,8 @@ class RoomsControllerActiveTest extends NetCommonsControllerTestCase {
 		$this->_mockForReturnFalse('Rooms.Room', 'saveActive');
 
 		//テスト実行
-		$data = array('Room' => array('id' => '4'));
-		$this->_testPostAction('put', $data, array('action' => 'active', '2', '4'), 'BadRequestException', 'view');
+		$data = array('Room' => array('id' => '5'));
+		$this->_testPostAction('put', $data, array('action' => 'active', '2', '5'), 'BadRequestException', 'view');
 	}
 
 }

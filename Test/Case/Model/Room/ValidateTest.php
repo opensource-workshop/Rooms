@@ -111,7 +111,7 @@ class RoomValidateTest extends NetCommonsValidateTest {
 		$this->_mockForReturnFalse($model, 'Rooms.RoomsLanguage', 'validateMany');
 
 		//データ生成
-		$data['Room'] = (new RoomFixture())->records[0];
+		$data['Room'] = (new RoomFixture())->records[1];
 		$data['RoomsLanguage'] = (new RoomsLanguageFixture())->records[0];
 
 		//テスト実施
@@ -131,7 +131,7 @@ class RoomValidateTest extends NetCommonsValidateTest {
 		$model = $this->_modelName;
 
 		//データ生成
-		$data['Room'] = (new RoomFixture())->records[0];
+		$data['Room'] = (new RoomFixture())->records[1];
 		$data['RoomRolePermission'][0][0] = (new RoomRolePermission4testFixture())->records[0];
 
 		//テスト実施
@@ -152,7 +152,7 @@ class RoomValidateTest extends NetCommonsValidateTest {
 		$this->_mockForReturnFalse($model, 'Rooms.RoomRolePermission', 'validateMany');
 
 		//データ生成
-		$data['Room'] = (new RoomFixture())->records[0];
+		$data['Room'] = (new RoomFixture())->records[1];
 		$data['RoomRolePermission'][0][0] = (new RoomRolePermission4testFixture())->records[0];
 
 		//テスト実施

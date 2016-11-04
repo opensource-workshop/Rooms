@@ -46,6 +46,15 @@ class TestViewElementsRoomsEditFormController extends AppController {
 	);
 
 /**
+ * use helper
+ *
+ * @var array
+ */
+	public $helpers = array(
+		'Rooms.RoomsForm',
+	);
+
+/**
  * edit_form
  *
  * @param int $roomId ルームID
@@ -59,7 +68,7 @@ class TestViewElementsRoomsEditFormController extends AppController {
 		$this->RoomsRolesForm->settings['room_id'] = $roomId;
 		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
 
-		if ($roomId === '6') {
+		if ($roomId === '7') {
 			$this->set('participationFixed', false);
 		} else {
 			$this->set('participationFixed', true);

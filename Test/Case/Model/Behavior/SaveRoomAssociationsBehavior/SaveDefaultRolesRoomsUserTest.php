@@ -62,7 +62,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
 			array('data' => array('Room' => array(
 				'id' => '99',
 				'space_id' => '2',
-				'parent_id' => '1',
+				'parent_id' => '2',
 				'default_role_key' => 'visitor',
 				'default_participation' => '1'
 			)))
@@ -124,7 +124,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__acualRolesRoomsUser($roomId, $userId, '19');
+		$this->__acualRolesRoomsUser($roomId, $userId, '24');
 	}
 
 /**
@@ -153,7 +153,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__acualRolesRoomsUser($roomId, '2', '15');
+		$this->__acualRolesRoomsUser($roomId, '2', '20');
 	}
 
 /**
@@ -210,11 +210,11 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
  */
 	private function __acualRolesRoom($roomId) {
 		$expected = array(
-			array('RolesRoom' => array('id' => '15', 'room_id' => $roomId, 'role_key' => 'room_administrator')),
-			array('RolesRoom' => array('id' => '16', 'room_id' => $roomId, 'role_key' => 'chief_editor')),
-			array('RolesRoom' => array('id' => '17', 'room_id' => $roomId, 'role_key' => 'editor')),
-			array('RolesRoom' => array('id' => '18', 'room_id' => $roomId, 'role_key' => 'general_user')),
-			array('RolesRoom' => array('id' => '19', 'room_id' => $roomId, 'role_key' => 'visitor')),
+			array('RolesRoom' => array('id' => '20', 'room_id' => $roomId, 'role_key' => 'room_administrator')),
+			array('RolesRoom' => array('id' => '21', 'room_id' => $roomId, 'role_key' => 'chief_editor')),
+			array('RolesRoom' => array('id' => '22', 'room_id' => $roomId, 'role_key' => 'editor')),
+			array('RolesRoom' => array('id' => '23', 'room_id' => $roomId, 'role_key' => 'general_user')),
+			array('RolesRoom' => array('id' => '24', 'room_id' => $roomId, 'role_key' => 'visitor')),
 		);
 
 		$result = $this->TestModel->RolesRoom->find('all', array(
@@ -234,36 +234,36 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
  * @param int $rolesRoomId ロールルームID
  * @return void
  */
-	private function __acualRolesRoomsUser($roomId, $userId = null, $rolesRoomId = '15') {
+	private function __acualRolesRoomsUser($roomId, $userId = null, $rolesRoomId = '20') {
 		if ($userId) {
 			$expected = array(
 				array('RolesRoomsUser' => array(
-					'id' => '8', 'roles_room_id' => $rolesRoomId, 'user_id' => $userId, 'room_id' => $roomId,
+					'id' => '12', 'roles_room_id' => $rolesRoomId, 'user_id' => $userId, 'room_id' => $roomId,
 				)),
 			);
 		} else {
-			$visitorRolesRoomId = '19';
+			$visitorRolesRoomId = '24';
 			$expected = array(
 				array('RolesRoomsUser' => array(
-					'id' => '8', 'roles_room_id' => $rolesRoomId, 'user_id' => '2', 'room_id' => $roomId,
+					'id' => '12', 'roles_room_id' => $rolesRoomId, 'user_id' => '2', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '9', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '1', 'room_id' => $roomId,
+					'id' => '13', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '1', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '10', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '3', 'room_id' => $roomId,
+					'id' => '14', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '3', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '11', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '4', 'room_id' => $roomId,
+					'id' => '15', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '4', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '12', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '5', 'room_id' => $roomId,
+					'id' => '16', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '5', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '13', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '6', 'room_id' => $roomId,
+					'id' => '17', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '6', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '14', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '7', 'room_id' => $roomId,
+					'id' => '18', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '7', 'room_id' => $roomId,
 				)),
 			);
 		}

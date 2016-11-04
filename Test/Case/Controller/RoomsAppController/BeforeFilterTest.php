@@ -129,12 +129,12 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 		//テストデータ
 		// * ログインなし
 		$results[0] = array(
-			'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'spaceId' => '2', 'roomId' => '2', 'parentRoomId' => '1',
 			'login' => false, 'exception' => 'ForbiddenException'
 		);
 		// * ログインあり、spaceId不正、BadRequestエラー
 		$results[1] = array(
-			'spaceId' => '99', 'roomId' => '1', 'parentRoomId' => null,
+			'spaceId' => '99', 'roomId' => '2', 'parentRoomId' => '1',
 			'login' => true, 'exception' => 'BadRequestException'
 		);
 		// * ログインあり、roomId不正、BadRequestエラー
@@ -144,12 +144,12 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 		);
 		// * ログインあり、正常
 		$results[3] = array(
-			'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'spaceId' => '2', 'roomId' => '2', 'parentRoomId' => '1',
 			'login' => true, 'exception' => false
 		);
 		// * ログインあり、正常(サブルーム)
 		$results[4] = array(
-			'spaceId' => '2', 'roomId' => '4', 'parentRoomId' => '1',
+			'spaceId' => '2', 'roomId' => '5', 'parentRoomId' => '2',
 			'login' => true, 'exception' => false
 		);
 
@@ -183,15 +183,15 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 			$this->assertEquals($spaceId, $this->vars['activeSpaceId']);
 			$this->assertEquals($roomId, $this->vars['activeRoomId']);
 
-			if ($parentRoomId) {
+			if ($parentRoomId !== '1') {
 				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array());
+				$this->__assertRoom($this->vars['parentRooms'][0], '1', '1', null, array('2', '3', '4'));
 				$this->__assertRoom(
-					$this->vars['parentRooms'][0], $spaceId, $parentRoomId, null, array('4', '5')
+					$this->vars['parentRooms'][1], $spaceId, $parentRoomId, '1', array('5', '6')
 				);
-				$this->__assertRoom($this->vars['parentRooms'][1], $spaceId, $roomId, $parentRoomId, array());
 			} else {
-				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('4', '5'));
-				$this->__assertRoom($this->vars['parentRooms'][0], $spaceId, $roomId, $parentRoomId, array('4', '5'));
+				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('5', '6'));
+				$this->__assertRoom($this->vars['parentRooms'][0], '1', $parentRoomId, null, array('2', '3', '4'));
 			}
 		}
 	}
@@ -215,17 +215,17 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 		//テストデータ
 		// * POST
 		$results[] = array(
-			'method' => 'post', 'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'method' => 'post', 'spaceId' => '2', 'roomId' => '2', 'parentRoomId' => '1',
 			'login' => true, 'exception' => false
 		);
 		//PUT
 		$results[] = array(
-			'method' => 'put', 'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'method' => 'put', 'spaceId' => '2', 'roomId' => '2', 'parentRoomId' => '1',
 			'login' => true, 'exception' => false
 		);
 		//DELETE
 		$results[] = array(
-			'method' => 'put', 'spaceId' => '2', 'roomId' => '1', 'parentRoomId' => null,
+			'method' => 'put', 'spaceId' => '2', 'roomId' => '2', 'parentRoomId' => '1',
 			'login' => true, 'exception' => false
 		);
 
@@ -270,15 +270,15 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 			$this->assertEquals($spaceId, $this->vars['activeSpaceId']);
 			$this->assertEquals($roomId, $this->vars['activeRoomId']);
 
-			if ($parentRoomId) {
+			if ($parentRoomId !== '1') {
 				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array());
 				$this->__assertRoom(
-					$this->vars['parentRooms'][0], $spaceId, $parentRoomId, null, array('4', '5')
+					$this->vars['parentRooms'][0], $spaceId, $parentRoomId, null, array('5', '6')
 				);
 				$this->__assertRoom($this->vars['parentRooms'][1], $spaceId, $roomId, $parentRoomId, array());
 			} else {
-				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('4', '5'));
-				$this->__assertRoom($this->vars['parentRooms'][0], $spaceId, $roomId, $parentRoomId, array('4', '5'));
+				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('5', '6'));
+				$this->__assertRoom($this->vars['parentRooms'][0], '1', $parentRoomId, null, array('2', '3', '4'));
 			}
 		}
 	}

@@ -25,7 +25,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
  * @var array
  */
 	public $fixtures = array(
-		'plugin.pages.languages_page',
+		'plugin.pages.pages_language',
 	);
 
 /**
@@ -58,7 +58,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
  */
 	public function dataProvider() {
 		return array(
-			array('data' => array('Room' => array('id' => '4', 'space_id' => '2')))
+			array('data' => array('Room' => array('id' => '5', 'space_id' => '2')))
 		);
 	}
 
@@ -76,14 +76,14 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 
 		//テスト実施
 		$result = $this->TestModel->saveDefaultPage($data);
-		$this->assertEquals(['Room', 'Page', 'Container', 'Box'], array_keys($result));
-		$this->assertEquals('4', Hash::get($result, 'Room.id'));
-		$this->assertEquals('9', Hash::get($result, 'Box.id'));
+		$this->assertEquals(['Room', 'Page', 'PageContainer', 'Box'], array_keys($result));
+		$this->assertEquals('5', Hash::get($result, 'Room.id'));
+		$this->assertCount(5, Hash::get($result, 'Box'));
 
 		//チェック
 		$pageId = $this->TestModel->Page->getLastInsertID();
 		$this->__acualPage($roomId, $pageId);
-		//$this->__acualLanguagesPage($pageId);
+		//$this->__acualPagesLanguage($pageId);
 		$this->__acualRoom($roomId, $pageId);
 	}
 
@@ -130,8 +130,8 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 			'id' => $pageId,
 			'room_id' => $roomId,
 			'parent_id' => '1',
-			'lft' => '4',
-			'rght' => '5',
+			'lft' => '6',
+			'rght' => '7',
 			'permalink' => OriginalKeyBehavior::generateKey('Page', $this->TestModel->useDbConfig),
 			'slug' => OriginalKeyBehavior::generateKey('Page', $this->TestModel->useDbConfig),
 		));
@@ -145,13 +145,13 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 	}
 
 /**
- * LanguagesPageのチェック
+ * PagesLanguageのチェック
  *
  * @param int $pageId ページID
  * @return void
  */
-	//private function __acualLanguagesPage($pageId) {
-	//	$result = $this->TestModel->Page->LanguagesPage->find('all', array(
+	//private function __acualPagesLanguage($pageId) {
+	//	$result = $this->TestModel->Page->PagesLanguage->find('all', array(
 	//		'recursive' => -1,
 	//		'fields' => array('id', 'page_id', 'language_id', 'name'),
 	//		'conditions' => array('page_id' => $pageId),
@@ -163,7 +163,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 	//		'page_id' => $pageId,
 	//		'language_id' => '2',
 	//		'name' => 'Top',
-	//	), Hash::get($result, '0.LanguagesPage'));
+	//	), Hash::get($result, '0.PagesLanguage'));
 	//}
 
 /**

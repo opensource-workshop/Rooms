@@ -60,7 +60,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesPluginsRoomTest extends NetCom
  */
 	public function dataProvider() {
 		return array(
-			array('data' => array('Room' => array('id' => '99', 'space_id' => '2', 'parent_id' => '1')))
+			array('data' => array('Room' => array('id' => '99', 'space_id' => '2', 'parent_id' => '2')))
 		);
 	}
 
@@ -108,8 +108,8 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesPluginsRoomTest extends NetCom
  */
 	private function __acualPluginsRoom($roomId) {
 		$expected = array(
-			array('PluginsRoom' => array('id' => '5', 'room_id' => $roomId, 'plugin_key' => 'test')),
-			array('PluginsRoom' => array('id' => '6', 'room_id' => $roomId, 'plugin_key' => 'test2')),
+			array('PluginsRoom' => array('id' => '7', 'room_id' => $roomId, 'plugin_key' => 'test')),
+			array('PluginsRoom' => array('id' => '8', 'room_id' => $roomId, 'plugin_key' => 'test2')),
 		);
 
 		$result = $this->TestModel->PluginsRoom->find('all', array(

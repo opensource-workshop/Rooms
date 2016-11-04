@@ -27,9 +27,9 @@ class TestViewElementsRoomsDeleteFormController extends AppController {
 	public function delete_form() {
 		$this->autoRender = true;
 		$this->set('activeSpaceId', '2');
-		$this->set('activeRoomId', '6');
+		$this->set('activeRoomId', '7');
 
-		$this->request->data['Room']['id'] = '6';
+		$this->request->data['Room']['id'] = '7';
 
 		$this->request->params['plugin'] = 'rooms';
 		$this->request->params['controller'] = 'rooms';

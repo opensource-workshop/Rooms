@@ -61,9 +61,9 @@ class RoomsViewElementsRoomsDeleteFormTest extends NetCommonsControllerTestCase 
 		$pattern = '/' . preg_quote('View/Elements/Rooms/delete_form', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
-		$this->assertInput('form', null, 'rooms/rooms/delete/2/6', $this->view);
+		$this->assertInput('form', null, 'rooms/rooms/delete/2/7', $this->view);
 		$this->assertInput('input', '_method', 'DELETE', $this->view);
-		$this->assertInput('input', 'data[Room][id]', '6', $this->view);
+		$this->assertInput('input', 'data[Room][id]', '7', $this->view);
 		$this->assertInput('button', 'delete', null, $this->view);
 	}
 

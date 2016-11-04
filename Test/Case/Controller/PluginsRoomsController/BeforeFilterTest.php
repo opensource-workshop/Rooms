@@ -58,10 +58,10 @@ class PluginsRoomsControllerBeforeFilterTest extends NetCommonsControllerTestCas
 		TestAuthGeneral::login($this);
 
 		//テスト実行
-		$this->_testGetAction(array('action' => 'edit', '2', '1'), array('method' => 'assertNotEmpty'), null, 'view');
+		$this->_testGetAction(array('action' => 'edit', '2', '2'), array('method' => 'assertNotEmpty'), null, 'view');
 
 		//チェック
-		$this->assertEquals($this->vars['activeRoomId'], '1');
+		$this->assertEquals($this->vars['activeRoomId'], '2');
 		$this->assertEquals($this->vars['activeRoomId'], $this->controller->PluginsForm->roomId);
 
 		//ログアウト

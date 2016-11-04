@@ -41,7 +41,7 @@ class Page4testFixture extends PageFixture {
 	public $records = array(
 		array(
 			'id' => '1',
-			'room_id' => '1',
+			'room_id' => '2',
 			'parent_id' => null,
 			'lft' => 1,
 			'rght' => 2,
@@ -56,7 +56,7 @@ class Page4testFixture extends PageFixture {
 		//page.permalink=test
 		array(
 			'id' => '2',
-			'room_id' => '1',
+			'room_id' => '2',
 			'parent_id' => 1,
 			'lft' => 3,
 			'rght' => 4,
@@ -68,10 +68,10 @@ class Page4testFixture extends PageFixture {
 			'modified_user' => null,
 			'modified' => '2014-05-12 05:04:42'
 		),
-		//別ルーム(room_id=4)
+		//別ルーム(room_id=5)
 		array(
 			'id' => '3',
-			'room_id' => '4',
+			'room_id' => '5',
 			'parent_id' => null,
 			'lft' => 5,
 			'rght' => 6,
@@ -79,10 +79,10 @@ class Page4testFixture extends PageFixture {
 			'slug' => 'test2',
 			'is_container_fluid' => 1,
 		),
-		//別ルーム(room_id=5、ブロックなし)
+		//別ルーム(room_id=6、ブロックなし)
 		array(
 			'id' => '4',
-			'room_id' => '5',
+			'room_id' => '6',
 			'parent_id' => null,
 			'lft' => 7,
 			'rght' => 8,
@@ -90,10 +90,10 @@ class Page4testFixture extends PageFixture {
 			'slug' => 'test3',
 			'is_container_fluid' => 1,
 		),
-		//別ルーム(room_id=6、準備中)
+		//別ルーム(room_id=7、準備中)
 		array(
 			'id' => '5',
-			'room_id' => '6',
+			'room_id' => '7',
 			'parent_id' => null,
 			'lft' => 9,
 			'rght' => 10,
