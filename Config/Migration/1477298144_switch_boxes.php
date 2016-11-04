@@ -295,6 +295,8 @@ class SwitchBoxes extends NetCommonsMigration {
 
 			$update = array(
 				'parent_id' => '1',
+				'default_role_key' => 'visitor',
+				'default_participation' => '1',
 			);
 			$conditions = array(
 				'id' => array('2', '3', '4')
