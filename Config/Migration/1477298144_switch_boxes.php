@@ -254,10 +254,10 @@ class SwitchBoxes extends NetCommonsMigration {
 			$sql = 'INSERT INTO ' . $tableName . '(id, ' . $schemaString . ') ' .
 					'SELECT id, ' . $schemaString . ' FROM ' . $tableName . '_bk1477036926s';
 			$this->Room->query($sql);
-			$result = $this->Room->getAffectedRows() > 0;
-			if (! $result) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
+			//$result = $this->Room->getAffectedRows() > 0;
+			//if (! $result) {
+			//	throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			//}
 
 		} else {
 			$sequence = 1;
@@ -277,10 +277,10 @@ class SwitchBoxes extends NetCommonsMigration {
 			$sql = 'INSERT INTO ' . $tableName . '(id, ' . $schemaString . ') ' .
 					'SELECT id + (' . $sequence . '), ' . $schemaString . ' FROM ' . $tableName . '_bk1477036926s';
 			$this->Room->query($sql);
-			$result = $this->Room->getAffectedRows() > 0;
-			if (! $result) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
-			}
+			//$result = $this->Room->getAffectedRows() > 0;
+			//if (! $result) {
+			//	throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+			//}
 
 			//roomsテーブルのid、parent_id、lft、rghtをずらす
 			$update = array(
@@ -392,9 +392,6 @@ class SwitchBoxes extends NetCommonsMigration {
  * @return void
  */
 	private function __saveRolesRoomAssociations($models, $rolesRoomId, $copyRolesRoomId) {
-		$RolesRoom = $this->generateModel('RolesRoom');
-		$rolesRoomTable = $RolesRoom->tablePrefix . $RolesRoom->table;
-
 		foreach ($models as $modelName) {
 			$model = $this->generateModel($modelName);
 			if (! $model->hasField('roles_room_id')) {

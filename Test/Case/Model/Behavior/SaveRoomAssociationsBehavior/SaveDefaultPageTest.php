@@ -76,9 +76,9 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 
 		//テスト実施
 		$result = $this->TestModel->saveDefaultPage($data);
-		$this->assertEquals(['Room', 'Page', 'Container', 'Box'], array_keys($result));
+		$this->assertEquals(['Room', 'Page', 'PageContainer', 'Box'], array_keys($result));
 		$this->assertEquals('5', Hash::get($result, 'Room.id'));
-		$this->assertEquals('9', Hash::get($result, 'Box.id'));
+		$this->assertCount(5, Hash::get($result, 'Box'));
 
 		//チェック
 		$pageId = $this->TestModel->Page->getLastInsertID();
@@ -130,8 +130,8 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 			'id' => $pageId,
 			'room_id' => $roomId,
 			'parent_id' => '1',
-			'lft' => '4',
-			'rght' => '5',
+			'lft' => '6',
+			'rght' => '7',
 			'permalink' => OriginalKeyBehavior::generateKey('Page', $this->TestModel->useDbConfig),
 			'slug' => OriginalKeyBehavior::generateKey('Page', $this->TestModel->useDbConfig),
 		));

@@ -221,7 +221,7 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 
 		//チェック
 		$roomId = '10';
-		$this->__acualRoom($roomId, '5');
+		$this->__acualRoom($roomId, '6');
 		$this->__acualRoomsLanguage($roomId, '1', '19');
 		$this->__acualRoomsLanguage($roomId, '2', '20');
 

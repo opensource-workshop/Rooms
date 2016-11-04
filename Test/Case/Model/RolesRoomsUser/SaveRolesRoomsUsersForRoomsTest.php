@@ -127,8 +127,8 @@ class RolesRoomsUserSaveRolesRoomsUsersForRoomsTest extends NetCommonsSaveTest {
 			$actual[$this->$model->alias] = Hash::remove($actual[$this->$model->alias], '{n}.modified_user');
 
 			$expected[$this->$model->alias] = $data[$this->$model->alias];
-			$expected = Hash::insert($expected, $this->$model->alias . '.0.id', '8');
-			$expected = Hash::insert($expected, $this->$model->alias . '.1.id', '9');
+			$expected = Hash::insert($expected, $this->$model->alias . '.0.id', '12');
+			$expected = Hash::insert($expected, $this->$model->alias . '.1.id', '13');
 		}
 
 		$this->assertEquals($expected, $actual);

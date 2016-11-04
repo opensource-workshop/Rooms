@@ -238,32 +238,32 @@ class SaveRoomAssociationsBehaviorSaveDefaultRolesRoomsUserTest extends NetCommo
 		if ($userId) {
 			$expected = array(
 				array('RolesRoomsUser' => array(
-					'id' => '8', 'roles_room_id' => $rolesRoomId, 'user_id' => $userId, 'room_id' => $roomId,
+					'id' => '12', 'roles_room_id' => $rolesRoomId, 'user_id' => $userId, 'room_id' => $roomId,
 				)),
 			);
 		} else {
 			$visitorRolesRoomId = '24';
 			$expected = array(
 				array('RolesRoomsUser' => array(
-					'id' => '8', 'roles_room_id' => $rolesRoomId, 'user_id' => '2', 'room_id' => $roomId,
+					'id' => '12', 'roles_room_id' => $rolesRoomId, 'user_id' => '2', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '9', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '1', 'room_id' => $roomId,
+					'id' => '13', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '1', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '10', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '3', 'room_id' => $roomId,
+					'id' => '14', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '3', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '11', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '4', 'room_id' => $roomId,
+					'id' => '15', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '4', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '12', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '5', 'room_id' => $roomId,
+					'id' => '16', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '5', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '13', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '6', 'room_id' => $roomId,
+					'id' => '17', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '6', 'room_id' => $roomId,
 				)),
 				array('RolesRoomsUser' => array(
-					'id' => '14', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '7', 'room_id' => $roomId,
+					'id' => '18', 'roles_room_id' => $visitorRolesRoomId, 'user_id' => '7', 'room_id' => $roomId,
 				)),
 			);
 		}
