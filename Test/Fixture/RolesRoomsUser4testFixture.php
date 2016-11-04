@@ -40,35 +40,35 @@ class RolesRoomsUser4testFixture extends RolesRoomsUserFixture {
  */
 	public $records = array(
 		//パブリックスペース
-		// * ルームID=2、ユーザID=1
+		// * room_id=2、ユーザID=1
 		array(
 			'id' => '1',
 			'roles_room_id' => '1',
 			'user_id' => '1',
 			'room_id' => '2',
 		),
-		// * ルームID=2、ユーザID=2
+		// * room_id=2、ユーザID=2
 		array(
 			'id' => '2',
 			'roles_room_id' => '2',
 			'user_id' => '2',
 			'room_id' => '2',
 		),
-		// * ルームID=2、ユーザID=3
+		// * room_id=2、ユーザID=3
 		array(
 			'id' => '3',
 			'roles_room_id' => '3',
 			'user_id' => '3',
 			'room_id' => '2',
 		),
-		// * ルームID=2、ユーザID=4
+		// * room_id=2、ユーザID=4
 		array(
 			'id' => '4',
 			'roles_room_id' => '4',
 			'user_id' => '4',
 			'room_id' => '2',
 		),
-		// * ルームID=2、ユーザID=5
+		// * room_id=2、ユーザID=5
 		array(
 			'id' => '5',
 			'roles_room_id' => '5',
@@ -114,35 +114,35 @@ class RolesRoomsUser4testFixture extends RolesRoomsUserFixture {
 		),
 
 		//サイト全体
-		// * ルームID=1、ユーザID=1
+		// * room_id=1、ユーザID=1
 		array(
 			'id' => '11',
 			'roles_room_id' => '15',
 			'user_id' => '1',
 			'room_id' => '1',
 		),
-		// * ルームID=1、ユーザID=2
+		// * room_id=1、ユーザID=2
 		array(
 			'id' => '12',
 			'roles_room_id' => '16',
 			'user_id' => '2',
 			'room_id' => '1',
 		),
-		// * ルームID=1、ユーザID=3
+		// * room_id=1、ユーザID=3
 		array(
 			'id' => '13',
 			'roles_room_id' => '17',
 			'user_id' => '3',
 			'room_id' => '1',
 		),
-		// * ルームID=1、ユーザID=4
+		// * room_id=1、ユーザID=4
 		array(
 			'id' => '14',
 			'roles_room_id' => '18',
 			'user_id' => '4',
 			'room_id' => '1',
 		),
-		// * ルームID=1、ユーザID=5
+		// * room_id=1、ユーザID=5
 		array(
 			'id' => '15',
 			'roles_room_id' => '19',

@@ -79,5 +79,8 @@ class RolesRoomFixture extends CakeTestFixture {
 			'room_id' => '6',
 			'role_key' => 'room_administrator',
 		),
+
+		//サイト全体
+		array('id' => '15', 'room_id' => '1', 'role_key' => 'room_administrator'),
 	);
 }
