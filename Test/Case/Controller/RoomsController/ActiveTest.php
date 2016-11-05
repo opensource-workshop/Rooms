@@ -32,6 +32,7 @@ class RoomsControllerActiveTest extends NetCommonsControllerTestCase {
 		'plugin.rooms.room_role_permission',
 		'plugin.rooms.rooms_language4test',
 		'plugin.rooms.space',
+		'plugin.user_attributes.user_attribute_layout',
 	);
 
 /**
