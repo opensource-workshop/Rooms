@@ -10,6 +10,7 @@
  */
 
 App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
+App::uses('RoomBehavior', 'Rooms.Model/Behavior');
 
 /**
  * RoomsComponent::startup()のテスト
@@ -46,6 +47,7 @@ class RoomsComponentStartupTest extends NetCommonsControllerTestCase {
 
 		//テストプラグインのロード
 		NetCommonsCakeTestCase::loadTestPlugin($this, 'Rooms', 'TestRooms');
+		RoomBehavior::$spaces = array();
 	}
 
 /**
