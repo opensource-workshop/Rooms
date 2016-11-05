@@ -25,6 +25,7 @@ class RoomsComponentStartupTest extends NetCommonsControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
+		'plugin.rooms.room4test',
 		'plugin.rooms.rooms_language4test',
 	);
 
@@ -77,7 +78,7 @@ class RoomsComponentStartupTest extends NetCommonsControllerTestCase {
 		$this->assertEquals($spaceId, Hash::get($result, $spaceId . '.Space.id'));
 		$this->assertEquals($pluginKey, Hash::get($result, $spaceId . '.Space.plugin_key'));
 		$this->assertEquals($spaceType, Hash::get($result, $spaceId . '.Space.type'));
-		$this->assertArrayHasKey('RoomsLanguage', Hash::get($result, $spaceId), var_export($result, true));
+		$this->assertArrayHasKey('RoomsLanguage', Hash::get($result, $spaceId));
 		$this->assertCount(2, $result[$spaceId]['RoomsLanguage']);
 		$this->assertEquals(
 			array('id', 'language_id', 'room_id', 'name'), array_keys(Hash::get($result, $spaceId . '.RoomsLanguage.0'))
