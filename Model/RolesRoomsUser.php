@@ -13,6 +13,7 @@
  */
 
 App::uses('RoomsAppModel', 'Rooms.Model');
+App::uses('Room', 'Rooms.Model');
 
 /**
  * RolesRoomsUser Model
@@ -290,6 +291,24 @@ class RolesRoomsUser extends RoomsAppModel {
 		//トランザクションBegin
 		$this->begin();
 
+		$spaceRolesRoomIds = $this->RolesRoom->find('all', array(
+			'recursive' => -1,
+			'conditions' => array(
+				'room_id' => array(
+					Room::WHOLE_SITE_PARENT_ID,
+					Room::PUBLIC_PARENT_ID,
+					Room::ROOM_PARENT_ID,
+					Room::PRIVATE_PARENT_ID
+				),
+			),
+		));
+		$spaceRolesRoomIds = Hash::combine(
+			$spaceRolesRoomIds,
+			'{n}.RolesRoom.role_key',
+			'{n}.RolesRoom.id',
+			'{n}.RolesRoom.room_id'
+		);
+
 		try {
 			//RolesRoomsUserデータの登録
 			foreach ($data['RolesRoomsUser'] as $rolesRoomsUser) {
@@ -298,12 +317,16 @@ class RolesRoomsUser extends RoomsAppModel {
 						throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 					}
 				} else {
+					$this->create(false);
 					$this->set($rolesRoomsUser);
 					//バリデーション
 					if (! $this->validates()) {
 						throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 					}
 					if (! $this->save(null, false)) {
+						throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+					}
+					if (! $this->saveSpaceRoomForRooms($rolesRoomsUser, $spaceRolesRoomIds)) {
 						throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 					}
 				}
@@ -315,6 +338,55 @@ class RolesRoomsUser extends RoomsAppModel {
 		} catch (Exception $ex) {
 			//トランザクションRollback
 			$this->rollback($ex);
+		}
+
+		return true;
+	}
+
+/**
+ * パブリックスペースの場合、
+ * サイト全体のスペース・コミュニティスペース・プライベートスペースのRolesRoomsUserに更新する
+ *
+ * @param array $rolesRoomsUser リクエストデータ
+ * @param array $spaceRolesRoomIds リクエストデータ
+ * @return bool
+ */
+	public function saveSpaceRoomForRooms($rolesRoomsUser, $spaceRolesRoomIds) {
+		if ($rolesRoomsUser['room_id'] !== Room::PUBLIC_PARENT_ID) {
+			return true;
+		}
+
+		$roleKey = array_search(
+			$rolesRoomsUser['roles_room_id'],
+			$spaceRolesRoomIds[$rolesRoomsUser['room_id']],
+			true
+		);
+		if (! $roleKey) {
+			//ロールキーが取得できなかったら、何もないこととして処理する。
+			return true;
+		}
+
+		$roomIds = array(
+			Room::WHOLE_SITE_PARENT_ID,
+			Room::ROOM_PARENT_ID,
+			Room::PRIVATE_PARENT_ID
+		);
+		foreach ($roomIds as $roomId) {
+			$rolesRoomId = Hash::get(
+				$spaceRolesRoomIds, $roomId . '.' .$roleKey
+			);
+			if ($rolesRoomId) {
+				$update = array(
+					$this->alias . '.roles_room_id' => $rolesRoomId,
+				);
+				$conditions = array(
+					$this->alias . '.room_id' => $roomId,
+					$this->alias . '.user_id' => $rolesRoomsUser['user_id'],
+				);
+				if (! $this->updateAll($update, $conditions)) {
+					return false;
+				}
+			}
 		}
 
 		return true;

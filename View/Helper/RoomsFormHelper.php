@@ -256,17 +256,31 @@ class RoomsFormHelper extends AppHelper {
 			);
 		}
 
-		$output .= $this->NetCommonsHtml->div(null,
-			$this->LinkButton->edit(
-				'',
-				array('action' => 'edit', 'key' => $space['Space']['id'], 'key2' => $space['Room']['id']),
-				array('iconSize' => 'btn-xs')
-			),
+		$button = '';
+		$button .= $this->LinkButton->edit(
+			'',
 			array(
-				'class' => 'pull-right'
-			)
+				'controller' => 'rooms',
+				'action' => 'edit',
+				'key' => $space['Space']['id'],
+				'key2' => $space['Room']['id']
+			),
+			array('iconSize' => 'btn-xs')
+		);
+		$button .= $this->LinkButton->edit(
+			__d('rooms', 'Edit the members'),
+			array(
+				'controller' => 'rooms_roles_users',
+				'action' => 'edit',
+				'key' => $space['Space']['id'],
+				'key2' => $space['Room']['id']
+			),
+			array('iconSize' => 'btn-xs space-edit-rooms-roles-users')
 		);
 
+		$output .= $this->NetCommonsHtml->div(
+			null, $button, array('class' => 'pull-right')
+		);
 		$output .= '</div>';
 
 		return $this->MessageFlash->description($output);
