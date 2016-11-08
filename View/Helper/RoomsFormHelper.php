@@ -279,7 +279,6 @@ class RoomsFormHelper extends AppHelper {
 			);
 		}
 
-
 		$output .= $this->NetCommonsHtml->div(
 			null, $button, array('class' => 'pull-right')
 		);

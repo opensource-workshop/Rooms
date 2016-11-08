@@ -291,23 +291,7 @@ class RolesRoomsUser extends RoomsAppModel {
 		//トランザクションBegin
 		$this->begin();
 
-		$spaceRolesRoomIds = $this->RolesRoom->find('all', array(
-			'recursive' => -1,
-			'conditions' => array(
-				'room_id' => array(
-					Room::WHOLE_SITE_PARENT_ID,
-					Room::PUBLIC_PARENT_ID,
-					Room::ROOM_PARENT_ID,
-					Room::PRIVATE_PARENT_ID
-				),
-			),
-		));
-		$spaceRolesRoomIds = Hash::combine(
-			$spaceRolesRoomIds,
-			'{n}.RolesRoom.role_key',
-			'{n}.RolesRoom.id',
-			'{n}.RolesRoom.room_id'
-		);
+		$spaceRolesRoomIds = $this->getSpaceRolesRoomsUsers();
 
 		try {
 			//RolesRoomsUserデータの登録
@@ -348,10 +332,12 @@ class RolesRoomsUser extends RoomsAppModel {
  * サイト全体のスペース・コミュニティスペース・プライベートスペースのRolesRoomsUserに更新する
  *
  * @param array $rolesRoomsUser リクエストデータ
- * @param array $spaceRolesRoomIds リクエストデータ
+ * @param array $spaceRolesRoomIds spaceのRolesRoomIdのデータ
+ * @param bool $isCreate 新規作成かどうか
  * @return bool
+ * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
-	public function saveSpaceRoomForRooms($rolesRoomsUser, $spaceRolesRoomIds) {
+	public function saveSpaceRoomForRooms($rolesRoomsUser, $spaceRolesRoomIds, $isCreate = false) {
 		if ($rolesRoomsUser['room_id'] !== Room::PUBLIC_PARENT_ID) {
 			return true;
 		}
@@ -373,9 +359,19 @@ class RolesRoomsUser extends RoomsAppModel {
 		);
 		foreach ($roomIds as $roomId) {
 			$rolesRoomId = Hash::get(
-				$spaceRolesRoomIds, $roomId . '.' .$roleKey
+				$spaceRolesRoomIds, $roomId . '.' . $roleKey
 			);
-			if ($rolesRoomId) {
+			if (! $rolesRoomId) {
+				continue;
+			}
+			if ($isCreate) {
+				$this->create(false);
+				$result = $this->save(array(
+					'roles_room_id' => $rolesRoomId,
+					'room_id' => $roomId,
+					'user_id' => $rolesRoomsUser['user_id'],
+				));
+			} else {
 				$update = array(
 					$this->alias . '.roles_room_id' => $rolesRoomId,
 				);
@@ -383,13 +379,42 @@ class RolesRoomsUser extends RoomsAppModel {
 					$this->alias . '.room_id' => $roomId,
 					$this->alias . '.user_id' => $rolesRoomsUser['user_id'],
 				);
-				if (! $this->updateAll($update, $conditions)) {
-					return false;
-				}
+				$result = $this->updateAll($update, $conditions);
+			}
+			if (! $result) {
+				return false;
 			}
 		}
 
 		return true;
+	}
+
+/**
+ * パブリックスペースの場合、
+ * サイト全体のスペース・コミュニティスペース・プライベートスペースのRolesRoomsUserに更新する
+ *
+ * @return array
+ */
+	public function getSpaceRolesRoomsUsers() {
+		$spaceRolesRoomIds = $this->RolesRoom->find('all', array(
+			'recursive' => -1,
+			'conditions' => array(
+				'room_id' => array(
+					Room::WHOLE_SITE_PARENT_ID,
+					Room::PUBLIC_PARENT_ID,
+					Room::ROOM_PARENT_ID,
+					Room::PRIVATE_PARENT_ID
+				),
+			),
+		));
+		$spaceRolesRoomIds = Hash::combine(
+			$spaceRolesRoomIds,
+			'{n}.RolesRoom.role_key',
+			'{n}.RolesRoom.id',
+			'{n}.RolesRoom.room_id'
+		);
+
+		return $spaceRolesRoomIds;
 	}
 
 /**
