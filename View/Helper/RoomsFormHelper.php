@@ -244,18 +244,6 @@ class RoomsFormHelper extends AppHelper {
 		$output = '';
 		$output .= '<div class="clearfix">';
 
-		if ($spaceId === Space::PUBLIC_SPACE_ID) {
-			$output .= sprintf(
-				__d('rooms', 'The setting of %s space also to non-members is published.'),
-				$this->Rooms->roomName($space)
-			);
-		} else {
-			$output .= sprintf(
-				__d('rooms', 'The setting of %s space.'),
-				$this->Rooms->roomName($space)
-			);
-		}
-
 		$button = '';
 		$button .= $this->LinkButton->edit(
 			'',
@@ -267,16 +255,30 @@ class RoomsFormHelper extends AppHelper {
 			),
 			array('iconSize' => 'btn-xs')
 		);
-		$button .= $this->LinkButton->edit(
-			__d('rooms', 'Edit the members'),
-			array(
-				'controller' => 'rooms_roles_users',
-				'action' => 'edit',
-				'key' => $space['Space']['id'],
-				'key2' => $space['Room']['id']
-			),
-			array('iconSize' => 'btn-xs space-edit-rooms-roles-users')
-		);
+
+		if ($spaceId === Space::PUBLIC_SPACE_ID) {
+			$output .= sprintf(
+				__d('rooms', 'The setting of %s space also to non-members is published.'),
+				$this->Rooms->roomName($space)
+			);
+
+			$button .= $this->LinkButton->edit(
+				__d('rooms', 'Edit the members'),
+				array(
+					'controller' => 'rooms_roles_users',
+					'action' => 'edit',
+					'key' => $space['Space']['id'],
+					'key2' => $space['Room']['id']
+				),
+				array('iconSize' => 'btn-xs space-edit-rooms-roles-users')
+			);
+		} else {
+			$output .= sprintf(
+				__d('rooms', 'The setting of %s space.'),
+				$this->Rooms->roomName($space)
+			);
+		}
+
 
 		$output .= $this->NetCommonsHtml->div(
 			null, $button, array('class' => 'pull-right')
