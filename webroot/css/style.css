@@ -21,6 +21,9 @@
 table.space-edit-table > tbody > tr > td {
 	border-top: 0px;
 }
+table > tbody > tr > td .btn.btn-xs, .btn-xs.nc-btn-style.space-edit-rooms-roles-users {
+	margin-left: 32px;
+}
 
 /**
  * ルーム一覧
