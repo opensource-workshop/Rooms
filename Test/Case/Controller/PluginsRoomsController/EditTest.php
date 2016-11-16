@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
+App::uses('RoomsControllerTestCase', 'Rooms.TestSuite');
 
 /**
  * PluginsRoomsController::edit()のテスト
@@ -17,29 +17,7 @@ App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Controller\PluginsRoomsController
  */
-class PluginsRoomsControllerEditTest extends NetCommonsControllerTestCase {
-
-/**
- * Fixtures
- *
- * @var array
- */
-	public $fixtures = array(
-		'plugin.pages.pages_language',
-		'plugin.roles.default_role_permission4test',
-		'plugin.rooms.page4test',
-		'plugin.rooms.plugins_room4test',
-		'plugin.rooms.plugin4test',
-		'plugin.rooms.plugins_role4test',
-		'plugin.rooms.roles_room4test',
-		'plugin.rooms.roles_rooms_user4test',
-		'plugin.rooms.room4test',
-		'plugin.rooms.room_role',
-		'plugin.rooms.room_role_permission4test',
-		'plugin.rooms.rooms_language4test',
-		'plugin.rooms.space',
-		'plugin.user_roles.user_role_setting',
-	);
+class PluginsRoomsControllerEditTest extends RoomsControllerTestCase {
 
 /**
  * Plugin name

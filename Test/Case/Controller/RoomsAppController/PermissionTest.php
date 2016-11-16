@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
+App::uses('RoomsControllerTestCase', 'Rooms.TestSuite');
 App::uses('UserRole', 'UserRoles.Model');
 
 /**
@@ -18,7 +18,7 @@ App::uses('UserRole', 'UserRoles.Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Controller\RoomsAppController
  */
-class RoomsAppControllerPermissionTest extends NetCommonsControllerTestCase {
+class RoomsAppControllerPermissionTest extends RoomsControllerTestCase {
 
 /**
  * Fixtures
