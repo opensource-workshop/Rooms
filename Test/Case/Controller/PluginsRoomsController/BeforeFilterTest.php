@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
+App::uses('RoomsControllerTestCase', 'Rooms.TestSuite');
 
 /**
  * PluginsRoomsController::beforeFilter()のテスト
@@ -17,22 +17,14 @@ App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Controller\PluginsRoomsController
  */
-class PluginsRoomsControllerBeforeFilterTest extends NetCommonsControllerTestCase {
+class PluginsRoomsControllerBeforeFilterTest extends RoomsControllerTestCase {
 
 /**
  * Fixtures
  *
  * @var array
  */
-	public $fixtures = array(
-		'plugin.rooms.roles_room',
-		'plugin.rooms.roles_rooms_user',
-		'plugin.rooms.room',
-		'plugin.rooms.room_role',
-		'plugin.rooms.room_role_permission',
-		'plugin.rooms.rooms_language4test',
-		'plugin.rooms.space',
-	);
+	public $fixtures = array();
 
 /**
  * Plugin name

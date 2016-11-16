@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
+App::uses('RoomsControllerTestCase', 'Rooms.TestSuite');
 
 /**
  * RoomsRolesUsersController::search_conditions()のテスト
@@ -17,27 +17,14 @@ App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Controller\RoomsRolesUsersController
  */
-class RoomsRolesUsersControllerSearchConditionsTest extends NetCommonsControllerTestCase {
+class RoomsRolesUsersControllerSearchConditionsTest extends RoomsControllerTestCase {
 
 /**
  * Fixtures
  *
  * @var array
  */
-	public $fixtures = array(
-		'plugin.groups.group',
-		'plugin.rooms.roles_room4test',
-		'plugin.rooms.roles_rooms_user4test',
-		'plugin.rooms.room4test',
-		'plugin.rooms.room_role',
-		'plugin.rooms.room_role_permission',
-		'plugin.rooms.rooms_language4test',
-		'plugin.rooms.space',
-		'plugin.user_attributes.user_attribute4edit',
-		'plugin.user_attributes.user_attribute_choice4edit',
-		'plugin.user_attributes.user_attribute_layout',
-		'plugin.user_attributes.user_attribute_setting4edit',
-	);
+	public $fixtures = array();
 
 /**
  * Plugin name

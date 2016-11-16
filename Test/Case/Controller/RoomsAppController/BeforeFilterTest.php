@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('NetCommonsControllerTestCase', 'NetCommons.TestSuite');
+App::uses('RoomsControllerTestCase', 'Rooms.TestSuite');
 App::uses('UserRole', 'UserRoles.Model');
 
 /**
@@ -18,17 +18,14 @@ App::uses('UserRole', 'UserRoles.Model');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Controller\RoomsAppController
  */
-class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
+class RoomsAppControllerBeforeFilterTest extends RoomsControllerTestCase {
 
 /**
  * Fixtures
  *
  * @var array
  */
-	public $fixtures = array(
-		'plugin.rooms.rooms_language4test',
-		'plugin.rooms.plugins_role4test',
-	);
+	public $fixtures = array();
 
 /**
  * Plugin name
@@ -184,7 +181,7 @@ class RoomsAppControllerBeforeFilterTest extends NetCommonsControllerTestCase {
 			$this->assertEquals($roomId, $this->vars['activeRoomId']);
 
 			if ($parentRoomId !== '1') {
-				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array());
+				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('9'));
 				$this->__assertRoom($this->vars['parentRooms'][0], '1', '1', null, array('2', '3', '4'));
 				$this->__assertRoom(
 					$this->vars['parentRooms'][1], $spaceId, $parentRoomId, '1', array('5', '6')
