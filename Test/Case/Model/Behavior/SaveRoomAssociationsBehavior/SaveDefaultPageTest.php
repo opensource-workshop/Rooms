@@ -126,14 +126,15 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
  * @return void
  */
 	private function __acualPage($roomId, $pageId) {
+		$permalink = Security::hash('Page', 'md5');
 		$expected = array('Page' => array(
 			'id' => $pageId,
 			'room_id' => $roomId,
 			'parent_id' => '1',
 			'lft' => '6',
 			'rght' => '7',
-			'permalink' => OriginalKeyBehavior::generateKey('Page', $this->TestModel->useDbConfig),
-			'slug' => OriginalKeyBehavior::generateKey('Page', $this->TestModel->useDbConfig),
+			'permalink' => $permalink,
+			'slug' => $permalink,
 		));
 
 		$result = $this->TestModel->Page->find('first', array(

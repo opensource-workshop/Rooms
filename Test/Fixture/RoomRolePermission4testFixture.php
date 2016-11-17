@@ -125,6 +125,16 @@ class RoomRolePermission4testFixture extends RoomRolePermissionFixture {
 		//--ゲスト
 		array('id' => '73', 'roles_room_id' => '14', 'permission' => 'content_publishable', 'value' => '0'),
 		array('id' => '74', 'roles_room_id' => '14', 'permission' => 'html_not_limited', 'value' => '0'),
+		//プライベートスペース
+		//--ルーム管理者
+		array('id' => '75', 'roles_room_id' => '20', 'permission' => 'block_editable', 'value' => '1'),
+		array('id' => '76', 'roles_room_id' => '20', 'permission' => 'content_comment_creatable', 'value' => '1'),
+		array('id' => '77', 'roles_room_id' => '20', 'permission' => 'content_comment_editable', 'value' => '1'),
+		array('id' => '78', 'roles_room_id' => '20', 'permission' => 'content_comment_publishable', 'value' => '1'),
+		array('id' => '79', 'roles_room_id' => '20', 'permission' => 'content_creatable', 'value' => '1'),
+		array('id' => '80', 'roles_room_id' => '20', 'permission' => 'content_editable', 'value' => '1'),
+		array('id' => '81', 'roles_room_id' => '20', 'permission' => 'content_publishable', 'value' => '1'),
+		array('id' => '82', 'roles_room_id' => '20', 'permission' => 'content_readable', 'value' => '1'),
 	);
 
 }

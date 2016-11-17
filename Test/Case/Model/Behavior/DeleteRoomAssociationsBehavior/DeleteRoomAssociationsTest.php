@@ -76,15 +76,15 @@ class DeleteRoomAssociationsBehaviorDeleteRoomAssociationsTest extends NetCommon
  */
 	public function testDeleteRoomAssociations($roomId) {
 		//事前チェック
-		$this->__assertTable('RoomRolePermission', 21, array('id', 'roles_room_id'));
-		$this->__assertTable('PluginsRoom', 6, array('id', 'room_id'));
+		$this->__assertTable('RoomRolePermission', 29, array('id', 'roles_room_id'));
+		$this->__assertTable('PluginsRoom', 7, array('id', 'room_id'));
 
 		//テスト実施
 		$result = $this->TestModel->deleteRoomAssociations($roomId);
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__assertTable('RoomRolePermission', 10, array('id', 'roles_room_id'), array(
+		$this->__assertTable('RoomRolePermission', 18, array('id', 'roles_room_id'), array(
 			array('RoomRolePermission' => array('id' => '2', 'roles_room_id' => '1')),
 			array('RoomRolePermission' => array('id' => '7', 'roles_room_id' => '1')),
 			array('RoomRolePermission' => array('id' => '13', 'roles_room_id' => '2')),
@@ -95,13 +95,22 @@ class DeleteRoomAssociationsBehaviorDeleteRoomAssociationsTest extends NetCommon
 			array('RoomRolePermission' => array('id' => '40', 'roles_room_id' => '4')),
 			array('RoomRolePermission' => array('id' => '46', 'roles_room_id' => '5')),
 			array('RoomRolePermission' => array('id' => '51', 'roles_room_id' => '5')),
+			array('RoomRolePermission' => array('id' => '75', 'roles_room_id' => '20')),
+			array('RoomRolePermission' => array('id' => '76', 'roles_room_id' => '20')),
+			array('RoomRolePermission' => array('id' => '77', 'roles_room_id' => '20')),
+			array('RoomRolePermission' => array('id' => '78', 'roles_room_id' => '20')),
+			array('RoomRolePermission' => array('id' => '79', 'roles_room_id' => '20')),
+			array('RoomRolePermission' => array('id' => '80', 'roles_room_id' => '20')),
+			array('RoomRolePermission' => array('id' => '81', 'roles_room_id' => '20')),
+			array('RoomRolePermission' => array('id' => '82', 'roles_room_id' => '20')),
 		));
 
-		$this->__assertTable('PluginsRoom', 4, array('id', 'room_id'), array(
+		$this->__assertTable('PluginsRoom', 5, array('id', 'room_id'), array(
 			array('PluginsRoom' => array('id' => '1', 'room_id' => '1')),
 			array('PluginsRoom' => array('id' => '2', 'room_id' => '1')),
 			array('PluginsRoom' => array('id' => '3', 'room_id' => '2')),
 			array('PluginsRoom' => array('id' => '4', 'room_id' => '2')),
+			array('PluginsRoom' => array('id' => '7', 'room_id' => '3')),
 		));
 	}
 
