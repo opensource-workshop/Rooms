@@ -203,35 +203,40 @@ class Space extends RoomsAppModel {
 	public static function getRoomIdRoot($spaceId, $spaceModel = 'Space') {
 		$Space = ClassRegistry::init('Rooms.' . $spaceModel, true);
 		if ($spaceModel === 'Space') {
-			if (! self::$spaceIds) {
+			if (! Hash::get(self::$spaceIds, 'Space')) {
 				$spaces = $Space->find('list', array(
 					'recursive' => -1,
 					'fields' => array('id', 'room_id_root'),
 				));
 				if ($spaces) {
-					self::$spaceIds[] = $spaces;
+					self::$spaceIds['Space'] = $spaces;
 				}
 			}
-			$spaceIds = self::$spaceIds;
+			$spaceIds = Hash::get(self::$spaceIds, 'Space', array());
 		} else {
-			$spaceIds = array();
-			$result = $Space->find('list', array(
-				'recursive' => -1,
-				'fields' => array('space_id', 'id'),
-				'conditions' => array(
-					'space_id' => self::WHOLE_SITE_ID
-				),
-			));
-			$spaceIds = Hash::merge($spaceIds, $result);
+			if (! Hash::get(self::$spaceIds, 'Room')) {
+				$spaceIds = array();
+				$result = $Space->find('list', array(
+					'recursive' => -1,
+					'fields' => array('space_id', 'id'),
+					'conditions' => array(
+						'space_id' => self::WHOLE_SITE_ID
+					),
+				));
+				$spaceIds = Hash::merge($spaceIds, $result);
 
-			$result = $Space->find('list', array(
-				'recursive' => -1,
-				'fields' => array('space_id', 'id'),
-				'conditions' => array(
-					'parent_id' => $spaceIds[self::WHOLE_SITE_ID]
-				),
-			));
-			$spaceIds = Hash::merge($spaceIds, $result);
+				$result = $Space->find('list', array(
+					'recursive' => -1,
+					'fields' => array('space_id', 'id'),
+					'conditions' => array(
+						'parent_id' => $spaceIds[self::WHOLE_SITE_ID]
+					),
+				));
+				$spaceIds = Hash::merge($spaceIds, $result);
+
+				self::$spaceIds['Room'] = $spaceIds;
+			}
+			$spaceIds = Hash::get(self::$spaceIds, 'Room', array());
 		}
 
 		return (string)Hash::get($spaceIds, $spaceId, '0');
