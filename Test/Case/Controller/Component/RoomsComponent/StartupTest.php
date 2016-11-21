@@ -123,7 +123,7 @@ class RoomsComponentStartupTest extends NetCommonsControllerTestCase {
 		$this->assertCount(3, $this->vars['spaces']);
 		$this->__assertSpace($this->vars['spaces'], '2', '2', 'public_space', Space::PUBLIC_SPACE_ID);
 		$this->__assertSpace($this->vars['spaces'], '3', '3', 'private_space', Space::PRIVATE_SPACE_ID);
-		$this->__assertSpace($this->vars['spaces'], '4', '4', 'community_space', Space::ROOM_SPACE_ID);
+		$this->__assertSpace($this->vars['spaces'], '4', '4', 'community_space', Space::COMMUNITY_SPACE_ID);
 
 		// * Roomsヘルパーのチェック
 		$this->assertTrue(in_array('Rooms.Rooms', $this->controller->helpers, true));

@@ -60,24 +60,24 @@ class UpdateRolesRoomsUser extends NetCommonsMigration {
  * @return bool Should process continue
  */
 	public function after($direction) {
-		if ($direction === 'down') {
-			return true;
-		}
-
-		$RolesRoomsUser = ClassRegistry::init('Rooms.RolesRoomsUser');
-
-		$spaceRolesRoomIds = $RolesRoomsUser->getSpaceRolesRoomsUsers();
-		$rolesRoomsUsers = $RolesRoomsUser->find('all', array(
-			'recursive' => -1,
-			'conditions' => array(
-				'room_id' => Room::PUBLIC_PARENT_ID
-			),
-		));
-		foreach ($rolesRoomsUsers as $data) {
-			if (! $RolesRoomsUser->saveSpaceRoomForRooms($data['RolesRoomsUser'], $spaceRolesRoomIds)) {
-				return false;
-			}
-		}
+//		if ($direction === 'down') {
+//			return true;
+//		}
+//
+//		$RolesRoomsUser = ClassRegistry::init('Rooms.RolesRoomsUser');
+//
+//		$spaceRolesRoomIds = $RolesRoomsUser->getSpaceRolesRoomsUsers();
+//		$rolesRoomsUsers = $RolesRoomsUser->find('all', array(
+//			'recursive' => -1,
+//			'conditions' => array(
+//				'room_id' => Space::getRoomIdRoot(Space::PUBLIC_SPACE_ID)
+//			),
+//		));
+//		foreach ($rolesRoomsUsers as $data) {
+//			if (! $RolesRoomsUser->saveSpaceRoomForRooms($data['RolesRoomsUser'], $spaceRolesRoomIds)) {
+//				return false;
+//			}
+//		}
 
 		return true;
 	}

@@ -8,6 +8,8 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
+App::uses('Space', 'Rooms.Model');
 ?>
 
 <?php
@@ -48,7 +50,7 @@
 	<?php echo $this->NetCommonsForm->end(); ?>
 </div>
 
-<?php if ($this->data['Room']['parent_id'] !== Room::WHOLE_SITE_PARENT_ID &&
+<?php if ($this->data['Room']['parent_id'] !== Space::getRoomIdRoot(Space::WHOLE_SITE_ID) &&
 		$this->request->params['action'] === 'edit') : ?>
 	<?php echo $this->element('Rooms/delete_form'); ?>
 <?php endif;
