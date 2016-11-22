@@ -494,7 +494,7 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 			'conditions' => array(
 				'OR' => array(
 					'default_participation' => true,
-					'parent_id' => Space::getRoomIdRoot(Space::WHOLE_SITE_ID)
+					'parent_id' => Space::getRoomIdRoot(Space::WHOLE_SITE_ID, 'Room')
 				)
 			),
 		));

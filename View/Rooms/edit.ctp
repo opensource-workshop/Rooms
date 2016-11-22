@@ -50,7 +50,7 @@ App::uses('Space', 'Rooms.Model');
 	<?php echo $this->NetCommonsForm->end(); ?>
 </div>
 
-<?php if ($this->data['Room']['parent_id'] !== Space::getRoomIdRoot(Space::WHOLE_SITE_ID) &&
+<?php if ($this->data['Room']['parent_id'] !== Space::getRoomIdRoot(Space::WHOLE_SITE_ID, 'Room') &&
 		$this->request->params['action'] === 'edit') : ?>
 	<?php echo $this->element('Rooms/delete_form'); ?>
 <?php endif;

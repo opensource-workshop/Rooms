@@ -78,12 +78,12 @@ class SpaceValidateTest extends NetCommonsValidateTest {
 				'message' => __d('net_commons', 'Invalid request.')),
 			array('data' => $data, 'field' => 'rght', 'value' => 'a',
 				'message' => __d('net_commons', 'Invalid request.')),
-			array('data' => $data, 'field' => 'type', 'value' => null,
-				'message' => __d('net_commons', 'Invalid request.')),
-			array('data' => $data, 'field' => 'type', 'value' => 'a',
-				'message' => __d('net_commons', 'Invalid request.')),
-			array('data' => $data, 'field' => 'type', 'value' => '99',
-				'message' => __d('net_commons', 'Invalid request.')),
+			//array('data' => $data, 'field' => 'type', 'value' => null,
+			//	'message' => __d('net_commons', 'Invalid request.')),
+			//array('data' => $data, 'field' => 'type', 'value' => 'a',
+			//	'message' => __d('net_commons', 'Invalid request.')),
+			//array('data' => $data, 'field' => 'type', 'value' => '99',
+			//	'message' => __d('net_commons', 'Invalid request.')),
 		);
 	}
 
