@@ -15,6 +15,7 @@ App::uses('NetCommonsMigration', 'NetCommons.Config/Migration');
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Config\Migration
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  */
 class SwitchBoxes extends NetCommonsMigration {
 
@@ -92,9 +93,15 @@ class SwitchBoxes extends NetCommonsMigration {
  *
  * @param string $direction Direction of migration process (up or down)
  * @return bool Should process continue
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
  */
 	public function before($direction) {
 		$this->Room = ClassRegistry::init('Rooms.Room');
+		$this->RolesRoom = ClassRegistry::init('Rooms.RolesRoom');
+		$this->Space = ClassRegistry::init('Rooms.Space');
+		$this->RoomsLanguage = ClassRegistry::init('Rooms.RoomsLanguage');
+		$this->RolesRoomsUser = ClassRegistry::init('Rooms.RolesRoomsUser');
+
 		if ($direction === 'down') {
 			$this->wholeSiteRoom = $this->Room->find('first', array(
 				'recursive' => -1,
@@ -127,17 +134,6 @@ class SwitchBoxes extends NetCommonsMigration {
 			return false;
 		}
 
-		//RolesRoomテーブルの関連テーブルの登録
-		if ($direction === 'down') {
-			if (! $this->__deleteRolesRoomAssociations()) {
-				return false;
-			}
-		} else {
-			if (! $this->__saveRolesRoomAssociations()) {
-				return false;
-			}
-		}
-
 		return true;
 	}
 
@@ -149,6 +145,17 @@ class SwitchBoxes extends NetCommonsMigration {
  * @throws InternalErrorException
  */
 	public function after($direction) {
+		//RolesRoomテーブルの関連テーブルの登録
+		if ($direction === 'down') {
+			if (! $this->__deleteRolesRoomAssociations()) {
+				return false;
+			}
+		} else {
+			if (! $this->__saveRolesRoomAssociations()) {
+				return false;
+			}
+		}
+
 		if (! $this->Room->recover()) {
 			return false;
 		}
@@ -177,19 +184,16 @@ class SwitchBoxes extends NetCommonsMigration {
 /**
  * サイト全体のルームIDを$this->recordsにセットする
  *
- * @param int $roomId ルームID
  * @return void
  */
 	private function __setWholeSiteRolesRoomId() {
-		$RolesRoom = $this->generateModel('RolesRoom');
-
-		$this->wholeSiteRolesRooms = $RolesRoom->find('list', array(
+		$this->wholeSiteRolesRooms = $this->RolesRoom->find('list', array(
 			'recursive' => -1,
 			'fields' => array('role_key', 'id'),
 			'conditions' => array('room_id' => $this->wholeSiteRoom['Room']['id']),
 		));
 
-		$this->_publicRolesRooms = $RolesRoom->find('list', array(
+		$this->_publicRolesRooms = $this->RolesRoom->find('list', array(
 			'recursive' => -1,
 			'fields' => array('role_key', 'id'),
 			'conditions' => array('room_id' => '1'),
@@ -223,10 +227,11 @@ class SwitchBoxes extends NetCommonsMigration {
 			}
 
 			//関連データの削除
-			foreach ($this->records as $modelName => $records) {
-				$model = $this->generateModel($modelName);
-				if ($model->hasField('room_id')) {
-					if (! $model->deleteAll(array('room_id' => $this->wholeSiteRoom['Room']['id']), false)) {
+			$models = array_keys($this->records);
+			foreach ($models as $modelName) {
+				if ($this->$modelName->hasField('room_id')) {
+					$conditions = array('room_id' => $this->wholeSiteRoom['Room']['id']);
+					if (! $this->$modelName->deleteAll($conditions, false)) {
 						return false;
 					}
 				}
@@ -267,17 +272,15 @@ class SwitchBoxes extends NetCommonsMigration {
  * @return bool
  */
 	private function __saveRoomsLanguage($direction) {
-		$RoomsLanguage = $this->generateModel('RoomsLanguage');
-
 		if ($direction === 'down') {
 			$conditions = array(
 				'RoomsLanguage.room_id' => $this->wholeSiteRoom['Room']['id']
 			);
-			if (! $RoomsLanguage->deleteAll($conditions, false)) {
+			if (! $this->RoomsLanguage->deleteAll($conditions, false)) {
 				return false;
 			}
 		} else {
-			if (! $RoomsLanguage->saveMany($this->records['RoomsLanguage'])) {
+			if (! $this->RoomsLanguage->saveMany($this->records['RoomsLanguage'])) {
 				return false;
 			}
 		}
@@ -289,17 +292,14 @@ class SwitchBoxes extends NetCommonsMigration {
  * RolesRoomテーブルの登録
  *
  * @param string $direction Migration処理 (up or down)
- * @param array $models 更新するモデルリスト
  * @return bool
  */
 	private function __saveRolesRoom($direction) {
-		$RolesRoom = $this->generateModel('RolesRoom');
-
 		if ($direction === 'down') {
 			$conditions = array(
 				'RolesRoom.room_id' => $this->wholeSiteRoom['Room']['id']
 			);
-			if (! $RolesRoom->deleteAll($conditions, false)) {
+			if (! $this->RolesRoom->deleteAll($conditions, false)) {
 				return false;
 			}
 			foreach ($this->records['RolesRoom'] as $record) {
@@ -310,16 +310,16 @@ class SwitchBoxes extends NetCommonsMigration {
 					'RolesRoom.room_id' => $record['room_id'],
 					'RolesRoom.role_key' => $record['role_key'],
 				);
-				if (! $RolesRoom->deleteAll($conditions, false)) {
+				if (! $this->RolesRoom->deleteAll($conditions, false)) {
 					return false;
 				}
 			}
 		} else {
-			if (! $RolesRoom->saveMany($this->records['RolesRoom'])) {
+			if (! $this->RolesRoom->saveMany($this->records['RolesRoom'])) {
 				return false;
 			}
-			$this->__setWholeSiteRolesRoomId();
 		}
+		$this->__setWholeSiteRolesRoomId();
 
 		return true;
 	}
@@ -328,18 +328,15 @@ class SwitchBoxes extends NetCommonsMigration {
  * Spaceテーブルの登録
  *
  * @param string $direction Migration処理 (up or down)
- * @param array $models 更新するモデルリスト
  * @return bool
  */
 	private function __saveSpace($direction) {
-		$Space = $this->generateModel('Space');
-
 		if ($direction === 'down') {
 			$update = array(
 				'Space.room_id_root' => null
 			);
 			$conditions = array();
-			if (! $Space->updateAll($update, $conditions)) {
+			if (! $this->Space->updateAll($update, $conditions)) {
 				return false;
 			}
 		} else {
@@ -356,7 +353,7 @@ class SwitchBoxes extends NetCommonsMigration {
 				$conditions = array(
 					'Space.id' => $spaceId,
 				);
-				if (! $Space->updateAll($update, $conditions)) {
+				if (! $this->Space->updateAll($update, $conditions)) {
 					return false;
 				}
 			}
@@ -371,7 +368,7 @@ class SwitchBoxes extends NetCommonsMigration {
  * @return bool
  */
 	private function __saveRolesRoomAssociations() {
-		$models = array('RolesRoomsUser', 'RoomRolePermission');
+		$models = array('RoomRolePermission');
 
 		$wholeSiteRoomId = $this->wholeSiteRoom['Room']['id'];
 		foreach ($models as $modelName) {
@@ -401,6 +398,21 @@ class SwitchBoxes extends NetCommonsMigration {
 			}
 		}
 
+		$spaceRolesRoomIds = $this->RolesRoomsUser->getSpaceRolesRoomsUsers();
+
+		$rolesRoomsUsers = $this->RolesRoomsUser->find('all', array(
+			'recursive' => -1,
+			'conditions' => array(
+				'room_id' => Space::getRoomIdRoot(Space::PUBLIC_SPACE_ID, 'Room')
+			),
+		));
+
+		foreach ($rolesRoomsUsers as $data) {
+			if (! $this->RolesRoomsUser->saveSpaceRoomForRooms($data['RolesRoomsUser'], $spaceRolesRoomIds)) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 
@@ -409,7 +421,7 @@ class SwitchBoxes extends NetCommonsMigration {
  *
  * @return bool
  */
-	private function __deleteRolesRoomAssociations($models, $rolesRoomIds) {
+	private function __deleteRolesRoomAssociations() {
 		$models = array('RolesRoomsUser', 'RoomRolePermission');
 
 		$rolesRoomIds = array_values($this->wholeSiteRolesRooms);
@@ -417,7 +429,7 @@ class SwitchBoxes extends NetCommonsMigration {
 			$model = $this->generateModel($modelName);
 
 			if (! $model->deleteAll(array('roles_room_id' => $rolesRoomIds), false)) {
-				throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
+				return false;
 			}
 		}
 

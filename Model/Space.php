@@ -198,7 +198,7 @@ class Space extends RoomsAppModel {
  *
  * @param int $spaceId スペースID
  * @param string $spaceModel モデル名(Migrationで使用)
- * @param int
+ * @return int
  */
 	public static function getRoomIdRoot($spaceId, $spaceModel = 'Space') {
 		$Space = ClassRegistry::init('Rooms.' . $spaceModel, true);
