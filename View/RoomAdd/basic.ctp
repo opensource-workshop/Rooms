@@ -37,7 +37,7 @@
 
 	<div class="panel-footer text-center">
 		<?php
-			if (Hash::get($this->request->data, 'Room.id') !== Room::ROOM_PARENT_ID) {
+			if (Hash::get($this->request->data, 'Room.id') !== Space::getRoomIdRoot(Space::COMMUNITY_SPACE_ID)) {
 				echo $this->Wizard->buttons(RoomsAppController::WIZARD_ROOMS);
 			} else {
 				echo $this->Button->cancelAndSave(
