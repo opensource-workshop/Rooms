@@ -163,6 +163,22 @@ class Room extends RoomsAppModel {
 	}
 
 /**
+ * スペースのルームIDのリストを取得
+ *
+ * @return array
+ */
+	public static function getSpaceRooms() {
+		if (! self::$spaceRooms) {
+			self::$spaceRooms = array(
+				Space::getRoomIdRoot(Space::PUBLIC_SPACE_ID, 'Room'),
+				Space::getRoomIdRoot(Space::PRIVATE_SPACE_ID, 'Room'),
+				Space::getRoomIdRoot(Space::COMMUNITY_SPACE_ID, 'Room'),
+			);
+		}
+		return self::$spaceRooms;
+	}
+
+/**
  * Called during validation operations, before validation. Please note that custom
  * validation rules can be defined in $validate.
  *
