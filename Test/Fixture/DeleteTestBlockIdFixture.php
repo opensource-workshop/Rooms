@@ -41,11 +41,11 @@ class DeleteTestBlockIdFixture extends CakeTestFixture {
  * @var array
  */
 	public $records = array(
-		array('id' => '1', 'block_id' => '1'),
+		//array('id' => '1', 'block_id' => '1'),
 		array('id' => '2', 'block_id' => '2'),
-		array('id' => '3', 'block_id' => '3'),
+		//array('id' => '3', 'block_id' => '3'),
 		array('id' => '4', 'block_id' => '4'),
-		array('id' => '5', 'block_id' => '5'),
+		//array('id' => '5', 'block_id' => '5'),
 		array('id' => '6', 'block_id' => '6'),
 	);
 

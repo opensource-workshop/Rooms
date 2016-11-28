@@ -41,11 +41,11 @@ class DeleteTestFrameIdFixture extends CakeTestFixture {
  * @var array
  */
 	public $records = array(
-		array('id' => '1', 'frame_id' => '1'),
+		//array('id' => '1', 'frame_id' => '1'),
 		array('id' => '2', 'frame_id' => '2'),
-		array('id' => '3', 'frame_id' => '3'),
+		//array('id' => '3', 'frame_id' => '3'),
 		array('id' => '4', 'frame_id' => '4'),
-		array('id' => '5', 'frame_id' => '5'),
+		//array('id' => '5', 'frame_id' => '5'),
 		array('id' => '6', 'frame_id' => '6'),
 	);
 

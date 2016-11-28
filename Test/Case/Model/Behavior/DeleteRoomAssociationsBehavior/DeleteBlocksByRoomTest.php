@@ -26,6 +26,7 @@ class DeleteRoomAssociationsBehaviorDeleteBlocksByRoomTest extends NetCommonsMod
  */
 	public $fixtures = array(
 		'plugin.rooms.block4delete',
+		'plugin.rooms.blocks_language4delete',
 		'plugin.rooms.delete_test_block_id',
 		'plugin.rooms.delete_test_block_key',
 	);
@@ -76,7 +77,7 @@ class DeleteRoomAssociationsBehaviorDeleteBlocksByRoomTest extends NetCommonsMod
  */
 	public function testDeleteBlocksByRoom($roomId) {
 		//事前チェック
-		$this->__assertTable('DeleteTestBlockId', 6, array('id', 'block_id'));
+		$this->__assertTable('DeleteTestBlockId', 3, array('id', 'block_id'));
 		$this->__assertTable('DeleteTestBlockKey', 3, array('id', 'block_key'));
 
 		//テスト実施
@@ -84,8 +85,7 @@ class DeleteRoomAssociationsBehaviorDeleteBlocksByRoomTest extends NetCommonsMod
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__assertTable('DeleteTestBlockId', 2, array('id', 'block_id'), array(
-			array('DeleteTestBlockId' => array('id' => '1', 'block_id' => '1')),
+			$this->__assertTable('DeleteTestBlockId', 1, array('id', 'block_id'), array(
 			array('DeleteTestBlockId' => array('id' => '2', 'block_id' => '2')),
 		));
 		$this->__assertTable('DeleteTestBlockKey', 1, array('id', 'block_key'), array(
