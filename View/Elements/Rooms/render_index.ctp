@@ -36,7 +36,7 @@ if (! isset($tableClass)) {
 
 				if ($roomTreeList) {
 					foreach ($roomTreeList as $roomId => $tree) {
-						if (Hash::get($rooms, $roomId) && ! in_array((string)$roomId, Room::$spaceRooms, true)) {
+						if (Hash::get($rooms, $roomId) && ! in_array((string)$roomId, Room::getSpaceRooms(), true)) {
 							$nest = substr_count($tree, Room::$treeParser);
 							echo $this->element($dataElementPath, array(
 								'room' => $rooms[$roomId],
