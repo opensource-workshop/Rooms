@@ -154,12 +154,6 @@ class Room extends RoomsAppModel {
 	public function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct($id, $table, $ds);
 		self::$treeParser = chr(9);
-
-		self::$spaceRooms = array(
-			Space::getRoomIdRoot(Space::PUBLIC_SPACE_ID),
-			Space::getRoomIdRoot(Space::PRIVATE_SPACE_ID),
-			Space::getRoomIdRoot(Space::COMMUNITY_SPACE_ID),
-		);
 	}
 
 /**
