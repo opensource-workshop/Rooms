@@ -13,66 +13,227 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Rooms/Model/RoomsLanguage.php:90
-#: Rooms/View/Elements/Rooms/edit_form.ctp:29
+#: Calendars/View/Elements/CalendarBlockRolePermissions/permission_table_header.ctp:15
+#: Rooms/Model/RoomsLanguage.php:87
+#: Rooms/Test/Case/Controller/RoomsController/EditTest.php:348
+#: Rooms/Test/Case/Model/RoomsLanguage/ValidateTest.php:84;86
+#: Rooms/Test/Case/View/Elements/Rooms/RenderHeaderTest.php:64
+#: Rooms/View/Elements/Rooms/edit_form.ctp:23
+#: Rooms/View/Elements/Rooms/render_header.ctp:15
+#: Rooms/View/Elements/Rooms/view_room.ctp:27
+#: Users/View/Elements/Users/view_rooms_header.ctp:15
 msgid "Room name"
 msgstr ""
 
-#: Rooms/Model/Behavior/SaveRoomAssociationsBehavior.php:260
-msgid "Top"
+#: Rooms/Test/Case/View/Elements/Rooms/RenderHeaderTest.php:65
+#: Rooms/View/Elements/Rooms/render_header.ctp:20
+msgid "Created user"
 msgstr ""
 
-#: Rooms/View/Elements/room_setting_tabs.ctp:28
-#: Rooms/View/Elements/space_room_setting_tabs.ctp:17
-msgid "General setting"
+#: Rooms/Test/Case/View/Elements/Rooms/RenderHeaderTest.php:66
+#: Rooms/View/Elements/Rooms/render_header.ctp:23
+msgid "Members"
 msgstr ""
 
-#: Rooms/View/Elements/room_setting_tabs.ctp:32
-msgid "Edit the members to join"
+#: Rooms/Test/Case/View/Elements/Rooms/RenderRoomIndexTest.php:95
+#: Rooms/View/Elements/Rooms/render_room_index.ctp:64
+msgid "Sub room"
 msgstr ""
 
-#: Rooms/View/Elements/room_setting_tabs.ctp:37
-#: Rooms/View/Elements/space_room_setting_tabs.ctp:23
-msgid "Select the plugins to join"
+#: Rooms/Test/Case/View/Helper/RoomsFormHelper/ChangeStatusTest.php:80
+#: Rooms/Test/Case/View/Helper/RoomsHelper/StatusLabelTest.php:90
+#: Rooms/View/Elements/Rooms/edit_form.ctp:91
+#: Rooms/View/Elements/Rooms/view_room.ctp:81
+#: Rooms/View/Helper/RoomsFormHelper.php:218
+#: Rooms/View/Helper/RoomsHelper.php:245
+msgid "Open"
 msgstr ""
 
-#: Rooms/View/Elements/subtitle.ctp:24
-msgid "Add new room"
-msgstr ""
-
-#: Rooms/View/Elements/Rooms/delete_form.ctp:25;33
-msgid "Room"
-msgstr ""
-
-#: Rooms/View/Elements/Rooms/edit_form.ctp:57
-msgid "Open for all members"
-msgstr ""
-
-#: Rooms/View/Elements/Rooms/edit_form.ctp:64
-msgid "Default room role"
-msgstr ""
-
-#: Rooms/View/Elements/Rooms/edit_form.ctp:71
-msgid "Authority to publish approved content"
-msgstr ""
-
-#: Rooms/View/Elements/Rooms/edit_form.ctp:80
-msgid "Do not use the approval"
-msgstr ""
-
-#: Rooms/View/Elements/Rooms/edit_form.ctp:85
-msgid "Allow HTML tags?  e.g.) Javascript or iframe"
-msgstr ""
-
-#: Rooms/View/Elements/Rooms/edit_form.ctp:93
-msgid "Status"
-msgstr ""
-
-#: Rooms/View/Elements/Rooms/edit_form.ctp:97
+#: Rooms/Test/Case/View/Helper/RoomsFormHelper/ChangeStatusTest.php:102
+#: Rooms/Test/Case/View/Helper/RoomsHelper/StatusLabelTest.php:88
+#: Rooms/View/Elements/Rooms/edit_form.ctp:90
+#: Rooms/View/Elements/Rooms/view_room.ctp:80
+#: Rooms/View/Helper/RoomsFormHelper.php:225
+#: Rooms/View/Helper/RoomsHelper.php:239
 msgid "Under maintenance"
 msgstr ""
 
-#: Rooms/View/Elements/Rooms/edit_form.ctp:98
-msgid "Open"
+#: Rooms/Test/Case/View/Helper/RoomsFormHelper/SettingTabsTest.php:181
+#: Rooms/View/Helper/RoomsFormHelper.php:163
+msgid "General setting"
+msgstr ""
+
+#: Rooms/Test/Case/View/Helper/RoomsFormHelper/SettingTabsTest.php:188
+#: Rooms/View/Helper/RoomsFormHelper.php:175
+msgid "Edit the members to join"
+msgstr ""
+
+#: Rooms/Test/Case/View/Helper/RoomsFormHelper/SettingTabsTest.php:199
+#: Rooms/View/Helper/RoomsFormHelper.php:188
+msgid "Select the plugins to join"
+msgstr ""
+
+#: Rooms/Test/Case/View/Helper/RoomsHelper/RoomsNaviTest.php:129
+#: Rooms/View/Helper/RoomsHelper.php:78
+msgid "Add new room"
+msgstr ""
+
+#: Rooms/Test/Case/View/Helper/RoomsHelper/RoomsNaviTest.php:158
+#: Rooms/View/Helper/RoomsHelper.php:80
+msgid "Add new subroom"
+msgstr ""
+
+#: Rooms/Test/Case/View/Helper/RoomsRolesFormHelper/SelectDefaultRoomRolesTest.php:74;96;118;146;171;195
+#: Rooms/View/Elements/Rooms/view_rooms_roles_users.ctp:20
+#: Rooms/View/Elements/RoomsRolesUsers/edit_form.ctp:20;24;56;120;124
+#: Rooms/View/Helper/RoomsRolesFormHelper.php:193
+#: Users/View/Elements/Users/view_rooms_header.ctp:18
+#: Users/View/Helper/UserSearchHelper.php:87
+msgid "Room role"
+msgstr ""
+
+#: Rooms/Test/Case/View/Helper/RoomsRolesFormHelper/SelectDefaultRoomRolesTest.php:169;179
+#: Rooms/View/Elements/RoomsRolesUsers/edit_form.ctp:32
+msgid "Change the user role of the room"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/delete_form.ctp:28;34
+#: Rooms/View/Helper/RoomsFormHelper.php:310
+msgid "Room"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:52
+#: Rooms/View/Elements/Rooms/view_room.ctp:46
+msgid "Default room role"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:66
+#: Rooms/View/Elements/Rooms/view_room.ctp:57
+msgid "Authority to publish approved content"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:67
+#: Rooms/View/Elements/Rooms/view_room.ctp:58
+msgid "Do not use the approval"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:69
+#: Rooms/View/Elements/Rooms/view_room.ctp:60
+msgid "Approved content?"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:70
+msgid "Even if you no need, you can have the approval functions in each block."
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:75
+#: Rooms/View/Elements/Rooms/view_room.ctp:66
+msgid "Allow publish approved content"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:79
+#: Rooms/View/Elements/Rooms/view_room.ctp:71
+msgid "Allow all html tags?  e.g.) Javascript or iframe"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:81
+msgid "If you allow Javascript, etc., there is a possibility that cause of vulnerability"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/edit_form.ctp:88
+#: Rooms/View/Elements/Rooms/view_room.ctp:78
+#: Users/View/Elements/Users/view_rooms_header.ctp:21
+msgid "Status"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/render_index.ctp:53
+#: UserManager/Test/Case/Controller/UserManagerController/ViewTest.php:249
+#: Users/Test/Case/Controller/UsersController/ViewTest.php:276
+msgid "Not found."
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/render_room_index.ctp:49
+#: Rooms/View/Helper/RoomsFormHelper.php:267
+msgid "Edit the members"
+msgstr ""
+
+#: Rooms/View/Elements/Rooms/view_room.ctp:38
+#: Rooms/View/Helper/RoomsFormHelper.php:366;375
+msgid "Open for all members"
+msgstr ""
+
+#: Rooms/View/Elements/RoomsRolesUsers/edit_form.ctp:34
+msgid "Changed to the %s role"
+msgstr ""
+
+#: Rooms/View/Helper/RoomsFormHelper.php:262
+msgid "The setting of %s space also to non-members is published."
+msgstr ""
+
+#: Rooms/View/Helper/RoomsFormHelper.php:278
+msgid "The setting of %s space."
+msgstr ""
+
+#: Rooms/View/Helper/RoomsFormHelper.php:304
+msgid "In %s space, to add a new room."
+msgstr ""
+
+#: Rooms/View/Helper/RoomsFormHelper.php:341
+msgid "The setting of each room was created in a %s space."
+msgstr ""
+
+#: Rooms/View/Helper/RoomsFormHelper.php:369;379
+msgid "Open for %s room's members"
+msgstr ""
+
+#: Rooms/View/Helper/RoomsHelper.php:237
+msgid "(Under maintenance)"
+msgstr ""
+
+#: Rooms/View/Helper/RoomsHelper.php:243
+msgid "(Open)"
+msgstr ""
+
+#: Rooms/View/PluginsRooms/edit.ctp:19
+#: Rooms/View/RoomAdd/plugins_rooms.ctp:19
+msgid "You can set the plugins to be used in the specified room. Press [OK] button to proceed."
+msgstr ""
+
+#: Rooms/View/RoomAdd/basic.ctp:17
+#: Rooms/View/Rooms/edit.ctp:19
+msgid "Input the room name."
+msgstr ""
+
+#: Rooms/View/RoomAdd/rooms_roles_users.ctp:21
+msgid "Please set the role of the members in this room. When selecting the plug-ins to be used, please press the [Next].<br>For you add new participants to the room, please search for the subject from the [Search for the members], and add."
+msgstr ""
+
+#: Rooms/View/RoomAdd/rooms_roles_users.ctp:42
+#: Rooms/View/RoomsRolesUsers/edit.ctp:42
+msgid "Search for the members"
+msgstr ""
+
+#: Rooms/View/Rooms/index.ctp:25
+msgid "You can add, edit and delete rooms in your NetCommons. And select the members to join in the rooms."
+msgstr ""
+
+#: Rooms/View/Rooms/view.ctp:30
+msgid "General information"
+msgstr ""
+
+#: Rooms/View/Rooms/view.ctp:47
+msgid "The members to join"
+msgstr ""
+
+#: Rooms/View/Rooms/view.ctp:57
+msgid "The plugins to join"
+msgstr ""
+
+#: Rooms/View/RoomsRolesUsers/edit.ctp:21
+msgid "Please set the role of the members in this room. After changing the role of the member, it will be registered. <br>For you add new participants to the room, please search for the subject from the [Search for the members], and add."
+msgstr ""
+
+#: Users/View/Elements/Users/view_rooms_header.ctp:24
+msgid "Last access datetime"
 msgstr ""
 
