@@ -63,8 +63,8 @@ NetCommonsApp.controller('RoomsRolesUsers',
         $http.post($scope.actionUrl + '.json',
             $.param({_method: 'PUT', data: postData}),
             {cache: false, headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
-        ).success(function(data) {
-        }).error(function(data, status) {
+        ).then(function(response) {
+        }, function(response) {
         });
       };
 
