@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FrameFixture', 'Frames.Test/Fixture');
+App::uses('BlocksLanguageFixture', 'Blocks.Test/Fixture');
 
 /**
  * 削除用Fixture
@@ -17,21 +17,21 @@ App::uses('FrameFixture', 'Frames.Test/Fixture');
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Fixture
  */
-class Frame4deleteFixture extends FrameFixture {
+class BlocksLanguage4deleteFixture extends BlocksLanguageFixture {
 
 /**
  * Model name
  *
  * @var string
  */
-	public $name = 'Frame';
+	public $name = 'BlocksLanguage';
 
 /**
  * Full Table Name
  *
  * @var string
  */
-	public $table = 'frames';
+	public $table = 'blocks_languages';
 
 /**
  * Records
@@ -42,34 +42,28 @@ class Frame4deleteFixture extends FrameFixture {
 		//削除されないデータ
 		array(
 			'id' => '2',
-			'room_id' => '2',
-			'box_id' => '3',
-			'plugin_key' => 'test',
-			'block_id' => '1',
-			'key' => 'frame_1',
-			'weight' => '1',
-			'is_deleted' => '0',
+			'language_id' => '2',
+			'block_id' => '2',
+			'name' => 'Block name',
+			'is_origin' => true,
+			'is_translation' => false,
 		),
 		//削除対象のデータ
 		array(
 			'id' => '4',
-			'room_id' => '5',
-			'box_id' => '3',
-			'plugin_key' => 'test',
-			'block_id' => '4',
-			'key' => 'delete_frame_1',
-			'weight' => '1',
-			'is_deleted' => '0',
+			'language_id' => '2',
+			'block_id' => '2',
+			'name' => 'Block name 1',
+			'is_origin' => true,
+			'is_translation' => false,
 		),
 		array(
 			'id' => '6',
-			'room_id' => '5',
-			'box_id' => '3',
-			'plugin_key' => 'test',
-			'block_id' => '6',
-			'key' => 'delete_frame_2',
-			'weight' => '1',
-			'is_deleted' => '0',
+			'language_id' => '2',
+			'block_id' => '2',
+			'name' => 'Block name 2',
+			'is_origin' => true,
+			'is_translation' => false,
 		),
 	);
 

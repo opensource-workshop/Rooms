@@ -26,6 +26,7 @@ class DeleteRoomAssociationsBehaviorDeleteFramesByRoomTest extends NetCommonsMod
  */
 	public $fixtures = array(
 		'plugin.rooms.frame4delete',
+		'plugin.rooms.frames_language4delete',
 		'plugin.rooms.delete_test_frame_id',
 		'plugin.rooms.delete_test_frame_key',
 	);
@@ -76,7 +77,7 @@ class DeleteRoomAssociationsBehaviorDeleteFramesByRoomTest extends NetCommonsMod
  */
 	public function testDeleteFramesByRoom($roomId) {
 		//事前チェック
-		$this->__assertTable('DeleteTestFrameId', 6, array('id', 'frame_id'));
+		$this->__assertTable('DeleteTestFrameId', 3, array('id', 'frame_id'));
 		$this->__assertTable('DeleteTestFrameKey', 3, array('id', 'frame_key'));
 
 		//テスト実施
@@ -84,8 +85,7 @@ class DeleteRoomAssociationsBehaviorDeleteFramesByRoomTest extends NetCommonsMod
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__assertTable('DeleteTestFrameId', 2, array('id', 'frame_id'), array(
-			array('DeleteTestFrameId' => array('id' => '1', 'frame_id' => '1')),
+		$this->__assertTable('DeleteTestFrameId', 1, array('id', 'frame_id'), array(
 			array('DeleteTestFrameId' => array('id' => '2', 'frame_id' => '2')),
 		));
 		$this->__assertTable('DeleteTestFrameKey', 1, array('id', 'frame_key'), array(
