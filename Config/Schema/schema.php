@@ -205,6 +205,7 @@ class RoomsSchema extends CakeSchema {
 		'default_setting_action' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'room_disk_size' => array('type' => 'biginteger', 'null' => true, 'default' => null, 'unsigned' => false, 'comment' => '各ルームの容量。NULLの場合、無制限。'),
 		'room_id_root' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
+		'permalink' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
