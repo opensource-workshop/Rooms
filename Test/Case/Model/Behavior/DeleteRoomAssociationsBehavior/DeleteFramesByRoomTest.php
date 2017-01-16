@@ -26,6 +26,7 @@ class DeleteRoomAssociationsBehaviorDeleteFramesByRoomTest extends NetCommonsMod
  */
 	public $fixtures = array(
 		'plugin.rooms.frame4delete',
+		'plugin.rooms.frame_public_language4delete',
 		'plugin.rooms.frames_language4delete',
 		'plugin.rooms.delete_test_frame_id',
 		'plugin.rooms.delete_test_frame_key',
