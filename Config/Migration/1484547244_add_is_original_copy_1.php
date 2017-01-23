@@ -54,6 +54,10 @@ class AddIsOriginalCopy1 extends NetCommonsMigration {
  * @return bool Should process continue
  */
 	public function after($direction) {
+		if (! Configure::read('NetCommons.installed')) {
+			return true;
+		}
+
 		if ($direction === 'up') {
 			$Room = $this->generateModel('Room');
 			$RoomsLanguage = $this->generateModel('RoomsLanguage');
