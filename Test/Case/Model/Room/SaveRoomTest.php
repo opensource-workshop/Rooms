@@ -71,7 +71,6 @@ class RoomSaveRoomTest extends NetCommonsSaveTest {
 			'Room' => array(
 				'id' => $roomId,
 				'space_id' => '2',
-				'root_id' => '1',
 				'parent_id' => '1',
 				'default_participation' => '1',
 				'default_role_key' => 'visitor',
@@ -103,7 +102,6 @@ class RoomSaveRoomTest extends NetCommonsSaveTest {
 			'Room' => array(
 				'id' => $roomId,
 				'space_id' => '2',
-				'root_id' => '1',
 				'parent_id' => '1',
 				'default_participation' => '1',
 				'default_role_key' => 'visitor',

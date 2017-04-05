@@ -88,7 +88,6 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 			'Room' => array(
 				'id' => $roomId,
 				'space_id' => '2',
-				'root_id' => '1',
 				'parent_id' => '2',
 				'default_participation' => '1',
 				'default_role_key' => 'visitor',
@@ -132,7 +131,6 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 			'id' => $roomId,
 			'space_id' => '2',
 			'page_id_top' => $pageIdTop,
-			'root_id' => '1',
 			'parent_id' => '2',
 			'lft' => '9',
 			'rght' => '10',

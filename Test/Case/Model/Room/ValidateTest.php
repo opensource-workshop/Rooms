@@ -82,8 +82,6 @@ class RoomValidateTest extends NetCommonsValidateTest {
 				'message' => __d('net_commons', 'Invalid request.')),
 			array('data' => $data, 'field' => 'page_id_top', 'value' => 'a',
 				'message' => __d('net_commons', 'Invalid request.')),
-			array('data' => $data, 'field' => 'root_id', 'value' => 'a',
-				'message' => __d('net_commons', 'Invalid request.')),
 			array('data' => $data, 'field' => 'parent_id', 'value' => 'a',
 				'message' => __d('net_commons', 'Invalid request.')),
 			array('data' => $data, 'field' => 'lft', 'value' => 'a',
