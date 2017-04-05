@@ -163,7 +163,6 @@ class RoomsControllerEditTest extends RoomsControllerTestCase {
 
 		$this->__assetRequestData($data, 'Room.id');
 		$this->__assetRequestData($data, 'Room.space_id');
-		$this->__assetRequestData($data, 'Room.root_id');
 		$this->__assetRequestData($data, 'Room.parent_id');
 		$this->__assetRequestData($data, 'Room.default_participation');
 		$this->__assetRequestData($data, 'Room.default_role_key');
@@ -195,7 +194,6 @@ class RoomsControllerEditTest extends RoomsControllerTestCase {
 		$this->assertInput('input', '_method', 'PUT', $this->view);
 		$this->assertInput('input', 'data[Room][id]', $roomId, $this->view);
 		$this->assertInput('input', 'data[Room][space_id]', $spaceId, $this->view);
-		$this->assertInput('input', 'data[Room][root_id]', $rootId, $this->view);
 		$this->assertInput('input', 'data[Room][parent_id]', $parentId, $this->view);
 		$this->assertInput('input', 'data[Page][parent_id]', null, $this->view);
 
@@ -251,7 +249,6 @@ class RoomsControllerEditTest extends RoomsControllerTestCase {
 			'Room' => array(
 				'id' => $roomId,
 				'space_id' => $spaceId,
-				'root_id' => $rootId,
 				'parent_id' => $parentId,
 				'default_participation' => '1',
 				'default_role_key' => 'visitor',

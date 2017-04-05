@@ -486,8 +486,10 @@ class SaveRoomAssociationsBehavior extends ModelBehavior {
 		]);
 
 		$result = $model->Room->find('all', array(
-			'recursive' => -1,
-			'conditions' => array('root_id' => null),
+			'recursive' => 0,
+			'conditions' => array(
+				'Room.id = Space.room_id_root'
+			),
 		));
 		$rooms = Hash::combine($result, '{n}.Room.id', '{n}');
 
