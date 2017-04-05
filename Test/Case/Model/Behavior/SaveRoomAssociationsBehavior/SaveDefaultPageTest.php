@@ -10,6 +10,7 @@
  */
 
 App::uses('NetCommonsModelTestCase', 'NetCommons.TestSuite');
+App::uses('Space', 'Rooms.Model');
 
 /**
  * SaveRoomAssociationsBehavior::saveDefaultPage()のテスト
@@ -46,6 +47,8 @@ class SaveRoomAssociationsBehaviorSaveDefaultPageTest extends NetCommonsModelTes
 		//テストプラグインのロード
 		NetCommonsCakeTestCase::loadTestPlugin($this, 'Rooms', 'TestRooms');
 		$this->TestModel = ClassRegistry::init('TestRooms.TestSaveRoomAssociationsBehaviorModel');
+
+		Space::$spaceIds = array();
 	}
 
 /**

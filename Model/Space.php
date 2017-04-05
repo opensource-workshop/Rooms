@@ -258,18 +258,14 @@ class Space extends RoomsAppModel {
  * @return int
  */
 	public static function getPageIdSpace($spaceId) {
-		$Page = ClassRegistry::init('Pages.Page', true);
+		$Space = ClassRegistry::init('Rooms.Space', true);
 
 		if (! Hash::get(self::$spaceIds, 'Page')) {
-			$pages = $Page->find('list', array(
-				'recursive' => 0,
-				'fields' => array('Room.space_id', 'Page.id'),
-				'conditions' => array(
-					//'room_id' => array_values(self::$spaceIds['Space']),
-					'Page.root_id' => null
-				)
+			$spaces = $Space->find('list', array(
+				'recursive' => -1,
+				'fields' => array('id', 'page_id_top'),
 			));
-			self::$spaceIds['Page'] = $pages;
+			self::$spaceIds['Page'] = $spaces;
 		}
 
 		return (string)self::$spaceIds['Page'][$spaceId];

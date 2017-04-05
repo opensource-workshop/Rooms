@@ -33,6 +33,7 @@ class SpaceFixture extends CakeTestFixture {
 			'plugin_key' => null,
 			'default_setting_action' => null,
 			'room_id_root' => '2',
+			'page_id_top' => '1',
 			'permalink' => '',
 			'is_m17n' => false,
 		),
@@ -45,6 +46,7 @@ class SpaceFixture extends CakeTestFixture {
 			'plugin_key' => 'public_space',
 			'default_setting_action' => 'rooms/index/2',
 			'room_id_root' => '2',
+			'page_id_top' => '1',
 			'permalink' => '',
 			'is_m17n' => true,
 		),
@@ -57,6 +59,7 @@ class SpaceFixture extends CakeTestFixture {
 			'plugin_key' => 'private_space',
 			'default_setting_action' => '',
 			'room_id_root' => '3',
+			'page_id_top' => '2',
 			'permalink' => 'private',
 			'is_m17n' => false
 		),
@@ -69,6 +72,7 @@ class SpaceFixture extends CakeTestFixture {
 			'plugin_key' => 'community_space',
 			'default_setting_action' => 'rooms/index/4',
 			'room_id_root' => '4',
+			'page_id_top' => '3',
 			'permalink' => 'community',
 			'is_m17n' => false
 		),
