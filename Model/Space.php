@@ -254,7 +254,6 @@ class Space extends RoomsAppModel {
  * SpaceのページIDを取得
  *
  * @param int $spaceId スペースID
- * @param string $spaceModel モデル名(Migrationで使用)
  * @return int
  */
 	public static function getPageIdSpace($spaceId) {
