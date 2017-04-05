@@ -140,7 +140,6 @@ class RoomsSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'space_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 		'page_id_top' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'root_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 		'parent_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 		'lft' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 		'rght' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
@@ -161,7 +160,6 @@ class RoomsSchema extends CakeSchema {
 			'lft' => array('column' => array('lft', 'id'), 'unique' => 0),
 			'rght' => array('column' => array('rght', 'id'), 'unique' => 0),
 			'default_participation' => array('column' => 'default_participation', 'unique' => 0),
-			'root_id' => array('column' => 'root_id', 'unique' => 0),
 			'parent_id' => array('column' => 'parent_id', 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
