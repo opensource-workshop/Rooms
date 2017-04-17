@@ -273,6 +273,7 @@ class Space extends RoomsAppModel {
 /**
  * スペースデータ取得
  *
+ * @param int $spaceId スペースID
  * @return array スペースデータ配列
  */
 	public function getSpace($spaceId) {
