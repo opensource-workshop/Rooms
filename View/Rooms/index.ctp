@@ -30,18 +30,22 @@ echo $this->NetCommonsHtml->script('/rooms/js/rooms.js');
 	//スペース編集の説明
 	echo $this->RoomsForm->editSpaceDescription($activeSpaceId);
 
-	//ルーム作成の説明
-	echo $this->RoomsForm->addRoomDescription($activeSpaceId);
+	if ($activeSpaceId !== Space::PRIVATE_SPACE_ID) {
+		//ルーム作成の説明
+		echo $this->RoomsForm->addRoomDescription($activeSpaceId);
 
-	//各ルームの説明
-	echo $this->RoomsForm->indexRoomDescription($activeSpaceId);
+		//各ルームの説明
+		echo $this->RoomsForm->indexRoomDescription($activeSpaceId);
+	}
 ?>
 
-<article class="rooms-manager" ng-controller="RoomsController">
-	<?php echo $this->Rooms->roomsRender($activeSpaceId,
-			array(
-				'dataElemen' => 'Rooms.Rooms/render_room_index',
-				'headElement' => 'Rooms.Rooms/render_header'
-			)
-		); ?>
-</article>
+<?php if ($activeSpaceId !== Space::PRIVATE_SPACE_ID) : ?>
+	<article class="rooms-manager" ng-controller="RoomsController">
+		<?php echo $this->Rooms->roomsRender($activeSpaceId,
+				array(
+					'dataElemen' => 'Rooms.Rooms/render_room_index',
+					'headElement' => 'Rooms.Rooms/render_header'
+				)
+			); ?>
+	</article>
+<?php endif;

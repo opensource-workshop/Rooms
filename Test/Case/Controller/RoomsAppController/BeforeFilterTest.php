@@ -182,13 +182,17 @@ class RoomsAppControllerBeforeFilterTest extends RoomsControllerTestCase {
 
 			if ($parentRoomId !== '1') {
 				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('9'));
-				$this->__assertRoom($this->vars['parentRooms'][0], '1', '1', null, array('2', '3', '4'));
+				//サイト全体は含めいないように修正
+				$this->assertFalse(isset($this->vars['parentRooms'][0]));
+				//$this->__assertRoom($this->vars['parentRooms'][0], '1', '1', null, array('2', '3', '4'));
 				$this->__assertRoom(
 					$this->vars['parentRooms'][1], $spaceId, $parentRoomId, '1', array('5', '6')
 				);
 			} else {
 				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('5', '6'));
-				$this->__assertRoom($this->vars['parentRooms'][0], '1', $parentRoomId, null, array('2', '3', '4'));
+				//サイト全体は含めいないように修正
+				$this->assertFalse(isset($this->vars['parentRooms'][0]));
+				//$this->__assertRoom($this->vars['parentRooms'][0], '1', $parentRoomId, null, array('2', '3', '4'));
 			}
 		}
 	}
@@ -275,7 +279,9 @@ class RoomsAppControllerBeforeFilterTest extends RoomsControllerTestCase {
 				$this->__assertRoom($this->vars['parentRooms'][1], $spaceId, $roomId, $parentRoomId, array());
 			} else {
 				$this->__assertRoom($this->vars['room'], $spaceId, $roomId, $parentRoomId, array('5', '6'));
-				$this->__assertRoom($this->vars['parentRooms'][0], '1', $parentRoomId, null, array('2', '3', '4'));
+				//サイト全体は含めいないように修正
+				$this->assertFalse(isset($this->vars['parentRooms'][0]));
+				//$this->__assertRoom($this->vars['parentRooms'][0], '1', $parentRoomId, null, array('2', '3', '4'));
 			}
 		}
 	}

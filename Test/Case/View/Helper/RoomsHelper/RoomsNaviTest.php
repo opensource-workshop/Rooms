@@ -59,6 +59,7 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 
 		$viewVars['spaces'] = $this->Room->getSpaces();
 		$viewVars['parentRooms'] = $this->Room->getPath($roomId, null, 1);
+		unset($viewVars['parentRooms'][0]);
 
 		$requestData = array();
 
@@ -109,11 +110,11 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 	public function testRoomsNaviAddRoom() {
 		//テストデータ生成
 		$activeSpaceId = '4';
-		$roomId = '4';
+		$roomId = '3';
 
 		$viewVars['spaces'] = $this->Room->getSpaces();
 		$viewVars['room'] = $this->Room->findById($roomId);
-		$viewVars['parentRooms'] = $this->Room->getPath($roomId, null, 1);
+		$viewVars['parentRooms'] = null;
 
 		$requestData = array();
 
@@ -143,6 +144,7 @@ class RoomsHelperRoomsNaviTest extends NetCommonsHelperTestCase {
 		$viewVars['spaces'] = $this->Room->getSpaces();
 		$viewVars['room'] = $this->Room->findById($roomId);
 		$viewVars['parentRooms'] = $this->Room->getPath($roomId, null, 1);
+		unset($viewVars['parentRooms'][0]);
 
 		$requestData = array();
 
