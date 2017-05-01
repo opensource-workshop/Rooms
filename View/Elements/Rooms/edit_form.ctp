@@ -32,67 +32,68 @@
 	if (Hash::get($this->request->data, 'Room.page_id_top')) {
 		echo $this->NetCommonsForm->hidden('Room.page_id_top');
 	}
+	echo $this->NetCommonsForm->hidden('Room.default_role_key');
 ?>
 
-<?php
-	$defaultPart = $this->NetCommonsHtml->domId('Room.default_participation');
-	$ngInit = $defaultPart . ' = ' . h((int)Hash::get($this->request->data, 'Room.default_participation')) . '';
-?>
-<div ng-init="<?php echo $ngInit; ?>">
-	<?php echo $this->RoomsForm->inputDefaultParticipation('Room.default_participation', array(
-		'ng-click' => $defaultPart . ' = !' . $defaultPart
-	)); ?>
+<?php if ($activeSpaceId !== Space::PRIVATE_SPACE_ID) : ?>
+	<?php
+		$defaultPart = $this->NetCommonsHtml->domId('Room.default_participation');
+		$ngInit = $defaultPart . ' = ' . h((int)Hash::get($this->request->data, 'Room.default_participation')) . '';
+	?>
+	<div ng-init="<?php echo $ngInit; ?>">
+		<?php echo $this->RoomsForm->inputDefaultParticipation('Room.default_participation', array(
+			'ng-click' => $defaultPart . ' = !' . $defaultPart
+		)); ?>
 
-	<div class="form-group row">
-		<div class="col-xs-offset-1 col-xs-11 room-roles-desc">
-			<?php
-				echo $this->NetCommonsForm->hidden('Room.default_role_key');
-				echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
-					'label' => array(
-						'label' => __d('rooms', 'Default room role') . $this->RoomsRolesForm->roomRolesDescription()
-					),
-					'options' => $defaultRoleOptions,
-					'ng-disabled' => '!' . $defaultPart,
-				));
-			?>
+		<div class="form-group row">
+			<div class="col-xs-offset-1 col-xs-11 room-roles-desc">
+				<?php
+					echo $this->RoomsRolesForm->selectDefaultRoomRoles('Room.default_role_key', array(
+						'label' => array(
+							'label' => __d('rooms', 'Default room role') . $this->RoomsRolesForm->roomRolesDescription()
+						),
+						'options' => $defaultRoleOptions,
+						'ng-disabled' => '!' . $defaultPart,
+					));
+				?>
+			</div>
 		</div>
 	</div>
-</div>
 
-<?php
-	echo $this->NetCommonsForm->input('Room.need_approval', array(
-		'type' => 'radio',
-		'options' => array(
-			'1' => __d('rooms', 'Authority to publish approved content'),
-			'0' => __d('rooms', 'Do not use the approval')
-		),
-		'label' => __d('rooms', 'Approved content?'),
-		'help' => __d('rooms', 'Even if you no need, you can have the approval functions in each block.')
-	));
-?>
-
-<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.content_publishable', array(
-		'label' => __d('rooms', 'Allow publish approved content'),
-	)); ?>
-
-<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.html_not_limited', array(
-		'label' => __d('rooms', 'Allow all html tags?  e.g.) Javascript or iframe'),
-		'help' => '<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> ' .
-				__d('rooms', 'If you allow Javascript, etc., there is a possibility that cause of vulnerability'),
-		'helpOptions' => array('class' => 'alert alert-warning'),
-	)); ?>
-
-<div class="form-inline form-group">
-	<?php echo $this->NetCommonsForm->input('Room.active', array(
-			'type' => 'select',
-			'label' => __d('rooms', 'Status'),
+	<?php
+		echo $this->NetCommonsForm->input('Room.need_approval', array(
+			'type' => 'radio',
 			'options' => array(
-				'0' => __d('rooms', 'Under maintenance'),
-				'1' => __d('rooms', 'Open'),
+				'1' => __d('rooms', 'Authority to publish approved content'),
+				'0' => __d('rooms', 'Do not use the approval')
 			),
-			'value' => (int)Hash::get($this->data, 'Room.active'),
-			'between' => ' ',
-			'disabled' => ! (bool)$this->data['Room']['parent_id']
-		)); ?>
-</div>
+			'label' => __d('rooms', 'Approved content?'),
+			'help' => __d('rooms', 'Even if you no need, you can have the approval functions in each block.')
+		));
+	?>
 
+	<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.content_publishable', array(
+			'label' => __d('rooms', 'Allow publish approved content'),
+		)); ?>
+
+	<?php echo $this->RoomsRolesForm->checkboxRoomRoles('RoomRolePermission.html_not_limited', array(
+			'label' => __d('rooms', 'Allow all html tags?  e.g.) Javascript or iframe'),
+			'help' => '<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> ' .
+					__d('rooms', 'If you allow Javascript, etc., there is a possibility that cause of vulnerability'),
+			'helpOptions' => array('class' => 'alert alert-warning'),
+		)); ?>
+
+	<div class="form-inline form-group">
+		<?php echo $this->NetCommonsForm->input('Room.active', array(
+				'type' => 'select',
+				'label' => __d('rooms', 'Status'),
+				'options' => array(
+					'0' => __d('rooms', 'Under maintenance'),
+					'1' => __d('rooms', 'Open'),
+				),
+				'value' => (int)Hash::get($this->data, 'Room.active'),
+				'between' => ' ',
+				'disabled' => ! (bool)$this->data['Room']['parent_id']
+			)); ?>
+	</div>
+<?php endif;

@@ -69,8 +69,10 @@ class TestViewElementsRoomsEditFormController extends AppController {
 		$this->RoomsRolesForm->settings['type'] = DefaultRolePermission::TYPE_ROOM_ROLE;
 
 		if ($roomId === '7') {
+			$this->set('activeSpaceId', '4');
 			$this->set('participationFixed', false);
 		} else {
+			$this->set('activeSpaceId', '2');
 			$this->set('participationFixed', true);
 		}
 	}
