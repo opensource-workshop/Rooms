@@ -64,7 +64,7 @@ class RoomBehavior extends ModelBehavior {
  * @param array $options 取得オプション配列
  * @return array ルームデータ取得条件
  */
-	public function getRoomsCondtions(Model $model, $spaceId, $options = array()) {
+	public function getRoomsConditions(Model $model, $spaceId, $options = array()) {
 		$options = Hash::merge(array(
 			'recursive' => 1,
 			'conditions' => array(

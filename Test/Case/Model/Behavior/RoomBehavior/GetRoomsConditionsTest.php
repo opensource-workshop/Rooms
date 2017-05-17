@@ -1,6 +1,6 @@
 <?php
 /**
- * RoomBehavior::getRoomsCondtions()のテスト
+ * RoomBehavior::getRoomsConditions()のテスト
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -12,12 +12,12 @@
 App::uses('NetCommonsModelTestCase', 'NetCommons.TestSuite');
 
 /**
- * RoomBehavior::getRoomsCondtions()のテスト
+ * RoomBehavior::getRoomsConditions()のテスト
  *
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  * @package NetCommons\Rooms\Test\Case\Model\Behavior\RoomBehavior
  */
-class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
+class RoomBehaviorGetRoomsConditionsTest extends NetCommonsModelTestCase {
 
 /**
  * Fixtures
@@ -52,7 +52,7 @@ class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
 	}
 
 /**
- * getRoomsCondtions()のテスト
+ * getRoomsConditions()のテスト
  *
  * @return void
  */
@@ -64,7 +64,7 @@ class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
 		);
 
 		//テスト実施
-		$options = $this->TestModel->getRoomsCondtions($spaceId, ['conditions' => $conditions]);
+		$options = $this->TestModel->getRoomsConditions($spaceId, ['conditions' => $conditions]);
 		$result = $this->Room->find('all', $options);
 
 		//チェック
@@ -74,7 +74,7 @@ class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
 	}
 
 /**
- * getRoomsCondtions()のテスト($optionsが空)
+ * getRoomsConditions()のテスト($optionsが空)
  *
  * @return void
  */
@@ -84,7 +84,7 @@ class RoomBehaviorGetRoomsCondtionsTest extends NetCommonsModelTestCase {
 		$options = array();
 
 		//テスト実施
-		$options = $this->TestModel->getRoomsCondtions($spaceId, $options);
+		$options = $this->TestModel->getRoomsConditions($spaceId, $options);
 		$result = $this->Room->find('all', $options);
 
 		//チェック
