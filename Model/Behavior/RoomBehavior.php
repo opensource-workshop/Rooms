@@ -87,7 +87,7 @@ class RoomBehavior extends ModelBehavior {
  * @return array ルームデータ取得条件
  */
 	public function getReadableRoomsConditions(Model $model, $conditions = [], $userId = null) {
-		if (! $userId) {
+		if (is_null($userId)) {
 			$userId = Current::read('User.id');
 		}
 
