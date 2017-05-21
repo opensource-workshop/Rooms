@@ -219,6 +219,7 @@ class Space extends RoomsAppModel {
  * インスタンスの取得
  *
  * @param string $spaceModel モデル名(Migrationで使用)
+ * @param array $options ClassRegistryオプション
  * @return object RoomSpaceルームのデフォルト値配列
  */
 	public static function getInstance($spaceModel = 'Space', $options = []) {
@@ -241,6 +242,7 @@ class Space extends RoomsAppModel {
  *
  * @param int $spaceId スペースID
  * @param string $spaceModel モデル名(Migrationで使用)
+ * @param array $options ClassRegistryオプション
  * @return int
  */
 	public static function getRoomIdRoot($spaceId, $spaceModel = 'Space', $options = []) {
