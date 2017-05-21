@@ -38,15 +38,15 @@ class RolesRoom extends RoomsAppModel {
  *
  * @var array
  */
-	//public $belongsTo = array(
-	//	'Room' => array(
-	//		'className' => 'Rooms.Room',
-	//		'foreignKey' => 'room_id',
-	//		'conditions' => '',
-	//		'fields' => '',
-	//		'order' => ''
-	//	)
-	//);
+	public $belongsTo = array(
+		'Room' => array(
+			'className' => 'Rooms.Room',
+			'foreignKey' => 'room_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);
 
 /**
  * hasMany associations
