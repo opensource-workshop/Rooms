@@ -38,70 +38,70 @@ class RolesRoom extends RoomsAppModel {
  *
  * @var array
  */
-	public $belongsTo = array(
-		'Room' => array(
-			'className' => 'Rooms.Room',
-			'foreignKey' => 'room_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+	//public $belongsTo = array(
+	//	'Room' => array(
+	//		'className' => 'Rooms.Room',
+	//		'foreignKey' => 'room_id',
+	//		'conditions' => '',
+	//		'fields' => '',
+	//		'order' => ''
+	//	)
+	//);
 
 /**
  * hasMany associations
  *
  * @var array
  */
-	public $hasMany = array(
-		'BlockRolePermission' => array(
-			'className' => 'Blocks.BlockRolePermission',
-			'foreignKey' => 'roles_room_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'RoomRolePermission' => array(
-			'className' => 'Rooms.RoomRolePermission',
-			'foreignKey' => 'roles_room_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);
+	//public $hasMany = array(
+	//	'BlockRolePermission' => array(
+	//		'className' => 'Blocks.BlockRolePermission',
+	//		'foreignKey' => 'roles_room_id',
+	//		'dependent' => false,
+	//		'conditions' => '',
+	//		'fields' => '',
+	//		'order' => '',
+	//		'limit' => '',
+	//		'offset' => '',
+	//		'exclusive' => '',
+	//		'finderQuery' => '',
+	//		'counterQuery' => ''
+	//	),
+	//	'RoomRolePermission' => array(
+	//		'className' => 'Rooms.RoomRolePermission',
+	//		'foreignKey' => 'roles_room_id',
+	//		'dependent' => false,
+	//		'conditions' => '',
+	//		'fields' => '',
+	//		'order' => '',
+	//		'limit' => '',
+	//		'offset' => '',
+	//		'exclusive' => '',
+	//		'finderQuery' => '',
+	//		'counterQuery' => ''
+	//	)
+	//);
 
 /**
  * hasAndBelongsToMany associations
  *
  * @var array
  */
-	public $hasAndBelongsToMany = array(
-		'User' => array(
-			'className' => 'Users.User',
-			'joinTable' => 'roles_rooms_users',
-			'foreignKey' => 'roles_room_id',
-			'associationForeignKey' => 'user_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-		)
-	);
+	//public $hasAndBelongsToMany = array(
+	//	'User' => array(
+	//		'className' => 'Users.User',
+	//		'joinTable' => 'roles_rooms_users',
+	//		'foreignKey' => 'roles_room_id',
+	//		'associationForeignKey' => 'user_id',
+	//		'unique' => 'keepExisting',
+	//		'conditions' => '',
+	//		'fields' => '',
+	//		'order' => '',
+	//		'limit' => '',
+	//		'offset' => '',
+	//		'finderQuery' => '',
+	//	)
+	//);
 
 /**
  * Called during validation operations, before validation. Please note that custom
