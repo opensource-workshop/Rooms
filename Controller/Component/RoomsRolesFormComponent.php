@@ -173,6 +173,62 @@ class RoomsRolesFormComponent extends Component {
 			}
 		}
 
+		// 'joins' => 'RolesRoomsUser'でユーザーの重複を絞るが、WHERE句のroom_id条件と意味が違ってくるため、別途条件指定。
+		// 一度取得してIN句だと、全員参加ルームの場合、データ量が多いのでサブクエリを使用する。
+		/* @var $UserSearch UserSearch */
+		$UserSearch = ClassRegistry::init('Users.UserSearch');
+		$readableFieldValue = $queryRoomIdValue = null;
+		if (isset($UserSearch->readableFields['room_id'])) {
+			/* @var $Room Room */
+			$Room = ClassRegistry::init('Rooms.Room');
+			$parentRoom = $Room->getParentNode($room['Room']['id'], 'id', -1);
+			$db = $controller->RolesRoomsUser->getDataSource();
+
+			$subQueries = [];
+			if ($parentRoom['Room']['id'] != Space::getRoomIdRoot(Space::COMMUNITY_SPACE_ID)) {
+				$query = [
+					'fields' => ['ParentRolesRoomsUser.id'],
+					'table' => $db->fullTableName($controller->RolesRoomsUser),
+					'alias' => 'ParentRolesRoomsUser',
+					'conditions' => [
+						'ParentRolesRoomsUser.room_id' => $parentRoom['Room']['id'],
+						'ParentRolesRoomsUser.user_id = User.id',
+					],
+				];
+				$parentRoomSubQuery = $db->buildStatement($query, $controller->RolesRoomsUser);
+				$subQueries[] = 'EXISTS (' . $parentRoomSubQuery . ') ';
+			}
+
+			$queryRoomIdValue = Hash::get($controller->request->query, ['room_id']);
+			if ($queryRoomIdValue) {
+				$query = [
+					'fields' => ['ConditionRolesRoomsUser.id'],
+					'table' => $db->fullTableName($controller->RolesRoomsUser),
+					'alias' => 'ConditionRolesRoomsUser',
+					'conditions' => [
+						'ConditionRolesRoomsUser.room_id' => $queryRoomIdValue,
+						'ConditionRolesRoomsUser.user_id = User.id',
+					],
+				];
+				$conditionSubQuery = $db->buildStatement($query, $controller->RolesRoomsUser);
+				$subQueries[] = 'EXISTS (' . $conditionSubQuery . ') ';
+			}
+
+			if ($subQueries) {
+				$subQuery = implode(' AND ', $subQueries);
+
+				// @see https://github.com/NetCommons3/Users/blob/3.1.0/Controller/Component/UserSearchCompComponent.php#L98
+				$controller->request->query['room_id'] = $db->expression($subQuery);
+
+				// @see https://github.com/NetCommons3/Users/blob/3.1.0/Model/UserSearch.php#L332
+				$readableFieldValue = $UserSearch->readableFields['room_id'];
+				$UserSearch->readableFields['room_id'] = [
+					'field' => 0,
+				];
+				ClassRegistry::addObject('UserSearch', $UserSearch);
+			}
+		}
+
 		$controller->UserSearchComp->search(array(
 			'fields' => self::$findFields,
 			'joins' => array(
@@ -180,7 +236,7 @@ class RoomsRolesFormComponent extends Component {
 					'conditions' => array(
 						'RolesRoomsUser.room_id' => $room['Room']['id'],
 					)
-				)
+				),
 			),
 			'limit' => $this->limit,
 			'displayFields' => self::$displaFields,
@@ -190,6 +246,15 @@ class RoomsRolesFormComponent extends Component {
 				'search' => (bool)($controller->request->query || $room['Room']['default_participation'])
 			)
 		));
+
+		if ($queryRoomIdValue) {
+			$controller->request->query['room_id'] = $queryRoomIdValue;
+		}
+		if ($readableFieldValue) {
+			$controller->request->query['room_id'] = $queryRoomIdValue;
+			$UserSearch->readableFields['room_id'] = $readableFieldValue;
+			ClassRegistry::removeObject('UserSearch');
+		}
 
 		$controller->request->data = $room;
 		$controller->request->data['RolesRoomsUser'] = Hash::combine(
