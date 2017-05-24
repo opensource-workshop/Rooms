@@ -407,16 +407,16 @@ class RoomsRolesFormComponent extends Component {
  *
  * @param Controller $controller コントローラ
  * @param mix $subQuery Sub query
- * @param string $queryRoomIdValue Room id of Requestry
- * @param string $readableFieldValue コントローラ
+ * @param string $roomId Room id of Requestry
+ * @param string $field UserSearch::readableFieldValue
  * @return void
  */
-	private function __restoreValueForSubQuery($controller, $subQuery, $queryRoomIdValue, $readableFieldValue) {
+	private function __restoreValueForSubQuery($controller, $subQuery, $roomId, $field) {
 		if ($subQuery) {
-			$controller->request->query['room_id'] = $queryRoomIdValue;
+			$controller->request->query['room_id'] = $roomId;
 			/* @var $UserSearch UserSearch */
 			$UserSearch = ClassRegistry::init('Users.UserSearch');
-			$UserSearch->readableFields['room_id'] = $readableFieldValue;
+			$UserSearch->readableFields['room_id'] = $field;
 			ClassRegistry::removeObject('UserSearch');
 		}
 	}
