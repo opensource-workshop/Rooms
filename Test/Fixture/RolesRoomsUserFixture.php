@@ -18,29 +18,6 @@
 class RolesRoomsUserFixture extends CakeTestFixture {
 
 /**
- * Fields
- *
- * @var array
- */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
-		'roles_room_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'room_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
-		'access_count' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
-		'last_accessed' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'previous_accessed' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'created_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'modified_user' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
-		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
-	);
-
-/**
  * Records
  *
  * @var array
@@ -126,5 +103,16 @@ class RolesRoomsUserFixture extends CakeTestFixture {
 			'room_id' => '1',
 		),
 	);
+
+/**
+ * Initialize the fixture.
+ *
+ * @return void
+ */
+	public function init() {
+		require_once App::pluginPath('Rooms') . 'Config' . DS . 'Schema' . DS . 'schema.php';
+		$this->fields = (new RoomsSchema())->tables['roles_rooms_users'];
+		parent::init();
+	}
 
 }
