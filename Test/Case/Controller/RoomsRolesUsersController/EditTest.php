@@ -149,7 +149,6 @@ class RoomsRolesUsersControllerEditTest extends RoomsControllerTestCase {
  */
 	private function __dataSave() {
 		$mock = array('components' => array(
-			'Auth' => array('user'),
 			'Security',
 		));
 		$this->generate('Rooms.' . Inflector::camelize($this->_controller), $mock);
