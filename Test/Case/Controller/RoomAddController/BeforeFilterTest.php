@@ -83,6 +83,9 @@ class RoomAddControllerBeforeFilterTest extends RoomsControllerTestCase {
 			'components' => array('Session' => array('read'))
 		));
 
+		//ログイン
+		TestAuthGeneral::login($this);
+
 		$this->controller->Session
 			->expects($this->at(0))->method('read')
 			->with('RoomAdd.Room.id')
