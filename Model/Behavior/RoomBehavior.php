@@ -170,10 +170,12 @@ class RoomBehavior extends ModelBehavior {
 		}
 
 		//スペースデータ取得
+		$bindParentRoom = $model->Room->belongsTo['ParentRoom'];
+		$bindChildRoom = $model->Room->hasMany['ChildRoom'];
 		$model->Room->unbindModel(array(
 			'belongsTo' => array('ParentRoom'),
 			'hasMany' => array('ChildRoom')
-		));
+		), false);
 		$spaces = $model->Room->find('all', array(
 			'recursive' => 1,
 			'conditions' => array(
@@ -181,6 +183,11 @@ class RoomBehavior extends ModelBehavior {
 			),
 			'order' => 'Room.lft'
 		));
+		// 外したものを戻しておく
+		$model->Room->bindModel(array(
+			'belongsTo' => array('ParentRoom' => $bindParentRoom),
+			'hasMany' => array('ChildRoom' => $bindChildRoom),
+		), false);
 
 		$spaces = Hash::combine($spaces, '{n}.Room.id', '{n}');
 
