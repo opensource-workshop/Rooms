@@ -253,7 +253,7 @@ class Room extends RoomsAppModel {
 					'message' => __d('net_commons', 'Invalid request.'),
 					'required' => true
 				),
-		);
+			);
 		} else {
 			$this->validate['default_role_key'] = array(
 				'inList' => array(
