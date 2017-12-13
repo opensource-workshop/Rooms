@@ -87,7 +87,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
 		$this->assertTrue($result);
 
 		//チェック
-		$this->__acualRoomRolePermission('24', array(
+		$this->__acualRoomRolePermission('21', array(
 			array('RoomRolePermission' => array('id' => '83', 'permission' => 'page_editable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '84', 'permission' => 'block_editable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '85', 'permission' => 'content_readable', 'value' => true)),
@@ -103,7 +103,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
 			array('RoomRolePermission' => array('id' => '95', 'permission' => 'mail_answer_receivable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '96', 'permission' => 'mail_editable', 'value' => true)),
 		));
-		$this->__acualRoomRolePermission('21', array(
+		$this->__acualRoomRolePermission('22', array(
 			array('RoomRolePermission' => array('id' => '97', 'permission' => 'page_editable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '98', 'permission' => 'block_editable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '99', 'permission' => 'content_readable', 'value' => true)),
@@ -119,7 +119,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
 			array('RoomRolePermission' => array('id' => '109', 'permission' => 'mail_answer_receivable', 'value' => true)),
 			array('RoomRolePermission' => array('id' => '110', 'permission' => 'mail_editable', 'value' => true)),
 		));
-		$this->__acualRoomRolePermission('22', array(
+		$this->__acualRoomRolePermission('23', array(
 			array('RoomRolePermission' => array('id' => '111', 'permission' => 'page_editable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '112', 'permission' => 'block_editable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '113', 'permission' => 'content_readable', 'value' => true)),
@@ -135,7 +135,7 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
 			array('RoomRolePermission' => array('id' => '123', 'permission' => 'mail_answer_receivable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '124', 'permission' => 'mail_editable', 'value' => false)),
 		));
-		$this->__acualRoomRolePermission('23', array(
+		$this->__acualRoomRolePermission('24', array(
 			array('RoomRolePermission' => array('id' => '125', 'permission' => 'page_editable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '126', 'permission' => 'block_editable', 'value' => false)),
 			array('RoomRolePermission' => array('id' => '127', 'permission' => 'content_readable', 'value' => true)),
@@ -201,10 +201,10 @@ class SaveRoomAssociationsBehaviorSaveDefaultRoomRolePermissionTest extends NetC
  */
 	private function __acualRolesRoom($roomId) {
 		$expected = array(
-			array('RolesRoom' => array('id' => '21', 'room_id' => $roomId, 'role_key' => 'chief_editor')),
-			array('RolesRoom' => array('id' => '22', 'room_id' => $roomId, 'role_key' => 'editor')),
-			array('RolesRoom' => array('id' => '23', 'room_id' => $roomId, 'role_key' => 'general_user')),
-			array('RolesRoom' => array('id' => '24', 'room_id' => $roomId, 'role_key' => 'room_administrator')),
+			array('RolesRoom' => array('id' => '21', 'room_id' => $roomId, 'role_key' => 'room_administrator')),
+			array('RolesRoom' => array('id' => '22', 'room_id' => $roomId, 'role_key' => 'chief_editor')),
+			array('RolesRoom' => array('id' => '23', 'room_id' => $roomId, 'role_key' => 'editor')),
+			array('RolesRoom' => array('id' => '24', 'room_id' => $roomId, 'role_key' => 'general_user')),
 			array('RolesRoom' => array('id' => '25', 'room_id' => $roomId, 'role_key' => 'visitor')),
 		);
 
