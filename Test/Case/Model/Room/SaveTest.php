@@ -230,18 +230,18 @@ class RoomSaveTest extends NetCommonsModelTestCase {
 			'order' => array('id' => 'asc'),
 		));
 		$this->assertEquals(array(
-			'21' => 'chief_editor',
-			'22' => 'editor',
-			'23' => 'general_user',
-			'24' => 'room_administrator',
+			'21' => 'room_administrator',
+			'22' => 'chief_editor',
+			'23' => 'editor',
+			'24' => 'general_user',
 			'25' => 'visitor',
 		), $rolesRooms);
 
 		$this->__acualRoomRolePermission('content_publishable', array(
 			array('RoomRolePermission' => array('roles_room_id' => '21', 'value' => true)),
 			array('RoomRolePermission' => array('roles_room_id' => '22', 'value' => true)),
-			array('RoomRolePermission' => array('roles_room_id' => '23', 'value' => false)),
-			array('RoomRolePermission' => array('roles_room_id' => '24', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '23', 'value' => true)),
+			array('RoomRolePermission' => array('roles_room_id' => '24', 'value' => false)),
 			array('RoomRolePermission' => array('roles_room_id' => '25', 'value' => false)),
 		));
 
