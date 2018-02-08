@@ -48,6 +48,8 @@ class RoomsFormComponent extends Component {
 
 		//ルームデータ取得
 		$controller->Paginator->settings = $controller->Room->getReadableRoomsConditions($conditions);
+		//ルームの取得件数暫定対応：ver.3.1.7施設予約&新着で利用中
+		$controller->Paginator->settings['limit'] = 1000;
 		$rooms = $controller->Paginator->paginate('Room');
 		$rooms = Hash::combine($rooms, '{n}.Room.id', '{n}');
 		$controller->set('rooms', $rooms);
